@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Events;
 
-use hollodotme\MilestonES\Identifier;
+use hollodotme\MilestonES\AggregateRootIdentifier;
 
 /**
  * Class AggregateRootWasAllocated
@@ -17,20 +17,28 @@ class AggregateRootWasAllocated extends Event
 {
 
 	/**
-	 * @var Identifier
+	 * @var AggregateRootIdentifier
 	 */
-	protected $id;
+	protected $identifier;
 
-	public function __construct( Identifier $id )
+	public function __construct( AggregateRootIdentifier $id )
 	{
-		$this->id = $id;
+		$this->identifier = $id;
 	}
 
 	/**
-	 * @return Identifier
+	 * @return AggregateRootIdentifier
 	 */
-	public function getId()
+	public function getIdentifier()
 	{
-		return $this->id;
+		return $this->identifier;
+	}
+
+	/**
+	 * @return AggregateRootIdentifier
+	 */
+	public function getStreamId()
+	{
+		return $this->identifier;
 	}
 }

@@ -6,12 +6,14 @@
 
 namespace hollodotme\MilestonES;
 
+use Interfaces\Identifies;
+
 /**
  * Interface Identifier
  *
  * @package Interfaces
  */
-abstract class Identifier
+abstract class Identifier implements Identifies
 {
 
 	/**
@@ -22,7 +24,7 @@ abstract class Identifier
 	/**
 	 * @param string $id
 	 */
-	protected function __construct( $id )
+	public function __construct( $id )
 	{
 		$this->id = $id;
 	}
@@ -44,11 +46,11 @@ abstract class Identifier
 	}
 
 	/**
-	 * @param Identifier $other
+	 * @param Identifies $other
 	 *
 	 * @return bool
 	 */
-	public function equals( Identifier $other )
+	public function equals( Identifies $other )
 	{
 		return ($other->toString() == $this->toString());
 	}

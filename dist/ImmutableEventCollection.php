@@ -7,6 +7,7 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\EventCollectionIsImmutable;
+use hollodotme\MilestonES\Interfaces\Event;
 
 /**
  * Class ImmutableEventCollection
@@ -15,6 +16,9 @@ use hollodotme\MilestonES\Exceptions\EventCollectionIsImmutable;
  */
 class ImmutableEventCollection extends EventCollection
 {
+	/**
+	 * @param array|Event[] $events
+	 */
 	public function __construct( array $events )
 	{
 		$this->events = $events;

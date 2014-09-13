@@ -18,24 +18,32 @@ abstract class AggregateRoot
 {
 
 	/**
-	 * @var Identifier
+	 * @var AggregateRootIdentifier
 	 */
-	protected $id;
+	protected $identifier;
 
 	/**
 	 * @var EventCollection
 	 */
 	protected $tracked_events;
 
-	protected function __construct()
+	final protected function __construct()
 	{
 		$this->tracked_events = new EventCollection();
 	}
 
 	/**
+	 * @return AggregateRootIdentifier
+	 */
+	final public function getIdentifier()
+	{
+		return $this->identifier;
+	}
+
+	/**
 	 * @return EventCollection
 	 */
-	public function getTrackedEvents()
+	final public function getTrackedEvents()
 	{
 		return $this->tracked_events;
 	}
@@ -43,12 +51,12 @@ abstract class AggregateRoot
 	/**
 	 * @return bool
 	 */
-	public function hasTrackedEvents()
+	final public function hasTrackedEvents()
 	{
 		return !$this->tracked_events->isEmpty();
 	}
 
-	public function clearTrackedEvents()
+	final public function clearTrackedEvents()
 	{
 		$this->tracked_events = new EventCollection();
 	}
@@ -90,15 +98,15 @@ abstract class AggregateRoot
 	 */
 	protected function whenAggregateRootWasAllocated( AggregateRootWasAllocated $event )
 	{
-		$this->id = $event->getId();
+		$this->identifier = $event->getIdentifier();
 	}
 
 	/**
-	 * @param Identifier $id
+	 * @param AggregateRootIdentifier $id
 	 *
 	 * @return static
 	 */
-	public static function allocateWithId( Identifier $id )
+	public static function allocateWithId( AggregateRootIdentifier $id )
 	{
 		$instance = new static();
 		$instance->trackEvent( new AggregateRootWasAllocated( $id ) );

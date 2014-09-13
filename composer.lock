@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "669baa89317eb2c7ca01f5ab517ab7a3",
+    "hash": "fd0d5a65329aebd66d0786c6ff033eed",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -54,6 +54,40 @@
                 "validation"
             ],
             "time": "2014-08-26 12:14:55"
+        },
+        {
+            "name": "hollodotme/utilities",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hollodotme/Utilities.git",
+                "reference": "933dda440f06797e58454087330faa69966cc2f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/933dda440f06797e58454087330faa69966cc2f6",
+                "reference": "933dda440f06797e58454087330faa69966cc2f6",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "hollodotme\\Utilities\\": "dist/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Holger Woltersdorf",
+                    "email": "hw@hollo.me",
+                    "homepage": "http://github.com/hollodotme"
+                }
+            ],
+            "description": "Simple utilities to include",
+            "time": "2014-09-13 18:43:06"
         },
         {
             "name": "moontoast/math",
@@ -296,7 +330,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "beberlei/assert": 20
+        "beberlei/assert": 20,
+        "hollodotme/utilities": 20
     },
     "prefer-stable": false,
     "platform": [

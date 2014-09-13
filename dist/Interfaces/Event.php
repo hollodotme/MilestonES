@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Interfaces;
 
-use hollodotme\MilestonES\Identifier;
+use hollodotme\MilestonES\AggregateRootIdentifier;
 
 /**
  * Interface Event
@@ -16,7 +16,7 @@ use hollodotme\MilestonES\Identifier;
 interface Event
 {
 	/**
-	 * @return Identifier
+	 * @return AggregateRootIdentifier
 	 */
 	public function getStreamId();
 

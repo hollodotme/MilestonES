@@ -13,7 +13,7 @@ use hollodotme\MilestonES\Interfaces;
  *
  * @package hollodotme\MilestonES\Events
  */
-class Event implements Interfaces\Event
+abstract class Event implements Interfaces\Event
 {
 	public function getName()
 	{

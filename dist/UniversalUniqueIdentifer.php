@@ -15,6 +15,9 @@ use Rhumsaa\Uuid\Uuid;
  */
 abstract class UniversalUniqueIdentifer extends Identifier
 {
+	/**
+	 * @return static
+	 */
 	public static function generate()
 	{
 		$uuid = Uuid::uuid4()->toString();
