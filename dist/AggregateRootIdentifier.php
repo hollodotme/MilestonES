@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES;
 
-use Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\Identifies;
 
 /**
  * Class AggregateRootIdentifier
@@ -28,7 +28,7 @@ abstract class AggregateRootIdentifier implements Identifies
 	public function __construct( $id )
 	{
 		$this->id      = $id;
-		$this->type_id = ( new AggregateTypeIdentifier( get_class( $this ) ) )->toString();
+		$this->type_id = ( new CanonicalIdentifier( get_class( $this ) ) )->toString();
 	}
 
 	/**

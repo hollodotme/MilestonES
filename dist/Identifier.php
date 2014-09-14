@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES;
 
-use Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\Identifies;
 
 /**
  * Interface Identifier

@@ -7,14 +7,16 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
+use hollodotme\MilestonES\Exceptions\ObjectLifetimeEndedWithUncommittedChanges;
 use hollodotme\MilestonES\Interfaces\Event;
+use hollodotme\MilestonES\Interfaces\IsIdentified;
 
 /**
  * Class AggregateRoot
  *
  * @package hollodotme\MilestonES
  */
-abstract class AggregateRoot
+abstract class AggregateRoot implements IsIdentified
 {
 
 	/**
@@ -32,6 +34,14 @@ abstract class AggregateRoot
 		$this->tracked_events = new EventCollection();
 	}
 
+	public function __destruct()
+	{
+		if ( $this->hasChanges() )
+		{
+			throw new ObjectLifetimeEndedWithUncommittedChanges();
+		}
+	}
+
 	/**
 	 * @return AggregateRootIdentifier
 	 */
@@ -43,7 +53,7 @@ abstract class AggregateRoot
 	/**
 	 * @return EventCollection
 	 */
-	final public function getTrackedEvents()
+	final public function getChanges()
 	{
 		return $this->tracked_events;
 	}
@@ -51,12 +61,12 @@ abstract class AggregateRoot
 	/**
 	 * @return bool
 	 */
-	final public function hasTrackedEvents()
+	final public function hasChanges()
 	{
 		return !$this->tracked_events->isEmpty();
 	}
 
-	final public function clearTrackedEvents()
+	final public function clearChanges()
 	{
 		$this->tracked_events = new EventCollection();
 	}
@@ -68,14 +78,14 @@ abstract class AggregateRoot
 	{
 		foreach ( $event_stream as $event )
 		{
-			$this->applyEvent( $event );
+			$this->applyChange( $event );
 		}
 	}
 
 	/**
 	 * @param Event $event
 	 */
-	protected function applyEvent( Event $event )
+	protected function applyChange( Event $event )
 	{
 		$method_name = 'when' . $event->getName();
 		if ( is_callable( [ $this, $method_name ] ) )
@@ -87,10 +97,10 @@ abstract class AggregateRoot
 	/**
 	 * @param Event $event
 	 */
-	protected function trackEvent( Event $event )
+	protected function trackThat( Event $event )
 	{
 		$this->tracked_events[] = $event;
-		$this->applyEvent( $event );
+		$this->applyChange( $event );
 	}
 
 	/**
@@ -109,7 +119,7 @@ abstract class AggregateRoot
 	public static function allocateWithId( AggregateRootIdentifier $id )
 	{
 		$instance = new static();
-		$instance->trackEvent( new AggregateRootWasAllocated( $id ) );
+		$instance->trackThat( new AggregateRootWasAllocated( $id ) );
 
 		return $instance;
 	}

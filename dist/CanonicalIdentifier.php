@@ -9,11 +9,11 @@ namespace hollodotme\MilestonES;
 use hollodotme\Utilities\String;
 
 /**
- * Class AggregateTypeIdentifier
+ * Class CanonicalIdentifier
  *
  * @package hollodotme\MilestonES
  */
-class AggregateTypeIdentifier extends Identifier
+class CanonicalIdentifier extends Identifier
 {
 	/**
 	 * @return string

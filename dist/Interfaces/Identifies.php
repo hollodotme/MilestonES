@@ -4,7 +4,7 @@
  * @author h.woltersdorf
  */
 
-namespace Interfaces;
+namespace hollodotme\MilestonES\Interfaces;
 
 /**
  * Interface Identifies
