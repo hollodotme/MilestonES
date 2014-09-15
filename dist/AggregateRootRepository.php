@@ -6,43 +6,34 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Exceptions\ObjectLifetimeEndedWithUncommittedChanges;
+use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
 use hollodotme\MilestonES\Interfaces\CommitsChanges;
-use hollodotme\MilestonES\Interfaces\IsIdentified;
 use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
+use hollodotme\MilestonES\Interfaces\UnitOfWork;
 
 /**
  * Class AggregateRootRepository
  *
  * @package hollodotme\MilestonES
  */
-abstract class AggregateRootRepository implements IsIdentified, CommitsChanges
+abstract class AggregateRootRepository implements CommitsChanges
 {
 
 	/** @var StoresEvents */
 	protected $event_store;
 
-	/** @var ClassNameIdentifier */
-	protected $repository_id;
-
-	/** @var AggregateRootCollection */
-	protected $aggregate_root_collection;
+	/** @var UnitOfWork */
+	protected $unit_of_work;
 
 	/**
-	 * @param ClassNameIdentifier     $repository_id
-	 * @param AggregateRootCollection $collection
-	 * @param EventStore              $event_store
+	 * @param StoresEvents $event_store
+	 * @param UnitOfWork   $unit_of_work
 	 */
-	public function __construct(
-		ClassNameIdentifier $repository_id,
-		AggregateRootCollection $collection,
-		EventStore $event_store
-	)
+	public function __construct( StoresEvents $event_store, UnitOfWork $unit_of_work )
 	{
-		$this->repository_id             = $repository_id;
-		$this->aggregate_root_collection = $collection;
-		$this->event_store               = $event_store;
+		$this->unit_of_work = $unit_of_work;
+		$this->event_store  = $event_store;
 
 		$this->attachCommitedEventObserversToEventStore();
 	}
@@ -51,21 +42,13 @@ abstract class AggregateRootRepository implements IsIdentified, CommitsChanges
 	{
 		if ( $this->hasUncommittedChanges() )
 		{
-			throw new ObjectLifetimeEndedWithUncommittedChanges();
+			throw new AggregateRootsWithUncommittedChangesDetected();
 		}
-	}
-
-	/**
-	 * @return ClassNameIdentifier
-	 */
-	public function getIdentifier()
-	{
-		return $this->repository_id;
 	}
 
 	public function commitChanges()
 	{
-		$this->aggregate_root_collection->commitChanges( $this->event_store );
+		$this->unit_of_work->commitChanges( $this->event_store );
 	}
 
 	/**
@@ -73,7 +56,7 @@ abstract class AggregateRootRepository implements IsIdentified, CommitsChanges
 	 */
 	public function hasUncommittedChanges()
 	{
-		return $this->aggregate_root_collection->hasUncommittedChanges();
+		return $this->unit_of_work->hasUncommittedChanges();
 	}
 
 	/**
@@ -130,7 +113,7 @@ abstract class AggregateRootRepository implements IsIdentified, CommitsChanges
 	 */
 	protected function attachAggregateRoot( AggregateRoot $aggregate_root )
 	{
-		$this->aggregate_root_collection->attach( $aggregate_root );
+		$this->unit_of_work->attach( $aggregate_root );
 	}
 
 	/**
@@ -140,7 +123,7 @@ abstract class AggregateRootRepository implements IsIdentified, CommitsChanges
 	 */
 	protected function isAggregateRootAttached( AggregateRootIdentifier $id )
 	{
-		return $this->aggregate_root_collection->isAttached( $id );
+		return $this->unit_of_work->isAttached( $id );
 	}
 
 	/**
@@ -150,19 +133,19 @@ abstract class AggregateRootRepository implements IsIdentified, CommitsChanges
 	 */
 	protected function getAttachedAggregateRoot( AggregateRootIdentifier $id )
 	{
-		return $this->aggregate_root_collection->find( $id );
+		return $this->unit_of_work->find( $id );
 	}
 
 	/**
 	 * @param AggregateRootIdentifier $id
 	 *
-	 * @return AggregateRoot|null
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
+	 * @return AggregateRoot
 	 */
 	protected function createAggregateRootByEventStream( AggregateRootIdentifier $id )
 	{
 		$event_stream   = $this->getEventStreamForAggregateRootId( $id );
-		$aggregate_root = $this->getAggregateRootAllocatedWithEventStream( $event_stream );
+		$aggregate_root = $this->allocateAggregateRootWithEventStream( $event_stream );
 
 		return $aggregate_root;
 	}
@@ -181,23 +164,20 @@ abstract class AggregateRootRepository implements IsIdentified, CommitsChanges
 	 * @param EventStream $event_stream
 	 *
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
-	 * @return null|AggregateRoot
+	 * @return AggregateRoot
 	 */
-	protected function getAggregateRootAllocatedWithEventStream( EventStream $event_stream )
+	protected function allocateAggregateRootWithEventStream( EventStream $event_stream )
 	{
 		$aggregate_root_name = $this->getAggregateRootName();
 
 		if ( is_callable( [ $aggregate_root_name, 'allocateWithEventStream' ] ) )
 		{
-			$aggregate_root_instance = $aggregate_root_name::allocateWithEventStream( $event_stream );
+			return $aggregate_root_name::allocateWithEventStream( $event_stream );
 		}
 		else
 		{
-			$aggregate_root_instance = null;
 			throw new Exceptions\ClassIsNotAnAggregateRoot();
 		}
-
-		return $aggregate_root_instance;
 	}
 
 	/**

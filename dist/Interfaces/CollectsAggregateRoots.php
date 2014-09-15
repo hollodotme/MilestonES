@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Interfaces;
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface CollectsAggregateRoots extends IdentityMap, \Iterator, \Countable
+interface CollectsAggregateRoots extends MapsIdentities, \Iterator, \Countable
 {
 	/**
 	 * @param StoresEvents $event_store

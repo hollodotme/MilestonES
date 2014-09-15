@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface IsIdentified
+ * Interface HasIdentity
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface IsIdentified
+interface HasIdentity
 {
 	/**
 	 * @return Identifies

@@ -6,17 +6,17 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
+use hollodotme\MilestonES\Interfaces\HasIdentity;
 use hollodotme\MilestonES\Interfaces\Identifies;
-use hollodotme\MilestonES\Interfaces\IsIdentified;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
+use hollodotme\MilestonES\Interfaces\UnitOfWork;
 
 /**
  * Class AggregateRootCollection
  *
  * @package hollodotme\MilestonES
  */
-class AggregateRootCollection implements CollectsAggregateRoots
+class AggregateRootCollection implements UnitOfWork
 {
 
 	/**
@@ -70,9 +70,9 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	}
 
 	/**
-	 * @param IsIdentified $identified_object
+	 * @param HasIdentity $identified_object
 	 */
-	public function attach( IsIdentified $identified_object )
+	public function attach( HasIdentity $identified_object )
 	{
 		if ( !$this->isAttached( $identified_object->getIdentifier() ) )
 		{
@@ -83,7 +83,7 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	/**
 	 * @param Identifies $id
 	 *
-	 * @return IsIdentified
+	 * @return HasIdentity
 	 */
 	public function find( Identifies $id )
 	{

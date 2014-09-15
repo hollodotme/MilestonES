@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Exceptions;
 
 /**
- * Class CannotCreateEventStoreForRepositoryId
+ * Class MappedTypeDoesNotExist
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class CannotCreateEventStoreForRepositoryId extends Exception
+class MappedTypeDoesNotExist extends Exception
 {
 
 }

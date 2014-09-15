@@ -7,16 +7,11 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface Event
+ * Interface UnitOfWork
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface Event
+interface UnitOfWork extends CollectsAggregateRoots, CommitsChanges
 {
-	/**
-	 * @return Identifies
-	 */
-	public function getStreamId();
 
-	public function getName();
 }

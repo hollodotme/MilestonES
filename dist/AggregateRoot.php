@@ -7,16 +7,16 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
-use hollodotme\MilestonES\Exceptions\ObjectLifetimeEndedWithUncommittedChanges;
+use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
 use hollodotme\MilestonES\Interfaces\Event;
-use hollodotme\MilestonES\Interfaces\IsIdentified;
+use hollodotme\MilestonES\Interfaces\HasIdentity;
 
 /**
  * Class AggregateRoot
  *
  * @package hollodotme\MilestonES
  */
-abstract class AggregateRoot implements IsIdentified
+abstract class AggregateRoot implements HasIdentity
 {
 
 	/**
@@ -38,7 +38,7 @@ abstract class AggregateRoot implements IsIdentified
 	{
 		if ( $this->hasChanges() )
 		{
-			throw new ObjectLifetimeEndedWithUncommittedChanges();
+			throw new AggregateRootsWithUncommittedChangesDetected();
 		}
 	}
 

@@ -1,6 +1,8 @@
+
 /********************
  * HTML CSS
  */
+
 
 .chartWrap {
     margin: 0;
@@ -96,6 +98,7 @@
     border-spacing: 0;
 }
 
+
 .nvtooltip table td {
     padding: 2px 9px 2px 0;
     vertical-align: middle;
@@ -104,7 +107,6 @@
 .nvtooltip table td.key {
     font-weight: normal;
 }
-
 .nvtooltip table td.value {
     text-align: right;
     font-weight: bold;
@@ -129,14 +131,17 @@
     text-align: center;
 }
 
+
 .nvtooltip-pending-removal {
     position: absolute;
     pointer-events: none;
 }
 
+
 /********************
  * SVG CSS
  */
+
 
 svg {
     -webkit-touch-callout: none;
@@ -150,6 +155,7 @@ svg {
     width: 100%;
     height: 100%;
 }
+
 
 svg text {
     font: normal 12px Arial;
@@ -171,6 +177,7 @@ svg .title {
     font-size: 18px;
     font-weight: bold;
 }
+
 
 /**********
 *  Brush
@@ -279,6 +286,7 @@ svg .title {
     fill: rgba(0, 0, 0, 1);
 }
 
+
 /**********
 *  Bars
 */
@@ -332,11 +340,9 @@ svg .title {
 .nvd3.nv-pie .hover path {
     fill-opacity: .7;
 }
-
 .nvd3.nv-pie .nv-label {
     pointer-events: none;
 }
-
 .nvd3.nv-pie .nv-label rect {
     fill-opacity: 0;
     stroke-opacity: 0;
@@ -366,6 +372,7 @@ svg .title {
 .nvd3 .nv-groups path.nv-line.nv-thin-line {
     stroke-width: 1px;
 }
+
 
 .nvd3 .nv-groups path.nv-area {
     stroke: none;
@@ -405,6 +412,7 @@ svg .title {
     stroke-opacity: .5 !important;
 }
 
+
 .with-transitions .nvd3 .nv-groups .nv-point {
     transition: stroke-width 250ms linear, stroke-opacity 250ms linear;
     -moz-transition: stroke-width 250ms linear, stroke-opacity 250ms linear;
@@ -419,6 +427,7 @@ svg .title {
     stroke-opacity: .95 !important;
 }
 
+
 .nvd3 .nv-point-paths path {
     stroke: #aaa;
     stroke-opacity: 0;
@@ -429,6 +438,7 @@ svg .title {
 .nvd3 .nv-indexLine {
     cursor: ew-resize;
 }
+
 
 /**********
 * Distribution
@@ -463,6 +473,7 @@ svg .title {
 }
 */
 
+
 /**********
 *  Stacked Area
 */
@@ -493,7 +504,6 @@ svg .title {
     stroke-opacity: .85;
     */
 }
-
 /*
 .d3stackedarea .groups path {
   stroke-opacity: 0;
@@ -523,6 +533,7 @@ svg .title {
 .nvd3.nv-linePlusBar .nv-bar rect:hover {
     fill-opacity: 1;
 }
+
 
 /**********
 *  Bullet
@@ -577,11 +588,11 @@ svg .title {
     fill: #999;
 }
 
+
 .nvd3.nv-bullet .nv-range {
     fill: #bababa;
     fill-opacity: .4;
 }
-
 .nvd3.nv-bullet .nv-range:hover {
     fill-opacity: .7;
 }
@@ -769,7 +780,6 @@ Interactive Layer
 .nvd3 .nv-interactiveGuideLine {
     pointer-events: none;
 }
-
 .nvd3 line.nv-guideline {
     stroke: #ccc;
 }

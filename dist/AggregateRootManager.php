@@ -6,12 +6,11 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Exceptions\CannotCreateEventStoreForRepositoryId;
-use hollodotme\MilestonES\Exceptions\ObjectLifetimeEndedWithUncommittedChanges;
+use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
 use hollodotme\MilestonES\Exceptions\RepositoryWithNameDoesNotExist;
-use hollodotme\MilestonES\Interfaces\CollectsAggregateRootRepositories;
 use hollodotme\MilestonES\Interfaces\CommitsChanges;
-use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\StoresEvents;
+use hollodotme\MilestonES\Interfaces\UnitOfWork;
 
 /**
  * Class AggregateRootManager
@@ -21,18 +20,23 @@ use hollodotme\MilestonES\Interfaces\Identifies;
 class AggregateRootManager implements CommitsChanges
 {
 
-	/** @var AggregateRootRepositoryCollection */
-	protected $respository_collection;
+	/** @var UnitOfWork */
+	private $unit_of_work;
+
+	/** @var StoresEvents */
+	private $event_store;
 
 	/** @var bool */
 	private $auto_commit_changes_enabled = true;
 
 	/**
-	 * @param CollectsAggregateRootRepositories $collection
+	 * @param StoresEvents $event_store
+	 * @param UnitOfWork   $unit_of_work
 	 */
-	public function __construct( CollectsAggregateRootRepositories $collection )
+	public function __construct( StoresEvents $event_store, UnitOfWork $unit_of_work )
 	{
-		$this->respository_collection = $collection;
+		$this->event_store  = $event_store;
+		$this->unit_of_work = $unit_of_work;
 	}
 
 	public function __destruct()
@@ -45,7 +49,7 @@ class AggregateRootManager implements CommitsChanges
 			}
 			else
 			{
-				throw new ObjectLifetimeEndedWithUncommittedChanges();
+				throw new AggregateRootsWithUncommittedChangesDetected();
 			}
 		}
 	}
@@ -70,7 +74,7 @@ class AggregateRootManager implements CommitsChanges
 
 	public function commitChanges()
 	{
-		$this->respository_collection->commitChanges();
+		$this->unit_of_work->commitChanges( $this->event_store );
 	}
 
 	/**
@@ -78,7 +82,7 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	public function hasUncommittedChanges()
 	{
-		return $this->respository_collection->hasUncommittedChanges();
+		return $this->unit_of_work->hasUncommittedChanges();
 	}
 
 	/**
@@ -88,130 +92,47 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	public function getRepository( $aggregate_root_fqcn )
 	{
-		$respoitory_id = $this->getAggregateRootRepositoryId( $aggregate_root_fqcn );
-
-		if ( $this->isAggregateRootRepositoryAttached( $respoitory_id ) )
-		{
-			return $this->getAttachedAggregateRootRepository( $respoitory_id );
-		}
-		else
-		{
-			$repository = $this->createAggregateRootRepository( $respoitory_id );
-
-			$this->attachAggregateRootRepository( $respoitory_id, $repository );
-
-			return $repository;
-		}
-	}
-
-	/**
-	 * @param string $aggregate_root_fqcn
-	 *
-	 * @return ClassNameIdentifier
-	 */
-	protected function getAggregateRootRepositoryId( $aggregate_root_fqcn )
-	{
-		return new ClassNameIdentifier( $aggregate_root_fqcn . 'Repository' );
-	}
-
-	/**
-	 * @param $repository_id
-	 *
-	 * @throws CannotCreateEventStoreForRepositoryId
-	 * @throws RepositoryWithNameDoesNotExist
-	 * @return AggregateRootRepository|null
-	 */
-	protected function createAggregateRootRepository( ClassNameIdentifier $repository_id )
-	{
-		$repository_fqcn = $repository_id->getFullQualifiedClassName();
-		if ( class_exists( $repository_fqcn, true ) )
-		{
-			$repository = $this->createAggregateRootRepositoryById( $repository_id );
-		}
-		else
-		{
-			$repository = null;
-			throw new RepositoryWithNameDoesNotExist( $repository_id->toString() );
-		}
+		$respoitory_fqcn = $this->getAggregateRootRepositoryFqcn( $aggregate_root_fqcn );
+		$repository      = $this->createAggregateRootRepository( $respoitory_fqcn );
 
 		return $repository;
 	}
 
 	/**
-	 * @param ClassNameIdentifier $repository_id
+	 * @param string $aggregate_root_fqcn
 	 *
-	 * @throws CannotCreateEventStoreForRepositoryId
-	 * @return AggregateRootRepository|null
+	 * @return string
 	 */
-	protected function createAggregateRootRepositoryById( ClassNameIdentifier $repository_id )
+	protected function getAggregateRootRepositoryFqcn( $aggregate_root_fqcn )
 	{
-		$event_store = $this->createEventStoreForAggregateRootRepositoryId( $repository_id );
-		if ( !is_null( $event_store ) )
-		{
-			$repository_fqcn = $repository_id->getFullQualifiedClassName();
+		return $aggregate_root_fqcn . 'Repository';
+	}
 
-			return new $repository_fqcn( $repository_id, $event_store );
+	/**
+	 * @param string $repository_fqcn
+	 *
+	 * @throws RepositoryWithNameDoesNotExist
+	 * @return AggregateRootRepository
+	 */
+	protected function createAggregateRootRepository( $repository_fqcn )
+	{
+		if ( class_exists( $repository_fqcn, true ) )
+		{
+			return $this->createAggregateRootRepositoryByFqcn( $repository_fqcn );
 		}
 		else
 		{
-			throw new CannotCreateEventStoreForRepositoryId( $repository_id->toString() );
+			throw new RepositoryWithNameDoesNotExist( $repository_fqcn );
 		}
 	}
 
 	/**
-	 * @param AggregateRootRepository $repository
-	 */
-	protected function attachAggregateRootRepository( AggregateRootRepository $repository )
-	{
-		$this->respository_collection->attach( $repository );
-	}
-
-	/**
-	 * @param Identifies $repository_id
-	 *
-	 * @return bool
-	 */
-	protected function isAggregateRootRepositoryAttached( ClassNameIdentifier $repository_id )
-	{
-		return $this->respository_collection->isAttached( $repository_id );
-	}
-
-	/**
-	 * @param ClassNameIdentifier $repository_id
+	 * @param string $repository_fqcn
 	 *
 	 * @return AggregateRootRepository
 	 */
-	protected function getAttachedAggregateRootRepository( ClassNameIdentifier $repository_id )
+	protected function createAggregateRootRepositoryByFqcn( $repository_fqcn )
 	{
-		return $this->respository_collection->find( $repository_id );
-	}
-
-	/**
-	 * @param ClassNameIdentifier $repository_id
-	 *
-	 * @return Interfaces\StoresEvents|null
-	 */
-	protected function createEventStoreForAggregateRootRepositoryId( ClassNameIdentifier $repository_id )
-	{
-		return EventStore::factoryForAggregateRootRepositoryId( $repository_id );
-	}
-
-	private function __clone()
-	{
-	}
-
-	/**
-	 * @return static
-	 */
-	public static function shared()
-	{
-		static $instance = null;
-
-		if ( is_null( $instance ) )
-		{
-			$instance = new static( new AggregateRootRepositoryCollection() );
-		}
-
-		return $instance;
+		return new $repository_fqcn( $this->event_store, $this->unit_of_work );
 	}
 }

@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Exceptions;
 
 /**
- * Class ObjectLifetimeEndedWithUncommittedChanges
+ * Class TypeMapContainsNonStrings
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class ObjectLifetimeEndedWithUncommittedChanges extends Exception
+class TypeMapContainsNonStrings extends Exception
 {
 
 }

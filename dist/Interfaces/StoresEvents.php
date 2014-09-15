@@ -6,9 +6,6 @@
 
 namespace hollodotme\MilestonES\Interfaces;
 
-use hollodotme\MilestonES\AggregateRootIdentifier;
-use hollodotme\MilestonES\EventCollection;
-
 /**
  * Interface StoresEvents
  *
@@ -16,7 +13,7 @@ use hollodotme\MilestonES\EventCollection;
  */
 interface StoresEvents extends ObservedForCommitedEvents
 {
-	public function commitEvents( EventCollection $events );
+	public function commitEvents( CollectsEvents $events );
 
-	public function getEventStreamForId( AggregateRootIdentifier $id );
+	public function getEventStreamForId( IdentifiesEventStream $id );
 }

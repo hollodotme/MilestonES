@@ -7,21 +7,21 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface IdentityMap
+ * Interface MapsIdentities
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface IdentityMap
+interface MapsIdentities
 {
 	/**
-	 * @param IsIdentified $identified_object
+	 * @param HasIdentity $identified_object
 	 */
-	public function attach( IsIdentified $identified_object );
+	public function attach( HasIdentity $identified_object );
 
 	/**
 	 * @param Identifies $id
 	 *
-	 * @return IsIdentified
+	 * @return HasIdentity
 	 */
 	public function find( Identifies $id );
 
