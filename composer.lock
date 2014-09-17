@@ -278,16 +278,16 @@
         },
         {
             "name": "hollodotme/treemdown",
-            "version": "v1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hollodotme/TreeMDown.git",
-                "reference": "be5633533c57c38cd69b28e26a23dec5d0715522"
+                "reference": "636e1d74f25928d025f8c5b7c7e9d54d5d76b4a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hollodotme/TreeMDown/zipball/be5633533c57c38cd69b28e26a23dec5d0715522",
-                "reference": "be5633533c57c38cd69b28e26a23dec5d0715522",
+                "url": "https://api.github.com/repos/hollodotme/TreeMDown/zipball/636e1d74f25928d025f8c5b7c7e9d54d5d76b4a5",
+                "reference": "636e1d74f25928d025f8c5b7c7e9d54d5d76b4a5",
                 "shasum": ""
             },
             "require": {
@@ -322,7 +322,7 @@
                 "search",
                 "tree"
             ],
-            "time": "2014-08-29 23:19:05"
+            "time": "2014-09-16 12:43:05"
         }
     ],
     "aliases": [

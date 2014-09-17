@@ -12,5 +12,5 @@ use hollodotme\TreeMDown\TreeMDown;
 $treemdown = new TreeMDown( __DIR__ . '/MilestonES' );
 $treemdown->setCompanyName( 'hollodotme' );
 $treemdown->setProjectName( 'MilestonES' );
-$treemdown->setShortDescription( 'Milestone enables event store' );
+$treemdown->setShortDescription( 'Milestone enabled event store' );
 $treemdown->display();

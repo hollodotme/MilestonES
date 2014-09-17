@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface EnvelopesEvent
+ * Interface WrapsEventForCommit
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface EnvelopesEvent
+interface WrapsEventForCommit
 {
 	public function setStreamId( Identifies $stream_id );
 
@@ -51,33 +51,42 @@ interface EnvelopesEvent
 	public function getEventName();
 
 	/**
-	 * @param $payload
+	 * @param string $payload
 	 */
 	public function setPayload( $payload );
 
+	/**
+	 * @return string
+	 */
 	public function getPayload();
 
 	/**
-	 * @param Identifies $payload_contract
+	 * @param string $payload_contract
 	 */
-	public function setPayloadContract( Identifies $payload_contract );
+	public function setPayloadContract( $payload_contract );
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
 	public function getPayloadContract();
 
+	/**
+	 * @param string $meta_data
+	 */
 	public function setMetaData( $meta_data );
 
+	/**
+	 * @return string
+	 */
 	public function getMetaData();
 
 	/**
-	 * @param Identifies $meta_data_contract
+	 * @param string $meta_data_contract
 	 */
-	public function setMetaDataContract( Identifies $meta_data_contract );
+	public function setMetaDataContract( $meta_data_contract );
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
 	public function getMetaDataContract();
 

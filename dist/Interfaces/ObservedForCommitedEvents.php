@@ -24,7 +24,7 @@ interface ObservedForCommitedEvents
 	public function detachCommittedEventObserver( ObservesCommitedEvents $observer );
 
 	/**
-	 * @param Event $event
+	 * @param RepresentsEvent $event
 	 */
-	public function notifyAboutCommittedEvent( Event $event );
+	public function notifyAboutCommittedEvent( RepresentsEvent $event );
 }

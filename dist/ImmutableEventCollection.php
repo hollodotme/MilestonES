@@ -7,7 +7,7 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\EventCollectionIsImmutable;
-use hollodotme\MilestonES\Interfaces\Event;
+use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 
 /**
  * Class ImmutableEventCollection
@@ -17,7 +17,7 @@ use hollodotme\MilestonES\Interfaces\Event;
 class ImmutableEventCollection extends EventCollection
 {
 	/**
-	 * @param array|Event[] $events
+	 * @param array|RepresentsEvent[] $events
 	 */
 	public function __construct( array $events )
 	{

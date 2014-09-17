@@ -7,8 +7,9 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
+use hollodotme\MilestonES\Events\MetaDataOfEvent;
 use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
-use hollodotme\MilestonES\Interfaces\Event;
+use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 use hollodotme\MilestonES\Interfaces\HasIdentity;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\TracksChanges;
@@ -36,7 +37,7 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 
 	final protected function __construct()
 	{
-		$this->version = 0;
+		$this->version        = 0;
 		$this->tracked_events = new EventCollection();
 	}
 
@@ -92,9 +93,9 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	}
 
 	/**
-	 * @param Event $event
+	 * @param RepresentsEvent $event
 	 */
-	final public function trackThat( Event $event )
+	final public function trackThat( RepresentsEvent $event )
 	{
 		$this->setNextVersionToEvent( $event );
 
@@ -104,12 +105,12 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	}
 
 	/**
-	 * @param Event $event
+	 * @param RepresentsEvent $event
 	 */
-	protected function applyChange( Event $event )
+	protected function applyChange( RepresentsEvent $event )
 	{
 		$method_name = 'when' . $event->getName();
-		if ( is_callable( [ $this, $method_name ] ) )
+		if ( is_callable( [$this, $method_name] ) )
 		{
 			$this->{$method_name}( $event );
 
@@ -117,6 +118,9 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 		}
 	}
 
+	/**
+	 * @param int $version
+	 */
 	protected function increaseVerisonTo( $version )
 	{
 		$this->version = $version;
@@ -127,13 +131,13 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	 */
 	protected function whenAggregateRootWasAllocated( AggregateRootWasAllocated $event )
 	{
-		$this->identifier = $event->getIdentifier();
+		$this->identifier = $event->getStreamId();
 	}
 
 	/**
-	 * @param Event $event
+	 * @param RepresentsEvent $event
 	 */
-	private function setNextVersionToEvent( Event $event )
+	private function setNextVersionToEvent( RepresentsEvent $event )
 	{
 		$next_version = $this->getNextVersion();
 		$event->setVersion( $next_version );
@@ -155,7 +159,11 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	public static function allocateWithId( Identifies $id )
 	{
 		$instance = new static();
-		$instance->trackThat( new AggregateRootWasAllocated( $id ) );
+
+		$meta_data = new MetaDataOfEvent();
+		$meta_data->setCaller( __METHOD__ );
+
+		$instance->trackThat( new AggregateRootWasAllocated( $id, $meta_data ) );
 
 		return $instance;
 	}

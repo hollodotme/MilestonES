@@ -6,15 +6,15 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Interfaces\EnvelopesEvent;
+use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 use hollodotme\MilestonES\Interfaces\Identifies;
 
 /**
- * Class EventEnvelope
+ * Class CommitEventEnvelope
  *
  * @package hollodotme\MilestonES
  */
-final class EventEnvelope implements EnvelopesEvent
+final class CommitEventEnvelope implements WrapsEventForCommit
 {
 
 	/** @var int */
@@ -38,13 +38,13 @@ final class EventEnvelope implements EnvelopesEvent
 	/** @var string */
 	private $payload;
 
-	/** @var Identifies */
+	/** @var string */
 	private $payload_contract;
 
 	/** @var string */
 	private $meta_data;
 
-	/** @var Identifies */
+	/** @var string */
 	private $meta_data_contract;
 
 	/** @var \DateTime */
@@ -155,15 +155,15 @@ final class EventEnvelope implements EnvelopesEvent
 	}
 
 	/**
-	 * @param Identifies $payload_contract
+	 * @param string $payload_contract
 	 */
-	public function setPayloadContract( Identifies $payload_contract )
+	public function setPayloadContract( $payload_contract )
 	{
 		$this->payload_contract = $payload_contract;
 	}
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
 	public function getPayloadContract()
 	{
@@ -181,15 +181,15 @@ final class EventEnvelope implements EnvelopesEvent
 	}
 
 	/**
-	 * @param Identifies $meta_data_contract
+	 * @param string $meta_data_contract
 	 */
-	public function setMetaDataContract( Identifies $meta_data_contract )
+	public function setMetaDataContract( $meta_data_contract )
 	{
 		$this->meta_data_contract = $meta_data_contract;
 	}
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
 	public function getMetaDataContract()
 	{

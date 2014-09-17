@@ -6,41 +6,23 @@
 
 namespace hollodotme\MilestonES\Events;
 
-use hollodotme\MilestonES\AggregateRootIdentifier;
-use hollodotme\MilestonES\Interfaces\Identifies;
-
 /**
  * Class AggregateRootWasAllocated
  *
  * @package hollodotme\MilestonES\Events
  */
-class AggregateRootWasAllocated extends Event
+final class AggregateRootWasAllocated extends BaseRepresentsEvent
 {
-
-	/** @var Identifies */
-	private $identifier;
-
-	/**
-	 * @param Identifies $id
-	 */
-	public function __construct( Identifies $id )
+	public function getPayload()
 	{
-		$this->identifier = $id;
+		return new \stdClass();
 	}
 
 	/**
-	 * @return Identifies
+	 * @param mixed $payload
 	 */
-	public function getIdentifier()
+	public function reconstituteFromPayload( $payload )
 	{
-		return $this->identifier;
-	}
-
-	/**
-	 * @return Identifies
-	 */
-	public function getStreamId()
-	{
-		return $this->identifier;
+		// Nothing to do here!
 	}
 }

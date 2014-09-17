@@ -15,5 +15,5 @@ interface StoresEvents extends ObservedForCommitedEvents
 {
 	public function commitEvents( CollectsEvents $events );
 
-	public function getEventStreamForId( IdentifiesEventStream $id );
+	public function getEventStreamForId( Identifies $id );
 }

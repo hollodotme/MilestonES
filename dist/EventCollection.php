@@ -17,7 +17,7 @@ class EventCollection implements Interfaces\CollectsEvents
 {
 
 	/**
-	 * @var array|Interfaces\Event[]
+	 * @var array|Interfaces\RepresentsEvent[]
 	 */
 	protected $events = [ ];
 
@@ -30,7 +30,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	}
 
 	/**
-	 * @return Interfaces\Event
+	 * @return Interfaces\RepresentsEvent
 	 */
 	public function current()
 	{
@@ -76,7 +76,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	/**
 	 * @param mixed $offset
 	 *
-	 * @return Interfaces\Event
+	 * @return Interfaces\RepresentsEvent
 	 */
 	public function offsetGet( $offset )
 	{
