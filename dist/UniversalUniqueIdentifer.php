@@ -6,6 +6,7 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Interfaces\GeneratesIdentifier;
 use Rhumsaa\Uuid\Uuid;
 
 /**
@@ -13,7 +14,7 @@ use Rhumsaa\Uuid\Uuid;
  *
  * @package hollodotme\MilestonES
  */
-abstract class UniversalUniqueIdentifer extends Identifier
+abstract class UniversalUniqueIdentifer extends Identifier implements GeneratesIdentifier
 {
 	/**
 	 * @return static

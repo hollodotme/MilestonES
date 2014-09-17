@@ -8,6 +8,9 @@ namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Interfaces\CollectsEvents;
 use hollodotme\MilestonES\Interfaces\Event;
+use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
+use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
 use hollodotme\MilestonES\Interfaces\PersistsEvents;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
@@ -44,11 +47,11 @@ final class EventStore implements StoresEvents
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param IdentifiesEventStream $id
 	 *
 	 * @return EventStream
 	 */
-	public function getEventStreamForId( AggregateRootIdentifier $id )
+	public function getEventStreamForId( IdentifiesEventStream $id )
 	{
 		$events = $this->getStoredEventsWithId( $id );
 
@@ -98,7 +101,9 @@ final class EventStore implements StoresEvents
 
 		try
 		{
-			$this->persistEventsInTransaction( $events );
+			$commit_id = $this->getCommit();
+
+			$this->persistEventsInTransaction( $commit_id, $events );
 
 			$this->persistence->commitTransaction();
 		}
@@ -109,13 +114,22 @@ final class EventStore implements StoresEvents
 	}
 
 	/**
+	 * @return IdentifiesCommit
+	 */
+	protected function getCommit()
+	{
+		return new Commit( CommitId::generate(), new \DateTime( 'now' ) );
+	}
+
+	/**
+	 * @param Identifies $commit_id
 	 * @param CollectsEvents $events
 	 */
-	protected function persistEventsInTransaction( CollectsEvents $events )
+	protected function persistEventsInTransaction( Identifies $commit_id, CollectsEvents $events )
 	{
 		foreach ( $events as $event )
 		{
-			$this->commitEvent( $event );
+			$this->commitEvent( $commit_id, $event );
 		}
 	}
 
@@ -131,20 +145,22 @@ final class EventStore implements StoresEvents
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param IdentifiesEventStream $id
 	 *
 	 * @return Event[]
 	 */
-	protected function getStoredEventsWithId( AggregateRootIdentifier $id )
+	protected function getStoredEventsWithId( IdentifiesEventStream $id )
 	{
 		return $this->persistence->getEventsWithId( $id );
 	}
 
 	/**
-	 * @param Event $event
+	 * @param Identifies $commit_id
+	 * @param Event      $event
 	 */
-	protected function commitEvent( Event $event )
+	protected function commitEvent( Identifies $commit_id, Event $event )
 	{
+
 		$this->persistence->persistEvent( $event );
 	}
 

@@ -10,30 +10,39 @@ use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
 use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
 use hollodotme\MilestonES\Interfaces\Event;
 use hollodotme\MilestonES\Interfaces\HasIdentity;
+use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\TracksChanges;
 
 /**
  * Class AggregateRoot
  *
  * @package hollodotme\MilestonES
  */
-abstract class AggregateRoot implements HasIdentity
+abstract class AggregateRoot implements HasIdentity, TracksChanges
 {
 
 	/**
-	 * @var AggregateRootIdentifier
+	 * @var Identifies
 	 */
-	protected $identifier;
+	private $identifier;
 
 	/**
 	 * @var EventCollection
 	 */
-	protected $tracked_events;
+	private $tracked_events;
+
+	/** @var int */
+	private $version;
 
 	final protected function __construct()
 	{
+		$this->version = 0;
 		$this->tracked_events = new EventCollection();
 	}
 
+	/**
+	 * @throws AggregateRootsWithUncommittedChangesDetected
+	 */
 	public function __destruct()
 	{
 		if ( $this->hasChanges() )
@@ -43,7 +52,7 @@ abstract class AggregateRoot implements HasIdentity
 	}
 
 	/**
-	 * @return AggregateRootIdentifier
+	 * @return Identifies
 	 */
 	final public function getIdentifier()
 	{
@@ -74,12 +83,24 @@ abstract class AggregateRoot implements HasIdentity
 	/**
 	 * @param EventStream $event_stream
 	 */
-	protected function applyEventStream( EventStream $event_stream )
+	final public function applyEventStream( EventStream $event_stream )
 	{
 		foreach ( $event_stream as $event )
 		{
 			$this->applyChange( $event );
 		}
+	}
+
+	/**
+	 * @param Event $event
+	 */
+	final public function trackThat( Event $event )
+	{
+		$this->setNextVersionToEvent( $event );
+
+		$this->tracked_events[] = $event;
+
+		$this->applyChange( $event );
 	}
 
 	/**
@@ -91,16 +112,14 @@ abstract class AggregateRoot implements HasIdentity
 		if ( is_callable( [ $this, $method_name ] ) )
 		{
 			$this->{$method_name}( $event );
+
+			$this->increaseVerisonTo( $event->getVersion() );
 		}
 	}
 
-	/**
-	 * @param Event $event
-	 */
-	protected function trackThat( Event $event )
+	protected function increaseVerisonTo( $version )
 	{
-		$this->tracked_events[] = $event;
-		$this->applyChange( $event );
+		$this->version = $version;
 	}
 
 	/**
@@ -112,11 +131,28 @@ abstract class AggregateRoot implements HasIdentity
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Event $event
+	 */
+	private function setNextVersionToEvent( Event $event )
+	{
+		$next_version = $this->getNextVersion();
+		$event->setVersion( $next_version );
+	}
+
+	/**
+	 * @return int
+	 */
+	private function getNextVersion()
+	{
+		return $this->version + 1;
+	}
+
+	/**
+	 * @param Identifies $id
 	 *
 	 * @return static
 	 */
-	public static function allocateWithId( AggregateRootIdentifier $id )
+	public static function allocateWithId( Identifies $id )
 	{
 		$instance = new static();
 		$instance->trackThat( new AggregateRootWasAllocated( $id ) );
