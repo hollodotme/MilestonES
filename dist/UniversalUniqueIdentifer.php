@@ -14,7 +14,7 @@ use Rhumsaa\Uuid\Uuid;
  *
  * @package hollodotme\MilestonES
  */
-abstract class UniversalUniqueIdentifer extends Identifier implements GeneratesIdentifier
+class UniversalUniqueIdentifer extends Identifier implements GeneratesIdentifier
 {
 	/**
 	 * @return static

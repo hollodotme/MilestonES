@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES;
 
 /**
- * Class EventStream
+ * Class Contract
  *
  * @package hollodotme\MilestonES
  */
-final class EventStream extends ImmutableEventCollection
+final class Contract extends ClassNameIdentifier
 {
 
 }

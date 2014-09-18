@@ -10,10 +10,11 @@ use hollodotme\MilestonES\Exceptions\DefaultSerializationContractIsNotRegistered
 use hollodotme\MilestonES\Interfaces\Identifies;
 
 /**
- * Class SerializationConfig
- * @package hollodotme\MilestonES
+ * Class SerializationStrategy
+ *
+*@package hollodotme\MilestonES
  */
-class SerializationConfig
+class SerializationStrategy
 {
 
 	/** @var SerializerRegistry */

@@ -4,19 +4,35 @@
     <title></title>
 </head>
 <body>
-<h2 id="hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootTypeMapTest">
-    hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootTypeMap
+<h2 id="hollodotme\MilestonES\Test\Unit\Persistance\MemoryTest">
+    hollodotme\MilestonES\Test\Unit\Persistance\Memory
 </h2>
 <ul>
-    <li>Throws exception when type is mapped multiple
+    <li>Is not in transaction after construction
     </li>
-    <li>Throws exception when map contains non string types
+    <li>Begin transaction
     </li>
-    <li>Throws exception when map contains non string keys
+    <li>Begin transaction fails when transacion is already started
     </li>
-    <li>Throws exception when mapped type does not exist
+    <li>Commit transaction
     </li>
-    <li>Throws exception when mapping value does not exist
+    <li>Commit transaction fails when transaction is not started
+    </li>
+    <li>Rollback transaction
+    </li>
+    <li>Rollback transaction fails when no transaction is started
+    </li>
+    <li>Commit transaction fails when transaction is rolled back
+    </li>
+    <li>Rollback transaction fails when transaction is committed
+    </li>
+    <li>Persist event envelope
+    </li>
+    <li>Persist event envelope fails when not in transaction
+    </li>
+    <li>Get event envelopes with id
+    </li>
+    <li>Get event envelopes with id fails when stream id not found
     </li>
 </ul>
 </body>

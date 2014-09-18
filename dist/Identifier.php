@@ -13,7 +13,7 @@ use hollodotme\MilestonES\Interfaces\Identifies;
  *
  * @package Interfaces
  */
-abstract class Identifier implements Identifies
+class Identifier implements Identifies
 {
 
 	/**

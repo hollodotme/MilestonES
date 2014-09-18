@@ -5,11 +5,11 @@
 
 ## Abstract
 
-An object of type EventStreamIdentifier is used to retrieve a unique event stream from the event store.
+An object of type EventStreamIdentifier is used to retrieve a unique event_envelope stream from the event_envelope store.
 
 ## Convention
 
-An event stream is identified by an ID and a type ID.
+An event_envelope stream is identified by an ID and a type ID.
 The type ID is used to guard uniqueness of IDs within the scope of the type, but without uniqueness in the whole system.
 
 Every ID has to be a unique class implementing `Interfaces\Identifies`.

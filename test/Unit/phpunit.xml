@@ -13,6 +13,7 @@
             <directory suffix=".php">./</directory>
             <directory>./_files</directory>
             <directory>./_test_classes</directory>
+            <directory>../../vendor</directory>
         </blacklist>
     </filter>
     <logging>

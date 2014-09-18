@@ -21,13 +21,13 @@ use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 class EventEnvelopeMapper
 {
 
-	/** @var SerializationConfig */
+	/** @var SerializationStrategy */
 	private $serialization_config;
 
 	/**
-	 * @param SerializationConfig $serialization_config
+	 * @param SerializationStrategy $serialization_config
 	 */
-	public function __construct( SerializationConfig $serialization_config )
+	public function __construct( SerializationStrategy $serialization_config )
 	{
 		$this->serialization_config = $serialization_config;
 	}

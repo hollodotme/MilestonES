@@ -20,9 +20,14 @@ interface PersistsEventEnvelopes
 	public function rollbackTransaction();
 
 	/**
-	 * @param WrapsEventForCommit $event
+	 * @return bool
 	 */
-	public function persistEventEnvelope( WrapsEventForCommit $event );
+	public function isInTransaction();
+
+	/**
+	 * @param WrapsEventForCommit $event_envelope
+	 */
+	public function persistEventEnvelope( WrapsEventForCommit $event_envelope );
 
 	/**
 	 * @param IdentifiesEventStream $id

@@ -7,12 +7,13 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Interfaces\CollectsEvents;
-use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
 use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
+use hollodotme\MilestonES\Interfaces\RepresentsEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStoreConfiguration;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
 use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 
@@ -24,18 +25,29 @@ use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 final class EventStore implements StoresEvents
 {
 
-	/** @var PersistsEventEnvelopes */
-	private $persistence;
+	/** @var ServesEventStoreConfiguration */
+	private $config_delegate;
 
 	/** @var ObservesCommitedEvents[] */
-	private $commited_event_observers = [];
+	private $commited_event_observers = [ ];
+
+	/** @var  PersistsEventEnvelopes */
+	private $persistence;
+
+	/** @var EventEnvelopeMapper */
+	private $envelope_mapper;
 
 	/**
-	 * @param PersistsEventEnvelopes $persistence
+	 * @param ServesEventStoreConfiguration $config_delegate
 	 */
-	public function __constructor( PersistsEventEnvelopes $persistence )
+	public function __constructor( ServesEventStoreConfiguration $config_delegate )
 	{
-		$this->persistence = $persistence;
+		$this->config_delegate = $config_delegate;
+
+		$this->persistence     = $this->getPersistenceStrategy();
+		$this->envelope_mapper = $this->getEventEnvelopeMapper();
+
+		$this->attachGlobalObserversForCommitedEvents();
 	}
 
 	/**
@@ -54,15 +66,15 @@ final class EventStore implements StoresEvents
 	 */
 	public function getEventStreamForId( Identifies $id )
 	{
-		$event_stream_id = $this->getEventStreamId($id);
-		$events = $this->getStoredEventsWithId( $event_stream_id );
+		$event_stream_id = $this->getEventStreamId( $id );
+		$events          = $this->getStoredEventsWithId( $event_stream_id );
 
 		return new EventStream( $events );
 	}
 
-	protected function getEventStreamId(Identifies $id)
+	protected function getEventStreamId( Identifies $id )
 	{
-		return new EventStreamIdentifier($id);
+		return new EventStreamIdentifier( $id );
 	}
 
 	/**
@@ -121,6 +133,50 @@ final class EventStore implements StoresEvents
 	}
 
 	/**
+	 * @return Interfaces\PersistsEventEnvelopes
+	 */
+	protected function getPersistenceStrategy()
+	{
+		return $this->config_delegate->getPersistanceStrategy();
+	}
+
+	/**
+	 * @return EventEnvelopeMapper
+	 */
+	protected function getEventEnvelopeMapper()
+	{
+		$serialization_strategy = $this->getSerializationStrategy();
+
+		return new EventEnvelopeMapper( $serialization_strategy );
+	}
+
+	/**
+	 * @return SerializationStrategy
+	 */
+	protected function getSerializationStrategy()
+	{
+		return $this->config_delegate->getSerializationStrategy();
+	}
+
+	protected function attachGlobalObserversForCommitedEvents()
+	{
+		$observers = $this->getGlobalObserversForCommitedEvents();
+
+		foreach ( $observers as $observer )
+		{
+			$this->attachCommittedEventObserver( $observer );
+		}
+	}
+
+	/**
+	 * @return Interfaces\ObservesCommitedEvents[]
+	 */
+	protected function getGlobalObserversForCommitedEvents()
+	{
+		return $this->config_delegate->getGlobalObserversForCommitedEvents();
+	}
+
+	/**
 	 * @return IdentifiesCommit
 	 */
 	protected function getCommit()
@@ -142,23 +198,24 @@ final class EventStore implements StoresEvents
 
 	/**
 	 * @param IdentifiesCommit $commit
-	 * @param RepresentsEvent            $event
+	 * @param RepresentsEvent  $event
 	 */
 	protected function commitEvent( IdentifiesCommit $commit, RepresentsEvent $event )
 	{
 		$event_envelope = $this->getEnvelopeForEventCommit( $event, $commit );
+
 		$this->persistence->persistEventEnvelope( $event_envelope );
 	}
 
 	/**
-	 * @param RepresentsEvent            $event
+	 * @param RepresentsEvent $event
 	 * @param IdentifiesCommit $commit
 	 *
 	 * @return CommitEventEnvelope
 	 */
 	protected function getEnvelopeForEventCommit( RepresentsEvent $event, IdentifiesCommit $commit )
 	{
-		$mapper = new EventEnvelopeMapper();
+		$mapper = $this->getEventEnvelopeMapper();
 
 		return $mapper->putEventInEnvelopeForCommit( $event, $commit );
 	}

@@ -1,3 +1,3 @@
 # MilestonES
 
-A milestone enabled event store
+A milestone enabled event_envelope store
