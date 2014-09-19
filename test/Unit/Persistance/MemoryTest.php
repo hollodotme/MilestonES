@@ -104,7 +104,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
 		$envelope          = new CommitEventEnvelope();
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
-		$envelope->setStreamTypeId( $stream_identifier->getStreamTypeId() );
+		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
 
 		$this->persistence->beginTransaction();
 
@@ -129,7 +129,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
 		$envelope          = new CommitEventEnvelope();
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
-		$envelope->setStreamTypeId( $stream_identifier->getStreamTypeId() );
+		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
 
 		$this->persistence->persistEventEnvelope( $envelope );
 	}
@@ -141,15 +141,15 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 
 		$envelope1 = new CommitEventEnvelope();
 		$envelope1->setStreamId( $first_stream_identifier->getStreamId() );
-		$envelope1->setStreamTypeId( $first_stream_identifier->getStreamTypeId() );
+		$envelope1->setStreamIdContract( $first_stream_identifier->getStreamIdContract() );
 
 		$envelope2 = new CommitEventEnvelope();
 		$envelope2->setStreamId( $second_stream_identifier->getStreamId() );
-		$envelope2->setStreamTypeId( $second_stream_identifier->getStreamTypeId() );
+		$envelope2->setStreamIdContract( $second_stream_identifier->getStreamIdContract() );
 
 		$envelope3 = new CommitEventEnvelope();
 		$envelope3->setStreamId( $second_stream_identifier->getStreamId() );
-		$envelope3->setStreamTypeId( $second_stream_identifier->getStreamTypeId() );
+		$envelope3->setStreamIdContract( $second_stream_identifier->getStreamIdContract() );
 
 		$this->persistence->beginTransaction();
 
@@ -177,6 +177,23 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 	public function testGetEventEnvelopesWithIdFailsWhenStreamIdNotFound()
 	{
 		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
+
+		$this->persistence->getEventEnvelopesWithId( $stream_identifier );
+	}
+
+	/**
+	 * @expectedException \hollodotme\MilestonES\Exceptions\EventStreamDoesNotExistForKey
+	 */
+	public function testGetEventEnvelopesWithIdFailsWhenEnvelopesAreNotCommitted()
+	{
+		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
+		$envelope          = new CommitEventEnvelope();
+		$envelope->setStreamId( $stream_identifier->getStreamId() );
+		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
+
+		$this->persistence->beginTransaction();
+
+		$this->persistence->persistEventEnvelope( $envelope );
 
 		$this->persistence->getEventEnvelopesWithId( $stream_identifier );
 	}

@@ -7,7 +7,6 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\SerializationContractIsNotRegistered;
-use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\SerializesData;
 
 /**
@@ -21,21 +20,21 @@ class SerializerRegistry
 	private $serializer_map = [];
 
 	/**
-	 * @param Identifies     $contract
+	 * @param Contract $contract
 	 * @param SerializesData $serializer
 	 */
-	public function registerSerializerForContract( Identifies $contract, SerializesData $serializer )
+	public function registerSerializerForContract( Contract $contract, SerializesData $serializer )
 	{
 		$this->serializer_map[$contract->toString()] = $serializer;
 	}
 
 	/**
-	 * @param Identifies $contract
+	 * @param Contract $contract
 	 *
 	 * @throws SerializationContractIsNotRegistered
 	 * @return SerializesData
 	 */
-	public function getSerializerForContract( Identifies $contract )
+	public function getSerializerForContract( Contract $contract )
 	{
 		if ( $this->isContractRegistered( $contract ) )
 		{
@@ -48,21 +47,21 @@ class SerializerRegistry
 	}
 
 	/**
-	 * @param Identifies $contract
+	 * @param Contract $contract
 	 *
 	 * @return bool
 	 */
-	public function isContractRegistered( Identifies $contract )
+	public function isContractRegistered( Contract $contract )
 	{
 		return array_key_exists( $contract->toString(), $this->serializer_map );
 	}
 
 	/**
-	 * @param Identifies $contract
+	 * @param Contract $contract
 	 *
 	 * @return SerializesData
 	 */
-	private function getSerializerForRegisteredContract( Identifies $contract )
+	private function getSerializerForRegisteredContract( Contract $contract )
 	{
 		return $this->serializer_map[$contract->toString()];
 	}

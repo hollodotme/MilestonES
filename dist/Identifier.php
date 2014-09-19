@@ -52,7 +52,7 @@ class Identifier implements Identifies
 	 */
 	public function equals( Identifies $other )
 	{
-		return ($other->toString() == $this->toString());
+		return ($other->toString() == $this->toString() && get_class( $this ) == get_class( $other ));
 	}
 
 	/**

@@ -6,6 +6,7 @@
 
 namespace hollodotme\MilestonES\Events;
 
+use hollodotme\MilestonES\Contract;
 use hollodotme\MilestonES\Interfaces;
 use hollodotme\MilestonES\Interfaces\Identifies;
 
@@ -14,7 +15,7 @@ use hollodotme\MilestonES\Interfaces\Identifies;
  *
  * @package hollodotme\MilestonES\Events
  */
-abstract class BaseRepresentsEvent implements Interfaces\RepresentsEvent
+abstract class BaseEvent implements Interfaces\RepresentsEvent
 {
 
 	/** @var Identifies */
@@ -40,11 +41,11 @@ abstract class BaseRepresentsEvent implements Interfaces\RepresentsEvent
 	}
 
 	/**
-	 * @return string
+	 * @return Contract
 	 */
-	final public function getName()
+	final public function getContract()
 	{
-		return get_class( $this );
+		return new Contract( get_class( $this ) );
 	}
 
 	/**
@@ -88,6 +89,14 @@ abstract class BaseRepresentsEvent implements Interfaces\RepresentsEvent
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getCreator()
+	{
+		return $this->creator;
+	}
+
+	/**
 	 * @param string $creator
 	 */
 	public function setCreator( $creator )
@@ -95,11 +104,22 @@ abstract class BaseRepresentsEvent implements Interfaces\RepresentsEvent
 		$this->creator = $creator;
 	}
 
+	/**
+	 * @return \stdClass
+	 */
 	public function getMetaData()
 	{
 		$meta_data          = new \stdClass();
 		$meta_data->creator = $this->creator;
 
 		return $meta_data;
+	}
+
+	/**
+	 * @param \stdClass $meta_data
+	 */
+	public function reconstituteFromMetaData( $meta_data )
+	{
+		$this->creator = $meta_data->creator;
 	}
 }

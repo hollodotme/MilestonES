@@ -1,17 +1,16 @@
 <?php
 /**
  *
- * @author h.woltersdorf
+ * @author hwoltersdorf
  */
 
 namespace hollodotme\MilestonES\Exceptions;
 
 /**
- * Class TypeMapContainsNonStrings
- *
+ * Class IdentifierClassDoesNotExist
  * @package hollodotme\MilestonES\Exceptions
  */
-class TypeMapContainsNonStrings extends Exception
+class IdentifierClassDoesNotExist extends Exception
 {
 
 }

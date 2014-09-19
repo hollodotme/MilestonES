@@ -19,16 +19,16 @@ final class EventStreamIdentifier implements IdentifiesEventStream
 	/** @var Identifies */
 	private $stream_id;
 
-	/** @var Identifies */
-	private $stream_type_id;
+	/** @var Contract */
+	private $stream_id_contract;
 
 	/**
 	 * @param Identifies $id
 	 */
 	public function __construct( Identifies $id )
 	{
-		$this->stream_id      = $id;
-		$this->stream_type_id = new ClassNameIdentifier( get_class( $id ) );
+		$this->stream_id          = $id;
+		$this->stream_id_contract = new Contract( get_class( $id ) );
 	}
 
 	/**
@@ -40,10 +40,10 @@ final class EventStreamIdentifier implements IdentifiesEventStream
 	}
 
 	/**
-	 * @return Identifies
+	 * @return Contract
 	 */
-	public function getStreamTypeId()
+	public function getStreamIdContract()
 	{
-		return $this->stream_type_id;
+		return $this->stream_id_contract;
 	}
 }

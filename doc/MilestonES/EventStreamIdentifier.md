@@ -33,7 +33,7 @@ $user_id = UserId::generate();
 $event_stream_id = new EventStreamIdentifier($user_id);
 
 echo 'Stream-ID: ' . $event_stream_id->getStreamId();
-echo 'Stream-Type: ' . $event_stream_id->getStreamTypeId();
+echo 'Stream-Type: ' . $event_stream_id->getStreamIdContract();
 ```
 
 This example will output something like this:

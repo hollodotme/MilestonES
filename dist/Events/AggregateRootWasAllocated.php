@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Events;
  *
  * @package hollodotme\MilestonES\Events
  */
-final class AggregateRootWasAllocated extends BaseRepresentsEvent
+final class AggregateRootWasAllocated extends BaseEvent
 {
 	public function getPayload()
 	{

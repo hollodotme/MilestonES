@@ -243,7 +243,7 @@
 </tr>
 
 <tr>
-    <td class="success" colspan="4">&nbsp;<a href="#83">setStreamTypeId( Identifies $stream_type_id )</a></td>
+	<td class="success" colspan="4">&nbsp;<a href="#83">setStreamIdContract( Identifies $stream_id_contract )</a></td>
     <td class="success big">
         <div class="progress">
             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0"
@@ -276,7 +276,7 @@
 </tr>
 
 <tr>
-    <td class="success" colspan="4">&nbsp;<a href="#91">getStreamTypeId()</a></td>
+	<td class="success" colspan="4">&nbsp;<a href="#91">getStreamIdContract()</a></td>
     <td class="success big">
         <div class="progress">
             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0"
@@ -441,7 +441,7 @@
 </tr>
 
 <tr>
-    <td class="danger" colspan="4">&nbsp;<a href="#131">getEventName()</a></td>
+	<td class="danger" colspan="4">&nbsp;<a href="#131">getEventContract()</a></td>
     <td class="danger big">
         <div class="progress">
             <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0.00" aria-valuemin="0"
@@ -474,7 +474,7 @@
 </tr>
 
 <tr>
-    <td class="danger" colspan="4">&nbsp;<a href="#139">setEventName( $event_name )</a></td>
+	<td class="danger" colspan="4">&nbsp;<a href="#139">setEventContract( $event_contract )</a></td>
     <td class="danger big">
         <div class="progress">
             <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0.00" aria-valuemin="0"
@@ -1103,7 +1103,7 @@
         <div align="right"><a name="30"></a><a href="#30">30</a></div>
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">private</span><span
-            class="default">&nbsp;</span><span class="default">$stream_type_id</span><span class="keyword">;</span></td>
+			class="default">&nbsp;</span><span class="default">$stream_id_contract</span><span class="keyword">;</span></td>
 </tr>
 <tr>
     <td>
@@ -1143,7 +1143,7 @@
         <div align="right"><a name="36"></a><a href="#36">36</a></div>
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">private</span><span
-            class="default">&nbsp;</span><span class="default">$event_name</span><span class="keyword">;</span></td>
+			class="default">&nbsp;</span><span class="default">$event_contract</span><span class="keyword">;</span></td>
 </tr>
 <tr>
     <td>
@@ -1449,7 +1449,7 @@
     <td>
         <div align="right"><a name="81"></a><a href="#81">81</a></div>
     </td>
-    <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$stream_type_id</span>
+	<td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$stream_id_contract</span>
     </td>
 </tr>
 <tr>
@@ -1464,9 +1464,9 @@
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span
             class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span
-            class="default">setStreamTypeId</span><span class="keyword">(</span><span class="default">&nbsp;</span><span
+			class="default">setStreamIdContract</span><span class="keyword">(</span><span class="default">&nbsp;</span><span
             class="default">Identifies</span><span class="default">&nbsp;</span><span
-            class="default">$stream_type_id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
+			class="default">$stream_id_contract</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
 </tr>
 <tr>
     <td>
@@ -1482,8 +1482,8 @@
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
             class="default">$this</span><span class="default">-&gt;</span><span
-            class="default">stream_type_id</span><span class="default">&nbsp;</span><span class="keyword">=</span><span
-            class="default">&nbsp;</span><span class="default">$stream_type_id</span><span class="keyword">;</span></td>
+			class="default">stream_id_contract</span><span class="default">&nbsp;</span><span class="keyword">=</span><span
+			class="default">&nbsp;</span><span class="default">$stream_id_contract</span><span class="keyword">;</span></td>
 </tr>
 <tr class="success popin" data-title="3 tests cover line 86"
     data-content="&lt;ul&gt;&lt;li class=&quot;success&quot;&gt;hollodotme\MilestonES\Test\Unit\Persistance\MemoryTest::testPersistEventEnvelope&lt;/li&gt;&lt;li class=&quot;success&quot;&gt;hollodotme\MilestonES\Test\Unit\Persistance\MemoryTest::testPersistEventEnvelopeFailsWhenNotInTransaction&lt;/li&gt;&lt;li class=&quot;success&quot;&gt;hollodotme\MilestonES\Test\Unit\Persistance\MemoryTest::testGetEventEnvelopesWithId&lt;/li&gt;&lt;/ul&gt;"
@@ -1523,7 +1523,7 @@
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span
             class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span
-            class="default">getStreamTypeId</span><span class="keyword">(</span><span class="keyword">)</span></td>
+			class="default">getStreamIdContract</span><span class="keyword">(</span><span class="keyword">)</span></td>
 </tr>
 <tr>
     <td>
@@ -1539,7 +1539,7 @@
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
             class="keyword">return</span><span class="default">&nbsp;</span><span class="default">$this</span><span
-            class="default">-&gt;</span><span class="default">stream_type_id</span><span class="keyword">;</span></td>
+			class="default">-&gt;</span><span class="default">stream_id_contract</span><span class="keyword">;</span></td>
 </tr>
 <tr class="warning">
     <td>
@@ -1792,7 +1792,7 @@
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span
             class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span
-            class="default">getEventName</span><span class="keyword">(</span><span class="keyword">)</span></td>
+			class="default">getEventContract</span><span class="keyword">(</span><span class="keyword">)</span></td>
 </tr>
 <tr>
     <td>
@@ -1806,7 +1806,7 @@
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
             class="keyword">return</span><span class="default">&nbsp;</span><span class="default">$this</span><span
-            class="default">-&gt;</span><span class="default">event_name</span><span class="keyword">;</span></td>
+			class="default">-&gt;</span><span class="default">event_contract</span><span class="keyword">;</span></td>
 </tr>
 <tr class="warning">
     <td>
@@ -1831,7 +1831,7 @@
         <div align="right"><a name="137"></a><a href="#137">137</a></div>
     </td>
     <td class="codeLine"><span
-            class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$event_name</span></td>
+			class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$event_contract</span></td>
 </tr>
 <tr>
     <td>
@@ -1845,8 +1845,8 @@
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span
             class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span
-            class="default">setEventName</span><span class="keyword">(</span><span class="default">&nbsp;</span><span
-            class="default">$event_name</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
+			class="default">setEventContract</span><span class="keyword">(</span><span class="default">&nbsp;</span><span
+			class="default">$event_contract</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
 </tr>
 <tr>
     <td>
@@ -1859,9 +1859,9 @@
         <div align="right"><a name="141"></a><a href="#141">141</a></div>
     </td>
     <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="default">$this</span><span class="default">-&gt;</span><span class="default">event_name</span><span
+			class="default">$this</span><span class="default">-&gt;</span><span class="default">event_contract</span><span
             class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span
-            class="default">$event_name</span><span class="keyword">;</span></td>
+			class="default">$event_contract</span><span class="keyword">;</span></td>
 </tr>
 <tr class="danger">
     <td>

@@ -13,22 +13,25 @@ namespace hollodotme\MilestonES\Interfaces;
  */
 interface WrapsEventForCommit
 {
-	public function setStreamId( Identifies $stream_id );
+	/**
+	 * @param string $stream_id
+	 */
+	public function setStreamId( $stream_id );
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
 	public function getStreamId();
 
 	/**
-	 * @param Identifies $stream_type_id
+	 * @param string $stream_id_contract
 	 */
-	public function setStreamTypeId( Identifies $stream_type_id );
+	public function setStreamIdContract( $stream_id_contract );
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
-	public function getStreamTypeId();
+	public function getStreamIdContract();
 
 	/**
 	 * @param int $version
@@ -41,14 +44,14 @@ interface WrapsEventForCommit
 	public function getVersion();
 
 	/**
-	 * @param string $event_name
+	 * @param string $event_contract
 	 */
-	public function setEventName( $event_name );
+	public function setEventContract( $event_contract );
 
 	/**
 	 * @return string
 	 */
-	public function getEventName();
+	public function getEventContract();
 
 	/**
 	 * @param string $payload
@@ -91,12 +94,12 @@ interface WrapsEventForCommit
 	public function getMetaDataContract();
 
 	/**
-	 * @param Identifies $commit_id
+	 * @param string $commit_id
 	 */
-	public function setCommitId( Identifies $commit_id );
+	public function setCommitId( $commit_id );
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
 	public function getCommitId();
 

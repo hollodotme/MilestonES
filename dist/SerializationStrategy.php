@@ -7,7 +7,6 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\DefaultSerializationContractIsNotRegistered;
-use hollodotme\MilestonES\Interfaces\Identifies;
 
 /**
  * Class SerializationStrategy
@@ -20,16 +19,16 @@ class SerializationStrategy
 	/** @var SerializerRegistry */
 	private $registry;
 
-	/** @var Identifies */
+	/** @var Contract */
 	private $default_contract;
 
 	/**
 	 * @param SerializerRegistry $registry
-	 * @param Identifies         $default_contract
+	 * @param Contract           $default_contract
 	 *
 	 * @throws DefaultSerializationContractIsNotRegistered
 	 */
-	public function __construct( SerializerRegistry $registry, Identifies $default_contract )
+	public function __construct( SerializerRegistry $registry, Contract $default_contract )
 	{
 		$this->registry         = $registry;
 		$this->default_contract = $default_contract;
@@ -47,18 +46,18 @@ class SerializationStrategy
 	}
 
 	/**
-	 * @param Identifies $contract
+	 * @param Contract $contract
 	 *
 	 * @throws Exceptions\SerializationContractIsNotRegistered
 	 * @return Interfaces\SerializesData
 	 */
-	public function getSerializerForContract( Identifies $contract )
+	public function getSerializerForContract( Contract $contract )
 	{
 		return $this->registry->getSerializerForContract( $contract );
 	}
 
 	/**
-	 * @return Identifies
+	 * @return Contract
 	 */
 	public function getDefaultContract()
 	{

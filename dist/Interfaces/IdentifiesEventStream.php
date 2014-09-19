@@ -21,5 +21,5 @@ interface IdentifiesEventStream
 	/**
 	 * @return Identifies
 	 */
-	public function getStreamTypeId();
+	public function getStreamIdContract();
 }

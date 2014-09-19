@@ -6,6 +6,8 @@
 
 namespace hollodotme\MilestonES\Interfaces;
 
+use hollodotme\MilestonES\Contract;
+
 /**
  * Interface RepresentsEvent
  *
@@ -19,9 +21,9 @@ interface RepresentsEvent
 	public function getStreamId();
 
 	/**
-	 * @return string
+	 * @return Contract
 	 */
-	public function getName();
+	public function getContract();
 
 	/**
 	 * @param \DateTime $occured_on
@@ -33,6 +35,9 @@ interface RepresentsEvent
 	 */
 	public function getOccuredOn();
 
+	/**
+	 * @return mixed
+	 */
 	public function getPayload();
 
 	/**
@@ -40,8 +45,19 @@ interface RepresentsEvent
 	 */
 	public function reconstituteFromPayload( $payload );
 
+	/**
+	 * @return mixed
+	 */
 	public function getMetaData();
 
+	/**
+	 * @param mixed $meta_data
+	 */
+	public function reconstituteFromMetaData( $meta_data );
+
+	/**
+	 * @return int
+	 */
 	public function getVersion();
 
 	/**

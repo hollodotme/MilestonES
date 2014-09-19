@@ -4,36 +4,18 @@
     <title></title>
 </head>
 <body>
-<h2 id="hollodotme\MilestonES\Test\Unit\Persistance\MemoryTest">
-    hollodotme\MilestonES\Test\Unit\Persistance\Memory
+<h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventEnvelopeMapperTest">
+	hollodotme\MilestonES\Test\Unit\EventStore\EventEnvelopeMapper
 </h2>
 <ul>
-    <li>Is not in transaction after construction
-    </li>
-    <li>Begin transaction
-    </li>
-    <li>Begin transaction fails when transacion is already started
-    </li>
-    <li>Commit transaction
-    </li>
-    <li>Commit transaction fails when transaction is not started
-    </li>
-    <li>Rollback transaction
-    </li>
-    <li>Rollback transaction fails when no transaction is started
-    </li>
-    <li>Commit transaction fails when transaction is rolled back
-    </li>
-    <li>Rollback transaction fails when transaction is committed
-    </li>
-    <li>Persist event envelope
-    </li>
-    <li>Persist event envelope fails when not in transaction
-    </li>
-    <li>Get event envelopes with id
-    </li>
-    <li>Get event envelopes with id fails when stream id not found
-    </li>
+	<li>Put event in envelope for commit
+	</li>
+	<li>Extract event from envelope
+	</li>
+	<li>Extract event from envelope fails when event class does not exist
+	</li>
+	<li>Extract event from envelope fails when stream id class does not exist
+	</li>
 </ul>
 </body>
 </html>

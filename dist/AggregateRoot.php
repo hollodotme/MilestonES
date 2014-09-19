@@ -9,9 +9,9 @@ namespace hollodotme\MilestonES;
 use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
 use hollodotme\MilestonES\Events\MetaDataOfEvent;
 use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
-use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 use hollodotme\MilestonES\Interfaces\HasIdentity;
 use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 use hollodotme\MilestonES\Interfaces\TracksChanges;
 
 /**
@@ -109,7 +109,7 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	 */
 	protected function applyChange( RepresentsEvent $event )
 	{
-		$method_name = 'when' . $event->getName();
+		$method_name = 'when' . $event->getContract();
 		if ( is_callable( [$this, $method_name] ) )
 		{
 			$this->{$method_name}( $event );

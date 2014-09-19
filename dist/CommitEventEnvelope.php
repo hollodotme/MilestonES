@@ -7,7 +7,6 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
-use hollodotme\MilestonES\Interfaces\Identifies;
 
 /**
  * Class CommitEventEnvelope
@@ -20,20 +19,20 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	/** @var int */
 	private $id;
 
-	/** @var Identifies */
+	/** @var string */
 	private $commit_id;
 
-	/** @var Identifies */
+	/** @var string */
 	private $stream_id;
 
-	/** @var Identifies */
+	/** @var string */
 	private $stream_type_id;
 
 	/** @var int */
 	private $version;
 
 	/** @var string */
-	private $event_name;
+	private $event_contract;
 
 	/** @var string */
 	private $payload;
@@ -54,7 +53,7 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	private $committed_on;
 
 	/**
-	 * @return int
+	 * @return int|null
 	 */
 	public function getId()
 	{
@@ -62,15 +61,15 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param Identifies $stream_id
+	 * @param string $stream_id
 	 */
-	public function setStreamId( Identifies $stream_id )
+	public function setStreamId( $stream_id )
 	{
-		$this->stream_id = $stream_id;
+		$this->stream_id = (string)$stream_id;
 	}
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
 	public function getStreamId()
 	{
@@ -78,17 +77,17 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param Identifies $stream_type_id
+	 * @param string $stream_id_contract
 	 */
-	public function setStreamTypeId( Identifies $stream_type_id )
+	public function setStreamIdContract( $stream_id_contract )
 	{
-		$this->stream_type_id = $stream_type_id;
+		$this->stream_type_id = (string)$stream_id_contract;
 	}
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
-	public function getStreamTypeId()
+	public function getStreamIdContract()
 	{
 		return $this->stream_type_id;
 	}
@@ -110,15 +109,15 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param Identifies $commit_id
+	 * @param string $commit_id
 	 */
-	public function setCommitId( Identifies $commit_id )
+	public function setCommitId( $commit_id )
 	{
-		$this->commit_id = $commit_id;
+		$this->commit_id = (string)$commit_id;
 	}
 
 	/**
-	 * @return Identifies
+	 * @return string
 	 */
 	public function getCommitId()
 	{
@@ -128,27 +127,30 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	/**
 	 * @return string
 	 */
-	public function getEventName()
+	public function getEventContract()
 	{
-		return $this->event_name;
+		return $this->event_contract;
 	}
 
 	/**
-	 * @param string $event_name
+	 * @param string $event_contract
 	 */
-	public function setEventName( $event_name )
+	public function setEventContract( $event_contract )
 	{
-		$this->event_name = $event_name;
+		$this->event_contract = (string)$event_contract;
 	}
 
 	/**
-	 * @param $payload
+	 * @param string $payload
 	 */
 	public function setPayload( $payload )
 	{
 		$this->payload = $payload;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getPayload()
 	{
 		return $this->payload;
@@ -170,11 +172,17 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 		return $this->payload_contract;
 	}
 
+	/**
+	 * @param string $meta_data
+	 */
 	public function setMetaData( $meta_data )
 	{
 		$this->meta_data = $meta_data;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getMetaData()
 	{
 		return $this->meta_data;
