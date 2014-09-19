@@ -33,7 +33,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider serializeProvider
 	 */
-	public function testUnserializeDataInvertsSerializeData( $data )
+	public function testUnserializeDataInvertsSerializedData( $data )
 	{
 		$serializer = new JsonSerializer();
 

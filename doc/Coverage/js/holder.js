@@ -111,7 +111,7 @@ var Holder = Holder || {};
 					size: settings.themes.gray.size,
 					foreground: "#" + exec[2],
 					background: "#" + exec[1]
-				}
+			}
 			}
 		},
 		text:       {
@@ -158,7 +158,7 @@ var Holder = Holder || {};
 		//IE throws an exception if this is set and Chrome requires it to be set
 		if (svg.webkitMatchesSelector) {
 			svg.setAttribute("xmlns", "http://www.w3.org/2000/svg")
-		}
+	}
 		var bg_el = document.createElementNS(svg_ns, "rect")
 		var text_el = document.createElementNS(svg_ns, "text")
 		var textnode_el = document.createTextNode(null)
@@ -184,7 +184,7 @@ var Holder = Holder || {};
 				"dominant-baseline": "central"
 			}))
 			return serializer.serializeToString(svg)
-		}
+	}
 	})()
 
 	function css_properties(props) {
@@ -227,7 +227,7 @@ var Holder = Holder || {};
 		else if (exact && holder.exact_dimensions) {
 			var dimensions = holder.exact_dimensions;
 			text = (Math.floor(dimensions.width) + "x" + Math.floor(dimensions.height));
-		}
+	}
 		var text_width = ctx.measureText(text).width;
 		if (text_width / width >= 0.75) {
 			text_height = Math.floor(text_height * 0.75 * (width / text_width));
@@ -260,7 +260,7 @@ var Holder = Holder || {};
 		else if (exact && holder.exact_dimensions) {
 			var dimensions = holder.exact_dimensions;
 			text = (Math.floor(dimensions.width) + "x" + Math.floor(dimensions.height));
-		}
+	}
 		var string = svg_el({
 			text:        text,
 			width:       width,
@@ -278,7 +278,7 @@ var Holder = Holder || {};
 	}
 		else {
 			return draw_svg(args);
-		}
+	}
 	}
 
 	function render(mode, el, holder, src) {
@@ -353,7 +353,7 @@ var Holder = Holder || {};
 		if (!dimensions.height && !dimensions.width) {
 			el.setAttribute("data-holder-invisible", true)
 			callback.call(this, el)
-		}
+	}
 		else {
 			el.removeAttribute("data-holder-invisible")
 			return dimensions;
@@ -568,7 +568,7 @@ var Holder = Holder || {};
 				if (holder) {
 					render("background", bgnodes[i], holder, src);
 			}
-			}
+		}
 		}
 		for (l = images.length, i = 0; i < l; i++) {
 			var attr_data_src, attr_src;
@@ -615,7 +615,7 @@ var Holder = Holder || {};
 	if (typeof define === "function" && define.amd) {
 		define([], function () {
 			return app;
-		});
+	});
 	}
 
 //github.com/davidchambers/Base64.js

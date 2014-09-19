@@ -23,17 +23,17 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider unserializeProvider
 	 */
-	public function testUnserializeData( $json_string, $expected_data )
+	public function testUnserializeData( $string, $expected_data )
 	{
 		$serializer = new PhpSerializer();
 
-		$this->assertEquals( $expected_data, $serializer->unserializeData( $json_string ) );
+		$this->assertEquals( $expected_data, $serializer->unserializeData( $string ) );
 	}
 
 	/**
 	 * @dataProvider serializeProvider
 	 */
-	public function testUnserializeDataInvertsSerializeData( $data )
+	public function testUnserializeDataInvertsSerializedData( $data )
 	{
 		$serializer = new PhpSerializer();
 

@@ -593,9 +593,7 @@ svg .title {
 
 .nvd3.nv-bullet .nv-title {
 	font-size: 14px;
-	font-weight: bold;
-}
-
+	font-weight: bold; }
 .nvd3.nv-bullet .nv-subtitle { fill: #999; }
 
 
@@ -638,9 +636,9 @@ svg .title {
 
 .nvd3.nv-sparklineplus .nv-xValue,
 .nvd3.nv-sparklineplus .nv-yValue {
-	/*
-	  stroke: #666;
-	  */
+  /*
+  stroke: #666;
+  */
   stroke-width: 0;
   font-size: .9em;
   font-weight: normal;
@@ -762,15 +760,15 @@ svg .title {
 */
 
 .nvd3 .background path {
-	fill: none;
+  fill: none;
   stroke: #ccc;
   stroke-opacity: .4;
   shape-rendering: crispEdges;
 }
 
 .nvd3 .foreground path {
-	fill: none;
-	stroke: steelblue;
+  fill: none;
+  stroke: steelblue;
   stroke-opacity: .7;
 }
 
