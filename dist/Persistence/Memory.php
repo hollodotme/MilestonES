@@ -9,7 +9,6 @@ namespace hollodotme\MilestonES\Persistence;
 use hollodotme\MilestonES\Exceptions\EventStreamDoesNotExistForKey;
 use hollodotme\MilestonES\Exceptions\PersistenceHasNoTransactionStarted;
 use hollodotme\MilestonES\Exceptions\PersistenceHasStartedTransactionAlready;
-use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
@@ -117,12 +116,12 @@ class Memory implements PersistsEventEnvelopes
 	}
 
 	/**
-	 * @param Identifies $stream_type
-	 * @param Identifies $stream_id
+	 * @param string $stream_type
+	 * @param string $stream_id
 	 *
 	 * @return string
 	 */
-	private function buildKey( Identifies $stream_type, Identifies $stream_id )
+	private function buildKey( $stream_type, $stream_id )
 	{
 		return $stream_type . '#' . $stream_id;
 	}

@@ -596,14 +596,13 @@ svg .title {
 	font-weight: bold;
 }
 
-.nvd3.nv-bullet .nv-subtitle { fill: #999999;
-}
+.nvd3.nv-bullet .nv-subtitle { fill: #999; }
+
 
 .nvd3.nv-bullet .nv-range {
   fill: #bababa;
   fill-opacity: .4;
 }
-
 .nvd3.nv-bullet .nv-range:hover {
   fill-opacity: .7;
 }
@@ -642,7 +641,7 @@ svg .title {
 	/*
 	  stroke: #666;
 	  */
-	stroke-width: 0;
+  stroke-width: 0;
   font-size: .9em;
   font-weight: normal;
 }
@@ -695,7 +694,7 @@ svg .title {
 }
 
 .nvd3.nv-historicalStockChart .nv-dragTarget {
-	fill-opacity: 0;
+  fill-opacity: 0;
   stroke: none;
   cursor: move;
 }
@@ -708,8 +707,8 @@ svg .title {
 }
 
 .nvd3 .nv-brushBackground rect {
-	stroke: #000000;
-	stroke-width: .4;
+  stroke: #000;
+  stroke-width: .4;
   fill: #fff;
   fill-opacity: .7;
 }
@@ -734,9 +733,10 @@ svg .title {
 }
 
 .nvd3.nv-indentedtree span.clickable:hover {
-	color: #005580;
+  color: #005580;
   text-decoration: underline;
 }
+
 
 .nvd3.nv-indentedtree .nv-childrenCount {
   display: inline-block;
@@ -744,14 +744,14 @@ svg .title {
 }
 
 .nvd3.nv-indentedtree .nv-treeicon {
-	cursor: pointer;
+  cursor: pointer;
   /*
   cursor: n-resize;
   */
 }
 
 .nvd3.nv-indentedtree .nv-treeicon.nv-folded {
-	cursor: pointer;
+  cursor: pointer;
   /*
   cursor: s-resize;
   */
@@ -763,25 +763,25 @@ svg .title {
 
 .nvd3 .background path {
 	fill: none;
-	stroke: #cccccc;
-	stroke-opacity: .4;
+  stroke: #ccc;
+  stroke-opacity: .4;
   shape-rendering: crispEdges;
 }
 
 .nvd3 .foreground path {
 	fill: none;
-  stroke: steelblue;
-	stroke-opacity: .7;
+	stroke: steelblue;
+  stroke-opacity: .7;
 }
 
 .nvd3 .brush .extent {
-	fill-opacity: .3;
+  fill-opacity: .3;
   stroke: #fff;
   shape-rendering: crispEdges;
 }
 
 .nvd3 .axis line, .axis path {
-	fill: none;
+  fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
@@ -794,7 +794,7 @@ svg .title {
 Interactive Layer
 */
 .nvd3 .nv-interactiveGuideLine {
-  pointer-events: none;
+  pointer-events:none;
 }
 .nvd3 line.nv-guideline {
   stroke: #ccc;

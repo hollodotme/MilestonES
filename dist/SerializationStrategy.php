@@ -11,7 +11,7 @@ use hollodotme\MilestonES\Exceptions\DefaultSerializationContractIsNotRegistered
 /**
  * Class SerializationStrategy
  *
-*@package hollodotme\MilestonES
+ * @package hollodotme\MilestonES
  */
 class SerializationStrategy
 {

@@ -26,10 +26,10 @@ var Holder = Holder || {};
 		if (canvas.toDataURL("image/png")
 				.indexOf("data:image/png") < 0) {
 			//Android doesn't support data URI
-			system_config.use_fallback = true;
-		} else {
+		system_config.use_fallback = true;
+	} else {
 			var ctx = canvas.getContext("2d");
-		}
+	}
 	}
 
 	if (!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect) {
@@ -53,27 +53,27 @@ var Holder = Holder || {};
 				background: "#eee",
 				foreground: "#aaa",
 				size:       12
-			},
+		},
 			"social":     {
 				background: "#3a5a97",
 				foreground: "#fff",
 				size:       12
-			},
+		},
 			"industrial": {
 				background: "#434A52",
 				foreground: "#C2F200",
 				size:       12
-			},
+		},
 			"sky":        {
 				background: "#0D8FDB",
 				foreground: "#fff",
 				size:       12
-			},
+		},
 			"vine":       {
 				background: "#39DBAC",
 				foreground: "#1E292C",
 				size:       12
-			},
+		},
 			"lava":       {
 				background: "#F8591A",
 				foreground: "#1C2846",
@@ -90,7 +90,7 @@ var Holder = Holder || {};
 				return {
 					width:  +exec[1],
 					height: +exec[2]
-				}
+			}
 			}
 		},
 		fluid:      {
@@ -100,8 +100,8 @@ var Holder = Holder || {};
 				return {
 					width:  exec[1],
 					height: exec[2]
-				}
 			}
+		}
 		},
 		colors:     {
 			regex:  /#([0-9a-f]{3,})\:#([0-9a-f]{3,})/i,
@@ -134,7 +134,7 @@ var Holder = Holder || {};
 			output: function (val) {
 				return this.regex.exec(val)[1];
 			}
-		}
+	}
 	}
 
 	function text_size(width, height, template) {
@@ -146,7 +146,7 @@ var Holder = Holder || {};
 		var newHeight = Math.min(smallSide * 0.75, 0.75 * bigSide * scale);
 		return {
 			height: Math.round(Math.max(template.size, newHeight))
-		}
+	}
 	}
 
 	var svg_el = (function () {
@@ -192,8 +192,8 @@ var Holder = Holder || {};
 		for (p in props) {
 			if (props.hasOwnProperty(p)) {
 				ret.push(p + ":" + props[p])
-			}
 		}
+	}
 		return ret.join(";")
 	}
 
@@ -223,7 +223,7 @@ var Holder = Holder || {};
 		if (literal) {
 			var dimensions = holder.dimensions;
 			text = dimensions.width + "x" + dimensions.height;
-		}
+	}
 		else if (exact && holder.exact_dimensions) {
 			var dimensions = holder.exact_dimensions;
 			text = (Math.floor(dimensions.width) + "x" + Math.floor(dimensions.height));
@@ -256,7 +256,7 @@ var Holder = Holder || {};
 		if (literal) {
 			var dimensions = holder.dimensions;
 			text = dimensions.width + "x" + dimensions.height;
-		}
+	}
 		else if (exact && holder.exact_dimensions) {
 			var dimensions = holder.exact_dimensions;
 			text = (Math.floor(dimensions.width) + "x" + Math.floor(dimensions.height));
@@ -275,7 +275,7 @@ var Holder = Holder || {};
 	function draw(args) {
 		if (instance_config.use_canvas && !instance_config.use_svg) {
 			return draw_canvas(args);
-		}
+	}
 		else {
 			return draw_svg(args);
 		}
@@ -308,16 +308,16 @@ var Holder = Holder || {};
 				el.setAttribute("src", draw({ctx: ctx, dimensions: dimensions, template: theme, ratio: ratio, holder: holder}));
 
 				if (holder.textmode && holder.textmode == "exact") {
-					resizable_images.push(el);
-					resizable_update(el);
-				}
-
+				resizable_images.push(el);
+				resizable_update(el);
 			}
+
+		}
 		} else if (mode == "background") {
 			if (!instance_config.use_fallback) {
 				el.style.backgroundImage = "url(" + draw({ctx: ctx, dimensions: dimensions, template: theme, ratio: ratio, holder: holder}) + ")";
 				el.style.backgroundSize = dimensions.width + "px " + dimensions.height + "px";
-			}
+		}
 		} else if (mode == "fluid") {
 			el.setAttribute("alt", text ? text : theme.text ? theme.text + " [" + dimensions_caption + "]" : dimensions_caption);
 			if (dimensions.height.slice(-1) == "%") {
@@ -342,7 +342,7 @@ var Holder = Holder || {};
 				resizable_images.push(el);
 				resizable_update(el);
 			}
-		}
+	}
 	}
 
 	function dimension_check(el, callback) {
@@ -370,7 +370,7 @@ var Holder = Holder || {};
 					fluid_height: holder.dimensions.height.slice(-1) == "%",
 					fluid_width: holder.dimensions.width.slice(-1) == "%",
 					mode: null
-				}
+			}
 				if (holder.fluid_data.fluid_width && !holder.fluid_data.fluid_height) {
 					holder.fluid_data.mode = "width"
 					holder.fluid_data.ratio = holder.initial_dimensions.width / parseFloat(holder.dimensions.height)
@@ -379,8 +379,8 @@ var Holder = Holder || {};
 					holder.fluid_data.mode = "height";
 					holder.fluid_data.ratio = parseFloat(holder.dimensions.width) / holder.initial_dimensions.height
 				}
-			}
 		}
+	}
 	}
 
 	function resizable_update(element) {
@@ -393,7 +393,7 @@ var Holder = Holder || {};
 		for (var i in images) {
 			if (!images.hasOwnProperty(i)) {
 				continue;
-			}
+		}
 			var el = images[i]
 			if (el.holder_data) {
 				var holder = el.holder_data;
@@ -408,8 +408,8 @@ var Holder = Holder || {};
 								case "height":
 									dimensions.width = dimensions.height * holder.fluid_data.ratio;
 									break;
-							}
 						}
+					}
 						el.setAttribute("src", draw({
 							ctx:        ctx,
 							dimensions: dimensions,
@@ -417,7 +417,7 @@ var Holder = Holder || {};
 							ratio:      ratio,
 							holder:     holder
 						}))
-					}
+				}
 					if (holder.textmode && holder.textmode == "exact") {
 						holder.exact_dimensions = dimensions;
 						el.setAttribute("src", draw({
@@ -428,9 +428,9 @@ var Holder = Holder || {};
 							holder:     holder
 						}))
 					}
-				}
 			}
 		}
+	}
 	}
 
 	function parse_flags(flags, options) {
@@ -455,15 +455,15 @@ var Holder = Holder || {};
 				//If a theme is specified, it will override custom colors
 				if (options.themes.hasOwnProperty(flag)) {
 					ret.theme = extend(options.themes[flag], {});
-				}
+			}
 			} else if (app.flags.font.match(flag)) {
 				ret.font = app.flags.font.output(flag);
 			} else if (app.flags.auto.match(flag)) {
 				ret.auto = true;
 			} else if (app.flags.text.match(flag)) {
 				ret.text = app.flags.text.output(flag);
-			}
 		}
+	}
 		return render ? ret : false;
 	}
 
@@ -471,15 +471,15 @@ var Holder = Holder || {};
 		if (!app.flags.hasOwnProperty(flag)) continue;
 		app.flags[flag].match = function (val) {
 			return val.match(this.regex)
-		}
+	}
 	}
 
 	app.invisible_error_fn = function (fn) {
 		return function (el) {
 			if (el.hasAttribute("data-holder-invisible")) {
 				throw new Error("Holder: invisible placeholder")
-			}
 		}
+	}
 	}
 
 	app.add_theme = function (name, theme) {
@@ -494,7 +494,7 @@ var Holder = Holder || {};
 				var img = document.createElement("img")
 				img.setAttribute("data-src", src);
 				node[i].appendChild(img);
-			}
+		}
 		}
 		return app;
 	};
@@ -547,8 +547,8 @@ var Holder = Holder || {};
 			} else {
 				if (options.stylesheet.length) {
 					holdercss.appendChild(document.createTextNode(options.stylesheet));
-				}
 			}
+		}
 		}
 
 		var cssregex = new RegExp(options.domain + "\/(.*?)\"?\\)");
@@ -561,13 +561,13 @@ var Holder = Holder || {};
 				var holder = parse_flags(flags[1].split("/"), options);
 				if (holder) {
 					render("background", bgnodes[i], holder, src);
-				}
+			}
 			} else if (bgsrc != null) {
 				var holder = parse_flags(bgsrc.substr(bgsrc.lastIndexOf(options.domain) + options.domain.length + 1)
 					.split("/"), options);
 				if (holder) {
 					render("background", bgnodes[i], holder, src);
-				}
+			}
 			}
 		}
 		for (l = images.length, i = 0; i < l; i++) {
@@ -590,9 +590,9 @@ var Holder = Holder || {};
 						render("fluid", images[i], holder, src)
 					} else {
 						render("image", images[i], holder, src);
-					}
 				}
 			}
+		}
 		}
 		return app;
 	};
@@ -610,7 +610,7 @@ var Holder = Holder || {};
 			document.addEventListener("page:change", function () {
 				app.run({})
 			})
-		}
+	}
 	});
 	if (typeof define === "function" && define.amd) {
 		define([], function () {
@@ -699,13 +699,13 @@ var Holder = Holder || {};
 		for (var i in a) {
 			if (a.hasOwnProperty(i)) {
 				c[i] = a[i];
-			}
+		}
 		}
 		for (var i in b) {
 			if (b.hasOwnProperty(i)) {
 				c[i] = b[i];
-			}
 		}
+	}
 		return c
 	}
 

@@ -22,14 +22,14 @@ class EventEnvelopeMapper
 {
 
 	/** @var SerializationStrategy */
-	private $serialization_strategry;
+	private $serialization_strategy;
 
 	/**
 	 * @param SerializationStrategy $serialization_strategy
 	 */
 	public function __construct( SerializationStrategy $serialization_strategy )
 	{
-		$this->serialization_strategry = $serialization_strategy;
+		$this->serialization_strategy = $serialization_strategy;
 	}
 
 	/**
@@ -202,7 +202,7 @@ class EventEnvelopeMapper
 	 */
 	private function getPayloadContract()
 	{
-		return $this->serialization_strategry->getDefaultContract();
+		return $this->serialization_strategy->getDefaultContract();
 	}
 
 	/**
@@ -210,7 +210,7 @@ class EventEnvelopeMapper
 	 */
 	private function getMetaDataContract()
 	{
-		return $this->serialization_strategry->getDefaultContract();
+		return $this->serialization_strategy->getDefaultContract();
 	}
 
 	/**
@@ -246,6 +246,6 @@ class EventEnvelopeMapper
 	 */
 	private function getSerializerForContract( Contract $contract )
 	{
-		return $this->serialization_strategry->getSerializerForContract( $contract );
+		return $this->serialization_strategy->getSerializerForContract( $contract );
 	}
 }
