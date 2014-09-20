@@ -61,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hollodotme/Utilities.git",
-                "reference": "933dda440f06797e58454087330faa69966cc2f6"
+                "reference": "f3fedcaea5b3c594cd8a1619bdd9b0b60a7bd469"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/933dda440f06797e58454087330faa69966cc2f6",
-                "reference": "933dda440f06797e58454087330faa69966cc2f6",
+                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/f3fedcaea5b3c594cd8a1619bdd9b0b60a7bd469",
+                "reference": "f3fedcaea5b3c594cd8a1619bdd9b0b60a7bd469",
                 "shasum": ""
             },
             "type": "library",
@@ -87,7 +87,7 @@
                 }
             ],
             "description": "Simple utilities to include",
-            "time": "2014-09-13 18:43:06"
+            "time": "2014-09-20 22:17:10"
         },
         {
             "name": "moontoast/math",
