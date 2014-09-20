@@ -6,6 +6,7 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Exceptions\IdentifierArgumentIsNotScalar;
 use hollodotme\MilestonES\Interfaces\Identifies;
 
 /**
@@ -24,15 +25,17 @@ class Identifier implements Identifies
 	/**
 	 * @param string $id
 	 */
-	public function __construct( $id )
+	final public function __construct( $id )
 	{
-		$this->id = $id;
+		$this->guardScalar( $id );
+
+		$this->id = $this->getIdAsString( $id );
 	}
 
 	/**
 	 * @return string
 	 */
-	public function __toString()
+	final public function __toString()
 	{
 		return $this->toString();
 	}
@@ -63,5 +66,28 @@ class Identifier implements Identifies
 	public static function fromString( $string )
 	{
 		return new static( $string );
+	}
+
+	/**
+	 * @param mixed $id
+	 *
+	 * @throws IdentifierArgumentIsNotScalar
+	 */
+	private function guardScalar( $id )
+	{
+		if ( !is_scalar( $id ) || is_bool( $id ) )
+		{
+			throw new IdentifierArgumentIsNotScalar( gettype( $id ) );
+		}
+	}
+
+	/**
+	 * @param mixed $id
+	 *
+	 * @return string
+	 */
+	private function getIdAsString( $id )
+	{
+		return strval( $id );
 	}
 }

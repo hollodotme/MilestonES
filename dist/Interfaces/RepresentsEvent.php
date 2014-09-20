@@ -36,24 +36,24 @@ interface RepresentsEvent
 	public function getOccuredOn();
 
 	/**
-	 * @return mixed
+	 * @return \stdClass
 	 */
-	public function getPayload();
+	public function getPayloadDTO();
 
 	/**
-	 * @param mixed $payload
+	 * @param \stdClass $payload_dto
 	 */
-	public function reconstituteFromPayload( $payload );
+	public function setPayloadDTO( \stdClass $payload_dto );
 
 	/**
-	 * @return mixed
+	 * @return \stdClass
 	 */
-	public function getMetaData();
+	public function getMetaDTO();
 
 	/**
-	 * @param mixed $meta_data
+	 * @param \stdClass $meta_dto
 	 */
-	public function reconstituteFromMetaData( $meta_data );
+	public function setMetaDTO( \stdClass $meta_dto );
 
 	/**
 	 * @return int

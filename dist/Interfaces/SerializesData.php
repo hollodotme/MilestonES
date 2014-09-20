@@ -13,16 +13,16 @@ namespace hollodotme\MilestonES\Interfaces;
 interface SerializesData
 {
 	/**
-	 * @param mixed $data
+	 * @param \stdClass $data
 	 *
 	 * @return string
 	 */
-	public function serializeData( $data );
+	public function serializeData( \stdClass $data );
 
 	/**
 	 * @param string $serialized_data
 	 *
-	 * @return mixed
+	 * @return \stdClass
 	 */
 	public function unserializeData( $serialized_data );
 }

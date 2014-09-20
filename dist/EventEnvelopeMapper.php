@@ -42,9 +42,9 @@ class EventEnvelopeMapper
 	{
 		$stream_identifier  = $this->getStreamIdentifierForEvent( $event );
 		$payload_contract   = $this->getPayloadContract( $event );
-		$payload_data       = $this->serializeDataFromEventWithContract( $event->getPayload(), $payload_contract );
+		$payload_data = $this->serializeDataFromEventWithContract( $event->getPayloadDTO(), $payload_contract );
 		$meta_data_contract = $this->getMetaDataContract( $event );
-		$meta_data          = $this->serializeDataFromEventWithContract( $event->getMetaData(), $meta_data_contract );
+		$meta_data = $this->serializeDataFromEventWithContract( $event->getMetaDTO(), $meta_data_contract );
 
 		$envelope = new CommitEventEnvelope();
 		$envelope->setCommitId( $commit->getId() );
@@ -82,8 +82,8 @@ class EventEnvelopeMapper
 
 		$event->setVersion( $envelope->getVersion() );
 		$event->setOccuredOn( $envelope->getOccuredOn() );
-		$event->reconstituteFromPayload( $payload );
-		$event->reconstituteFromMetaData( $meta_data );
+		$event->setPayloadDTO( $payload );
+		$event->setMetaDTO( $meta_data );
 
 		return $event;
 	}

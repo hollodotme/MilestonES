@@ -13,7 +13,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider serializeProvider
 	 */
-	public function testSerializeData( $data, $expected_json_string )
+	public function testSerializeData( \stdClass $data, $expected_json_string )
 	{
 		$serializer = new JsonSerializer();
 
@@ -23,7 +23,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider unserializeProvider
 	 */
-	public function testUnserializeData( $json_string, $expected_data )
+	public function testUnserializeData( $json_string, \stdClass $expected_data )
 	{
 		$serializer = new JsonSerializer();
 
@@ -33,7 +33,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider serializeProvider
 	 */
-	public function testUnserializeDataInvertsSerializedData( $data )
+	public function testUnserializeDataInvertsSerializedData( \stdClass $data )
 	{
 		$serializer = new JsonSerializer();
 
@@ -45,10 +45,9 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 		$object      = new \stdClass();
 		$object->key = "value";
 
-		return array(
-			array(array("value"), '["value"]'),
-			array($object, '{"key":"value"}'),
-		);
+		return [
+			[ $object, '{"key":"value"}' ],
+		];
 	}
 
 	public function unserializeProvider()
@@ -56,10 +55,8 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 		$object      = new \stdClass();
 		$object->key = "value";
 
-		return array(
-			array('{"key":"value"}', $object),
-			array('["value"]', array("value")),
-		);
+		return [
+			[ '{"key":"value"}', $object ],
+		];
 	}
 }
- 

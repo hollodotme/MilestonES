@@ -10,6 +10,7 @@ use hollodotme\MilestonES\Events\BaseEvent;
 
 /**
  * Class TestEvent
+ *
  * @package hollodotme\MilestonES\Test\Unit
  */
 class TestEvent extends BaseEvent
@@ -23,7 +24,7 @@ class TestEvent extends BaseEvent
 	 */
 	public function getDescription()
 	{
-		return $this->description;
+		return $this->getPayloadDTO()->description;
 	}
 
 	/**
@@ -31,25 +32,6 @@ class TestEvent extends BaseEvent
 	 */
 	public function setDescription( $description )
 	{
-		$this->description = $description;
-	}
-
-	/**
-	 * @return \stdClass
-	 */
-	public function getPayload()
-	{
-		$payload              = new \stdClass();
-		$payload->description = $this->description;
-
-		return $payload;
-	}
-
-	/**
-	 * @param \stdClass $payload
-	 */
-	public function reconstituteFromPayload( $payload )
-	{
-		$this->description = $payload->description;
+		$this->getPayloadDTO()->description = $description;
 	}
 }

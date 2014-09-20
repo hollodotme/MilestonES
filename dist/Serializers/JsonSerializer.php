@@ -10,16 +10,17 @@ use hollodotme\MilestonES\Interfaces\SerializesData;
 
 /**
  * Class JsonSerializer
+ *
  * @package hollodotme\MilestonES\Serializers
  */
 class JsonSerializer implements SerializesData
 {
 	/**
-	 * @param mixed $data
+	 * @param \stdClass $data
 	 *
 	 * @return string
 	 */
-	public function serializeData( $data )
+	public function serializeData( \stdClass $data )
 	{
 		return json_encode( $data );
 	}
@@ -27,7 +28,7 @@ class JsonSerializer implements SerializesData
 	/**
 	 * @param string $serialized_data
 	 *
-	 * @return mixed
+	 * @return \stdClass
 	 */
 	public function unserializeData( $serialized_data )
 	{

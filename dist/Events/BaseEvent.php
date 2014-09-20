@@ -30,6 +30,12 @@ abstract class BaseEvent implements Interfaces\RepresentsEvent
 	/** @var string */
 	private $creator;
 
+	/** @var \stdClass */
+	private $payload_dto;
+
+	/** @var \stdClass */
+	private $meta_dto;
+
 	/**
 	 * @param Interfaces\Identifies $id
 	 */
@@ -38,6 +44,9 @@ abstract class BaseEvent implements Interfaces\RepresentsEvent
 		$this->id         = $id;
 		$this->version    = 0;
 		$this->occured_on = new \DateTime( 'now' );
+
+		$this->payload_dto = new \stdClass();
+		$this->meta_dto    = new \stdClass();
 	}
 
 	/**
@@ -93,7 +102,7 @@ abstract class BaseEvent implements Interfaces\RepresentsEvent
 	 */
 	public function getCreator()
 	{
-		return $this->creator;
+		return $this->meta_dto->creator;
 	}
 
 	/**
@@ -101,25 +110,38 @@ abstract class BaseEvent implements Interfaces\RepresentsEvent
 	 */
 	public function setCreator( $creator )
 	{
-		$this->creator = $creator;
+		$this->meta_dto->creator = $creator;
 	}
 
 	/**
 	 * @return \stdClass
 	 */
-	public function getMetaData()
+	final public function getPayloadDTO()
 	{
-		$meta_data          = new \stdClass();
-		$meta_data->creator = $this->creator;
-
-		return $meta_data;
+		return $this->payload_dto;
 	}
 
 	/**
-	 * @param \stdClass $meta_data
+	 * @param \stdClass $payload_dto
 	 */
-	public function reconstituteFromMetaData( $meta_data )
+	final public function setPayloadDTO( \stdClass $payload_dto )
 	{
-		$this->creator = $meta_data->creator;
+		$this->payload_dto = $payload_dto;
+	}
+
+	/**
+	 * @return \stdClass
+	 */
+	final public function getMetaDTO()
+	{
+		return $this->meta_dto;
+	}
+
+	/**
+	 * @param \stdClass $meta_dto
+	 */
+	final public function setMetaDTO( \stdClass $meta_dto )
+	{
+		$this->meta_dto = $meta_dto;
 	}
 }
