@@ -57,4 +57,42 @@ class ClassNameIdentifierTest extends \PHPUnit_Framework_TestCase
 			[ 'Unit\\Test\\Class\\Name\\' ],
 		];
 	}
+
+	/**
+	 * @dataProvider canonicalFqcnProvider
+	 */
+	public function testClassNameIsReconstitutedFromCanonical( $canonical, $expected_fqcn )
+	{
+		$identifier = ClassNameIdentifier::fromString( $canonical );
+
+		$this->assertEquals( $expected_fqcn, $identifier->getFullQualifiedClassName() );
+	}
+
+	public function canonicalFqcnProvider()
+	{
+		return [
+			[ 'Unit.Test.Class', '\\Unit\\Test\\Class' ],
+			[ 'stdClass', '\\stdClass' ],
+			[ 'Unit_Test.Class_Name', '\\Unit_Test\\Class_Name' ],
+		];
+	}
+
+	/**
+	 * @dataProvider fqcnBasenameProvider
+	 */
+	public function testClassBasenameIsExtractedFromFcqn( $fcqn, $expected_basename )
+	{
+		$identifier = new ClassNameIdentifier( $fcqn );
+
+		$this->assertEquals( $expected_basename, $identifier->getClassBasename() );
+	}
+
+	public function fqcnBasenameProvider()
+	{
+		return [
+			[ '\\Unit\\Test\\Class', 'Class' ],
+			[ '\\stdClass', 'stdClass' ],
+			[ '\\Unit_Test\\Class_Name', 'Class_Name' ],
+		];
+	}
 }

@@ -17,12 +17,15 @@ use hollodotme\Utilities\String;
  */
 class ClassNameIdentifier extends Identifier
 {
+
+	const NS_SEPARATOR = '\\';
+
 	/**
 	 * @return string
 	 */
 	public function toString()
 	{
-		$canonical = ( new String( $this->id ) )->toCanonical( '\\' );
+		$canonical = ( new String( $this->id ) )->toCanonical( self::NS_SEPARATOR );
 
 		return (string)$canonical;
 	}
@@ -34,7 +37,7 @@ class ClassNameIdentifier extends Identifier
 	 */
 	public static function fromString( $string )
 	{
-		$string = ( new String( $string ) )->fromCanonical( '\\' );
+		$string = ( new String( $string ) )->fromCanonical( self::NS_SEPARATOR );
 
 		return parent::fromString( (string)$string );
 	}
@@ -44,7 +47,17 @@ class ClassNameIdentifier extends Identifier
 	 */
 	public function getFullQualifiedClassName()
 	{
-		return $this->id;
+		return self::NS_SEPARATOR . $this->id;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getClassBasename()
+	{
+		$parts = explode( self::NS_SEPARATOR, $this->id );
+
+		return end( $parts );
 	}
 
 	/**
