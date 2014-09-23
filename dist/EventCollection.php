@@ -6,6 +6,7 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Exceptions\ItemDoesNotRepresentAnEvent;
 use hollodotme\MilestonES\Interfaces;
 
 /**
@@ -17,9 +18,9 @@ class EventCollection implements Interfaces\CollectsEvents
 {
 
 	/**
-	 * @var array|Interfaces\RepresentsEvent[]
+	 * @var Interfaces\RepresentsEvent[]
 	 */
-	protected $events = [ ];
+	protected $events = [];
 
 	/**
 	 * @return bool
@@ -70,7 +71,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	 */
 	public function offsetExists( $offset )
 	{
-		return isset($this->events[ $offset ]);
+		return isset($this->events[$offset]);
 	}
 
 	/**
@@ -80,12 +81,32 @@ class EventCollection implements Interfaces\CollectsEvents
 	 */
 	public function offsetGet( $offset )
 	{
-		return $this->events[ $offset ];
+		if ( $this->offsetExists( $offset ) )
+		{
+			return $this->events[$offset];
+		}
+		else
+		{
+			return null;
+		}
 	}
 
+	/**
+	 * @param int|null                   $offset
+	 * @param Interfaces\RepresentsEvent $value
+	 */
 	public function offsetSet( $offset, $value )
 	{
-		$this->events[ $offset ] = $value;
+		$this->guardType( $value );
+
+		if ( is_null( $offset ) )
+		{
+			$this->events[] = $value;
+		}
+		else
+		{
+			$this->events[$offset] = $value;
+		}
 	}
 
 	/**
@@ -93,7 +114,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	 */
 	public function offsetUnset( $offset )
 	{
-		unset($this->events[ $offset ]);
+		unset($this->events[$offset]);
 	}
 
 	/**
@@ -102,5 +123,18 @@ class EventCollection implements Interfaces\CollectsEvents
 	public function count()
 	{
 		return count( $this->events );
+	}
+
+	/**
+	 * @param mixed $item
+	 *
+	 * @throws ItemDoesNotRepresentAnEvent
+	 */
+	private function guardType( $item )
+	{
+		if ( !($item instanceof Interfaces\RepresentsEvent) )
+		{
+			throw new ItemDoesNotRepresentAnEvent( gettype( $item ) );
+		}
 	}
 }

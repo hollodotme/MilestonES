@@ -4,37 +4,165 @@
     <title></title>
 </head>
 <body>
-<h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\ClassNameIdentifierTest">
-    hollodotme\MilestonES\Test\Unit\Identifiers\ClassNameIdentifier
+<h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventCollectionTest">
+	hollodotme\MilestonES\Test\Unit\EventStore\EventCollection
 </h2>
 <ul>
-    <li>Class name is represented as canonical string
-    </li>
-    <li>Construction fails on invalid class names
-    </li>
+	<li>Collection is empty after contruction
+	</li>
+	<li>Collection is not empty after adding events
+	</li>
+	<li>Adding an item fails when it is not an event representation
+	</li>
+	<li>Collection takes auto and concrete index
+	</li>
+	<li>Events can be removed from collection using unset
+	</li>
+	<li>Can loop multiple times over events in collection
+	</li>
+</ul>
+<h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventEnvelopeMapperTest">
+	hollodotme\MilestonES\Test\Unit\EventStore\EventEnvelopeMapper
+</h2>
+<ul>
+	<li>Put event in envelope for commit
+	</li>
+	<li>Extract event from envelope
+	</li>
+	<li>Extract event from envelope fails when event class does not exist
+	</li>
+	<li>Extract event from envelope fails when stream id class does not exist
+	</li>
+</ul>
+<h2 id="hollodotme\MilestonES\Test\Unit\EventStore\ImmutableEventCollectionTest">
+	hollodotme\MilestonES\Test\Unit\EventStore\ImmutableEventCollection
+</h2>
+<ul>
+	<li>Adding events by array access after construction fails
+	</li>
+	<li>Adding events by offset set after construction fails
+	</li>
+	<li>Removing an event by unset after construction fails
+	</li>
+	<li>Removing an event by offset unset after construction fails
+	</li>
+</ul>
+<h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\ClassNameIdentifierTest">
+	hollodotme\MilestonES\Test\Unit\Identifiers\ClassNameIdentifier
+</h2>
+<ul>
+	<li>Class name is represented as canonical string
+	</li>
+	<li>Construction fails on invalid class names
+	</li>
 </ul>
 <h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\IdentifierTest">
-    hollodotme\MilestonES\Test\Unit\Identifiers\Identifier
+	hollodotme\MilestonES\Test\Unit\Identifiers\Identifier
 </h2>
 <ul>
-    <li>Represents a string
-    </li>
-    <li>Numbers will be converted to strings
-    </li>
-    <li>Expressions as id will throw an exception
-    </li>
-    <li>Can be constructed from string
-    </li>
-    <li>Can be contructed from numbers
-    </li>
-    <li>Cannot be contructed from expressions
-    </li>
-    <li>Equals
-    </li>
-    <li>Equals fails on different classes
-    </li>
-    <li>Equals fails on different id string
-    </li>
+	<li>Represents a string
+	</li>
+	<li>Numbers will be converted to strings
+	</li>
+	<li>Expressions as id will throw an exception
+	</li>
+	<li>Can be constructed from string
+	</li>
+	<li>Can be contructed from numbers
+	</li>
+	<li>Cannot be contructed from expressions
+	</li>
+	<li>Equals
+	</li>
+	<li>Equals fails on different classes
+	</li>
+	<li>Equals fails on different id string
+	</li>
+</ul>
+<h2 id="hollodotme\MilestonES\Test\Unit\Persistance\MemoryTest">
+	hollodotme\MilestonES\Test\Unit\Persistance\Memory
+</h2>
+<ul>
+	<li>Is not in transaction after construction
+	</li>
+	<li>Begin transaction
+	</li>
+	<li>Begin transaction fails when transacion is already started
+	</li>
+	<li>Commit transaction
+	</li>
+	<li>Commit transaction fails when transaction is not started
+	</li>
+	<li>Rollback transaction
+	</li>
+	<li>Rollback transaction fails when no transaction is started
+	</li>
+	<li>Commit transaction fails when transaction is rolled back
+	</li>
+	<li>Rollback transaction fails when transaction is committed
+	</li>
+	<li>Persist event envelope
+	</li>
+	<li>Persist event envelope fails when not in transaction
+	</li>
+	<li>Get event envelopes with id
+	</li>
+	<li>Get event envelopes with id fails when stream id not found
+	</li>
+	<li>Get event envelopes with id fails when envelopes are not committed
+	</li>
+</ul>
+<h2 id="hollodotme\MilestonES\Test\Unit\Serialization\JsonSerializerTest">
+	hollodotme\MilestonES\Test\Unit\Serialization\JsonSerializer
+</h2>
+<ul>
+	<li>Serialize data
+	</li>
+	<li>Unserialize data
+	</li>
+	<li>Unserialize data inverts serialized data
+	</li>
+</ul>
+<h2 id="hollodotme\MilestonES\Test\Unit\Serialization\PhpSerializerTest">
+	hollodotme\MilestonES\Test\Unit\Serialization\PhpSerializer
+</h2>
+<ul>
+	<li>Serialize data
+	</li>
+	<li>Unserialize data
+	</li>
+	<li>Unserialize data inverts serialized data
+	</li>
+</ul>
+<h2 id="hollodotme\MilestonES\Test\Unit\Serialization\SerializationStrategyTest">
+	hollodotme\MilestonES\Test\Unit\Serialization\SerializationStrategy
+</h2>
+<ul>
+	<li>Construction fails when default contract is not registered
+	</li>
+	<li>Get default serializer
+	</li>
+	<li>Get default contract
+	</li>
+	<li>Get serializer for contract
+	</li>
+	<li>Get serializer for contract fails when contract is not registered
+	</li>
+</ul>
+<h2 id="hollodotme\MilestonES\Test\Unit\Serialization\SerializerRegistryTest">
+	hollodotme\MilestonES\Test\Unit\Serialization\SerializerRegistry
+</h2>
+<ul>
+	<li>Can override serializer for same contract
+	</li>
+	<li>Can register same serializer for different contracts
+	</li>
+	<li>Is contract registered
+	</li>
+	<li>Get serializer for contract
+	</li>
+	<li>Get serializer for contract fails when contract is not registered
+	</li>
 </ul>
 </body>
 </html>
