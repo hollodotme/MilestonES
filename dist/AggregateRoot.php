@@ -7,8 +7,6 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
-use hollodotme\MilestonES\Events\MetaDataOfEvent;
-use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
 use hollodotme\MilestonES\Interfaces\HasIdentity;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\RepresentsEvent;
@@ -42,22 +40,19 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	}
 
 	/**
-	 * @throws AggregateRootsWithUncommittedChangesDetected
-	 */
-	public function __destruct()
-	{
-		if ( $this->hasChanges() )
-		{
-			throw new AggregateRootsWithUncommittedChangesDetected();
-		}
-	}
-
-	/**
 	 * @return Identifies
 	 */
 	final public function getIdentifier()
 	{
 		return $this->identifier;
+	}
+
+	/**
+	 * @return int
+	 */
+	final public function getVersion()
+	{
+		return $this->version;
 	}
 
 	/**
@@ -95,7 +90,7 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	/**
 	 * @param RepresentsEvent $event
 	 */
-	final public function trackThat( RepresentsEvent $event )
+	final protected function trackThat( RepresentsEvent $event )
 	{
 		$this->setNextVersionToEvent( $event );
 
@@ -109,8 +104,8 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	 */
 	protected function applyChange( RepresentsEvent $event )
 	{
-		$method_name = 'when' . $event->getContract();
-		if ( is_callable( [$this, $method_name] ) )
+		$method_name = 'when' . $event->getContract()->getClassBasename();
+		if ( is_callable( [ $this, $method_name ] ) )
 		{
 			$this->{$method_name}( $event );
 
@@ -160,10 +155,7 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	{
 		$instance = new static();
 
-		$meta_data = new MetaDataOfEvent();
-		$meta_data->setCaller( __METHOD__ );
-
-		$instance->trackThat( new AggregateRootWasAllocated( $id, $meta_data ) );
+		$instance->trackThat( new AggregateRootWasAllocated( $id ) );
 
 		return $instance;
 	}
