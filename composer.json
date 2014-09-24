@@ -3,7 +3,7 @@
 	"description":       "An event store with milestone optimization",
 	"tags": 			 ["milestone", "event store", "stream"],
 	"minimum-stability": "stable",
-	"license":           "proprietary",
+    "license": "MIT",
 	"authors":           [
 		{
 			"name":  "Holger Woltersdorf",
@@ -12,7 +12,6 @@
 	],
 
 	"require": {
-		"beberlei/assert": "dev-master",
 		"rhumsaa/uuid": "~2.7",
         "moontoast/math": "~1.1",
         "hollodotme/utilities": "dev-master"
