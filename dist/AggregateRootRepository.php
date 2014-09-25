@@ -6,8 +6,8 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
 use hollodotme\MilestonES\Interfaces\CommitsChanges;
+use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
 use hollodotme\MilestonES\Interfaces\UnitOfWork;
@@ -38,14 +38,6 @@ abstract class AggregateRootRepository implements CommitsChanges
 		$this->attachCommitedEventObserversToEventStore();
 	}
 
-	public function __destruct()
-	{
-		if ( $this->hasUncommittedChanges() )
-		{
-			throw new AggregateRootsWithUncommittedChangesDetected();
-		}
-	}
-
 	public function commitChanges()
 	{
 		$this->unit_of_work->commitChanges( $this->event_store );
@@ -73,11 +65,11 @@ abstract class AggregateRootRepository implements CommitsChanges
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
 	 * @return AggregateRoot
 	 */
-	public function getAggregateRootWithId( AggregateRootIdentifier $id )
+	public function getAggregateRootWithId( Identifies $id )
 	{
 		if ( $this->isAggregateRootAttached( $id ) )
 		{
@@ -117,32 +109,33 @@ abstract class AggregateRootRepository implements CommitsChanges
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
 	 * @return bool
 	 */
-	protected function isAggregateRootAttached( AggregateRootIdentifier $id )
+	protected function isAggregateRootAttached( Identifies $id )
 	{
 		return $this->unit_of_work->isAttached( $id );
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
 	 * @return AggregateRoot|null
 	 */
-	protected function getAttachedAggregateRoot( AggregateRootIdentifier $id )
+	protected function getAttachedAggregateRoot( Identifies $id )
 	{
 		return $this->unit_of_work->find( $id );
+
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
 	 * @return AggregateRoot
 	 */
-	protected function createAggregateRootByEventStream( AggregateRootIdentifier $id )
+	protected function createAggregateRootByEventStream( Identifies $id )
 	{
 		$event_stream   = $this->getEventStreamForAggregateRootId( $id );
 		$aggregate_root = $this->allocateAggregateRootWithEventStream( $event_stream );
@@ -151,11 +144,11 @@ abstract class AggregateRootRepository implements CommitsChanges
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
 	 * @return EventStream
 	 */
-	protected function getEventStreamForAggregateRootId( AggregateRootIdentifier $id )
+	protected function getEventStreamForAggregateRootId( Identifies $id )
 	{
 		return $this->event_store->getEventStreamForId( $id );
 	}

@@ -6,7 +6,8 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Interfaces\HasIdentity;
+use hollodotme\MilestonES\Exceptions\AggregateRootIsMarkedAsDeleted;
+use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
 use hollodotme\MilestonES\Interfaces\UnitOfWork;
@@ -22,7 +23,7 @@ class AggregateRootCollection implements UnitOfWork
 	/**
 	 * @var AggregateRoot[]
 	 */
-	protected $aggregate_roots = [ ];
+	protected $aggregate_roots = [];
 
 	/**
 	 * @param StoresEvents $event_store
@@ -70,30 +71,49 @@ class AggregateRootCollection implements UnitOfWork
 	}
 
 	/**
-	 * @param HasIdentity $identified_object
+	 * @param AggregateRoot $aggregate_root
 	 */
-	public function attach( HasIdentity $identified_object )
+	public function attach( AggregateRoot $aggregate_root )
 	{
-		if ( !$this->isAttached( $identified_object->getIdentifier() ) )
+		if ( !$this->isAttached( $aggregate_root->getIdentifier() ) )
 		{
-			$this->aggregate_roots[ $identified_object->getIdentifier()->toString() ] = $identified_object;
+			$this->aggregate_roots[(string)$aggregate_root->getIdentifier()] = $aggregate_root;
 		}
 	}
 
 	/**
 	 * @param Identifies $id
 	 *
-	 * @return HasIdentity
+	 * @throws AggregateRootIsMarkedAsDeleted
+	 * @throws AggregateRootNotFound
+	 * @return AggregateRoot
 	 */
 	public function find( Identifies $id )
 	{
 		if ( $this->isAttached( $id ) )
 		{
-			return $this->aggregate_roots[ $id->toString() ];
+			$aggregate_root = $this->aggregate_roots[(string)$id];
+
+			$this->guardAggregateRootIsNotDeleted( $aggregate_root );
+
+			return $aggregate_root;
 		}
 		else
 		{
-			return null;
+			throw new AggregateRootNotFound( (string)$id );
+		}
+	}
+
+	/**
+	 * @param AggregateRoot $aggregate_root
+	 *
+	 * @throws AggregateRootIsMarkedAsDeleted
+	 */
+	protected function guardAggregateRootIsNotDeleted( AggregateRoot $aggregate_root )
+	{
+		if ( $aggregate_root->isDeleted() )
+		{
+			throw new AggregateRootIsMarkedAsDeleted();
 		}
 	}
 
@@ -104,7 +124,7 @@ class AggregateRootCollection implements UnitOfWork
 	 */
 	public function isAttached( Identifies $id )
 	{
-		return isset($this->aggregate_roots[ $id->toString() ]);
+		return isset($this->aggregate_roots[(string)$id]);
 	}
 
 	/**

@@ -6,6 +6,8 @@
 
 namespace hollodotme\MilestonES\Interfaces;
 
+use hollodotme\MilestonES\AggregateRoot;
+
 /**
  * Interface MapsIdentities
  *
@@ -14,14 +16,14 @@ namespace hollodotme\MilestonES\Interfaces;
 interface MapsIdentities
 {
 	/**
-	 * @param HasIdentity $identified_object
+	 * @param AggregateRoot $aggregate_root
 	 */
-	public function attach( HasIdentity $identified_object );
+	public function attach( AggregateRoot $aggregate_root );
 
 	/**
 	 * @param Identifies $id
 	 *
-	 * @return HasIdentity
+	 * @return AggregateRoot
 	 */
 	public function find( Identifies $id );
 

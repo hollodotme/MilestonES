@@ -7,6 +7,7 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
+use hollodotme\MilestonES\Exceptions\AggregateRootIsMarkedAsDeleted;
 use hollodotme\MilestonES\Interfaces\HasIdentity;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\RepresentsEvent;
@@ -20,22 +21,22 @@ use hollodotme\MilestonES\Interfaces\TracksChanges;
 abstract class AggregateRoot implements HasIdentity, TracksChanges
 {
 
-	/**
-	 * @var Identifies
-	 */
+	/** @var Identifies */
 	private $identifier;
 
-	/**
-	 * @var EventCollection
-	 */
+	/** @var EventCollection */
 	private $tracked_events;
 
 	/** @var int */
 	private $version;
 
+	/** @var bool */
+	private $deleted;
+
 	final protected function __construct()
 	{
 		$this->version        = 0;
+		$this->deleted = false;
 		$this->tracked_events = new EventCollection();
 	}
 
@@ -89,9 +90,13 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 
 	/**
 	 * @param RepresentsEvent $event
+	 *
+	 * @throws AggregateRootIsMarkedAsDeleted
 	 */
 	final protected function trackThat( RepresentsEvent $event )
 	{
+		$this->guardIsNotDeleted();
+
 		$this->setNextVersionToEvent( $event );
 
 		$this->tracked_events[] = $event;
@@ -100,12 +105,23 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	}
 
 	/**
+	 * @throws AggregateRootIsMarkedAsDeleted
+	 */
+	private function guardIsNotDeleted()
+	{
+		if ( $this->isDeleted() )
+		{
+			throw new AggregateRootIsMarkedAsDeleted();
+		}
+	}
+
+	/**
 	 * @param RepresentsEvent $event
 	 */
 	protected function applyChange( RepresentsEvent $event )
 	{
 		$method_name = 'when' . $event->getContract()->getClassBasename();
-		if ( is_callable( [ $this, $method_name ] ) )
+		if ( is_callable( [$this, $method_name] ) )
 		{
 			$this->{$method_name}( $event );
 
@@ -171,5 +187,18 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 		$instance->applyEventStream( $event_streem );
 
 		return $instance;
+	}
+
+	final protected function markAsDeleted()
+	{
+		$this->deleted = true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	final public function isDeleted()
+	{
+		return $this->deleted;
 	}
 }

@@ -6,11 +6,11 @@
 
 namespace hollodotme\MilestonES\Test\Unit\EventStore;
 
-require_once __DIR__ . '/../_test_classes/TestEvent.php';
+require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
 
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\ImmutableEventCollection;
-use hollodotme\MilestonES\Test\Unit\TestEvent;
+use hollodotme\MilestonES\Test\Unit\TestAggregateWasDescribed;
 
 class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testAddingEventsByArrayAccessAfterConstructionFails()
 	{
 		$collection = new ImmutableEventCollection( [] );
-		$event      = new TestEvent( new Identifier( 'Unit-Test' ) );
+		$event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test' ) );
 
 		$collection[] = $event;
 	}
@@ -31,7 +31,7 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testAddingEventsByOffsetSetAfterConstructionFails()
 	{
 		$collection = new ImmutableEventCollection( [] );
-		$event      = new TestEvent( new Identifier( 'Unit-Test' ) );
+		$event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test' ) );
 
 		$collection->offsetSet( null, $event );
 	}
@@ -41,7 +41,7 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRemovingAnEventByUnsetAfterConstructionFails()
 	{
-		$event      = new TestEvent( new Identifier( 'Unit-Test' ) );
+		$event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test' ) );
 		$collection = new ImmutableEventCollection( [$event] );
 
 		unset($collection[0]);
@@ -52,7 +52,7 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRemovingAnEventByOffsetUnsetAfterConstructionFails()
 	{
-		$event      = new TestEvent( new Identifier( 'Unit-Test' ) );
+		$event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test' ) );
 		$collection = new ImmutableEventCollection( [$event] );
 
 		$collection->offsetUnset( 0 );
