@@ -9,11 +9,11 @@ namespace hollodotme\MilestonES\Test\Unit;
 use hollodotme\MilestonES\Events\BaseEvent;
 
 /**
- * Class TestEvent
+ * Class TestAggregateWasDescribed
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class TestEvent extends BaseEvent
+class TestAggregateWasDescribed extends BaseEvent
 {
 
 	/** @var string */

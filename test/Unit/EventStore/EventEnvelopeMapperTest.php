@@ -14,9 +14,9 @@ use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\SerializationStrategy;
 use hollodotme\MilestonES\SerializerRegistry;
 use hollodotme\MilestonES\Serializers\JsonSerializer;
-use hollodotme\MilestonES\Test\Unit\TestEvent;
+use hollodotme\MilestonES\Test\Unit\TestAggregateWasDescribed;
 
-require_once __DIR__ . '/../_test_classes/TestEvent.php';
+require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
 
 class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -95,10 +95,10 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		$event    = $this->getTestEvent();
 		$envelope = $mapper->putEventInEnvelopeForCommit( $event, $this->commit );
 
-		/** @var TestEvent $extracted_event */
+		/** @var TestAggregateWasDescribed $extracted_event */
 		$extracted_event = $mapper->extractEventFromEnvelope( $envelope );
 
-		$this->assertInstanceOf( TestEvent::class, $extracted_event );
+		$this->assertInstanceOf( TestAggregateWasDescribed::class, $extracted_event );
 
 		$this->assertEquals( $event->getStreamId(), $extracted_event->getStreamId() );
 		$this->assertTrue( $event->getStreamId()->equals( $extracted_event->getStreamId() ) );
@@ -142,7 +142,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 
 	private function getTestEvent()
 	{
-		$event = new TestEvent( new Identifier( 'Unit\\Test\\ID' ) );
+		$event = new TestAggregateWasDescribed( new Identifier( 'Unit\\Test\\ID' ) );
 		$event->setVersion( 134 );
 		$event->setOccuredOn( new \DateTime( self::TEST_EVENT_OCCURANCE_TIMESTAMP ) );
 		$event->setCreator( 'Unit test creator' );

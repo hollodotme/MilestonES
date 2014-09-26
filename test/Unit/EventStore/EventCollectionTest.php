@@ -6,12 +6,12 @@
 
 namespace hollodotme\MilestonES\Test\Unit\EventStore;
 
-require_once __DIR__ . '/../_test_classes/TestEvent.php';
+require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
 
 use hollodotme\MilestonES\EventCollection;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Interfaces\RepresentsEvent;
-use hollodotme\MilestonES\Test\Unit\TestEvent;
+use hollodotme\MilestonES\Test\Unit\TestAggregateWasDescribed;
 
 class EventCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,7 +26,7 @@ class EventCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testCollectionIsNotEmptyAfterAddingEvents()
 	{
 		$collection = new EventCollection();
-		$event      = new TestEvent( new Identifier( 'Unit-Test' ) );
+		$event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test' ) );
 
 		$collection[] = $event;
 
@@ -48,8 +48,8 @@ class EventCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testCollectionTakesAutoAndConcreteIndex()
 	{
 		$collection   = new EventCollection();
-		$first_event  = new TestEvent( new Identifier( 'Unit-Test-3' ) );
-		$second_event = new TestEvent( new Identifier( 'Unit-Test-2' ) );
+		$first_event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test-3' ) );
+		$second_event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test-2' ) );
 
 		$collection[]    = $first_event;
 		$collection["2"] = $second_event;
@@ -66,8 +66,8 @@ class EventCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testEventsCanBeRemovedFromCollectionUsingUnset()
 	{
 		$collection   = new EventCollection();
-		$first_event  = new TestEvent( new Identifier( 'Unit-Test-3' ) );
-		$second_event = new TestEvent( new Identifier( 'Unit-Test-2' ) );
+		$first_event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test-3' ) );
+		$second_event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test-2' ) );
 
 		$collection[]    = $first_event;
 		$collection["2"] = $second_event;
@@ -87,8 +87,8 @@ class EventCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testCanLoopMultipleTimesOverEventsInCollection()
 	{
 		$collection   = new EventCollection();
-		$first_event  = new TestEvent( new Identifier( 'Unit-Test-0' ) );
-		$second_event = new TestEvent( new Identifier( 'Unit-Test-2' ) );
+		$first_event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test-0' ) );
+		$second_event = new TestAggregateWasDescribed( new Identifier( 'Unit-Test-2' ) );
 
 		$collection[]  = $first_event;
 		$collection[2] = $second_event;

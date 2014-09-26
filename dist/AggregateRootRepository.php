@@ -6,57 +6,37 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
-use hollodotme\MilestonES\Interfaces\CommitsChanges;
+use hollodotme\MilestonES\Interfaces\AggregatesModels;
+use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
+use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
-use hollodotme\MilestonES\Interfaces\UnitOfWork;
+use hollodotme\MilestonES\Interfaces\TracksAggregateRoots;
 
 /**
  * Class AggregateRootRepository
  *
  * @package hollodotme\MilestonES
  */
-abstract class AggregateRootRepository implements CommitsChanges
+abstract class AggregateRootRepository implements TracksAggregateRoots
 {
 
 	/** @var StoresEvents */
 	protected $event_store;
 
-	/** @var UnitOfWork */
-	protected $unit_of_work;
+	/** @var CollectsAggregateRoots */
+	protected $aggregate_root_collection;
 
 	/**
-	 * @param StoresEvents $event_store
-	 * @param UnitOfWork   $unit_of_work
+	 * @param StoresEvents           $event_store
+	 * @param CollectsAggregateRoots $collection
 	 */
-	public function __construct( StoresEvents $event_store, UnitOfWork $unit_of_work )
+	final public function __construct( StoresEvents $event_store, CollectsAggregateRoots $collection )
 	{
-		$this->unit_of_work = $unit_of_work;
-		$this->event_store  = $event_store;
+		$this->aggregate_root_collection = $collection;
+		$this->event_store               = $event_store;
 
 		$this->attachCommitedEventObserversToEventStore();
-	}
-
-	public function __destruct()
-	{
-		if ( $this->hasUncommittedChanges() )
-		{
-			throw new AggregateRootsWithUncommittedChangesDetected();
-		}
-	}
-
-	public function commitChanges()
-	{
-		$this->unit_of_work->commitChanges( $this->event_store );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function hasUncommittedChanges()
-	{
-		return $this->unit_of_work->hasUncommittedChanges();
 	}
 
 	/**
@@ -65,34 +45,44 @@ abstract class AggregateRootRepository implements CommitsChanges
 	abstract public function getCommitedEventObservers();
 
 	/**
-	 * @param AggregateRoot $aggregate_root
+	 * @param AggregatesModels $aggregate_root
 	 */
-	public function trackAggregateRoot( AggregateRoot $aggregate_root )
+	final public function track( AggregatesModels $aggregate_root )
 	{
-		$this->attachAggregateRoot( $aggregate_root );
+		$this->trackAggregateRoot( $aggregate_root );
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param AggregatesModels $aggregate_root
 	 *
-	 * @return AggregateRoot
+	 * @return bool
 	 */
-	public function getAggregateRootWithId( AggregateRootIdentifier $id )
+	final public function isTracked( AggregatesModels $aggregate_root )
 	{
-		if ( $this->isAggregateRootAttached( $id ) )
+		return $this->aggregate_root_collection->isAttached( $aggregate_root );
+	}
+
+	/**
+	 * @param Identifies $id
+	 *
+	 * @return AggregatesModels
+	 */
+	final public function getAggregateRootWithId( Identifies $id )
+	{
+		if ( $this->isAggregateRootWithIdTracked( $id ) )
 		{
-			return $this->getAttachedAggregateRoot( $id );
+			return $this->getTrackedAggregateRoot( $id );
 		}
 		else
 		{
 			$aggregate_root = $this->createAggregateRootByEventStream( $id );
-			$this->attachAggregateRoot( $aggregate_root );
+			$this->trackAggregateRoot( $aggregate_root );
 
 			return $aggregate_root;
 		}
 	}
 
-	protected function attachCommitedEventObserversToEventStore()
+	private function attachCommitedEventObserversToEventStore()
 	{
 		foreach ( $this->getCommitedEventObservers() as $observer )
 		{
@@ -103,59 +93,60 @@ abstract class AggregateRootRepository implements CommitsChanges
 	/**
 	 * @param ObservesCommitedEvents $observer
 	 */
-	protected function attachCommitedEventObserverToEventStore( ObservesCommitedEvents $observer )
+	private function attachCommitedEventObserverToEventStore( ObservesCommitedEvents $observer )
 	{
 		$this->event_store->attachCommittedEventObserver( $observer );
 	}
 
 	/**
-	 * @param AggregateRoot $aggregate_root
+	 * @param AggregatesModels $aggregate_root
 	 */
-	protected function attachAggregateRoot( AggregateRoot $aggregate_root )
+	private function trackAggregateRoot( AggregatesModels $aggregate_root )
 	{
-		$this->unit_of_work->attach( $aggregate_root );
+		$this->aggregate_root_collection->attach( $aggregate_root );
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
 	 * @return bool
 	 */
-	protected function isAggregateRootAttached( AggregateRootIdentifier $id )
+	private function isAggregateRootWithIdTracked( Identifies $id )
 	{
-		return $this->unit_of_work->isAttached( $id );
+		return $this->aggregate_root_collection->idExists( $id );
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
-	 * @return AggregateRoot|null
+	 * @throws Exceptions\AggregateRootNotFound
+	 * @throws Exceptions\AggregateRootIsMarkedAsDeleted
+	 * @return AggregatesModels
 	 */
-	protected function getAttachedAggregateRoot( AggregateRootIdentifier $id )
+	private function getTrackedAggregateRoot( Identifies $id )
 	{
-		return $this->unit_of_work->find( $id );
+		return $this->aggregate_root_collection->find( $id );
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
-	 * @return AggregateRoot
+	 * @return AggregatesModels
 	 */
-	protected function createAggregateRootByEventStream( AggregateRootIdentifier $id )
+	private function createAggregateRootByEventStream( Identifies $id )
 	{
-		$event_stream   = $this->getEventStreamForAggregateRootId( $id );
-		$aggregate_root = $this->allocateAggregateRootWithEventStream( $event_stream );
+		$event_stream = $this->getEventStreamForAggregateRootId( $id );
 
-		return $aggregate_root;
+		return $this->allocateAggregateRootWithEventStream( $event_stream );
 	}
 
 	/**
-	 * @param AggregateRootIdentifier $id
+	 * @param Identifies $id
 	 *
 	 * @return EventStream
 	 */
-	protected function getEventStreamForAggregateRootId( AggregateRootIdentifier $id )
+	private function getEventStreamForAggregateRootId( Identifies $id )
 	{
 		return $this->event_store->getEventStreamForId( $id );
 	}
@@ -164,14 +155,15 @@ abstract class AggregateRootRepository implements CommitsChanges
 	 * @param EventStream $event_stream
 	 *
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
-	 * @return AggregateRoot
+	 * @return AggregatesModels
 	 */
-	protected function allocateAggregateRootWithEventStream( EventStream $event_stream )
+	private function allocateAggregateRootWithEventStream( EventStream $event_stream )
 	{
 		$aggregate_root_name = $this->getAggregateRootName();
 
-		if ( is_callable( [ $aggregate_root_name, 'allocateWithEventStream' ] ) )
+		if ( is_callable( [$aggregate_root_name, 'allocateWithEventStream'] ) )
 		{
+			/** @var AggregatesModels $aggregate_root_name */
 			return $aggregate_root_name::allocateWithEventStream( $event_stream );
 		}
 		else
@@ -181,7 +173,7 @@ abstract class AggregateRootRepository implements CommitsChanges
 	}
 
 	/**
-	 * @return AggregateRoot
+	 * @return string
 	 */
 	protected function getAggregateRootName()
 	{

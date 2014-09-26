@@ -17,19 +17,35 @@ use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 class ImmutableEventCollection extends EventCollection
 {
 	/**
-	 * @param array|RepresentsEvent[] $events
+	 * @param RepresentsEvent[] $events
+	 *
+	 * @throws Exceptions\ItemDoesNotRepresentAnEvent
 	 */
 	public function __construct( array $events )
 	{
-		$this->events = $events;
+		foreach ( $events as $event )
+		{
+			parent::offsetSet( null, $event );
+		}
 	}
 
-	public function offsetSet( $offset, $value )
+	/**
+	 * @param int|null        $offset
+	 * @param RepresentsEvent $value
+	 *
+	 * @throws EventCollectionIsImmutable
+	 */
+	final public function offsetSet( $offset, $value )
 	{
 		throw new EventCollectionIsImmutable();
 	}
 
-	public function offsetUnset( $offset )
+	/**
+	 * @param int $offset
+	 *
+	 * @throws EventCollectionIsImmutable
+	 */
+	final public function offsetUnset( $offset )
 	{
 		throw new EventCollectionIsImmutable();
 	}
