@@ -7,6 +7,8 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
+use hollodotme\MilestonES\Exceptions\EventEnvelopesNotFound;
+use hollodotme\MilestonES\Exceptions\EventStreamNotFound;
 use hollodotme\MilestonES\Exceptions\PersistingEventsFailed;
 use hollodotme\MilestonES\Interfaces\CollectsEvents;
 use hollodotme\MilestonES\Interfaces\Identifies;
@@ -31,7 +33,7 @@ final class EventStore implements StoresEvents
 	private $config_delegate;
 
 	/** @var ObservesCommitedEvents[] */
-	private $commited_event_observers = [];
+	private $commited_event_observers = [ ];
 
 	/** @var  PersistsEventEnvelopes */
 	private $persistence;
@@ -42,7 +44,7 @@ final class EventStore implements StoresEvents
 	/**
 	 * @param ServesEventStoreConfiguration $config_delegate
 	 */
-	public function __constructor( ServesEventStoreConfiguration $config_delegate )
+	public function __construct( ServesEventStoreConfiguration $config_delegate )
 	{
 		$this->config_delegate = $config_delegate;
 
@@ -74,14 +76,22 @@ final class EventStore implements StoresEvents
 	/**
 	 * @param Identifies $id
 	 *
+	 * @throws EventStreamNotFound
 	 * @return EventStream
 	 */
 	public function getEventStreamForId( Identifies $id )
 	{
-		$event_stream_id = $this->getEventStreamId( $id );
-		$events          = $this->getStoredEventsWithId( $event_stream_id );
+		try
+		{
+			$event_stream_id = $this->getEventStreamId( $id );
+			$events          = $this->getStoredEventsWithId( $event_stream_id );
 
-		return new EventStream( $events );
+			return new EventStream( $events );
+		}
+		catch ( EventEnvelopesNotFound $e )
+		{
+			throw new EventStreamNotFound( $id, 0, $e );
+		}
 	}
 
 	protected function getEventStreamId( Identifies $id )
@@ -128,7 +138,7 @@ final class EventStore implements StoresEvents
 	 *
 	 * @throws \Exception
 	 */
-	protected function persistEvents( CollectsEvents $events )
+	private function persistEvents( CollectsEvents $events )
 	{
 		$this->persistence->beginTransaction();
 
@@ -151,15 +161,15 @@ final class EventStore implements StoresEvents
 	/**
 	 * @return Interfaces\PersistsEventEnvelopes
 	 */
-	protected function getPersistenceStrategy()
+	private function getPersistenceStrategy()
 	{
-		return $this->config_delegate->getPersistanceStrategy();
+		return $this->config_delegate->getPersistenceStrategy();
 	}
 
 	/**
 	 * @return EventEnvelopeMapper
 	 */
-	protected function getEventEnvelopeMapper()
+	private function getEventEnvelopeMapper()
 	{
 		$serialization_strategy = $this->getSerializationStrategy();
 
@@ -169,12 +179,12 @@ final class EventStore implements StoresEvents
 	/**
 	 * @return SerializationStrategy
 	 */
-	protected function getSerializationStrategy()
+	private function getSerializationStrategy()
 	{
 		return $this->config_delegate->getSerializationStrategy();
 	}
 
-	protected function attachGlobalObserversForCommitedEvents()
+	private function attachGlobalObserversForCommitedEvents()
 	{
 		$observers = $this->getGlobalObserversForCommitedEvents();
 
@@ -187,7 +197,7 @@ final class EventStore implements StoresEvents
 	/**
 	 * @return Interfaces\ObservesCommitedEvents[]
 	 */
-	protected function getGlobalObserversForCommitedEvents()
+	private function getGlobalObserversForCommitedEvents()
 	{
 		return $this->config_delegate->getGlobalObserversForCommitedEvents();
 	}
@@ -195,7 +205,7 @@ final class EventStore implements StoresEvents
 	/**
 	 * @return IdentifiesCommit
 	 */
-	protected function getCommit()
+	private function getCommit()
 	{
 		return new Commit( CommitId::generate(), new \DateTime( 'now' ) );
 	}
@@ -204,7 +214,7 @@ final class EventStore implements StoresEvents
 	 * @param IdentifiesCommit $commit
 	 * @param CollectsEvents   $events
 	 */
-	protected function persistEventsInTransaction( IdentifiesCommit $commit, CollectsEvents $events )
+	private function persistEventsInTransaction( IdentifiesCommit $commit, CollectsEvents $events )
 	{
 		foreach ( $events as $event )
 		{
@@ -216,7 +226,7 @@ final class EventStore implements StoresEvents
 	 * @param IdentifiesCommit $commit
 	 * @param RepresentsEvent  $event
 	 */
-	protected function commitEvent( IdentifiesCommit $commit, RepresentsEvent $event )
+	private function commitEvent( IdentifiesCommit $commit, RepresentsEvent $event )
 	{
 		$event_envelope = $this->getEnvelopeForEventCommit( $event, $commit );
 
@@ -229,7 +239,7 @@ final class EventStore implements StoresEvents
 	 *
 	 * @return CommitEventEnvelope
 	 */
-	protected function getEnvelopeForEventCommit( RepresentsEvent $event, IdentifiesCommit $commit )
+	private function getEnvelopeForEventCommit( RepresentsEvent $event, IdentifiesCommit $commit )
 	{
 		$mapper = $this->getEventEnvelopeMapper();
 
@@ -239,7 +249,7 @@ final class EventStore implements StoresEvents
 	/**
 	 * @param CollectsEvents $events
 	 */
-	protected function publishCommitedEvents( CollectsEvents $events )
+	private function publishCommitedEvents( CollectsEvents $events )
 	{
 		foreach ( $events as $event )
 		{
@@ -250,17 +260,48 @@ final class EventStore implements StoresEvents
 	/**
 	 * @param IdentifiesEventStream $id
 	 *
+	 * @throws EventEnvelopesNotFound
+	 * @return RepresentsEvent[]
+	 */
+	private function getStoredEventsWithId( IdentifiesEventStream $id )
+	{
+		$envelopes = $this->getStoredEventEnvelopesWithId( $id );
+
+		return $this->extractEventsFromEnvelopes( $envelopes );
+	}
+
+	/**
+	 * @param IdentifiesEventStream $id
+	 *
+	 * @throws EventEnvelopesNotFound
 	 * @return WrapsEventForCommit[]
 	 */
-	protected function getStoredEventsWithId( IdentifiesEventStream $id )
+	private function getStoredEventEnvelopesWithId( IdentifiesEventStream $id )
 	{
-		return $this->persistence->getEventEnvelopesWithId( $id );
+		try
+		{
+			return $this->persistence->getEventEnvelopesWithId( $id );
+		}
+		catch ( \Exception $e )
+		{
+			throw new EventEnvelopesNotFound( $id->getStreamIdContract() . '#' . $id->getStreamId() );
+		}
+	}
+
+	/**
+	 * @param WrapsEventForCommit[] $envelopes
+	 *
+	 * @return RepresentsEvent[]
+	 */
+	private function extractEventsFromEnvelopes( array $envelopes )
+	{
+		return $this->envelope_mapper->extractEventsFromEnvelopes( $envelopes );
 	}
 
 	/**
 	 * @param RepresentsEvent $event
 	 */
-	protected function publishEvent( RepresentsEvent $event )
+	private function publishEvent( RepresentsEvent $event )
 	{
 		$this->notifyAboutCommittedEvent( $event );
 	}

@@ -4,57 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7510fdcc3ede30bc96835331db746b63",
+    "hash": "9ed802eb9562acde60d21a88e045785c",
     "packages": [
-        {
-            "name": "beberlei/assert",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/beberlei/assert.git",
-                "reference": "c2aa764604f608498a87e51193ffa9c49583d205"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/c2aa764604f608498a87e51193ffa9c49583d205",
-                "reference": "c2aa764604f608498a87e51193ffa9c49583d205",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Assert": "lib/"
-                },
-                "files": [
-                    "lib/Assert/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                }
-            ],
-            "description": "Thin assertion library for input validation in business models.",
-            "keywords": [
-                "assert",
-                "assertion",
-                "validation"
-            ],
-            "time": "2014-08-26 12:14:55"
-        },
         {
             "name": "hollodotme/utilities",
             "version": "dev-master",
@@ -195,16 +146,16 @@
     "packages-dev": [
         {
             "name": "erusev/parsedown",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "d24439ada0704948deef0d3eda2ea20fd8db1747"
+                "reference": "c62365adc4488e1c35a8f45ea86f7d4a22bd58a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/d24439ada0704948deef0d3eda2ea20fd8db1747",
-                "reference": "d24439ada0704948deef0d3eda2ea20fd8db1747",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/c62365adc4488e1c35a8f45ea86f7d4a22bd58a0",
+                "reference": "c62365adc4488e1c35a8f45ea86f7d4a22bd58a0",
                 "shasum": ""
             },
             "type": "library",
@@ -230,7 +181,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2014-05-21 20:20:46"
+            "time": "2014-09-25 23:06:16"
         },
         {
             "name": "erusev/parsedown-extra",
@@ -330,7 +281,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "beberlei/assert": 20,
         "hollodotme/utilities": 20
     },
     "prefer-stable": false,

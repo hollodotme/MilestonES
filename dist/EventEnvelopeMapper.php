@@ -69,12 +69,30 @@ class EventEnvelopeMapper
 	}
 
 	/**
+	 * @param WrapsEventForCommit[] $envelope
+	 *
+	 * @throws EventClassDoesNotExist
+	 * @return RepresentsEvent[]
+	 */
+	public function extractEventsFromEnvelopes( array $envelopes )
+	{
+		$events = [ ];
+
+		foreach ( $envelopes as $envelope )
+		{
+			$events[] = $this->extractEventFromEnvelope( $envelope );
+		}
+
+		return $events;
+	}
+
+	/**
 	 * @param WrapsEventForCommit $envelope
 	 *
 	 * @throws EventClassDoesNotExist
 	 * @return RepresentsEvent
 	 */
-	public function extractEventFromEnvelope( WrapsEventForCommit $envelope )
+	private function extractEventFromEnvelope( WrapsEventForCommit $envelope )
 	{
 		$event     = $this->getEventInstanceFromEnvelope( $envelope );
 		$payload   = $this->getPayloadFromEnvelope( $envelope );

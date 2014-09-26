@@ -67,11 +67,11 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 *
 	 * @return AggregatesModels
 	 */
-	final public function getAggregateRootWithId( Identifies $id )
+	final public function getWithId( Identifies $id )
 	{
 		if ( $this->isAggregateRootWithIdTracked( $id ) )
 		{
-			return $this->getTrackedAggregateRoot( $id );
+			return $this->getTrackedAggregateRootWithId( $id );
 		}
 		else
 		{
@@ -123,7 +123,7 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 * @throws Exceptions\AggregateRootIsMarkedAsDeleted
 	 * @return AggregatesModels
 	 */
-	private function getTrackedAggregateRoot( Identifies $id )
+	private function getTrackedAggregateRootWithId( Identifies $id )
 	{
 		return $this->aggregate_root_collection->find( $id );
 	}

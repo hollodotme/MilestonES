@@ -19,7 +19,7 @@ interface ServesEventStoreConfiguration
 	/**
 	 * @return PersistsEventEnvelopes
 	 */
-	public function getPersistanceStrategy();
+	public function getPersistenceStrategy();
 
 	/**
 	 * @return ObservesCommitedEvents[]

@@ -20,7 +20,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	/**
 	 * @var Interfaces\RepresentsEvent[]
 	 */
-	protected $events = [];
+	protected $events = [ ];
 
 	/**
 	 * @return bool
@@ -71,7 +71,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	 */
 	public function offsetExists( $offset )
 	{
-		return isset($this->events[$offset]);
+		return isset($this->events[ $offset ]);
 	}
 
 	/**
@@ -83,7 +83,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	{
 		if ( $this->offsetExists( $offset ) )
 		{
-			return $this->events[$offset];
+			return $this->events[ $offset ];
 		}
 		else
 		{
@@ -105,7 +105,7 @@ class EventCollection implements Interfaces\CollectsEvents
 		}
 		else
 		{
-			$this->events[$offset] = $value;
+			$this->events[ $offset ] = $value;
 		}
 	}
 
@@ -114,7 +114,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	 */
 	public function offsetUnset( $offset )
 	{
-		unset($this->events[$offset]);
+		unset($this->events[ $offset ]);
 	}
 
 	/**

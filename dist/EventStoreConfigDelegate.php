@@ -23,7 +23,7 @@ class EventStoreConfigDelegate implements ServesEventStoreConfiguration
 	/**
 	 * @return PersistsEventEnvelopes
 	 */
-	public function getPersistanceStrategy()
+	public function getPersistenceStrategy()
 	{
 		return new Memory();
 	}

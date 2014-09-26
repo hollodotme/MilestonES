@@ -20,6 +20,7 @@ require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
 
 class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 {
+
 	const TEST_EVENT_OCCURANCE_TIMESTAMP = '2014-09-19 11:40:00';
 
 	const TEST_COMMIT_TIMESTAMP = '2014-09-19 11:45:00';
@@ -37,7 +38,8 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 			new JsonSerializer()
 		);
 
-		$this->serialization_strategy = new SerializationStrategy( $serializer_registry, new Contract( JsonSerializer::class ) );
+		$this->serialization_strategy =
+			new SerializationStrategy( $serializer_registry, new Contract( JsonSerializer::class ) );
 
 		$this->commit = new Commit( CommitId::generate(), new \DateTime( self::TEST_COMMIT_TIMESTAMP ) );
 	}
@@ -67,7 +69,9 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		$this->assertInternalType( 'string', $envelope->getStreamId() );
 
 		$this->assertEquals( new Contract( get_class( $event->getStreamId() ) ), $envelope->getStreamIdContract() );
-		$this->assertNotInstanceOf( '\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getStreamIdContract() );
+		$this->assertNotInstanceOf(
+			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getStreamIdContract()
+		);
 		$this->assertInternalType( 'string', $envelope->getStreamIdContract() );
 
 		$this->assertEquals( $event->getContract(), $envelope->getEventContract() );
@@ -75,14 +79,18 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		$this->assertInternalType( 'string', $envelope->getEventContract() );
 
 		$this->assertEquals( new Contract( JsonSerializer::class ), $envelope->getPayloadContract() );
-		$this->assertNotInstanceOf( '\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getPayloadContract() );
+		$this->assertNotInstanceOf(
+			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getPayloadContract()
+		);
 		$this->assertInternalType( 'string', $envelope->getPayloadContract() );
 
 		$this->assertInternalType( 'string', $envelope->getPayload() );
 		$this->assertJsonStringEqualsJsonString( '{"description":"Unit test event"}', $envelope->getPayload() );
 
 		$this->assertEquals( new Contract( JsonSerializer::class ), $envelope->getMetaDataContract() );
-		$this->assertNotInstanceOf( '\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getMetaDataContract() );
+		$this->assertNotInstanceOf(
+			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getMetaDataContract()
+		);
 		$this->assertInternalType( 'string', $envelope->getMetaDataContract() );
 
 		$this->assertInternalType( 'string', $envelope->getMetaData() );
@@ -96,7 +104,11 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		$envelope = $mapper->putEventInEnvelopeForCommit( $event, $this->commit );
 
 		/** @var TestAggregateWasDescribed $extracted_event */
-		$extracted_event = $mapper->extractEventFromEnvelope( $envelope );
+		$extracted_events = $mapper->extractEventsFromEnvelopes( [ $envelope ] );
+
+		$extracted_event = $extracted_events[0];
+
+		$this->assertCount( 1, $extracted_events );
 
 		$this->assertInstanceOf( TestAggregateWasDescribed::class, $extracted_event );
 
@@ -123,7 +135,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 
 		$envelope->setEventContract( new Contract( 'Some\\Invalid\\Class\\Name' ) );
 
-		$mapper->extractEventFromEnvelope( $envelope );
+		$mapper->extractEventsFromEnvelopes( [ $envelope ] );
 	}
 
 	/**
@@ -137,7 +149,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 
 		$envelope->setStreamIdContract( new Contract( 'Some\\Invalid\\Class\\Name' ) );
 
-		$mapper->extractEventFromEnvelope( $envelope );
+		$mapper->extractEventsFromEnvelopes( [ $envelope ] );
 	}
 
 	private function getTestEvent()
@@ -151,4 +163,3 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		return $event;
 	}
 }
- 
