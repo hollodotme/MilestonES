@@ -57,5 +57,13 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$collection->offsetUnset( 0 );
 	}
+
+	/**
+	 * @expectedException \hollodotme\MilestonES\Exceptions\ItemDoesNotRepresentAnEvent
+	 */
+	public function testConstructionWithArrayOfNonEventsFails()
+	{
+		new ImmutableEventCollection( ['I am not an event'] );
+	}
 }
  
