@@ -11,10 +11,32 @@ namespace hollodotme\MilestonES\Interfaces;
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface CollectsAggregateRoots extends MapsIdentities, \Iterator, \Countable
+interface CollectsAggregateRoots extends \Iterator, \Countable
 {
 	/**
-	 * @param StoresEvents $event_store
+	 * @param AggregatesModels $aggregate_root
 	 */
-	public function commitChanges( StoresEvents $event_store );
+	public function attach( AggregatesModels $aggregate_root );
+
+	/**
+	 * @param Identifies $id
+	 *
+	 * @return AggregatesModels
+	 */
+	public function find( Identifies $id );
+
+	/**
+	 * @param AggregatesModels $aggregate_root
+	 *
+	 * @return bool
+	 */
+	public function isAttached( AggregatesModels $aggregate_root );
+
+	/**
+	 * @param Identifies $id
+	 *
+	 * @return bool
+	 */
+	public function idExists( Identifies $id );
+
 }

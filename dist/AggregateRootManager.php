@@ -6,11 +6,14 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Exceptions\AggregateRootsWithUncommittedChangesDetected;
+use hollodotme\MilestonES\Exceptions\CommittingChangesOfAggregateRootFailed;
+use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
 use hollodotme\MilestonES\Exceptions\RepositoryWithNameDoesNotExist;
+use hollodotme\MilestonES\Interfaces\AggregatesModels;
+use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
+use hollodotme\MilestonES\Interfaces\CollectsEvents;
 use hollodotme\MilestonES\Interfaces\CommitsChanges;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
-use hollodotme\MilestonES\Interfaces\UnitOfWork;
 
 /**
  * Class AggregateRootManager
@@ -20,69 +23,70 @@ use hollodotme\MilestonES\Interfaces\UnitOfWork;
 class AggregateRootManager implements CommitsChanges
 {
 
-	/** @var UnitOfWork */
-	private $unit_of_work;
+	/** @var CollectsAggregateRoots */
+	private $aggregate_root_collection;
 
 	/** @var StoresEvents */
 	private $event_store;
 
-	/** @var bool */
-	private $auto_commit_changes_enabled = true;
-
 	/**
 	 * @param StoresEvents $event_store
-	 * @param UnitOfWork   $unit_of_work
+	 * @param CollectsAggregateRoots $collection
 	 */
-	public function __construct( StoresEvents $event_store, UnitOfWork $unit_of_work )
+	public function __construct( StoresEvents $event_store, CollectsAggregateRoots $collection )
 	{
 		$this->event_store  = $event_store;
-		$this->unit_of_work = $unit_of_work;
+		$this->aggregate_root_collection = $collection;
 	}
 
-	public function __destruct()
+	final public function commitChanges()
 	{
-		if ( $this->hasUncommittedChanges() )
+		foreach ( $this->aggregate_root_collection as $aggregate_root )
 		{
-			if ( $this->isAutoCommitOfChangesEnabled() )
-			{
-				$this->commitChanges();
-			}
-			else
-			{
-				throw new AggregateRootsWithUncommittedChangesDetected();
-			}
+			$this->commitChangesOfAggregateRootIfNecessary( $aggregate_root );
 		}
 	}
 
-	public function enableAutoCommitOfChanges()
+	/**
+	 * @param AggregatesModels $aggregate_root
+	 *
+	 * @throws CommittingChangesOfAggregateRootFailed
+	 */
+	private function commitChangesOfAggregateRootIfNecessary( AggregatesModels $aggregate_root )
 	{
-		$this->auto_commit_changes_enabled = true;
-	}
-
-	public function disableAutoCommitOfChanges()
-	{
-		$this->auto_commit_changes_enabled = false;
+		if ( $aggregate_root->hasChanges() )
+		{
+			$this->commitChangesAndClearAggregateRoot( $aggregate_root );
+		}
 	}
 
 	/**
-	 * @return bool
+	 * @param AggregatesModels $aggregate_root
+	 *
+	 * @throws CommittingChangesOfAggregateRootFailed
 	 */
-	public function isAutoCommitOfChangesEnabled()
+	private function commitChangesAndClearAggregateRoot( AggregatesModels $aggregate_root )
 	{
-		return $this->auto_commit_changes_enabled;
-	}
+		try
+		{
+			$this->commitChangesToEventStore( $aggregate_root->getChanges() );
+		}
+		catch ( CommittingEventsFailed $e )
+		{
+			throw new CommittingChangesOfAggregateRootFailed( (string)$aggregate_root->getIdentifier(), 0, $e );
+		}
 
-	public function commitChanges()
-	{
-		$this->unit_of_work->commitChanges( $this->event_store );
+		$aggregate_root->clearChanges();
 	}
 
 	/**
-	 * @return bool
+	 * @param CollectsEvents $events
+	 *
+	 * @throws CommittingEventsFailed
 	 */
-	public function hasUncommittedChanges()
+	private function commitChangesToEventStore( CollectsEvents $events )
 	{
-		return $this->unit_of_work->hasUncommittedChanges();
+		$this->event_store->commitEvents( $events );
 	}
 
 	/**
@@ -133,6 +137,6 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	protected function createAggregateRootRepositoryByFqcn( $repository_fqcn )
 	{
-		return new $repository_fqcn( $this->event_store, $this->unit_of_work );
+		return new $repository_fqcn( $this->event_store, $this->aggregate_root_collection );
 	}
 }

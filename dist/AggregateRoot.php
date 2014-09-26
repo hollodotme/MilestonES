@@ -8,17 +8,16 @@ namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
 use hollodotme\MilestonES\Exceptions\AggregateRootIsMarkedAsDeleted;
-use hollodotme\MilestonES\Interfaces\HasIdentity;
+use hollodotme\MilestonES\Interfaces\AggregatesModels;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\RepresentsEvent;
-use hollodotme\MilestonES\Interfaces\TracksChanges;
 
 /**
  * Class AggregateRoot
  *
  * @package hollodotme\MilestonES
  */
-abstract class AggregateRoot implements HasIdentity, TracksChanges
+abstract class AggregateRoot implements AggregatesModels
 {
 
 	/** @var Identifies */
@@ -80,7 +79,7 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	/**
 	 * @param EventStream $event_stream
 	 */
-	final public function applyEventStream( EventStream $event_stream )
+	final protected function applyEventStream( EventStream $event_stream )
 	{
 		foreach ( $event_stream as $event )
 		{
@@ -184,6 +183,7 @@ abstract class AggregateRoot implements HasIdentity, TracksChanges
 	public static function allocateWithEventStream( EventStream $event_streem )
 	{
 		$instance = new static();
+
 		$instance->applyEventStream( $event_streem );
 
 		return $instance;

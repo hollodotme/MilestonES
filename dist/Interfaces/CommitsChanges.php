@@ -14,9 +14,4 @@ namespace hollodotme\MilestonES\Interfaces;
 interface CommitsChanges
 {
 	public function commitChanges();
-
-	/**
-	 * @return bool
-	 */
-	public function hasUncommittedChanges();
 }

@@ -22,6 +22,4 @@ interface TracksChanges
 	 * @return bool
 	 */
 	public function hasChanges();
-
-	public function clearChanges();
 }

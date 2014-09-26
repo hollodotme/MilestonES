@@ -81,4 +81,18 @@ class AggregateRootTest extends \PHPUnit_Framework_TestCase
 		$aggregate_root->delete();
 		$aggregate_root->describe();
 	}
+
+	public function testChangesCanBeCleared()
+	{
+		$identifier     = new Identifier( 'Unit-Test-ID' );
+		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+
+		$this->assertCount( 1, $aggregate_root->getChanges() );
+		$this->assertTrue( $aggregate_root->hasChanges() );
+
+		$aggregate_root->clearChanges();
+
+		$this->assertCount( 0, $aggregate_root->getChanges() );
+		$this->assertFalse( $aggregate_root->hasChanges() );
+	}
 }

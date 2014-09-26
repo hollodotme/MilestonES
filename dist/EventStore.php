@@ -6,6 +6,8 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
+use hollodotme\MilestonES\Exceptions\PersistingEventsFailed;
 use hollodotme\MilestonES\Interfaces\CollectsEvents;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
@@ -29,7 +31,7 @@ final class EventStore implements StoresEvents
 	private $config_delegate;
 
 	/** @var ObservesCommitedEvents[] */
-	private $commited_event_observers = [ ];
+	private $commited_event_observers = [];
 
 	/** @var  PersistsEventEnvelopes */
 	private $persistence;
@@ -52,10 +54,20 @@ final class EventStore implements StoresEvents
 
 	/**
 	 * @param CollectsEvents $events
+	 *
+	 * @throws CommittingEventsFailed
 	 */
 	public function commitEvents( CollectsEvents $events )
 	{
-		$this->persistEvents( $events );
+		try
+		{
+			$this->persistEvents( $events );
+		}
+		catch ( PersistingEventsFailed $e )
+		{
+			throw new CommittingEventsFailed( '', 0, $e );
+		}
+
 		$this->publishCommitedEvents( $events );
 	}
 
@@ -113,6 +125,8 @@ final class EventStore implements StoresEvents
 
 	/**
 	 * @param CollectsEvents $events
+	 *
+	 * @throws \Exception
 	 */
 	protected function persistEvents( CollectsEvents $events )
 	{
@@ -129,6 +143,8 @@ final class EventStore implements StoresEvents
 		catch ( \Exception $e )
 		{
 			$this->persistence->rollbackTransaction();
+
+			throw new PersistingEventsFailed( '', 0, $e );
 		}
 	}
 

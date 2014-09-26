@@ -4,6 +4,31 @@
     <title></title>
 </head>
 <body>
+<h2 id="hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest">
+	hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollection
+</h2>
+<ul>
+	<li>Can attach aggregate root
+	</li>
+	<li>Attaching same aggregate root more than once has no effect
+	</li>
+	<li>Two aggregate roots with different identifier classes but same id can be attached
+	</li>
+	<li>Two aggregate roots with different ids can be attached
+	</li>
+	<li>Attaching two aggregate roots with same id fails
+	</li>
+	<li>Aggregate root can be found by id when attached
+	</li>
+	<li>Aggregate roots with different identifier classes but same id can be found when attached
+	</li>
+	<li>Can loop over collection more than once
+	</li>
+	<li>Finding not attached aggregate root by id fails
+	</li>
+	<li>Finding deleted aggregate root throws exception
+	</li>
+</ul>
 <h2 id="hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootTest">
 	hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRoot
 </h2>
@@ -17,6 +42,8 @@
 	<li>Aggregate root is marked as deleted
 	</li>
 	<li>After deletion no further events can be tracked
+	</li>
+	<li>Changes can be cleared
 	</li>
 </ul>
 <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventCollectionTest">

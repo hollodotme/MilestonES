@@ -8,33 +8,23 @@ namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\AggregateRootIsMarkedAsDeleted;
 use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
+use hollodotme\MilestonES\Exceptions\AggregateRootWithEqualIdIsAlreadyAttached;
+use hollodotme\MilestonES\Interfaces\AggregatesModels;
+use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\Identifies;
-use hollodotme\MilestonES\Interfaces\StoresEvents;
-use hollodotme\MilestonES\Interfaces\UnitOfWork;
 
 /**
  * Class AggregateRootCollection
  *
  * @package hollodotme\MilestonES
  */
-class AggregateRootCollection implements UnitOfWork
+class AggregateRootCollection implements CollectsAggregateRoots
 {
 
 	/**
 	 * @var AggregateRoot[]
 	 */
-	protected $aggregate_roots = [];
-
-	/**
-	 * @param StoresEvents $event_store
-	 */
-	public function commitChanges( StoresEvents $event_store )
-	{
-		foreach ( $this->aggregate_roots as $aggregate_root )
-		{
-			$this->commitChangesOfAggregateRoot( $aggregate_root, $event_store );
-		}
-	}
+	private $aggregate_roots = [];
 
 	/**
 	 * @return AggregateRoot
@@ -71,13 +61,19 @@ class AggregateRootCollection implements UnitOfWork
 	}
 
 	/**
-	 * @param AggregateRoot $aggregate_root
+	 * @param AggregatesModels $aggregate_root
+	 *
+	 * @throws AggregateRootWithEqualIdIsAlreadyAttached
 	 */
-	public function attach( AggregateRoot $aggregate_root )
+	public function attach( AggregatesModels $aggregate_root )
 	{
-		if ( !$this->isAttached( $aggregate_root->getIdentifier() ) )
+		if ( !$this->idExists( $aggregate_root->getIdentifier() ) )
 		{
-			$this->aggregate_roots[(string)$aggregate_root->getIdentifier()] = $aggregate_root;
+			$this->aggregate_roots[] = $aggregate_root;
+		}
+		elseif ( !$this->isAttached( $aggregate_root ) )
+		{
+			throw new AggregateRootWithEqualIdIsAlreadyAttached( (string)$aggregate_root->getIdentifier() );
 		}
 	}
 
@@ -88,11 +84,11 @@ class AggregateRootCollection implements UnitOfWork
 	 * @throws AggregateRootNotFound
 	 * @return AggregateRoot
 	 */
-	public function find( Identifies $id )
+	final public function find( Identifies $id )
 	{
-		if ( $this->isAttached( $id ) )
+		if ( $this->idExists( $id ) )
 		{
-			$aggregate_root = $this->aggregate_roots[(string)$id];
+			$aggregate_root = $this->getAggregateRootWithId( $id );
 
 			$this->guardAggregateRootIsNotDeleted( $aggregate_root );
 
@@ -105,11 +101,11 @@ class AggregateRootCollection implements UnitOfWork
 	}
 
 	/**
-	 * @param AggregateRoot $aggregate_root
+	 * @param AggregatesModels $aggregate_root
 	 *
 	 * @throws AggregateRootIsMarkedAsDeleted
 	 */
-	protected function guardAggregateRootIsNotDeleted( AggregateRoot $aggregate_root )
+	private function guardAggregateRootIsNotDeleted( AggregatesModels $aggregate_root )
 	{
 		if ( $aggregate_root->isDeleted() )
 		{
@@ -122,9 +118,47 @@ class AggregateRootCollection implements UnitOfWork
 	 *
 	 * @return bool
 	 */
-	public function isAttached( Identifies $id )
+	public function idExists( Identifies $id )
 	{
-		return isset($this->aggregate_roots[(string)$id]);
+		$id_exists = false;
+
+		for ( $this->rewind(); ($this->valid() && !$id_exists); $this->next() )
+		{
+			$id_exists = $this->current()->getIdentifier()->equals( $id );
+		}
+
+		return $id_exists;
+	}
+
+	/**
+	 * @param Identifies $id
+	 *
+	 * @throws AggregateRootNotFound
+	 * @return AggregatesModels
+	 */
+	private function getAggregateRootWithId( Identifies $id )
+	{
+		$aggregate_root = null;
+
+		for ( $this->rewind(); ($this->valid() && is_null( $aggregate_root )); $this->next() )
+		{
+			if ( $this->current()->getIdentifier()->equals( $id ) )
+			{
+				$aggregate_root = $this->current();
+			}
+		}
+
+		return $aggregate_root;
+	}
+
+	/**
+	 * @param AggregatesModels $aggregate_root
+	 *
+	 * @return bool
+	 */
+	public function isAttached( AggregatesModels $aggregate_root )
+	{
+		return in_array( $aggregate_root, $this->aggregate_roots, true );
 	}
 
 	/**
@@ -133,34 +167,5 @@ class AggregateRootCollection implements UnitOfWork
 	public function count()
 	{
 		return count( $this->aggregate_roots );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function hasUncommittedChanges()
-	{
-		$has_changes = false;
-		foreach ( $this->aggregate_roots as $aggregate_root )
-		{
-			$has_changes |= $aggregate_root->hasChanges();
-		}
-
-		return $has_changes;
-	}
-
-	/**
-	 * @param AggregateRoot $aggregate_root
-	 * @param StoresEvents  $event_store
-	 */
-	protected function commitChangesOfAggregateRoot( AggregateRoot $aggregate_root, StoresEvents $event_store )
-	{
-		if ( $aggregate_root->hasChanges() )
-		{
-			$events = $aggregate_root->getChanges();
-			$event_store->commitEvents( $events );
-
-			$aggregate_root->clearChanges();
-		}
 	}
 }
