@@ -6,6 +6,7 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
 use hollodotme\MilestonES\Interfaces\AggregatesModels;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\Identifies;
@@ -65,11 +66,12 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	/**
 	 * @param Identifies $id
 	 *
+	 * @throws AggregateRootNotFound
 	 * @return AggregatesModels
 	 */
 	final public function getWithId( Identifies $id )
 	{
-		if ( $this->isAggregateRootWithIdTracked( $id ) )
+		if ( $this->isAggregateRootTrackedWithId( $id ) )
 		{
 			return $this->getTrackedAggregateRootWithId( $id );
 		}
@@ -79,6 +81,47 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 			$this->trackAggregateRoot( $aggregate_root );
 
 			return $aggregate_root;
+		}
+	}
+
+	/**
+	 * @param Identifies $id
+	 *
+	 * @throws Exceptions\ClassIsNotAnAggregateRoot
+	 * @return AggregatesModels
+	 */
+	final public function createWithIdIfNecessary( Identifies $id )
+	{
+		try
+		{
+			return $this->getWithId( $id );
+		}
+		catch ( AggregateRootNotFound $e )
+		{
+			$aggregate_root = $this->createAggregateRootWithId( $id );
+			$this->trackAggregateRoot( $aggregate_root );
+
+			return $aggregate_root;
+		}
+	}
+
+	/**
+	 * @param Identifies $id
+	 *
+	 * @throws Exceptions\ClassIsNotAnAggregateRoot
+	 * @return AggregatesModels
+	 */
+	private function createAggregateRootWithId( Identifies $id )
+	{
+		$class_name = $this->getAggregateRootName();
+		if ( is_callable( [$class_name, 'allocateWithId'] ) )
+		{
+			/** @var AggregatesModels $class_name */
+			return $class_name::allocateWithId( $id );
+		}
+		else
+		{
+			throw new Exceptions\ClassIsNotAnAggregateRoot();
 		}
 	}
 
@@ -111,7 +154,7 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 *
 	 * @return bool
 	 */
-	private function isAggregateRootWithIdTracked( Identifies $id )
+	private function isAggregateRootTrackedWithId( Identifies $id )
 	{
 		return $this->aggregate_root_collection->idExists( $id );
 	}
@@ -132,18 +175,27 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 * @param Identifies $id
 	 *
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
+	 * @throws Exceptions\AggregateRootNotFound
 	 * @return AggregatesModels
 	 */
 	private function createAggregateRootByEventStream( Identifies $id )
 	{
-		$event_stream = $this->getEventStreamForAggregateRootId( $id );
+		try
+		{
+			$event_stream = $this->getEventStreamForAggregateRootId( $id );
 
-		return $this->allocateAggregateRootWithEventStream( $event_stream );
+			return $this->allocateAggregateRootWithEventStream( $event_stream );
+		}
+		catch ( Exceptions\EventStreamNotFound $e )
+		{
+			throw new AggregateRootNotFound( (string)$id, 0, $e );
+		}
 	}
 
 	/**
 	 * @param Identifies $id
 	 *
+	 * @throws Exceptions\EventStreamNotFound
 	 * @return EventStream
 	 */
 	private function getEventStreamForAggregateRootId( Identifies $id )

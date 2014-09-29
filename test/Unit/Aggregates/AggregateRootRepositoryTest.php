@@ -109,7 +109,7 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\EventStreamNotFound
+	 * @expectedException \hollodotme\MilestonES\Exceptions\AggregateRootNotFound
 	 */
 	public function testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound()
 	{
@@ -128,5 +128,67 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 			"hollodotme\\MilestonES\\Events\\AggregateRootWasAllocated with ID Unit-Test-ID was committed.\n"
 			. "hollodotme\\MilestonES\\Test\\Unit\\TestAggregateWasDescribed with ID Unit-Test-ID was committed.\n"
 		);
+	}
+
+	public function testCanCreateNewAggregateRootThatIsImmediatelyTracked()
+	{
+		$identifier = new Identifier( 'Unit-Test-ID' );
+
+		$repository     = new TestAggregateRootRepository( $this->event_store, $this->collection );
+		$aggregate_root = $repository->createWithIdIfNecessary( $identifier );
+
+		$this->assertInstanceOf( TestAggregateRoot::class, $aggregate_root );
+		$this->assertTrue( $repository->isTracked( $aggregate_root ) );
+		$this->assertSame( $identifier, $aggregate_root->getIdentifier() );
+	}
+
+	public function testCreateWithIdReturnsExistingAggregateRootIfAlreadyTracked()
+	{
+		$identifier = new Identifier( 'Unit-Test-ID' );
+
+		$repository     = new TestAggregateRootRepository( $this->event_store, $this->collection );
+		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+
+		$repository->track( $aggregate_root );
+
+		$tracked_root = $repository->createWithIdIfNecessary( $identifier );
+
+		$this->assertInstanceOf( TestAggregateRoot::class, $tracked_root );
+		$this->assertTrue( $repository->isTracked( $tracked_root ) );
+		$this->assertTrue( $repository->isTracked( $aggregate_root ) );
+		$this->assertSame( $identifier, $tracked_root->getIdentifier() );
+		$this->assertSame( $aggregate_root, $tracked_root );
+		$this->assertCount( 1, $this->collection );
+	}
+
+	public function testCreateWithIdReturnsExistingAggregateRootIfAlreadyStored()
+	{
+		$identifier = new Identifier( 'Unit-Test-ID' );
+
+		$this->simulateEventStreamWithID( $identifier );
+
+		$repository = new TestAggregateRootRepository( $this->event_store, $this->collection );
+
+		$this->assertCount( 0, $this->collection );
+
+		/** @var TestAggregateRoot $streamed_root */
+		$streamed_root = $repository->createWithIdIfNecessary( $identifier );
+
+		$this->assertCount( 1, $this->collection );
+		$this->assertInstanceOf( TestAggregateRoot::class, $streamed_root );
+		$this->assertTrue( $repository->isTracked( $streamed_root ) );
+		$this->assertTrue( $streamed_root->getIdentifier()->equals( $identifier ) );
+		$this->assertEquals( 'Unit-Test', $streamed_root->getDescription() );
+	}
+
+	/**
+	 * @expectedException \hollodotme\MilestonES\Exceptions\ClassIsNotAnAggregateRoot
+	 */
+	public function testCreateWithIdFailsWhenAggregateRootClassNameIsInvalid()
+	{
+		$identifier = new Identifier( 'Unit-Test-ID' );
+		$repository = new TestAggregateRootRepositoryWithInvalidAggregateRootName( $this->event_store, $this->collection );
+
+		$repository->createWithIdIfNecessary( $identifier );
 	}
 }
