@@ -125,7 +125,7 @@ final class EventStore implements StoresEvents
 	/**
 	 * @param RepresentsEvent $event
 	 */
-	public function notifyAboutCommittedEvent( RepresentsEvent $event )
+	private function notifyAboutCommittedEvent( RepresentsEvent $event )
 	{
 		foreach ( $this->commited_event_observers as $observer )
 		{
