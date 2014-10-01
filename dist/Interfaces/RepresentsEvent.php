@@ -10,10 +10,9 @@ use hollodotme\MilestonES\Contract;
 
 /**
  * Interface RepresentsEvent
- *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface RepresentsEvent
+interface RepresentsEvent extends KeepsARole
 {
 	/**
 	 * @return Identifies
