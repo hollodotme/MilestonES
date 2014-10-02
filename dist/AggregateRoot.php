@@ -29,13 +29,9 @@ abstract class AggregateRoot implements AggregatesModels
 	/** @var int */
 	private $version;
 
-	/** @var bool */
-	private $deleted;
-
 	final protected function __construct()
 	{
 		$this->version        = 0;
-		$this->deleted = false;
 		$this->tracked_events = new EventCollection();
 	}
 
@@ -94,24 +90,11 @@ abstract class AggregateRoot implements AggregatesModels
 	 */
 	final protected function trackThat( RepresentsEvent $event )
 	{
-		$this->guardIsNotDeleted();
-
 		$this->setNextVersionToEvent( $event );
 
 		$this->tracked_events[] = $event;
 
 		$this->applyChange( $event );
-	}
-
-	/**
-	 * @throws AggregateRootIsMarkedAsDeleted
-	 */
-	private function guardIsNotDeleted()
-	{
-		if ( $this->isDeleted() )
-		{
-			throw new AggregateRootIsMarkedAsDeleted();
-		}
 	}
 
 	/**
@@ -187,18 +170,5 @@ abstract class AggregateRoot implements AggregatesModels
 		$instance->applyEventStream( $event_streem );
 
 		return $instance;
-	}
-
-	final protected function markAsDeleted()
-	{
-		$this->deleted = true;
-	}
-
-	/**
-	 * @return bool
-	 */
-	final public function isDeleted()
-	{
-		return $this->deleted;
 	}
 }

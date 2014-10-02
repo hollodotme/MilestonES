@@ -60,28 +60,6 @@ class AggregateRootTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse( $aggregate_root->hasChanges() );
 	}
 
-	public function testAggregateRootIsMarkedAsDeleted()
-	{
-		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
-		$aggregate_root->delete();
-
-		$this->assertTrue( $aggregate_root->hasChanges() );
-		$this->assertCount( 2, $aggregate_root->getChanges() );
-		$this->assertTrue( $aggregate_root->isDeleted() );
-	}
-
-	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\AggregateRootIsMarkedAsDeleted
-	 */
-	public function testAfterDeletionNoFurtherEventsCanBeTracked()
-	{
-		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
-		$aggregate_root->delete();
-		$aggregate_root->describe();
-	}
-
 	public function testChangesCanBeCleared()
 	{
 		$identifier     = new Identifier( 'Unit-Test-ID' );

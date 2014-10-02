@@ -12,7 +12,7 @@ use hollodotme\MilestonES\Contract;
  * Interface RepresentsEvent
  * @package hollodotme\MilestonES\Interfaces
  */
-interface RepresentsEvent extends KeepsARole
+interface RepresentsEvent
 {
 	/**
 	 * @return Identifies

@@ -21,7 +21,6 @@ require_once __DIR__ . '/../_test_classes/TestMemoryPersistenceWithFailOnPersist
 require_once __DIR__ . '/../_test_classes/TestEventStoreConfigDelegateWithGlobalObserver.php';
 require_once __DIR__ . '/../_test_classes/TestEventStoreConfigDelegateWithFailingPersistence.php';
 require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
-require_once __DIR__ . '/../_test_classes/TestAggregateWasDeleted.php';
 
 class EventStoreTest extends \PHPUnit_Framework_TestCase
 {

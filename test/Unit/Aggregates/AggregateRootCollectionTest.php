@@ -159,20 +159,5 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$collection->find( new Identifier( 'Unit-Test-ID' ) );
 	}
-
-	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\AggregateRootIsMarkedAsDeleted
-	 */
-	public function testFindingDeletedAggregateRootThrowsException()
-	{
-		$collection     = new AggregateRootCollection();
-		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
-
-		$collection->attach( $aggregate_root );
-		$aggregate_root->delete();
-
-		$collection->find( new Identifier( 'Unit-Test-ID' ) );
-	}
 }
  

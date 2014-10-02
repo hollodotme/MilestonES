@@ -7,8 +7,6 @@
 namespace hollodotme\MilestonES\Events;
 
 use hollodotme\MilestonES\Contract;
-use hollodotme\MilestonES\Exceptions\EventHasARoleAlready;
-use hollodotme\MilestonES\Exceptions\EventHasNoRole;
 use hollodotme\MilestonES\Interfaces;
 use hollodotme\MilestonES\Interfaces\ActsAsRole;
 use hollodotme\MilestonES\Interfaces\Identifies;
@@ -39,9 +37,6 @@ abstract class BaseEvent implements Interfaces\RepresentsEvent
 	/** @var \stdClass */
 	private $meta_dto;
 
-	/** @var ActsAsRole */
-	private $role;
-
 	/**
 	 * @param Interfaces\Identifies $id
 	 */
@@ -49,7 +44,7 @@ abstract class BaseEvent implements Interfaces\RepresentsEvent
 	{
 		$this->id         = $id;
 		$this->version    = 0;
-		$this->occured_on = new \DateTime( 'now' );
+		$this->occured_on = new \DateTimeImmutable( 'now' );
 
 		$this->payload_dto = new \stdClass();
 		$this->meta_dto    = new \stdClass();
@@ -149,71 +144,5 @@ abstract class BaseEvent implements Interfaces\RepresentsEvent
 	final public function setMetaDTO( \stdClass $meta_dto )
 	{
 		$this->meta_dto = $meta_dto;
-	}
-
-	/**
-	 * @param ActsAsRole $role
-	 *
-	 * @throws EventHasARoleAlready
-	 */
-	final public function setRole( ActsAsRole $role )
-	{
-		if ( !$this->hasRole() )
-		{
-			$this->role = $role;
-		}
-		else
-		{
-			throw new EventHasARoleAlready();
-		}
-	}
-
-	/**
-	 * @throws EventHasNoRole
-	 * @return ActsAsRole
-	 */
-	final public function getRole()
-	{
-		if ( $this->hasRole() )
-		{
-			return $this->role;
-		}
-		else
-		{
-			throw new EventHasNoRole();
-		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	final public function hasRole()
-	{
-		return ($this->role instanceof ActsAsRole);
-	}
-
-	/**
-	 * @throws EventHasNoRole
-	 */
-	final public function removeRole()
-	{
-		if ( $this->hasRole() )
-		{
-			$this->role = null;
-		}
-		else
-		{
-			throw new EventHasNoRole();
-		}
-	}
-
-	/**
-	 * @param Identifies $role_id
-	 *
-	 * @return bool
-	 */
-	final public function hasRoleWithId( Identifies $role_id )
-	{
-		return ($this->hasRole() && $this->role->getIdentifier()->equals( $role_id ));
 	}
 }

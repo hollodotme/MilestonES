@@ -6,7 +6,6 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Exceptions\AggregateRootIsMarkedAsDeleted;
 use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
 use hollodotme\MilestonES\Exceptions\AggregateRootWithEqualIdIsAlreadyAttached;
 use hollodotme\MilestonES\Interfaces\AggregatesModels;
@@ -80,7 +79,6 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	/**
 	 * @param Identifies $id
 	 *
-	 * @throws AggregateRootIsMarkedAsDeleted
 	 * @throws AggregateRootNotFound
 	 * @return AggregateRoot
 	 */
@@ -88,28 +86,11 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	{
 		if ( $this->idExists( $id ) )
 		{
-			$aggregate_root = $this->getAggregateRootWithId( $id );
-
-			$this->guardAggregateRootIsNotDeleted( $aggregate_root );
-
-			return $aggregate_root;
+			return $this->getAggregateRootWithId( $id );
 		}
 		else
 		{
 			throw new AggregateRootNotFound( (string)$id );
-		}
-	}
-
-	/**
-	 * @param AggregatesModels $aggregate_root
-	 *
-	 * @throws AggregateRootIsMarkedAsDeleted
-	 */
-	private function guardAggregateRootIsNotDeleted( AggregatesModels $aggregate_root )
-	{
-		if ( $aggregate_root->isDeleted() )
-		{
-			throw new AggregateRootIsMarkedAsDeleted();
 		}
 	}
 

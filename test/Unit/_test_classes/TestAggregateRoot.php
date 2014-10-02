@@ -7,7 +7,6 @@
 namespace hollodotme\MilestonES\Test\Unit;
 
 require_once __DIR__ . '/TestAggregateWasDescribed.php';
-require_once __DIR__ . '/TestAggregateWasDeleted.php';
 
 use hollodotme\MilestonES\AggregateRoot;
 
@@ -27,16 +26,6 @@ class TestAggregateRoot extends AggregateRoot
 		$event->setDescription( 'Unit-Test' );
 
 		$this->trackThat( $event );
-	}
-
-	public function delete()
-	{
-		$this->trackThat( new TestAggregateWasDeleted( $this->getIdentifier() ) );
-	}
-
-	protected function whenTestAggregateWasDeleted( TestAggregateWasDeleted $event )
-	{
-		$this->markAsDeleted();
 	}
 
 	protected function whenTestAggregateWasDescribed( TestAggregateWasDescribed $event )

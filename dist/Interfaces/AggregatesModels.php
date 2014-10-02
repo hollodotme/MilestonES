@@ -17,11 +17,6 @@ interface AggregatesModels extends HasIdentity, TracksChanges
 	public function clearChanges();
 
 	/**
-	 * @return bool
-	 */
-	public function isDeleted();
-
-	/**
 	 * @param Identifies $id
 	 *
 	 * @return AggregatesModels
