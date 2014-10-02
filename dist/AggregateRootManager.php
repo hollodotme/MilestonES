@@ -203,14 +203,15 @@ class AggregateRootManager implements CommitsChanges
 	{
 		try
 		{
+			$changes = $aggregate_root->getChanges();
 			$this->commitChangesToEventStore( $aggregate_root->getChanges() );
+
+			$aggregate_root->clearCommittedChanges( $changes );
 		}
 		catch ( CommittingEventsFailed $e )
 		{
 			throw new CommittingChangesOfAggregateRootFailed( (string)$aggregate_root->getIdentifier(), 0, $e );
 		}
-
-		$aggregate_root->clearChanges();
 	}
 
 	/**

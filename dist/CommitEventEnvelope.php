@@ -46,10 +46,10 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	/** @var string */
 	private $meta_data_contract;
 
-	/** @var \DateTime */
+	/** @var \DateTimeImmutable */
 	private $occured_on;
 
-	/** @var \DateTime */
+	/** @var \DateTimeImmutable */
 	private $committed_on;
 
 	/**
@@ -205,15 +205,15 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param \DateTime $occured_on
+	 * @param \DateTimeImmutable $occured_on
 	 */
-	public function setOccuredOn( \DateTime $occured_on )
+	public function setOccuredOn( \DateTimeImmutable $occured_on )
 	{
 		$this->occured_on = $occured_on;
 	}
 
 	/**
-	 * @return \DateTime
+	 * @return \DateTimeImmutable
 	 */
 	public function getOccuredOn()
 	{
@@ -221,9 +221,9 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param \DateTime $committed_on
+	 * @param \DateTimeImmutable $committed_on
 	 */
-	public function setCommittedOn( \DateTime $committed_on )
+	public function setCommittedOn( \DateTimeImmutable $committed_on )
 	{
 		$this->committed_on = $committed_on;
 	}

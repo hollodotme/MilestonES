@@ -20,14 +20,14 @@ final class Commit implements IdentifiesCommit
 	/** @var Identifies */
 	private $id;
 
-	/** @var \DateTime */
+	/** @var \DateTimeImmutable */
 	private $date_time;
 
 	/**
 	 * @param Identifies $commid_id
-	 * @param \DateTime  $commit_date_time
+	 * @param \DateTimeImmutable $commit_date_time
 	 */
-	public function __construct( Identifies $commid_id, \DateTime $commit_date_time )
+	public function __construct( Identifies $commid_id, \DateTimeImmutable $commit_date_time )
 	{
 		$this->id        = $commid_id;
 		$this->date_time = $commit_date_time;
@@ -42,7 +42,7 @@ final class Commit implements IdentifiesCommit
 	}
 
 	/**
-	 * @return \DateTime
+	 * @return \DateTimeImmutable
 	 */
 	public function getDateTime()
 	{

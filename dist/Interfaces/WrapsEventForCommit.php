@@ -104,22 +104,22 @@ interface WrapsEventForCommit
 	public function getCommitId();
 
 	/**
-	 * @param \DateTime $occured_on
+	 * @param \DateTimeImmutable $occured_on
 	 */
-	public function setOccuredOn( \DateTime $occured_on );
+	public function setOccuredOn( \DateTimeImmutable $occured_on );
 
 	/**
-	 * @return \DateTime
+	 * @return \DateTimeImmutable
 	 */
 	public function getOccuredOn();
 
 	/**
-	 * @param \DateTime $committed_on
+	 * @param \DateTimeImmutable $committed_on
 	 */
-	public function setCommittedOn( \DateTime $committed_on );
+	public function setCommittedOn( \DateTimeImmutable $committed_on );
 
 	/**
-	 * @return \DateTime
+	 * @return \DateTimeImmutable
 	 */
 	public function getCommittedOn();
 }

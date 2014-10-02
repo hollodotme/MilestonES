@@ -41,7 +41,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		$this->serialization_strategy =
 			new SerializationStrategy( $serializer_registry, new Contract( JsonSerializer::class ) );
 
-		$this->commit = new Commit( CommitId::generate(), new \DateTime( self::TEST_COMMIT_TIMESTAMP ) );
+		$this->commit = new Commit( CommitId::generate(), new \DateTimeImmutable( self::TEST_COMMIT_TIMESTAMP ) );
 	}
 
 	public function testPutEventInEnvelopeForCommit()
@@ -119,7 +119,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals( 'Unit test creator', $extracted_event->getCreator() );
 		$this->assertEquals( 'Unit test event', $extracted_event->getDescription() );
 
-		$this->assertEquals( new \DateTime( self::TEST_EVENT_OCCURANCE_TIMESTAMP ), $extracted_event->getOccuredOn() );
+		$this->assertEquals( new \DateTimeImmutable( self::TEST_EVENT_OCCURANCE_TIMESTAMP ), $extracted_event->getOccuredOn() );
 
 		$this->assertEquals( 134, $extracted_event->getVersion() );
 	}
@@ -156,7 +156,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 	{
 		$event = new TestAggregateWasDescribed( new Identifier( 'Unit\\Test\\ID' ) );
 		$event->setVersion( 134 );
-		$event->setOccuredOn( new \DateTime( self::TEST_EVENT_OCCURANCE_TIMESTAMP ) );
+		$event->setOccuredOn( new \DateTimeImmutable( self::TEST_EVENT_OCCURANCE_TIMESTAMP ) );
 		$event->setCreator( 'Unit test creator' );
 		$event->setDescription( 'Unit test event' );
 

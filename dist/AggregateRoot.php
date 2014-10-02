@@ -7,8 +7,8 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
-use hollodotme\MilestonES\Exceptions\AggregateRootIsMarkedAsDeleted;
 use hollodotme\MilestonES\Interfaces\AggregatesModels;
+use hollodotme\MilestonES\Interfaces\CollectsEvents;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 
@@ -67,9 +67,9 @@ abstract class AggregateRoot implements AggregatesModels
 		return !$this->tracked_events->isEmpty();
 	}
 
-	final public function clearChanges()
+	final public function clearCommittedChanges( CollectsEvents $commited_events )
 	{
-		$this->tracked_events = new EventCollection();
+		$this->tracked_events->removeEvents( $commited_events );
 	}
 
 	/**
@@ -85,8 +85,6 @@ abstract class AggregateRoot implements AggregatesModels
 
 	/**
 	 * @param RepresentsEvent $event
-	 *
-	 * @throws AggregateRootIsMarkedAsDeleted
 	 */
 	final protected function trackThat( RepresentsEvent $event )
 	{

@@ -207,7 +207,7 @@ final class EventStore implements StoresEvents
 	 */
 	private function getCommit()
 	{
-		return new Commit( CommitId::generate(), new \DateTime( 'now' ) );
+		return new Commit( CommitId::generate(), new \DateTimeImmutable( 'now' ) );
 	}
 
 	/**

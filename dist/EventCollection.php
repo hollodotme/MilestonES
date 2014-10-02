@@ -20,7 +20,21 @@ class EventCollection implements Interfaces\CollectsEvents
 	/**
 	 * @var Interfaces\RepresentsEvent[]
 	 */
-	protected $events = [ ];
+	protected $events = [];
+
+	/**
+	 * @param Interfaces\CollectsEvents $events
+	 */
+	public function removeEvents( Interfaces\CollectsEvents $events )
+	{
+		$this->events = array_filter(
+			$this->events,
+			function ( Interfaces\RepresentsEvent $cur_event ) use ( $events )
+			{
+				return !in_array( $cur_event, iterator_to_array( $events ), true );
+			}
+		);
+	}
 
 	/**
 	 * @return bool
@@ -71,7 +85,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	 */
 	public function offsetExists( $offset )
 	{
-		return isset($this->events[ $offset ]);
+		return isset($this->events[$offset]);
 	}
 
 	/**
@@ -83,7 +97,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	{
 		if ( $this->offsetExists( $offset ) )
 		{
-			return $this->events[ $offset ];
+			return $this->events[$offset];
 		}
 		else
 		{
@@ -105,7 +119,7 @@ class EventCollection implements Interfaces\CollectsEvents
 		}
 		else
 		{
-			$this->events[ $offset ] = $value;
+			$this->events[$offset] = $value;
 		}
 	}
 
@@ -114,7 +128,7 @@ class EventCollection implements Interfaces\CollectsEvents
 	 */
 	public function offsetUnset( $offset )
 	{
-		unset($this->events[ $offset ]);
+		unset($this->events[$offset]);
 	}
 
 	/**

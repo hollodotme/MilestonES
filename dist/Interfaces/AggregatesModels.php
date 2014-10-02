@@ -14,7 +14,10 @@ use hollodotme\MilestonES\EventStream;
  */
 interface AggregatesModels extends HasIdentity, TracksChanges
 {
-	public function clearChanges();
+	/**
+	 * @param CollectsEvents $committed_events
+	 */
+	public function clearCommittedChanges( CollectsEvents $committed_events );
 
 	/**
 	 * @param Identifies $id

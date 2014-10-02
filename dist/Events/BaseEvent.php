@@ -8,7 +8,6 @@ namespace hollodotme\MilestonES\Events;
 
 use hollodotme\MilestonES\Contract;
 use hollodotme\MilestonES\Interfaces;
-use hollodotme\MilestonES\Interfaces\ActsAsRole;
 use hollodotme\MilestonES\Interfaces\Identifies;
 
 /**
@@ -75,9 +74,9 @@ abstract class BaseEvent implements Interfaces\RepresentsEvent
 	}
 
 	/**
-	 * @param \DateTime $occured_on
+	 * @param \DateTimeImmutable $occured_on
 	 */
-	final public function setOccuredOn( \DateTime $occured_on )
+	final public function setOccuredOn( \DateTimeImmutable $occured_on )
 	{
 		$this->occured_on = $occured_on;
 	}

@@ -163,7 +163,6 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 * @param Identifies $id
 	 *
 	 * @throws Exceptions\AggregateRootNotFound
-	 * @throws Exceptions\AggregateRootIsMarkedAsDeleted
 	 * @return AggregatesModels
 	 */
 	private function getTrackedAggregateRootWithId( Identifies $id )

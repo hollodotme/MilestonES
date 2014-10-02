@@ -25,9 +25,9 @@ interface RepresentsEvent
 	public function getContract();
 
 	/**
-	 * @param \DateTime $occured_on
+	 * @param \DateTimeImmutable $occured_on
 	 */
-	public function setOccuredOn( \DateTime $occured_on );
+	public function setOccuredOn( \DateTimeImmutable $occured_on );
 
 	/**
 	 * @return \DateTime
