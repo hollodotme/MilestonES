@@ -16,7 +16,7 @@ use hollodotme\MilestonES\SerializerRegistry;
 use hollodotme\MilestonES\Serializers\JsonSerializer;
 use hollodotme\MilestonES\Test\Unit\TestAggregateWasDescribed;
 
-require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
+require_once __DIR__ . '/../Fixures/TestAggregateWasDescribed.php';
 
 class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 {

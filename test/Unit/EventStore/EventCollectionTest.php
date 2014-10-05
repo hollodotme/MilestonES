@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Test\Unit\EventStore;
 
-require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
+require_once __DIR__ . '/../Fixures/TestAggregateWasDescribed.php';
 
 use hollodotme\MilestonES\EventCollection;
 use hollodotme\MilestonES\Identifier;
@@ -112,4 +112,3 @@ class EventCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->expectOutputString( "Loop 1:\n0: Unit-Test-0\n2: Unit-Test-2\nLoop 2:\n0: Unit-Test-0\n2: Unit-Test-2" );
 	}
 }
- 

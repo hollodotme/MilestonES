@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Identifiers;
 
-require_once __DIR__ . '/../_test_classes/TestIdentifier.php';
+require_once __DIR__ . '/../Fixures/TestIdentifier.php';
 
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Test\Unit\TestIdentifier;

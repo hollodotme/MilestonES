@@ -6,12 +6,12 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
-require_once __DIR__ . '/../_test_classes/TestEventObserver.php';
-require_once __DIR__ . '/../_test_classes/TestAggregateRoot.php';
-require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
-require_once __DIR__ . '/../_test_classes/TestAggregateRootRepository.php';
-require_once __DIR__ . '/../_test_classes/TestAggregateRootRepositoryWithTestEventObserver.php';
-require_once __DIR__ . '/../_test_classes/TestAggregateRootRepositoryWithInvalidAggregateRootName.php';
+require_once __DIR__ . '/../Fixures/TestEventObserver.php';
+require_once __DIR__ . '/../Fixures/TestAggregateRoot.php';
+require_once __DIR__ . '/../Fixures/TestAggregateWasDescribed.php';
+require_once __DIR__ . '/../Fixures/TestAggregateRootRepository.php';
+require_once __DIR__ . '/../Fixures/TestAggregateRootRepositoryWithTestEventObserver.php';
+require_once __DIR__ . '/../Fixures/TestAggregateRootRepositoryWithInvalidAggregateRootName.php';
 
 use hollodotme\MilestonES\AggregateRootCollection;
 use hollodotme\MilestonES\EventCollection;

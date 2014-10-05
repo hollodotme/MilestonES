@@ -12,7 +12,7 @@ use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Test\Unit\TestAggregateRoot;
 use hollodotme\MilestonES\Test\Unit\TestAggregateWasDescribed;
 
-require_once __DIR__ . '/../_test_classes/TestAggregateRoot.php';
+require_once __DIR__ . '/../Fixures/TestAggregateRoot.php';
 
 class AggregateRootTest extends \PHPUnit_Framework_TestCase
 {

@@ -16,11 +16,11 @@ use hollodotme\MilestonES\Test\Unit\TestEventObserver;
 use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithFailingPersistence;
 use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithGlobalObserver;
 
-require_once __DIR__ . '/../_test_classes/TestEventObserver.php';
-require_once __DIR__ . '/../_test_classes/TestMemoryPersistenceWithFailOnPersist.php';
-require_once __DIR__ . '/../_test_classes/TestEventStoreConfigDelegateWithGlobalObserver.php';
-require_once __DIR__ . '/../_test_classes/TestEventStoreConfigDelegateWithFailingPersistence.php';
-require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
+require_once __DIR__ . '/../Fixures/TestEventObserver.php';
+require_once __DIR__ . '/../Fixures/TestMemoryPersistenceWithFailOnPersist.php';
+require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithGlobalObserver.php';
+require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithFailingPersistence.php';
+require_once __DIR__ . '/../Fixures/TestAggregateWasDescribed.php';
 
 class EventStoreTest extends \PHPUnit_Framework_TestCase
 {
@@ -166,4 +166,3 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$event_store->commitEvents( $collection );
 	}
 }
- 

@@ -6,8 +6,8 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
-require_once __DIR__ . '/../_test_classes/TestAggregateRoot.php';
-require_once __DIR__ . '/../_test_classes/TestIdentifier.php';
+require_once __DIR__ . '/../Fixures/TestAggregateRoot.php';
+require_once __DIR__ . '/../Fixures/TestIdentifier.php';
 
 use hollodotme\MilestonES\AggregateRootCollection;
 use hollodotme\MilestonES\Identifier;
@@ -160,4 +160,3 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection->find( new Identifier( 'Unit-Test-ID' ) );
 	}
 }
- 

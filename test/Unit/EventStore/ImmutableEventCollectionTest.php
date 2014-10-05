@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Test\Unit\EventStore;
 
-require_once __DIR__ . '/../_test_classes/TestAggregateWasDescribed.php';
+require_once __DIR__ . '/../Fixures/TestAggregateWasDescribed.php';
 
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\ImmutableEventCollection;
@@ -66,4 +66,3 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 		new ImmutableEventCollection( ['I am not an event'] );
 	}
 }
- 
