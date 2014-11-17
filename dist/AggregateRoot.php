@@ -86,7 +86,7 @@ abstract class AggregateRoot implements AggregatesModels
 	/**
 	 * @param RepresentsEvent $event
 	 */
-	final protected function trackThat( RepresentsEvent $event )
+	protected function trackThat( RepresentsEvent $event )
 	{
 		$this->setNextVersionToEvent( $event );
 
