@@ -86,8 +86,10 @@ abstract class AggregateRoot implements AggregatesModels
 	/**
 	 * @param RepresentsEvent $event
 	 */
-	protected function trackThat( RepresentsEvent $event )
+	final protected function trackThat( RepresentsEvent $event )
 	{
+		$this->beforeEventIsTracked( $event );
+
 		$this->setNextVersionToEvent( $event );
 
 		$this->tracked_events[] = $event;
@@ -98,10 +100,18 @@ abstract class AggregateRoot implements AggregatesModels
 	/**
 	 * @param RepresentsEvent $event
 	 */
+	protected function beforeEventIsTracked( RepresentsEvent $event )
+	{
+		// Do stuff in derived classes before the event is tracked!
+	}
+
+	/**
+	 * @param RepresentsEvent $event
+	 */
 	protected function applyChange( RepresentsEvent $event )
 	{
 		$method_name = 'when' . $event->getContract()->getClassBasename();
-		if ( is_callable( [$this, $method_name] ) )
+		if ( is_callable( [ $this, $method_name ] ) )
 		{
 			$this->{$method_name}( $event );
 
