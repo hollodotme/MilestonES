@@ -60,9 +60,9 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals( $this->commit->getDateTime(), $envelope->getCommittedOn() );
 
-		$this->assertEquals( 134, $envelope->getVersion() );
+		$this->assertEquals( 134, $envelope->getStreamVersion() );
 
-		$this->assertEquals( $event->getOccuredOn(), $envelope->getOccuredOn() );
+		$this->assertEquals( $event->getOccuredOn(), $envelope->getOccurredOn() );
 
 		$this->assertEquals( $event->getStreamId(), $envelope->getStreamId() );
 		$this->assertNotInstanceOf( '\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getStreamId() );

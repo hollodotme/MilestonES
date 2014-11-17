@@ -41,21 +41,23 @@ class EventEnvelopeMapper
 	public function putEventInEnvelopeForCommit( RepresentsEvent $event, IdentifiesCommit $commit )
 	{
 		$stream_identifier  = $this->getStreamIdentifierForEvent( $event );
+
 		$payload_contract   = $this->getPayloadContract( $event );
 		$payload_data = $this->serializeDataFromEventWithContract( $event->getPayloadDTO(), $payload_contract );
+
 		$meta_data_contract = $this->getMetaDataContract( $event );
 		$meta_data = $this->serializeDataFromEventWithContract( $event->getMetaDTO(), $meta_data_contract );
 
 		$envelope = new CommitEventEnvelope();
 		$envelope->setCommitId( $commit->getId() );
 
-		$envelope->setOccuredOn( $event->getOccuredOn() );
+		$envelope->setOccurredOn( $event->getOccuredOn() );
 		$envelope->setCommittedOn( $commit->getDateTime() );
 
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
 		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
 
-		$envelope->setVersion( $event->getVersion() );
+		$envelope->setStreamVersion( $event->getVersion() );
 
 		$envelope->setEventContract( $event->getContract() );
 
@@ -69,7 +71,7 @@ class EventEnvelopeMapper
 	}
 
 	/**
-	 * @param WrapsEventForCommit[] $envelope
+	 * @param WrapsEventForCommit[] $envelopes
 	 *
 	 * @throws EventClassDoesNotExist
 	 * @return RepresentsEvent[]
@@ -98,8 +100,8 @@ class EventEnvelopeMapper
 		$payload   = $this->getPayloadFromEnvelope( $envelope );
 		$meta_data = $this->getMetaDataFromEnvelope( $envelope );
 
-		$event->setVersion( $envelope->getVersion() );
-		$event->setOccuredOn( $envelope->getOccuredOn() );
+		$event->setVersion( $envelope->getStreamVersion() );
+		$event->setOccuredOn( $envelope->getOccurredOn() );
 		$event->setPayloadDTO( $payload );
 		$event->setMetaDTO( $meta_data );
 
@@ -182,7 +184,7 @@ class EventEnvelopeMapper
 	private function getStreamIdFromEnvelope( WrapsEventForCommit $envelope )
 	{
 		$id_class = $this->getStreamIdClassNameFromEnvelope( $envelope );
-		if ( class_exists( $id_class, true ) && is_callable( [$id_class, 'fromString'] ) )
+		if ( class_exists( $id_class, true ) && is_callable( [ $id_class, 'fromString' ] ) )
 		{
 			/** @var $id_class Interfaces\Identifies */
 			return $id_class::fromString( $envelope->getStreamId() );

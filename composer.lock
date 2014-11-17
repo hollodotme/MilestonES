@@ -12,13 +12,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hollodotme/Utilities.git",
-                "reference": "f3fedcaea5b3c594cd8a1619bdd9b0b60a7bd469"
+                "reference": "0d1c2db2267f3d07ceb64b427517cf85f2d021b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/f3fedcaea5b3c594cd8a1619bdd9b0b60a7bd469",
-                "reference": "f3fedcaea5b3c594cd8a1619bdd9b0b60a7bd469",
+                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/0d1c2db2267f3d07ceb64b427517cf85f2d021b0",
+                "reference": "0d1c2db2267f3d07ceb64b427517cf85f2d021b0",
                 "shasum": ""
+            },
+            "require-dev": {
+                "hollodotme/treemdown": "~1.0"
             },
             "type": "library",
             "autoload": {
@@ -38,7 +41,7 @@
                 }
             ],
             "description": "Simple utilities to include",
-            "time": "2014-09-20 22:17:10"
+            "time": "2014-10-14 18:43:06"
         },
         {
             "name": "moontoast/math",
@@ -78,16 +81,16 @@
         },
         {
             "name": "rhumsaa/uuid",
-            "version": "2.7.3",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "b976326ca5977d7333f34e3c828ae7c22a49a65a"
+                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/b976326ca5977d7333f34e3c828ae7c22a49a65a",
-                "reference": "b976326ca5977d7333f34e3c828ae7c22a49a65a",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/cca98c652cac412c9c2f109c69e5532f313435fc",
+                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc",
                 "shasum": ""
             },
             "require": {
@@ -111,7 +114,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7.x-dev"
+                    "dev-master": "2.8.x-dev"
                 }
             },
             "autoload": {
@@ -140,22 +143,22 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2014-08-27 22:39:41"
+            "time": "2014-11-09 18:42:56"
         }
     ],
     "packages-dev": [
         {
             "name": "erusev/parsedown",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "c62365adc4488e1c35a8f45ea86f7d4a22bd58a0"
+                "reference": "da5d75e97e1ed19e57bd54fa6cb595a6a0879a67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/c62365adc4488e1c35a8f45ea86f7d4a22bd58a0",
-                "reference": "c62365adc4488e1c35a8f45ea86f7d4a22bd58a0",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/da5d75e97e1ed19e57bd54fa6cb595a6a0879a67",
+                "reference": "da5d75e97e1ed19e57bd54fa6cb595a6a0879a67",
                 "shasum": ""
             },
             "type": "library",
@@ -181,7 +184,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2014-09-25 23:06:16"
+            "time": "2014-10-29 20:29:46"
         },
         {
             "name": "erusev/parsedown-extra",
@@ -229,16 +232,16 @@
         },
         {
             "name": "hollodotme/treemdown",
-            "version": "1.0.9",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hollodotme/TreeMDown.git",
-                "reference": "636e1d74f25928d025f8c5b7c7e9d54d5d76b4a5"
+                "reference": "476cc459584cdc00675a0e66c0600403c553dc8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hollodotme/TreeMDown/zipball/636e1d74f25928d025f8c5b7c7e9d54d5d76b4a5",
-                "reference": "636e1d74f25928d025f8c5b7c7e9d54d5d76b4a5",
+                "url": "https://api.github.com/repos/hollodotme/TreeMDown/zipball/476cc459584cdc00675a0e66c0600403c553dc8c",
+                "reference": "476cc459584cdc00675a0e66c0600403c553dc8c",
                 "shasum": ""
             },
             "require": {
@@ -273,21 +276,15 @@
                 "search",
                 "tree"
             ],
-            "time": "2014-09-16 12:43:05"
+            "time": "2014-11-01 19:57:13"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "hollodotme/utilities": 20
     },
     "prefer-stable": false,
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "platform": [],
+    "platform-dev": []
 }

@@ -36,12 +36,12 @@ interface WrapsEventForCommit
 	/**
 	 * @param int $version
 	 */
-	public function setVersion( $version );
+	public function setStreamVersion( $version );
 
 	/**
 	 * @return int
 	 */
-	public function getVersion();
+	public function getStreamVersion();
 
 	/**
 	 * @param string $event_contract
@@ -106,12 +106,12 @@ interface WrapsEventForCommit
 	/**
 	 * @param \DateTimeImmutable $occured_on
 	 */
-	public function setOccuredOn( \DateTimeImmutable $occured_on );
+	public function setOccurredOn( \DateTimeImmutable $occured_on );
 
 	/**
 	 * @return \DateTimeImmutable
 	 */
-	public function getOccuredOn();
+	public function getOccurredOn();
 
 	/**
 	 * @param \DateTimeImmutable $committed_on

@@ -26,10 +26,10 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	private $stream_id;
 
 	/** @var string */
-	private $stream_type_id;
+	private $stream_id_contract;
 
 	/** @var int */
-	private $version;
+	private $stream_version;
 
 	/** @var string */
 	private $event_contract;
@@ -47,7 +47,7 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	private $meta_data_contract;
 
 	/** @var \DateTimeImmutable */
-	private $occured_on;
+	private $occurred_on;
 
 	/** @var \DateTimeImmutable */
 	private $committed_on;
@@ -81,7 +81,7 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function setStreamIdContract( $stream_id_contract )
 	{
-		$this->stream_type_id = (string)$stream_id_contract;
+		$this->stream_id_contract = (string)$stream_id_contract;
 	}
 
 	/**
@@ -89,23 +89,23 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getStreamIdContract()
 	{
-		return $this->stream_type_id;
+		return $this->stream_id_contract;
 	}
 
 	/**
 	 * @param int $version
 	 */
-	public function setVersion( $version )
+	public function setStreamVersion( $version )
 	{
-		$this->version = $version;
+		$this->stream_version = $version;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getVersion()
+	public function getStreamVersion()
 	{
-		return $this->version;
+		return $this->stream_version;
 	}
 
 	/**
@@ -207,17 +207,17 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	/**
 	 * @param \DateTimeImmutable $occured_on
 	 */
-	public function setOccuredOn( \DateTimeImmutable $occured_on )
+	public function setOccurredOn( \DateTimeImmutable $occured_on )
 	{
-		$this->occured_on = $occured_on;
+		$this->occurred_on = $occured_on;
 	}
 
 	/**
 	 * @return \DateTimeImmutable
 	 */
-	public function getOccuredOn()
+	public function getOccurredOn()
 	{
-		return $this->occured_on;
+		return $this->occurred_on;
 	}
 
 	/**
@@ -229,10 +229,34 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @return \DateTime
+	 * @return \DateTimeImmutable
 	 */
 	public function getCommittedOn()
 	{
 		return $this->committed_on;
+	}
+
+	/**
+	 * @param array $record
+	 *
+	 * @return CommitEventEnvelope
+	 */
+	public static function fromRecord( array $record )
+	{
+		$envelope     = new self();
+		$envelope->id = $record['id'];
+		$envelope->setCommitId( $record['commit_id'] );
+		$envelope->setStreamId( $record['stream_id'] );
+		$envelope->setStreamIdContract( $record['stream_id_contract'] );
+		$envelope->setStreamVersion( $record['stream_version'] );
+		$envelope->setEventContract( $record['event_contract'] );
+		$envelope->setPayload( $record['payload'] );
+		$envelope->setPayloadContract( $record['payload_contract'] );
+		$envelope->setMetaData( $record['meta_data'] );
+		$envelope->setMetaDataContract( $record['meta_data_contract'] );
+		$envelope->setOccurredOn( \DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $record['occurred_on'] ) );
+		$envelope->setCommittedOn( \DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $record['committed_on'] ) );
+
+		return $envelope;
 	}
 }
