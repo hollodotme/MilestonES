@@ -6,13 +6,14 @@
 
 namespace hollodotme\MilestonES\Test\Unit;
 
-use hollodotme\MilestonES\Events\BaseEvent;
+use hollodotme\MilestonES\DomainEventEnvelope;
 
 /**
- * Class TestBaseEvent
- * @package hollodotme\MilestonES\Test\Unit
+ * Class TestDomainEventEnvelope
+ *
+*@package hollodotme\MilestonES\Test\Unit
  */
-class TestBaseEvent extends BaseEvent
+class TestDomainEventEnvelope extends DomainEventEnvelope
 {
 
 } 

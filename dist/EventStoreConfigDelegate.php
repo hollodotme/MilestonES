@@ -10,7 +10,6 @@ use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
 use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\ServesEventStoreConfiguration;
 use hollodotme\MilestonES\Persistence\Memory;
-use hollodotme\MilestonES\Serializers\JsonSerializer;
 use hollodotme\MilestonES\Serializers\PhpSerializer;
 
 /**
@@ -44,11 +43,6 @@ class EventStoreConfigDelegate implements ServesEventStoreConfiguration
 		$registry = new SerializerRegistry();
 
 		$registry->registerSerializerForContract(
-			new Contract( JsonSerializer::class ),
-			new JsonSerializer()
-		);
-
-		$registry->registerSerializerForContract(
 			new Contract( PhpSerializer::class ),
 			new PhpSerializer()
 		);
@@ -61,7 +55,7 @@ class EventStoreConfigDelegate implements ServesEventStoreConfiguration
 	 */
 	public function getSerializationDefaultContract()
 	{
-		return new Contract( JsonSerializer::class );
+		return new Contract( PhpSerializer::class );
 	}
 
 	/**

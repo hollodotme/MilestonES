@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface CollectsEvents
+ * Interface CollectsDomainEventEnvelopes
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface CollectsEvents extends \Iterator, \ArrayAccess, \Countable
+interface CollectsDomainEventEnvelopes extends \Iterator, \ArrayAccess, \Countable
 {
 
 }

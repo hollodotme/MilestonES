@@ -35,7 +35,7 @@
       </li>
       <li>Can get a tracked aggregate root by id
       </li>
-      <li>Can get aggregate root reconstituted from event stream
+        <li>Can get aggregate root reconstituted from history
       </li>
       <li>Can get aggregate root from event stream fails when aggregate root class is invalid
       </li>
@@ -43,24 +43,14 @@
       </li>
       <li>Can register event observers
       </li>
-      <li>Can create new aggregate root that is immediately tracked
-      </li>
-      <li>Create with id returns existing aggregate root if already tracked
-      </li>
-      <li>Create with id returns existing aggregate root if already stored
-      </li>
-      <li>Create with id fails when aggregate root class name is invalid
-      </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootTest">
       hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRoot
     </h2>
     <ul>
-      <li>Allocation with id triggers and applies change
+        <li>Schedule triggers and applies change with id
       </li>
-      <li>Events increase version of aggregate root
-      </li>
-      <li>Can be allocated with event stream
+        <li>Can be reconstituted from history
       </li>
       <li>Changes can be cleared
       </li>
@@ -72,21 +62,21 @@
         <li>From record
         </li>
     </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventCollectionTest">
-      hollodotme\MilestonES\Test\Unit\EventStore\EventCollection
+    <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\DomainEventEnvelopeCollectionTest">
+        hollodotme\MilestonES\Test\Unit\EventStore\DomainEventEnvelopeCollection
     </h2>
     <ul>
       <li>Collection is empty after contruction
       </li>
       <li>Collection is not empty after adding events
       </li>
-      <li>Adding an item fails when it is not an event representation
+        <li>Adding an item fails when it is not a domain event envelope
       </li>
       <li>Collection takes auto and concrete index
       </li>
-      <li>Events can be removed from collection using unset
+        <li>Envelopes can be removed from collection using unset
       </li>
-      <li>Can loop multiple times over events in collection
+        <li>Can loop multiple times over collection
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventEnvelopeMapperTest">
@@ -96,10 +86,6 @@
       <li>Put event in envelope for commit
       </li>
       <li>Extract event from envelope
-      </li>
-      <li>Extract event from envelope fails when event class does not exist
-      </li>
-      <li>Extract event from envelope fails when stream id class does not exist
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventStoreTest">
@@ -133,7 +119,7 @@
       </li>
       <li>Removing an event by offset unset after construction fails
       </li>
-      <li>Construction with array of non events fails
+        <li>Construction with array of non domain event envelopes fails
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\ClassNameIdentifierTest">
@@ -149,6 +135,13 @@
       <li>Class basename is extracted from fcqn
       </li>
     </ul>
+    <h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\ContractTest">
+        hollodotme\MilestonES\Test\Unit\Identifiers\Contract
+    </h2>
+    <ul>
+        <li>Objects can be used as id
+        </li>
+    </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\IdentifierTest">
       hollodotme\MilestonES\Test\Unit\Identifiers\Identifier
     </h2>
@@ -157,7 +150,7 @@
       </li>
       <li>Numbers will be converted to strings
       </li>
-      <li>Expressions as id will throw an exception
+        <li>Non scalars as id will throw an exception
       </li>
       <li>Can be constructed from string
       </li>
@@ -203,17 +196,6 @@
       <li>Get event envelopes with id fails when stream id not found
       </li>
       <li>Get event envelopes with id fails when envelopes are not committed
-      </li>
-    </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\Serialization\JsonSerializerTest">
-      hollodotme\MilestonES\Test\Unit\Serialization\JsonSerializer
-    </h2>
-    <ul>
-      <li>Serialize data
-      </li>
-      <li>Unserialize data
-      </li>
-      <li>Unserialize data inverts serialized data
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Serialization\PhpSerializerTest">

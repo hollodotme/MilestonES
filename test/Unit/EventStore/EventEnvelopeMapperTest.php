@@ -9,14 +9,15 @@ namespace hollodotme\MilestonES\Test\Unit\EventStore;
 use hollodotme\MilestonES\Commit;
 use hollodotme\MilestonES\CommitId;
 use hollodotme\MilestonES\Contract;
+use hollodotme\MilestonES\DomainEventEnvelope;
 use hollodotme\MilestonES\EventEnvelopeMapper;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\SerializationStrategy;
 use hollodotme\MilestonES\SerializerRegistry;
-use hollodotme\MilestonES\Serializers\JsonSerializer;
-use hollodotme\MilestonES\Test\Unit\TestAggregateWasDescribed;
+use hollodotme\MilestonES\Serializers\PhpSerializer;
+use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
 
-require_once __DIR__ . '/../Fixures/TestAggregateWasDescribed.php';
+require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
 
 class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,132 +35,111 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 	{
 		$serializer_registry = new SerializerRegistry();
 		$serializer_registry->registerSerializerForContract(
-			new Contract( JsonSerializer::class ),
-			new JsonSerializer()
+			new Contract( PhpSerializer::class ),
+			new PhpSerializer()
 		);
 
-		$this->serialization_strategy =
-			new SerializationStrategy( $serializer_registry, new Contract( JsonSerializer::class ) );
+		$this->serialization_strategy = new SerializationStrategy(
+			$serializer_registry,
+			new Contract( PhpSerializer::class )
+		);
 
-		$this->commit = new Commit( CommitId::generate(), new \DateTimeImmutable( self::TEST_COMMIT_TIMESTAMP ) );
+		$this->commit = new Commit(
+			CommitId::generate(),
+			new \DateTimeImmutable( self::TEST_COMMIT_TIMESTAMP )
+		);
 	}
 
 	public function testPutEventInEnvelopeForCommit()
 	{
 		$mapper = new EventEnvelopeMapper( $this->serialization_strategy );
 
-		$event = $this->getTestEvent();
+		$event_envelope = $this->getTestEventEnvelope();
 
-		$envelope = $mapper->putEventInEnvelopeForCommit( $event, $this->commit );
+		$commit_envelope = $mapper->putEventInEnvelopeForCommit( $event_envelope, $this->commit );
 
-		$this->assertNull( $envelope->getId() );
+		$this->assertNull( $commit_envelope->getId() );
 
-		$this->assertEquals( $this->commit->getId(), $envelope->getCommitId() );
-		$this->assertNotInstanceOf( '\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getCommitId() );
-		$this->assertInternalType( 'string', $envelope->getCommitId() );
-
-		$this->assertEquals( $this->commit->getDateTime(), $envelope->getCommittedOn() );
-
-		$this->assertEquals( 134, $envelope->getStreamVersion() );
-
-		$this->assertEquals( $event->getOccuredOn(), $envelope->getOccurredOn() );
-
-		$this->assertEquals( $event->getStreamId(), $envelope->getStreamId() );
-		$this->assertNotInstanceOf( '\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getStreamId() );
-		$this->assertInternalType( 'string', $envelope->getStreamId() );
-
-		$this->assertEquals( new Contract( get_class( $event->getStreamId() ) ), $envelope->getStreamIdContract() );
+		$this->assertEquals( $this->commit->getId(), $commit_envelope->getCommitId() );
 		$this->assertNotInstanceOf(
-			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getStreamIdContract()
+			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $commit_envelope->getCommitId()
 		);
-		$this->assertInternalType( 'string', $envelope->getStreamIdContract() );
+		$this->assertInternalType( 'string', $commit_envelope->getCommitId() );
 
-		$this->assertEquals( $event->getContract(), $envelope->getEventContract() );
-		$this->assertNotInstanceOf( '\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getEventContract() );
-		$this->assertInternalType( 'string', $envelope->getEventContract() );
+		$this->assertSame( $this->commit->getDateTime(), $commit_envelope->getCommittedOn() );
+		$this->assertSame( $event_envelope->getOccurredOn(), $commit_envelope->getOccurredOn() );
 
-		$this->assertEquals( new Contract( JsonSerializer::class ), $envelope->getPayloadContract() );
+		$this->assertEquals( $event_envelope->getStreamId(), $commit_envelope->getStreamId() );
 		$this->assertNotInstanceOf(
-			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getPayloadContract()
+			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $commit_envelope->getStreamId()
 		);
-		$this->assertInternalType( 'string', $envelope->getPayloadContract() );
+		$this->assertInternalType( 'string', $commit_envelope->getStreamId() );
 
-		$this->assertInternalType( 'string', $envelope->getPayload() );
-		$this->assertJsonStringEqualsJsonString( '{"description":"Unit test event"}', $envelope->getPayload() );
-
-		$this->assertEquals( new Contract( JsonSerializer::class ), $envelope->getMetaDataContract() );
+		$this->assertEquals(
+			new Contract( get_class( $event_envelope->getStreamId() ) ), $commit_envelope->getStreamIdContract()
+		);
 		$this->assertNotInstanceOf(
-			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $envelope->getMetaDataContract()
+			'\\hollodotme\\MilestonES\\Interfaces\\Identifies',
+			$commit_envelope->getStreamIdContract()
 		);
-		$this->assertInternalType( 'string', $envelope->getMetaDataContract() );
+		$this->assertInternalType( 'string', $commit_envelope->getStreamIdContract() );
 
-		$this->assertInternalType( 'string', $envelope->getMetaData() );
-		$this->assertJsonStringEqualsJsonString( '{"creator":"Unit test creator"}', $envelope->getMetaData() );
+		$this->assertEquals( new Contract( PhpSerializer::class ), $commit_envelope->getPayloadContract() );
+		$this->assertNotInstanceOf(
+			'\\hollodotme\\MilestonES\\Interfaces\\Identifies',
+			$commit_envelope->getPayloadContract()
+		);
+		$this->assertInternalType( 'string', $commit_envelope->getPayloadContract() );
+
+		$this->assertInternalType( 'string', $commit_envelope->getPayload() );
+		$this->assertEquals( serialize( $event_envelope->getPayload() ), $commit_envelope->getPayload() );
+
+		$this->assertEquals( new Contract( PhpSerializer::class ), $commit_envelope->getMetaDataContract() );
+		$this->assertNotInstanceOf(
+			'\\hollodotme\\MilestonES\\Interfaces\\Identifies',
+			$commit_envelope->getMetaDataContract()
+		);
+		$this->assertInternalType( 'string', $commit_envelope->getMetaDataContract() );
+
+		$this->assertInternalType( 'string', $commit_envelope->getMetaData() );
+		$this->assertEquals( serialize( $event_envelope->getMetaData() ), $commit_envelope->getMetaData() );
 	}
 
 	public function testExtractEventFromEnvelope()
 	{
-		$mapper   = new EventEnvelopeMapper( $this->serialization_strategy );
-		$event    = $this->getTestEvent();
-		$envelope = $mapper->putEventInEnvelopeForCommit( $event, $this->commit );
+		$mapper          = new EventEnvelopeMapper( $this->serialization_strategy );
+		$event_envelope  = $this->getTestEventEnvelope();
+		$commit_envelope = $mapper->putEventInEnvelopeForCommit( $event_envelope, $this->commit );
 
-		/** @var TestAggregateWasDescribed $extracted_event */
-		$extracted_events = $mapper->extractEventsFromEnvelopes( [ $envelope ] );
+		$extracted_envelopes = $mapper->extractFromCommitEnvelopes( [ $commit_envelope ] );
 
-		$extracted_event = $extracted_events[0];
+		/** @var DomainEventEnvelope $extracted_envelope */
+		$extracted_envelope = $extracted_envelopes[0];
 
-		$this->assertCount( 1, $extracted_events );
+		/** @var UnitTestEvent $extracted_event */
+		$extracted_event = $extracted_envelope->getPayload();
 
-		$this->assertInstanceOf( TestAggregateWasDescribed::class, $extracted_event );
+		$this->assertCount( 1, $extracted_envelopes );
 
-		$this->assertEquals( $event->getStreamId(), $extracted_event->getStreamId() );
-		$this->assertTrue( $event->getStreamId()->equals( $extracted_event->getStreamId() ) );
-		$this->assertInstanceOf( get_class( $event->getStreamId() ), $extracted_event->getStreamId() );
+		$this->assertInstanceOf( UnitTestEvent::class, $extracted_envelope->getPayload() );
 
-		$this->assertEquals( 'Unit test creator', $extracted_event->getCreator() );
+		$this->assertEquals( $event_envelope->getStreamId(), $extracted_envelope->getStreamId() );
+		$this->assertTrue( $event_envelope->getStreamId()->equals( $extracted_envelope->getStreamId() ) );
+		$this->assertInstanceOf( get_class( $event_envelope->getStreamId() ), $extracted_envelope->getStreamId() );
+
 		$this->assertEquals( 'Unit test event', $extracted_event->getDescription() );
 
-		$this->assertEquals( new \DateTimeImmutable( self::TEST_EVENT_OCCURANCE_TIMESTAMP ), $extracted_event->getOccuredOn() );
-
-		$this->assertEquals( 134, $extracted_event->getVersion() );
+		$this->assertInstanceOf( \DateTimeImmutable::class, $extracted_envelope->getOccurredOn() );
 	}
 
 	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\EventClassDoesNotExist
+	 * @return DomainEventEnvelope
 	 */
-	public function testExtractEventFromEnvelopeFailsWhenEventClassDoesNotExist()
+	private function getTestEventEnvelope()
 	{
-		$mapper   = new EventEnvelopeMapper( $this->serialization_strategy );
-		$event    = $this->getTestEvent();
-		$envelope = $mapper->putEventInEnvelopeForCommit( $event, $this->commit );
+		$event          = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit test event' );
+		$event_envelope = new DomainEventEnvelope( $event, [ ] );
 
-		$envelope->setEventContract( new Contract( 'Some\\Invalid\\Class\\Name' ) );
-
-		$mapper->extractEventsFromEnvelopes( [ $envelope ] );
-	}
-
-	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\IdentifierClassDoesNotExist
-	 */
-	public function testExtractEventFromEnvelopeFailsWhenStreamIdClassDoesNotExist()
-	{
-		$mapper   = new EventEnvelopeMapper( $this->serialization_strategy );
-		$event    = $this->getTestEvent();
-		$envelope = $mapper->putEventInEnvelopeForCommit( $event, $this->commit );
-
-		$envelope->setStreamIdContract( new Contract( 'Some\\Invalid\\Class\\Name' ) );
-
-		$mapper->extractEventsFromEnvelopes( [ $envelope ] );
-	}
-
-	private function getTestEvent()
-	{
-		$event = new TestAggregateWasDescribed( new Identifier( 'Unit\\Test\\ID' ) );
-		$event->setVersion( 134 );
-		$event->setOccuredOn( new \DateTimeImmutable( self::TEST_EVENT_OCCURANCE_TIMESTAMP ) );
-		$event->setCreator( 'Unit test creator' );
-		$event->setDescription( 'Unit test event' );
-
-		return $event;
+		return $event_envelope;
 	}
 }

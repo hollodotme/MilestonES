@@ -6,11 +6,10 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Exceptions\EventClassDoesNotExist;
-use hollodotme\MilestonES\Exceptions\IdentifierClassDoesNotExist;
 use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Interfaces\RepresentsEvent;
+use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 
 /**
@@ -33,33 +32,27 @@ class EventEnvelopeMapper
 	}
 
 	/**
-	 * @param RepresentsEvent  $event
+	 * @param WrapsDomainEvent $event_envelope
 	 * @param IdentifiesCommit $commit
 	 *
 	 * @return CommitEventEnvelope
 	 */
-	public function putEventInEnvelopeForCommit( RepresentsEvent $event, IdentifiesCommit $commit )
+	public function putEventInEnvelopeForCommit( WrapsDomainEvent $event_envelope, IdentifiesCommit $commit )
 	{
-		$stream_identifier  = $this->getStreamIdentifierForEvent( $event );
-
-		$payload_contract   = $this->getPayloadContract( $event );
-		$payload_data = $this->serializeDataFromEventWithContract( $event->getPayloadDTO(), $payload_contract );
-
-		$meta_data_contract = $this->getMetaDataContract( $event );
-		$meta_data = $this->serializeDataFromEventWithContract( $event->getMetaDTO(), $meta_data_contract );
+		$stream_identifier  = $this->getStreamIdentifierForEventEnvelope( $event_envelope );
+		$payload_contract   = $this->getPayloadContract();
+		$payload_data       = $this->serializeDataWithContract( $event_envelope->getPayload(), $payload_contract );
+		$meta_data_contract = $this->getMetaDataContract();
+		$meta_data          = $this->serializeDataWithContract( $event_envelope->getMetaData(), $meta_data_contract );
 
 		$envelope = new CommitEventEnvelope();
 		$envelope->setCommitId( $commit->getId() );
 
-		$envelope->setOccurredOn( $event->getOccuredOn() );
+		$envelope->setOccurredOn( $event_envelope->getOccurredOn() );
 		$envelope->setCommittedOn( $commit->getDateTime() );
 
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
 		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
-
-		$envelope->setStreamVersion( $event->getVersion() );
-
-		$envelope->setEventContract( $event->getContract() );
 
 		$envelope->setPayloadContract( $payload_contract->toString() );
 		$envelope->setPayload( $payload_data );
@@ -71,150 +64,68 @@ class EventEnvelopeMapper
 	}
 
 	/**
-	 * @param WrapsEventForCommit[] $envelopes
+	 * @param WrapsEventForCommit[] $commit_envelopes
 	 *
-	 * @throws EventClassDoesNotExist
-	 * @return RepresentsEvent[]
+	 * @return WrapsDomainEvent[]
 	 */
-	public function extractEventsFromEnvelopes( array $envelopes )
+	public function extractFromCommitEnvelopes( array $commit_envelopes )
 	{
 		$events = [ ];
 
-		foreach ( $envelopes as $envelope )
+		foreach ( $commit_envelopes as $commit_envelope )
 		{
-			$events[] = $this->extractEventFromEnvelope( $envelope );
+			$events[] = $this->extractEventEnvelopeFromCommitEnvelope( $commit_envelope );
 		}
 
 		return $events;
 	}
 
 	/**
-	 * @param WrapsEventForCommit $envelope
+	 * @param WrapsEventForCommit $commit_envelope
 	 *
-	 * @throws EventClassDoesNotExist
 	 * @return RepresentsEvent
 	 */
-	private function extractEventFromEnvelope( WrapsEventForCommit $envelope )
+	private function extractEventEnvelopeFromCommitEnvelope( WrapsEventForCommit $commit_envelope )
 	{
-		$event     = $this->getEventInstanceFromEnvelope( $envelope );
-		$payload   = $this->getPayloadFromEnvelope( $envelope );
-		$meta_data = $this->getMetaDataFromEnvelope( $envelope );
+		$event       = $this->getEventFromCommitEnvelope( $commit_envelope );
+		$meta_data   = $this->getMetaDataFromCommitEnvelope( $commit_envelope );
+		$occurred_on = $commit_envelope->getOccurredOn();
 
-		$event->setVersion( $envelope->getStreamVersion() );
-		$event->setOccuredOn( $envelope->getOccurredOn() );
-		$event->setPayloadDTO( $payload );
-		$event->setMetaDTO( $meta_data );
-
-		return $event;
+		return DomainEventEnvelope::fromRecord( $event, $meta_data, $occurred_on );
 	}
 
 	/**
-	 * @param WrapsEventForCommit $envelope
+	 * @param WrapsEventForCommit $commit_envelope
 	 *
 	 * @return mixed
 	 */
-	private function getPayloadFromEnvelope( WrapsEventForCommit $envelope )
+	private function getEventFromCommitEnvelope( WrapsEventForCommit $commit_envelope )
 	{
-		$payload_contract = $this->getContractFromString( $envelope->getPayloadContract() );
+		$payload_contract = Contract::fromString( $commit_envelope->getPayloadContract() );
 
-		return $this->unserializeDataFromEnvelopeWithContract( $envelope->getPayload(), $payload_contract );
+		return $this->unserializeDataWithContract( $commit_envelope->getPayload(), $payload_contract );
 	}
 
 	/**
-	 * @param WrapsEventForCommit $envelope
+	 * @param WrapsEventForCommit $commit_envelope
 	 *
 	 * @return mixed
 	 */
-	private function getMetaDataFromEnvelope( WrapsEventForCommit $envelope )
+	private function getMetaDataFromCommitEnvelope( WrapsEventForCommit $commit_envelope )
 	{
-		$meta_data_contract = $this->getContractFromString( $envelope->getMetaDataContract() );
+		$meta_data_contract = Contract::fromString( $commit_envelope->getMetaDataContract() );
 
-		return $this->unserializeDataFromEnvelopeWithContract( $envelope->getMetaData(), $meta_data_contract );
+		return $this->unserializeDataWithContract( $commit_envelope->getMetaData(), $meta_data_contract );
 	}
 
 	/**
-	 * @param string $contract_string
-	 *
-	 * @return Contract
-	 */
-	private function getContractFromString( $contract_string )
-	{
-		return Contract::fromString( $contract_string );
-	}
-
-	/**
-	 * @param WrapsEventForCommit $envelope
-	 *
-	 * @throws EventClassDoesNotExist
-	 * @return RepresentsEvent
-	 */
-	private function getEventInstanceFromEnvelope( WrapsEventForCommit $envelope )
-	{
-		$event_class = $this->getEventClassNameFromEnvelope( $envelope );
-		if ( class_exists( $event_class, true ) )
-		{
-			$stream_id = $this->getStreamIdFromEnvelope( $envelope );
-
-			return new $event_class( $stream_id );
-		}
-		else
-		{
-			throw new EventClassDoesNotExist( $event_class );
-		}
-	}
-
-	/**
-	 * @param WrapsEventForCommit $envelope
-	 *
-	 * @return string
-	 */
-	private function getEventClassNameFromEnvelope( WrapsEventForCommit $envelope )
-	{
-		$event_contract = Contract::fromString( $envelope->getEventContract() );
-
-		return $event_contract->getFullQualifiedClassName();
-	}
-
-	/**
-	 * @param WrapsEventForCommit $envelope
-	 *
-	 * @throws IdentifierClassDoesNotExist
-	 * @return Interfaces\Identifies
-	 */
-	private function getStreamIdFromEnvelope( WrapsEventForCommit $envelope )
-	{
-		$id_class = $this->getStreamIdClassNameFromEnvelope( $envelope );
-		if ( class_exists( $id_class, true ) && is_callable( [ $id_class, 'fromString' ] ) )
-		{
-			/** @var $id_class Interfaces\Identifies */
-			return $id_class::fromString( $envelope->getStreamId() );
-		}
-		else
-		{
-			throw new IdentifierClassDoesNotExist( $id_class );
-		}
-	}
-
-	/**
-	 * @param WrapsEventForCommit $envelope
-	 *
-	 * @return string
-	 */
-	private function getStreamIdClassNameFromEnvelope( WrapsEventForCommit $envelope )
-	{
-		$stream_id_contract = Contract::fromString( $envelope->getStreamIdContract() );
-
-		return $stream_id_contract->getFullQualifiedClassName();
-	}
-
-	/**
-	 * @param RepresentsEvent $event
+	 * @param WrapsDomainEvent $event_envelope
 	 *
 	 * @return IdentifiesEventStream
 	 */
-	private function getStreamIdentifierForEvent( RepresentsEvent $event )
+	private function getStreamIdentifierForEventEnvelope( WrapsDomainEvent $event_envelope )
 	{
-		return new EventStreamIdentifier( $event->getStreamId() );
+		return new EventStreamIdentifier( $event_envelope->getStreamId() );
 	}
 
 	/**
@@ -239,7 +150,7 @@ class EventEnvelopeMapper
 	 *
 	 * @return string
 	 */
-	private function serializeDataFromEventWithContract( $data, Contract $contract )
+	private function serializeDataWithContract( $data, Contract $contract )
 	{
 		$serializer = $this->getSerializerForContract( $contract );
 
@@ -252,7 +163,7 @@ class EventEnvelopeMapper
 	 *
 	 * @return mixed
 	 */
-	private function unserializeDataFromEnvelopeWithContract( $data, Contract $contract )
+	private function unserializeDataWithContract( $data, Contract $contract )
 	{
 		$serializer = $this->getSerializerForContract( $contract );
 

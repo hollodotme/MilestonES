@@ -34,26 +34,6 @@ interface WrapsEventForCommit
 	public function getStreamIdContract();
 
 	/**
-	 * @param int $version
-	 */
-	public function setStreamVersion( $version );
-
-	/**
-	 * @return int
-	 */
-	public function getStreamVersion();
-
-	/**
-	 * @param string $event_contract
-	 */
-	public function setEventContract( $event_contract );
-
-	/**
-	 * @return string
-	 */
-	public function getEventContract();
-
-	/**
 	 * @param string $payload
 	 */
 	public function setPayload( $payload );

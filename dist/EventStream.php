@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES;
  *
  * @package hollodotme\MilestonES
  */
-final class EventStream extends ImmutableEventCollection
+final class EventStream extends ImmutableDomainEventEnvelopeCollection
 {
 
 }

@@ -19,7 +19,7 @@ interface IdentifiesCommit
 	public function getId();
 
 	/**
-	 * @return \DateTime
+	 * @return \DateTimeImmutable
 	 */
 	public function getDateTime();
 }

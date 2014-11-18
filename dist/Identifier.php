@@ -26,7 +26,7 @@ class Identifier implements Identifies
 	/**
 	 * @param string $id
 	 */
-	final public function __construct( $id )
+	public function __construct( $id )
 	{
 		$this->guardType( $id );
 
@@ -87,7 +87,7 @@ class Identifier implements Identifies
 	 *
 	 * @return string
 	 */
-	private function getIdAsString( $id )
+	protected function getIdAsString( $id )
 	{
 		return strval( $id );
 	}

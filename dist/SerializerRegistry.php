@@ -11,13 +11,14 @@ use hollodotme\MilestonES\Interfaces\SerializesData;
 
 /**
  * Class SerializerRegistry
+ *
  * @package hollodotme\MilestonES
  */
 class SerializerRegistry
 {
 
 	/** @var SerializesData[] */
-	private $serializer_map = [];
+	private $serializer_map = [ ];
 
 	/**
 	 * @param Contract $contract
@@ -25,7 +26,7 @@ class SerializerRegistry
 	 */
 	public function registerSerializerForContract( Contract $contract, SerializesData $serializer )
 	{
-		$this->serializer_map[$contract->toString()] = $serializer;
+		$this->serializer_map[ $contract->toString() ] = $serializer;
 	}
 
 	/**
@@ -63,6 +64,6 @@ class SerializerRegistry
 	 */
 	private function getSerializerForRegisteredContract( Contract $contract )
 	{
-		return $this->serializer_map[$contract->toString()];
+		return $this->serializer_map[ $contract->toString() ];
 	}
 } 

@@ -6,13 +6,17 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
-require_once __DIR__ . '/../Fixures/TestAggregateRoot.php';
+require_once __DIR__ . '/../Fixures/UnitTestAggregate.php';
+require_once __DIR__ . '/../Fixures/UnitTestAggregateDiff.php';
+require_once __DIR__ . '/../Fixures/UnitTestAggregateOtherId.php';
 require_once __DIR__ . '/../Fixures/TestIdentifier.php';
 
 use hollodotme\MilestonES\AggregateRootCollection;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Test\Unit\TestAggregateRoot;
 use hollodotme\MilestonES\Test\Unit\TestIdentifier;
+use hollodotme\MilestonES\Test\Unit\UnitTestAggregate;
+use hollodotme\MilestonES\Test\Unit\UnitTestAggregateDiff;
+use hollodotme\MilestonES\Test\Unit\UnitTestAggregateOtherId;
 
 class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +24,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$collection     = new AggregateRootCollection();
 		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
 
@@ -33,7 +37,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$collection     = new AggregateRootCollection();
 		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
 		$collection->attach( $aggregate_root );
@@ -48,35 +52,35 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection          = new AggregateRootCollection();
 		$identifier          = new Identifier( 'Unit-Test-ID' );
 		$test_identifier     = new TestIdentifier( 'Unit-Test-ID' );
-		$aggregate_root      = TestAggregateRoot::allocateWithId( $identifier );
-		$test_aggregate_root = TestAggregateRoot::allocateWithId( $test_identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
+		$aggregate_root_diff = UnitTestAggregateDiff::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
-		$collection->attach( $test_aggregate_root );
+		$collection->attach( $aggregate_root_diff );
 
 		$this->assertCount( 2, $collection );
 		$this->assertTrue( $collection->isAttached( $aggregate_root ) );
-		$this->assertTrue( $collection->isAttached( $test_aggregate_root ) );
+		$this->assertTrue( $collection->isAttached( $aggregate_root_diff ) );
 		$this->assertTrue( $collection->idExists( $identifier ) );
 		$this->assertTrue( $collection->idExists( $test_identifier ) );
 	}
 
 	public function testTwoAggregateRootsWithDifferentIdsCanBeAttached()
 	{
-		$collection          = new AggregateRootCollection();
-		$identifier          = new Identifier( 'Unit-Test-ID-1' );
-		$test_identifier     = new Identifier( 'Unit-Test-ID-X' );
-		$aggregate_root      = TestAggregateRoot::allocateWithId( $identifier );
-		$test_aggregate_root = TestAggregateRoot::allocateWithId( $test_identifier );
+		$collection           = new AggregateRootCollection();
+		$identifier           = new Identifier( 'Unit-Test-ID' );
+		$other_identifier     = new Identifier( 'Unit-Test-ID-X' );
+		$aggregate_root       = UnitTestAggregate::schedule( 'Unit-Test' );
+		$other_aggregate_root = UnitTestAggregateOtherId::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
-		$collection->attach( $test_aggregate_root );
+		$collection->attach( $other_aggregate_root );
 
 		$this->assertCount( 2, $collection );
 		$this->assertTrue( $collection->isAttached( $aggregate_root ) );
-		$this->assertTrue( $collection->isAttached( $test_aggregate_root ) );
+		$this->assertTrue( $collection->isAttached( $other_aggregate_root ) );
 		$this->assertTrue( $collection->idExists( $identifier ) );
-		$this->assertTrue( $collection->idExists( $test_identifier ) );
+		$this->assertTrue( $collection->idExists( $other_identifier ) );
 	}
 
 	/**
@@ -85,9 +89,8 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testAttachingTwoAggregateRootsWithSameIdFails()
 	{
 		$collection           = new AggregateRootCollection();
-		$identifier           = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root       = TestAggregateRoot::allocateWithId( $identifier );
-		$other_aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
+		$other_aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
 		$collection->attach( $other_aggregate_root );
@@ -97,11 +100,11 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$collection     = new AggregateRootCollection();
 		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
 
-		$found = $collection->find( new Identifier( 'Unit-Test-ID' ) );
+		$found = $collection->find( $identifier );
 
 		$this->assertSame( $aggregate_root, $found );
 	}
@@ -111,14 +114,14 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection          = new AggregateRootCollection();
 		$identifier          = new Identifier( 'Unit-Test-ID' );
 		$test_identifier     = new TestIdentifier( 'Unit-Test-ID' );
-		$aggregate_root      = TestAggregateRoot::allocateWithId( $identifier );
-		$test_aggregate_root = TestAggregateRoot::allocateWithId( $test_identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
+		$test_aggregate_root = UnitTestAggregateDiff::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
 		$collection->attach( $test_aggregate_root );
 
-		$found      = $collection->find( new Identifier( 'Unit-Test-ID' ) );
-		$test_found = $collection->find( new TestIdentifier( 'Unit-Test-ID' ) );
+		$found      = $collection->find( $identifier );
+		$test_found = $collection->find( $test_identifier );
 
 		$this->assertSame( $aggregate_root, $found );
 		$this->assertSame( $test_aggregate_root, $test_found );
@@ -130,8 +133,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testCanLoopOverCollectionMoreThanOnce()
 	{
 		$collection     = new AggregateRootCollection();
-		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
 

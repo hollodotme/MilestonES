@@ -10,26 +10,20 @@ use hollodotme\MilestonES\EventStream;
 
 /**
  * Interface AggregatesModels
+ *
  * @package hollodotme\MilestonES\Interfaces
  */
 interface AggregatesModels extends HasIdentity, TracksChanges
 {
 	/**
-	 * @param CollectsEvents $committed_events
+	 * @param CollectsDomainEventEnvelopes $committed_events
 	 */
-	public function clearCommittedChanges( CollectsEvents $committed_events );
-
-	/**
-	 * @param Identifies $id
-	 *
-	 * @return AggregatesModels
-	 */
-	public static function allocateWithId( Identifies $id );
+	public function clearCommittedChanges( CollectsDomainEventEnvelopes $committed_events );
 
 	/**
 	 * @param EventStream $event_stream
 	 *
 	 * @return AggregatesModels
 	 */
-	public static function allocateWithEventStream( EventStream $event_stream );
+	public static function reconstituteFromHistory( EventStream $event_stream );
 } 

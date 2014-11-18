@@ -84,47 +84,6 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 		}
 	}
 
-	/**
-	 * @param Identifies $id
-	 *
-	 * @throws Exceptions\ClassIsNotAnAggregateRoot
-	 * @return AggregatesModels
-	 */
-	final public function createWithIdIfNecessary( Identifies $id )
-	{
-		try
-		{
-			return $this->getWithId( $id );
-		}
-		catch ( AggregateRootNotFound $e )
-		{
-			$aggregate_root = $this->createAggregateRootWithId( $id );
-			$this->trackAggregateRoot( $aggregate_root );
-
-			return $aggregate_root;
-		}
-	}
-
-	/**
-	 * @param Identifies $id
-	 *
-	 * @throws Exceptions\ClassIsNotAnAggregateRoot
-	 * @return AggregatesModels
-	 */
-	private function createAggregateRootWithId( Identifies $id )
-	{
-		$class_name = $this->getAggregateRootName();
-		if ( is_callable( [$class_name, 'allocateWithId'] ) )
-		{
-			/** @var AggregatesModels $class_name */
-			return $class_name::allocateWithId( $id );
-		}
-		else
-		{
-			throw new Exceptions\ClassIsNotAnAggregateRoot();
-		}
-	}
-
 	private function attachCommitedEventObserversToEventStore()
 	{
 		foreach ( $this->getCommitedEventObservers() as $observer )
@@ -183,7 +142,7 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 		{
 			$event_stream = $this->getEventStreamForAggregateRootId( $id );
 
-			return $this->allocateAggregateRootWithEventStream( $event_stream );
+			return $this->reconstituteAggregateRootFromHistory( $event_stream );
 		}
 		catch ( Exceptions\EventStreamNotFound $e )
 		{
@@ -208,14 +167,14 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
 	 * @return AggregatesModels
 	 */
-	private function allocateAggregateRootWithEventStream( EventStream $event_stream )
+	private function reconstituteAggregateRootFromHistory( EventStream $event_stream )
 	{
 		$aggregate_root_name = $this->getAggregateRootName();
 
-		if ( is_callable( [$aggregate_root_name, 'allocateWithEventStream'] ) )
+		if ( is_callable( [ $aggregate_root_name, 'reconstituteFromHistory' ] ) )
 		{
 			/** @var AggregatesModels $aggregate_root_name */
-			return $aggregate_root_name::allocateWithEventStream( $event_stream );
+			return $aggregate_root_name::reconstituteFromHistory( $event_stream );
 		}
 		else
 		{

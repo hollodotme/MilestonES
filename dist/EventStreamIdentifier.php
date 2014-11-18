@@ -11,6 +11,7 @@ use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 
 /**
  * Class EventStreamIdentifier
+ *
  * @package hollodotme\MilestonES
  */
 final class EventStreamIdentifier implements IdentifiesEventStream

@@ -6,64 +6,47 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
-use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
+require_once __DIR__ . '/../Fixures/UnitTestAggregate.php';
+require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
+
+use hollodotme\MilestonES\DomainEventEnvelope;
 use hollodotme\MilestonES\EventStream;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Test\Unit\TestAggregateRoot;
-use hollodotme\MilestonES\Test\Unit\TestAggregateWasDescribed;
-
-require_once __DIR__ . '/../Fixures/TestAggregateRoot.php';
+use hollodotme\MilestonES\Test\Unit\UnitTestAggregate;
+use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
 
 class AggregateRootTest extends \PHPUnit_Framework_TestCase
 {
-	public function testAllocationWithIdTriggersAndAppliesChange()
+	public function testScheduleTriggersAndAppliesChangeWithId()
 	{
 		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
 
-		$this->assertInstanceOf( TestAggregateRoot::class, $aggregate_root );
+		$this->assertInstanceOf( UnitTestAggregate::class, $aggregate_root );
 		$this->assertTrue( $aggregate_root->hasChanges() );
 		$this->assertCount( 1, $aggregate_root->getChanges() );
-		$this->assertSame( $identifier, $aggregate_root->getIdentifier() );
+		$this->assertTrue( $aggregate_root->getIdentifier()->equals( $identifier ) );
 	}
 
-	public function testEventsIncreaseVersionOfAggregateRoot()
-	{
-		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
-
-		$this->assertEquals( 1, $aggregate_root->getVersion() );
-
-		$aggregate_root->describe();
-
-		$this->assertEquals( 2, $aggregate_root->getVersion() );
-		$this->assertEquals( 'Unit-Test', $aggregate_root->getDescription() );
-	}
-
-	public function testCanBeAllocatedWithEventStream()
+	public function testCanBeReconstitutedFromHistory()
 	{
 		$identifier  = new Identifier( 'Unit-Test-ID' );
-		$alloc_event = new AggregateRootWasAllocated( $identifier );
-		$alloc_event->setVersion( 1 );
 
-		$test_event = new TestAggregateWasDescribed( $identifier );
-		$test_event->setVersion( 2 );
-		$test_event->setDescription( 'Unit-Test' );
+		$event          = new UnitTestEvent( $identifier, 'Unit-Test' );
+		$event_envelope = new DomainEventEnvelope( $event, [ ] );
 
-		$stream = new EventStream( [$alloc_event, $test_event] );
+		$stream = new EventStream( [ $event_envelope ] );
 
-		$aggregate_root = TestAggregateRoot::allocateWithEventStream( $stream );
+		$aggregate_root = UnitTestAggregate::reconstituteFromHistory( $stream );
 
 		$this->assertSame( $identifier, $aggregate_root->getIdentifier() );
-		$this->assertEquals( 2, $aggregate_root->getVersion() );
 		$this->assertEquals( 'Unit-Test', $aggregate_root->getDescription() );
 		$this->assertFalse( $aggregate_root->hasChanges() );
 	}
 
 	public function testChangesCanBeCleared()
 	{
-		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = TestAggregateRoot::allocateWithId( $identifier );
+		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
 
 		$this->assertCount( 1, $aggregate_root->getChanges() );
 		$this->assertTrue( $aggregate_root->hasChanges() );

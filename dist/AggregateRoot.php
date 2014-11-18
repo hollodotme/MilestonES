@@ -6,9 +6,8 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Events\AggregateRootWasAllocated;
 use hollodotme\MilestonES\Interfaces\AggregatesModels;
-use hollodotme\MilestonES\Interfaces\CollectsEvents;
+use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 
@@ -20,43 +19,25 @@ use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 abstract class AggregateRoot implements AggregatesModels
 {
 
-	/** @var Identifies */
-	private $identifier;
-
-	/** @var EventCollection */
-	private $tracked_events;
-
-	/** @var int */
-	private $version;
+	/** @var DomainEventEnvelopeCollection */
+	private $tracked_changes;
 
 	final protected function __construct()
 	{
-		$this->version        = 0;
-		$this->tracked_events = new EventCollection();
+		$this->tracked_changes = new DomainEventEnvelopeCollection();
 	}
 
 	/**
 	 * @return Identifies
 	 */
-	final public function getIdentifier()
-	{
-		return $this->identifier;
-	}
+	abstract public function getIdentifier();
 
 	/**
-	 * @return int
-	 */
-	final public function getVersion()
-	{
-		return $this->version;
-	}
-
-	/**
-	 * @return EventCollection
+	 * @return DomainEventEnvelopeCollection
 	 */
 	final public function getChanges()
 	{
-		return $this->tracked_events;
+		return $this->tracked_changes;
 	}
 
 	/**
@@ -64,12 +45,12 @@ abstract class AggregateRoot implements AggregatesModels
 	 */
 	final public function hasChanges()
 	{
-		return !$this->tracked_events->isEmpty();
+		return !$this->tracked_changes->isEmpty();
 	}
 
-	final public function clearCommittedChanges( CollectsEvents $commited_events )
+	final public function clearCommittedChanges( CollectsDomainEventEnvelopes $commited_events )
 	{
-		$this->tracked_events->removeEvents( $commited_events );
+		$this->tracked_changes->removeEvents( $commited_events );
 	}
 
 	/**
@@ -79,30 +60,30 @@ abstract class AggregateRoot implements AggregatesModels
 	{
 		foreach ( $event_stream as $event )
 		{
-			$this->applyChange( $event );
+			$this->applyChange( $event->getPayload() );
 		}
 	}
 
 	/**
 	 * @param RepresentsEvent $event
+	 * @param \stdClass|array $meta_data
 	 */
-	final protected function trackThat( RepresentsEvent $event )
+	protected function trackThat( RepresentsEvent $event, $meta_data )
 	{
-		$this->beforeEventIsTracked( $event );
-
-		$this->setNextVersionToEvent( $event );
-
-		$this->tracked_events[] = $event;
+		$this->tracked_changes[] = $this->getDomainEventEnvelope( $event, $meta_data );
 
 		$this->applyChange( $event );
 	}
 
 	/**
 	 * @param RepresentsEvent $event
+	 * @param \stdClass|array $meta_data
+	 *
+	 * @return DomainEventEnvelope
 	 */
-	protected function beforeEventIsTracked( RepresentsEvent $event )
+	protected function getDomainEventEnvelope( RepresentsEvent $event, $meta_data )
 	{
-		// Do stuff in derived classes before the event is tracked!
+		return new DomainEventEnvelope( $event, $meta_data );
 	}
 
 	/**
@@ -110,60 +91,11 @@ abstract class AggregateRoot implements AggregatesModels
 	 */
 	protected function applyChange( RepresentsEvent $event )
 	{
-		$method_name = 'when' . $event->getContract()->getClassBasename();
+		$method_name = 'when' . ( new Contract( $event ) )->getClassBasename();
 		if ( is_callable( [ $this, $method_name ] ) )
 		{
 			$this->{$method_name}( $event );
-
-			$this->increaseVerisonTo( $event->getVersion() );
 		}
-	}
-
-	/**
-	 * @param int $version
-	 */
-	protected function increaseVerisonTo( $version )
-	{
-		$this->version = $version;
-	}
-
-	/**
-	 * @param AggregateRootWasAllocated $event
-	 */
-	protected function whenAggregateRootWasAllocated( AggregateRootWasAllocated $event )
-	{
-		$this->identifier = $event->getStreamId();
-	}
-
-	/**
-	 * @param RepresentsEvent $event
-	 */
-	private function setNextVersionToEvent( RepresentsEvent $event )
-	{
-		$next_version = $this->getNextVersion();
-		$event->setVersion( $next_version );
-	}
-
-	/**
-	 * @return int
-	 */
-	private function getNextVersion()
-	{
-		return $this->version + 1;
-	}
-
-	/**
-	 * @param Identifies $id
-	 *
-	 * @return static
-	 */
-	public static function allocateWithId( Identifies $id )
-	{
-		$instance = new static();
-
-		$instance->trackThat( new AggregateRootWasAllocated( $id ) );
-
-		return $instance;
 	}
 
 	/**
@@ -171,7 +103,7 @@ abstract class AggregateRoot implements AggregatesModels
 	 *
 	 * @return static
 	 */
-	public static function allocateWithEventStream( EventStream $event_streem )
+	public static function reconstituteFromHistory( EventStream $event_streem )
 	{
 		$instance = new static();
 

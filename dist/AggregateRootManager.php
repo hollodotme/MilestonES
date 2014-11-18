@@ -9,11 +9,9 @@ namespace hollodotme\MilestonES;
 use hollodotme\MilestonES\Exceptions\CommittingChangesOfAggregateRootFailed;
 use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
 use hollodotme\MilestonES\Exceptions\RepositoryWithNameDoesNotExist;
-use hollodotme\MilestonES\Exceptions\SharedInstanceOfAggregateRootManagerAlreadyCreated;
-use hollodotme\MilestonES\Exceptions\SharedInstanceOfAggregateRootManagerNotYetCreated;
 use hollodotme\MilestonES\Interfaces\AggregatesModels;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
-use hollodotme\MilestonES\Interfaces\CollectsEvents;
+use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\CommitsChanges;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
 
@@ -32,10 +30,7 @@ class AggregateRootManager implements CommitsChanges
 	private $event_store;
 
 	/** @var AggregateRootRepository[] */
-	private $repositories = [];
-
-	/** @var null|AggregateRootManager */
-	private static $shared_instance = null;
+	private $repositories = [ ];
 
 	/**
 	 * @param StoresEvents           $event_store
@@ -45,43 +40,6 @@ class AggregateRootManager implements CommitsChanges
 	{
 		$this->event_store               = $event_store;
 		$this->aggregate_root_collection = $collection;
-	}
-
-	/**
-	 * @param StoresEvents           $event_store
-	 * @param CollectsAggregateRoots $collection
-	 *
-	 * @return AggregateRootManager|null
-	 * @throws SharedInstanceOfAggregateRootManagerAlreadyCreated
-	 */
-	final public static function createSharedInstance( StoresEvents $event_store, CollectsAggregateRoots $collection )
-	{
-		if ( is_null( self::$shared_instance ) )
-		{
-			self::$shared_instance = new self( $event_store, $collection );
-
-			return self::$shared_instance;
-		}
-		else
-		{
-			throw new SharedInstanceOfAggregateRootManagerAlreadyCreated();
-		}
-	}
-
-	/**
-	 * @return AggregateRootManager
-	 * @throws SharedInstanceOfAggregateRootManagerNotYetCreated
-	 */
-	final public static function shared()
-	{
-		if ( self::$shared_instance instanceof AggregateRootManager )
-		{
-			return self::$shared_instance;
-		}
-		else
-		{
-			throw new SharedInstanceOfAggregateRootManagerNotYetCreated();
-		}
 	}
 
 	/**
@@ -123,7 +81,7 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	private function getTrackedRepository( $repository_fqcn )
 	{
-		return $this->repositories[$repository_fqcn];
+		return $this->repositories[ $repository_fqcn ];
 	}
 
 	/**
@@ -132,7 +90,7 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	private function trackRepository( $repository_fqcn, AggregateRootRepository $repository )
 	{
-		$this->repositories[$repository_fqcn] = $repository;
+		$this->repositories[ $repository_fqcn ] = $repository;
 	}
 
 	/**
@@ -215,11 +173,11 @@ class AggregateRootManager implements CommitsChanges
 	}
 
 	/**
-	 * @param CollectsEvents $events
+	 * @param CollectsDomainEventEnvelopes $events
 	 *
 	 * @throws CommittingEventsFailed
 	 */
-	private function commitChangesToEventStore( CollectsEvents $events )
+	private function commitChangesToEventStore( CollectsDomainEventEnvelopes $events )
 	{
 		$this->event_store->commitEvents( $events );
 	}

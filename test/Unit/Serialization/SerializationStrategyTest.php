@@ -9,7 +9,6 @@ namespace hollodotme\MilestonES\Test\Unit\Serialization;
 use hollodotme\MilestonES\Contract;
 use hollodotme\MilestonES\SerializationStrategy;
 use hollodotme\MilestonES\SerializerRegistry;
-use hollodotme\MilestonES\Serializers\JsonSerializer;
 use hollodotme\MilestonES\Serializers\PhpSerializer;
 
 class SerializationStrategyTest extends \PHPUnit_Framework_TestCase
@@ -28,7 +27,7 @@ class SerializationStrategyTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testConstructionFailsWhenDefaultContractIsNotRegistered()
 	{
-		$this->registry->registerSerializerForContract( new Contract( JsonSerializer::class ), new JsonSerializer() );
+		$this->registry->registerSerializerForContract( new Contract( PhpSerializer::class ), new PhpSerializer() );
 
 		new SerializationStrategy( $this->registry, new Contract( 'Some\\Contract' ) );
 	}
@@ -37,7 +36,7 @@ class SerializationStrategyTest extends \PHPUnit_Framework_TestCase
 	{
 		$default_serializer = new PhpSerializer();
 
-		$this->registry->registerSerializerForContract( new Contract( JsonSerializer::class ), new JsonSerializer() );
+		$this->registry->registerSerializerForContract( new Contract( PhpSerializer::class ), new PhpSerializer() );
 		$this->registry->registerSerializerForContract( new Contract( PhpSerializer::class ), $default_serializer );
 
 		$strategy = new SerializationStrategy( $this->registry, new Contract( PhpSerializer::class ) );
@@ -49,7 +48,7 @@ class SerializationStrategyTest extends \PHPUnit_Framework_TestCase
 	{
 		$default_contract = new Contract( PhpSerializer::class );
 
-		$this->registry->registerSerializerForContract( new Contract( JsonSerializer::class ), new JsonSerializer() );
+		$this->registry->registerSerializerForContract( new Contract( PhpSerializer::class ), new PhpSerializer() );
 		$this->registry->registerSerializerForContract( new Contract( PhpSerializer::class ), new PhpSerializer() );
 
 		$strategy = new SerializationStrategy( $this->registry, $default_contract );
@@ -59,15 +58,15 @@ class SerializationStrategyTest extends \PHPUnit_Framework_TestCase
 
 	public function testGetSerializerForContract()
 	{
-		$json_contract = new Contract( JsonSerializer::class );
+		$json_contract = new Contract( PhpSerializer::class );
 		$php_contract  = new Contract( PhpSerializer::class );
 
-		$this->registry->registerSerializerForContract( $json_contract, new JsonSerializer() );
+		$this->registry->registerSerializerForContract( $json_contract, new PhpSerializer() );
 		$this->registry->registerSerializerForContract( $php_contract, new PhpSerializer() );
 
 		$strategy = new SerializationStrategy( $this->registry, $php_contract );
 
-		$this->assertInstanceOf( JsonSerializer::class, $strategy->getSerializerForContract( $json_contract ) );
+		$this->assertInstanceOf( PhpSerializer::class, $strategy->getSerializerForContract( $json_contract ) );
 		$this->assertInstanceOf( PhpSerializer::class, $strategy->getSerializerForContract( $php_contract ) );
 	}
 

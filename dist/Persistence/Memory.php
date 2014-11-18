@@ -33,8 +33,8 @@ class Memory implements PersistsEventEnvelopes
 	public function __construct()
 	{
 		$this->is_in_transaction      = false;
-		$this->records_commited = [];
-		$this->records_in_transaction = [];
+		$this->records_commited = [ ];
+		$this->records_in_transaction = [ ];
 	}
 
 	public function beginTransaction()
@@ -43,7 +43,7 @@ class Memory implements PersistsEventEnvelopes
 
 		$this->startTransaction();
 
-		$this->records_in_transaction = [];
+		$this->records_in_transaction = [ ];
 	}
 
 	public function commitTransaction()
@@ -51,7 +51,7 @@ class Memory implements PersistsEventEnvelopes
 		$this->guardIsInTransaction();
 
 		$this->records_commited       = array_merge_recursive( $this->records_commited, $this->records_in_transaction );
-		$this->records_in_transaction = [];
+		$this->records_in_transaction = [ ];
 
 		$this->endTransaction();
 	}
@@ -60,7 +60,7 @@ class Memory implements PersistsEventEnvelopes
 	{
 		$this->guardIsInTransaction();
 
-		$this->records_in_transaction = [];
+		$this->records_in_transaction = [ ];
 
 		$this->endTransaction();
 	}
@@ -82,7 +82,7 @@ class Memory implements PersistsEventEnvelopes
 
 		$key = $this->buildKey( $event_envelope->getStreamIdContract(), $event_envelope->getStreamId() );
 
-		$this->records_in_transaction[$key][] = $event_envelope;
+		$this->records_in_transaction[ $key ][] = $event_envelope;
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Memory implements PersistsEventEnvelopes
 	 */
 	private function getCommitedRecordsForKey( $key )
 	{
-		return $this->records_commited[$key];
+		return $this->records_commited[ $key ];
 	}
 
 	/**
@@ -136,6 +136,9 @@ class Memory implements PersistsEventEnvelopes
 		return array_key_exists( $key, $this->records_commited );
 	}
 
+	/**
+	 * @throws PersistenceHasStartedTransactionAlready
+	 */
 	private function guardIsNotInTransaction()
 	{
 		if ( $this->isInTransaction() )
@@ -144,6 +147,9 @@ class Memory implements PersistsEventEnvelopes
 		}
 	}
 
+	/**
+	 * @throws PersistenceHasNoTransactionStarted
+	 */
 	private function guardIsInTransaction()
 	{
 		if ( !$this->isInTransaction() )

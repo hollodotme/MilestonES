@@ -7,19 +7,19 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\EventCollectionIsImmutable;
-use hollodotme\MilestonES\Interfaces\RepresentsEvent;
+use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 
 /**
- * Class ImmutableEventCollection
+ * Class ImmutableDomainEventEnvelopeCollection
  *
  * @package hollodotme\MilestonES
  */
-class ImmutableEventCollection extends EventCollection
+class ImmutableDomainEventEnvelopeCollection extends DomainEventEnvelopeCollection
 {
 	/**
-	 * @param RepresentsEvent[] $events
+	 * @param WrapsDomainEvent[] $events
 	 *
-	 * @throws Exceptions\ItemDoesNotRepresentAnEvent
+	 * @throws Exceptions\ItemDoesNotRepresentADomainEventEnvelope
 	 */
 	public function __construct( array $events )
 	{
@@ -31,7 +31,7 @@ class ImmutableEventCollection extends EventCollection
 
 	/**
 	 * @param int|null        $offset
-	 * @param RepresentsEvent $value
+	 * @param WrapsDomainEvent $value
 	 *
 	 * @throws EventCollectionIsImmutable
 	 */

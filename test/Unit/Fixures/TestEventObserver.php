@@ -6,21 +6,22 @@
 
 namespace hollodotme\MilestonES\Test\Unit;
 
-use hollodotme\MilestonES\Interfaces\RepresentsEvent;
-use hollodotme\MilestonES\Projections\Projection;
+use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
+use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 
 /**
  * Class TestEventObserver
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class TestEventObserver extends Projection
+class TestEventObserver implements ObservesCommitedEvents
 {
+
 	/**
-	 * @param RepresentsEvent $event
+	 * @param WrapsDomainEvent $event_envelope
 	 */
-	public function updateForCommitedEvent( RepresentsEvent $event )
+	public function updateForCommitedDomainEventEnvelope( WrapsDomainEvent $event_envelope )
 	{
-		echo get_class( $event ) . " with ID {$event->getStreamId()} was committed.\n";
+		echo get_class( $event_envelope->getPayload() ) . " with ID {$event_envelope->getStreamId()} was committed.\n";
 	}
 }

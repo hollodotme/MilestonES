@@ -7,10 +7,11 @@
 namespace hollodotme\MilestonES\Exceptions;
 
 /**
- * Class SharedInstanceOfAggregateRootManagerNotYetCreated
+ * Class ItemDoesNotRepresentADomainEventEnvelope
+ *
  * @package hollodotme\MilestonES\Exceptions
  */
-class SharedInstanceOfAggregateRootManagerNotYetCreated extends Exception
+class ItemDoesNotRepresentADomainEventEnvelope extends Exception
 {
 
 } 

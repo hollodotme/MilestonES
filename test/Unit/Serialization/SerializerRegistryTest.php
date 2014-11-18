@@ -6,10 +6,12 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Serialization;
 
+require_once __DIR__ . '/../Fixures/UnitTestSerializer.php';
+
 use hollodotme\MilestonES\Contract;
 use hollodotme\MilestonES\SerializerRegistry;
-use hollodotme\MilestonES\Serializers\JsonSerializer;
 use hollodotme\MilestonES\Serializers\PhpSerializer;
+use hollodotme\MilestonES\Test\Unit\UnitTestSerializer;
 
 class SerializerRegistryTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,18 +19,18 @@ class SerializerRegistryTest extends \PHPUnit_Framework_TestCase
 	{
 		$registry = new SerializerRegistry();
 		$contract = new Contract( 'Some\\Contract' );
-		$registry->registerSerializerForContract( $contract, new JsonSerializer() );
-
-		$serializer = $registry->getSerializerForContract( $contract );
-
-		$this->assertInstanceOf( JsonSerializer::class, $serializer );
-
 		$registry->registerSerializerForContract( $contract, new PhpSerializer() );
 
 		$serializer = $registry->getSerializerForContract( $contract );
 
-		$this->assertNotInstanceOf( JsonSerializer::class, $serializer );
 		$this->assertInstanceOf( PhpSerializer::class, $serializer );
+
+		$registry->registerSerializerForContract( $contract, new UnitTestSerializer() );
+
+		$serializer = $registry->getSerializerForContract( $contract );
+
+		$this->assertNotInstanceOf( PhpSerializer::class, $serializer );
+		$this->assertInstanceOf( UnitTestSerializer::class, $serializer );
 	}
 
 	public function testCanRegisterSameSerializerForDifferentContracts()
@@ -37,8 +39,8 @@ class SerializerRegistryTest extends \PHPUnit_Framework_TestCase
 		$contract           = new Contract( 'Some\\Contract\\One' );
 		$different_contract = new Contract( 'Some\\Contract\\Two' );
 
-		$registry->registerSerializerForContract( $contract, new JsonSerializer() );
-		$registry->registerSerializerForContract( $different_contract, new JsonSerializer() );
+		$registry->registerSerializerForContract( $contract, new PhpSerializer() );
+		$registry->registerSerializerForContract( $different_contract, new PhpSerializer() );
 
 		$first_serializer  = $registry->getSerializerForContract( $contract );
 		$second_serializer = $registry->getSerializerForContract( $different_contract );
@@ -53,7 +55,7 @@ class SerializerRegistryTest extends \PHPUnit_Framework_TestCase
 		$registered_contract     = new Contract( 'Some\\Registered\\Contract' );
 		$not_registered_contract = new Contract( 'Some\\Not\\Registered\\Contract' );
 
-		$registry->registerSerializerForContract( $registered_contract, new JsonSerializer() );
+		$registry->registerSerializerForContract( $registered_contract, new PhpSerializer() );
 
 		$this->assertTrue( $registry->isContractRegistered( $registered_contract ) );
 		$this->assertFalse( $registry->isContractRegistered( $not_registered_contract ) );
@@ -64,12 +66,12 @@ class SerializerRegistryTest extends \PHPUnit_Framework_TestCase
 		$registry = new SerializerRegistry();
 		$registry->registerSerializerForContract(
 			new Contract( 'Some\\Contract' ),
-			new JsonSerializer()
+			new PhpSerializer()
 		);
 
 		$serializer = $registry->getSerializerForContract( new Contract( 'Some\\Contract' ) );
 
-		$this->assertInstanceOf( JsonSerializer::class, $serializer );
+		$this->assertInstanceOf( PhpSerializer::class, $serializer );
 	}
 
 	/**

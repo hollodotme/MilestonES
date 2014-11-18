@@ -38,5 +38,4 @@ interface CollectsAggregateRoots extends \Iterator, \Countable
 	 * @return bool
 	 */
 	public function idExists( Identifies $id );
-
 }

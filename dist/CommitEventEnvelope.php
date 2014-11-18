@@ -28,12 +28,6 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	/** @var string */
 	private $stream_id_contract;
 
-	/** @var int */
-	private $stream_version;
-
-	/** @var string */
-	private $event_contract;
-
 	/** @var string */
 	private $payload;
 
@@ -93,22 +87,6 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param int $version
-	 */
-	public function setStreamVersion( $version )
-	{
-		$this->stream_version = $version;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getStreamVersion()
-	{
-		return $this->stream_version;
-	}
-
-	/**
 	 * @param string $commit_id
 	 */
 	public function setCommitId( $commit_id )
@@ -122,22 +100,6 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	public function getCommitId()
 	{
 		return $this->commit_id;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventContract()
-	{
-		return $this->event_contract;
-	}
-
-	/**
-	 * @param string $event_contract
-	 */
-	public function setEventContract( $event_contract )
-	{
-		$this->event_contract = (string)$event_contract;
 	}
 
 	/**
@@ -248,8 +210,6 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 		$envelope->setCommitId( $record['commit_id'] );
 		$envelope->setStreamId( $record['stream_id'] );
 		$envelope->setStreamIdContract( $record['stream_id_contract'] );
-		$envelope->setStreamVersion( $record['stream_version'] );
-		$envelope->setEventContract( $record['event_contract'] );
 		$envelope->setPayload( $record['payload'] );
 		$envelope->setPayloadContract( $record['payload_contract'] );
 		$envelope->setMetaData( $record['meta_data'] );

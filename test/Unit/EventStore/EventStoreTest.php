@@ -6,21 +6,22 @@
 
 namespace hollodotme\MilestonES\Test\Unit\EventStore;
 
-use hollodotme\MilestonES\EventCollection;
+use hollodotme\MilestonES\DomainEventEnvelope;
+use hollodotme\MilestonES\DomainEventEnvelopeCollection;
 use hollodotme\MilestonES\EventStore;
 use hollodotme\MilestonES\EventStoreConfigDelegate;
 use hollodotme\MilestonES\EventStream;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Test\Unit\TestAggregateWasDescribed;
 use hollodotme\MilestonES\Test\Unit\TestEventObserver;
 use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithFailingPersistence;
 use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithGlobalObserver;
+use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
 
 require_once __DIR__ . '/../Fixures/TestEventObserver.php';
 require_once __DIR__ . '/../Fixures/TestMemoryPersistenceWithFailOnPersist.php';
 require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithGlobalObserver.php';
 require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithFailingPersistence.php';
-require_once __DIR__ . '/../Fixures/TestAggregateWasDescribed.php';
+require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
 
 class EventStoreTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,17 +32,16 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$observer    = new TestEventObserver();
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event      = new TestAggregateWasDescribed( $identifier );
-		$event->setDescription( 'Unit-Test' );
+		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
 
-		$collection   = new EventCollection();
-		$collection[] = $event;
+		$collection   = new DomainEventEnvelopeCollection();
+		$collection[] = new DomainEventEnvelope( $event, [ ] );
 
 		$event_store->attachCommittedEventObserver( $observer );
-		/** @var EventCollection $collection */
+		/** @var DomainEventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
-		$this->expectOutputString( TestAggregateWasDescribed::class . " with ID Unit-Test-ID was committed.\n" );
+		$this->expectOutputString( UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n" );
 	}
 
 	public function testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted()
@@ -49,16 +49,15 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$event_store = new EventStore( new TestEventStoreConfigDelegateWithGlobalObserver() );
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event      = new TestAggregateWasDescribed( $identifier );
-		$event->setDescription( 'Unit-Test' );
+		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
 
-		$collection   = new EventCollection();
-		$collection[] = $event;
+		$collection   = new DomainEventEnvelopeCollection();
+		$collection[] = new DomainEventEnvelope( $event, [ ] );
 
-		/** @var EventCollection $collection */
+		/** @var DomainEventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
-		$this->expectOutputString( TestAggregateWasDescribed::class . " with ID Unit-Test-ID was committed.\n" );
+		$this->expectOutputString( UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n" );
 	}
 
 	public function testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted()
@@ -67,19 +66,18 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$observer    = new TestEventObserver();
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event      = new TestAggregateWasDescribed( $identifier );
-		$event->setDescription( 'Unit-Test' );
+		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
 
-		$collection   = new EventCollection();
-		$collection[] = $event;
+		$collection   = new DomainEventEnvelopeCollection();
+		$collection[] = new DomainEventEnvelope( $event, [ ] );
 
 		$event_store->attachCommittedEventObserver( $observer );
-		/** @var EventCollection $collection */
+		/** @var DomainEventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
 		$this->expectOutputString(
-			TestAggregateWasDescribed::class . " with ID Unit-Test-ID was committed.\n"
-			. TestAggregateWasDescribed::class . " with ID Unit-Test-ID was committed.\n"
+			UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n"
+			. UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n"
 		);
 	}
 
@@ -90,27 +88,26 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$detached_observer = new TestEventObserver();
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event      = new TestAggregateWasDescribed( $identifier );
-		$event->setDescription( 'Unit-Test' );
+		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$event_store->attachCommittedEventObserver( $observer );
 		$event_store->attachCommittedEventObserver( $detached_observer );
 
-		$collection   = new EventCollection();
-		$collection[] = $event;
+		$collection   = new DomainEventEnvelopeCollection();
+		$collection[] = new DomainEventEnvelope( $event, [ ] );
 
-		/** @var EventCollection $collection */
+		/** @var DomainEventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
 		$event_store->detachCommittedEventObserver( $detached_observer );
 
-		/** @var EventCollection $collection */
+		/** @var DomainEventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
 		$this->expectOutputString(
-			TestAggregateWasDescribed::class . " with ID Unit-Test-ID was committed.\n"
-			. TestAggregateWasDescribed::class . " with ID Unit-Test-ID was committed.\n"
-			. TestAggregateWasDescribed::class . " with ID Unit-Test-ID was committed.\n"
+			UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n"
+			. UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n"
+			. UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n"
 		);
 	}
 
@@ -128,24 +125,27 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$event_store = new EventStore( new EventStoreConfigDelegate() );
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event      = new TestAggregateWasDescribed( $identifier );
-		$event->setDescription( 'Unit-Test' );
+		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
 
-		$collection   = new EventCollection();
-		$collection[] = $event;
+		$collection   = new DomainEventEnvelopeCollection();
+		$collection[] = new DomainEventEnvelope( $event, [ ] );
 
-		/** @var EventCollection $collection */
+		/** @var DomainEventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
-		$stream              = $event_store->getEventStreamForId( $identifier );
-		$reconstituted_event = $stream[0];
+		$stream = $event_store->getEventStreamForId( $identifier );
+		/** @var DomainEventEnvelope $fetched_event_envelope */
+		$fetched_event_envelope = $stream[0];
+		/** @var UnitTestEvent $fetched_event */
+		$fetched_event = $fetched_event_envelope->getPayload();
 
 		$this->assertInstanceOf( EventStream::class, $stream );
 		$this->assertCount( 1, $stream );
-		$this->assertEquals( get_class( $event ), get_class( $stream[0] ) );
-		$this->assertTrue( $stream[0]->getStreamId()->equals( $identifier ) );
-		/** @var TestAggregateWasDescribed $reconstituted_event */
-		$this->assertEquals( 'Unit-Test', $reconstituted_event->getDescription() );
+		$this->assertInstanceOf( DomainEventEnvelope::class, $fetched_event_envelope );
+		$this->assertEquals( get_class( $event ), get_class( $fetched_event ) );
+		$this->assertTrue( $fetched_event_envelope->getStreamId()->equals( $identifier ) );
+		$this->assertTrue( $fetched_event->getStreamId()->equals( $identifier ) );
+		$this->assertEquals( 'Unit-Test', $fetched_event->getDescription() );
 	}
 
 	/**
@@ -156,13 +156,12 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$event_store = new EventStore( new TestEventStoreConfigDelegateWithFailingPersistence() );
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event      = new TestAggregateWasDescribed( $identifier );
-		$event->setDescription( 'Unit-Test' );
+		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
 
-		$collection   = new EventCollection();
-		$collection[] = $event;
+		$collection   = new DomainEventEnvelopeCollection();
+		$collection[] = new DomainEventEnvelope( $event, [ ] );
 
-		/** @var EventCollection $collection */
+		/** @var DomainEventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 	}
 }

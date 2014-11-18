@@ -10,11 +10,11 @@ use hollodotme\MilestonES\Interfaces\GeneratesIdentifier;
 use Rhumsaa\Uuid\Uuid;
 
 /**
- * Class UniversalUniqueIdentifer
+ * Class UUIdentifer
  *
  * @package hollodotme\MilestonES
  */
-class UniversalUniqueIdentifer extends Identifier implements GeneratesIdentifier
+class UUIdentifer extends Identifier implements GeneratesIdentifier
 {
 	/**
 	 * @return static

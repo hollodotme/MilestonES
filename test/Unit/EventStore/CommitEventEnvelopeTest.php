@@ -21,8 +21,6 @@ class CommitEventEnvelopeTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals( $record['commit_id'], $envelope->getCommitId() );
 		$this->assertEquals( $record['stream_id'], $envelope->getStreamId() );
 		$this->assertEquals( $record['stream_id_contract'], $envelope->getStreamIdContract() );
-		$this->assertEquals( $record['stream_version'], $envelope->getStreamVersion() );
-		$this->assertEquals( $record['event_contract'], $envelope->getEventContract() );
 		$this->assertEquals( $record['payload'], $envelope->getPayload() );
 		$this->assertEquals( $record['payload_contract'], $envelope->getPayloadContract() );
 		$this->assertEquals( $record['meta_data'], $envelope->getMetaData() );
@@ -46,12 +44,10 @@ class CommitEventEnvelopeTest extends \PHPUnit_Framework_TestCase
 					'commit_id'          => 'unit-test-commit-id',
 					'stream_id'          => 'unit-test-stream-id',
 					'stream_id_contract' => 'hollodotme.MilestonES.Identifier',
-					'stream_version'     => '1',
-					'event_contract'     => 'hollodotme.MilestonES.Test.Unit.TestAggregateWasDescribed',
 					'payload'            => json_encode( [ 'description' => 'Unit-Test' ] ),
-					'payload_contract'   => 'hollodotme.MilestonES.Serializers.JsonSerializer',
+					'payload_contract'   => 'hollodotme.MilestonES.Serializers.PhpSerializer',
 					'meta_data'          => json_encode( [ 'creator' => 'Tester' ] ),
-					'meta_data_contract' => 'hollodotme.MilestonES.Serializers.JsonSerializer',
+					'meta_data_contract' => 'hollodotme.MilestonES.Serializers.PhpSerializer',
 					'occurred_on'        => '2014-11-17 14:01:02',
 					'committed_on'       => '2014-11-17 14:01:12',
 				],

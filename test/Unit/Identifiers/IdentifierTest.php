@@ -60,7 +60,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 	 * @dataProvider noScalarsProvider
 	 * @expectedException \hollodotme\MilestonES\Exceptions\IdentifierArgumentIsNotScalar
 	 */
-	public function testExpressionsAsIdWillThrowAnException( $expression )
+	public function testNonScalarsAsIdWillThrowAnException( $expression )
 	{
 		new Identifier( $expression );
 	}

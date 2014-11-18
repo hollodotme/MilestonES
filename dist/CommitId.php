@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES;
  *
  * @package hollodotme\MilestonES
  */
-class CommitId extends UniversalUniqueIdentifer
+class CommitId extends UUIdentifer
 {
 
 }

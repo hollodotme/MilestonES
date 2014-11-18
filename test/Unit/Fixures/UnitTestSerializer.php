@@ -1,28 +1,28 @@
 <?php
 /**
  *
- * @author hwoltersdorf
+ * @author hollodotme
  */
 
-namespace hollodotme\MilestonES\Serializers;
+namespace hollodotme\MilestonES\Test\Unit;
 
 use hollodotme\MilestonES\Interfaces\SerializesData;
 
 /**
- * Class PhpSerializer
+ * Class UnitTestSerializer
  *
- * @package hollodotme\MilestonES\Serializers
+ * @package hollodotme\MilestonES\Test\Unit
  */
-class PhpSerializer implements SerializesData
+class UnitTestSerializer implements SerializesData
 {
 	/**
-	 * @param \stdClass $data
+	 * @param mixed $data
 	 *
 	 * @return string
 	 */
 	public function serializeData( $data )
 	{
-		return serialize( $data );
+		return $data;
 	}
 
 	/**
@@ -32,6 +32,6 @@ class PhpSerializer implements SerializesData
 	 */
 	public function unserializeData( $serialized_data )
 	{
-		return unserialize( $serialized_data );
+		return $serialized_data;
 	}
 }

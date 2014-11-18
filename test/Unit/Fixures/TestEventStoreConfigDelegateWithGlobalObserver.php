@@ -14,6 +14,9 @@ use hollodotme\MilestonES\EventStoreConfigDelegate;
  */
 class TestEventStoreConfigDelegateWithGlobalObserver extends EventStoreConfigDelegate
 {
+	/**
+	 * @return array|\hollodotme\MilestonES\Interfaces\ObservesCommitedEvents[]
+	 */
 	public function getGlobalObserversForCommitedEvents()
 	{
 		return [new TestEventObserver()];

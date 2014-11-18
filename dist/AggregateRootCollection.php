@@ -23,7 +23,7 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	/**
 	 * @var AggregateRoot[]
 	 */
-	private $aggregate_roots = [];
+	private $aggregate_roots = [ ];
 
 	/**
 	 * @return AggregateRoot
