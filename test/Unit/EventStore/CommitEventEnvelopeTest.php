@@ -48,6 +48,7 @@ class CommitEventEnvelopeTest extends \PHPUnit_Framework_TestCase
 					'payload_contract'   => 'hollodotme.MilestonES.Serializers.PhpSerializer',
 					'meta_data'          => json_encode( [ 'creator' => 'Tester' ] ),
 					'meta_data_contract' => 'hollodotme.MilestonES.Serializers.PhpSerializer',
+					'file' => '/tmp/Unit_Test_123456',
 					'occurred_on'        => '2014-11-17 14:01:02',
 					'committed_on'       => '2014-11-17 14:01:12',
 				],

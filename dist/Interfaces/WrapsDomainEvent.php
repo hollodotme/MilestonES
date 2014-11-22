@@ -32,4 +32,9 @@ interface WrapsDomainEvent
 	 * @return \stdClass|array
 	 */
 	public function getMetaData();
+
+	/**
+	 * @return string
+	 */
+	public function getFile();
 }

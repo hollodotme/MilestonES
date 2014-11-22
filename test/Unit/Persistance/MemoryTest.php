@@ -164,11 +164,11 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertCount( 1, $envelopes_first_stream );
 		$this->assertCount( 2, $envelopes_second_stream );
-		$this->assertSame( $envelope1, $envelopes_first_stream[0] );
+		$this->assertEquals( $envelope1, $envelopes_first_stream[0] );
 
 		// check sort order
-		$this->assertSame( $envelope2, $envelopes_second_stream[0] );
-		$this->assertSame( $envelope3, $envelopes_second_stream[1] );
+		$this->assertEquals( $envelope2, $envelopes_second_stream[0] );
+		$this->assertEquals( $envelope3, $envelopes_second_stream[1] );
 	}
 
 	/**
@@ -196,5 +196,33 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 		$this->persistence->persistEventEnvelope( $envelope );
 
 		$this->persistence->getEventEnvelopesWithId( $stream_identifier );
+	}
+
+	public function testFilesWillBeRestoredOnReconstitution()
+	{
+		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
+		$envelope          = new CommitEventEnvelope();
+		$envelope->setStreamId( $stream_identifier->getStreamId() );
+		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
+		$envelope->setFile( __DIR__ . '/../Fixures/event_file_test' );
+
+		$this->persistence->beginTransaction();
+
+		$this->persistence->persistEventEnvelope( $envelope );
+
+		$this->persistence->commitTransaction();
+
+		$commited_envelopes = $this->persistence->getEventEnvelopesWithId( $stream_identifier );
+
+		$this->assertCount( 1, $commited_envelopes );
+
+		/** @var CommitEventEnvelope $restored_envelope */
+		$restored_envelope = $commited_envelopes[0];
+
+		$this->assertNotEquals( $envelope->getFile(), $restored_envelope->getFile() );
+		$this->assertEquals(
+			file_get_contents( $envelope->getFile() ),
+			file_get_contents( $restored_envelope->getFile() )
+		);
 	}
 }

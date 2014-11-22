@@ -60,6 +60,8 @@ class EventEnvelopeMapper
 		$envelope->setMetaDataContract( $meta_data_contract->toString() );
 		$envelope->setMetaData( $meta_data );
 
+		$envelope->setFile( $event_envelope->getFile() );
+
 		return $envelope;
 	}
 
@@ -90,8 +92,9 @@ class EventEnvelopeMapper
 		$event       = $this->getEventFromCommitEnvelope( $commit_envelope );
 		$meta_data   = $this->getMetaDataFromCommitEnvelope( $commit_envelope );
 		$occurred_on = $commit_envelope->getOccurredOn();
+		$file = $commit_envelope->getFile();
 
-		return DomainEventEnvelope::fromRecord( $event, $meta_data, $occurred_on );
+		return DomainEventEnvelope::fromRecord( $event, $meta_data, $file, $occurred_on );
 	}
 
 	/**

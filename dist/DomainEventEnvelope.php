@@ -24,17 +24,22 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 	/** @var \stdClass|array */
 	private $meta_data;
 
+	/** @var string */
+	private $file;
+
 	/** @var \DateTimeImmutable */
 	private $occurred_on;
 
 	/**
 	 * @param RepresentsEvent $event
 	 * @param \stdClass|array $meta_data
+	 * @param string          $file
 	 */
-	public function __construct( RepresentsEvent $event, $meta_data )
+	public function __construct( RepresentsEvent $event, $meta_data, $file = null )
 	{
 		$this->event       = $event;
 		$this->meta_data   = $meta_data;
+		$this->file = $file;
 		$this->occurred_on = new \DateTimeImmutable( 'now' );
 	}
 
@@ -71,15 +76,24 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getFile()
+	{
+		return $this->file;
+	}
+
+	/**
 	 * @param RepresentsEvent    $event
 	 * @param \stdClass|array    $meta_data
+	 * @param string             $file
 	 * @param \DateTimeImmutable $occurred_on
 	 *
 	 * @return DomainEventEnvelope
 	 */
-	public static function fromRecord( RepresentsEvent $event, $meta_data, \DateTimeImmutable $occurred_on )
+	public static function fromRecord( RepresentsEvent $event, $meta_data, $file, \DateTimeImmutable $occurred_on )
 	{
-		$envelope              = new self( $event, $meta_data );
+		$envelope = new self( $event, $meta_data, $file );
 		$envelope->occurred_on = $occurred_on;
 
 		return $envelope;

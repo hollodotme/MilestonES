@@ -102,4 +102,14 @@ interface WrapsEventForCommit
 	 * @return \DateTimeImmutable
 	 */
 	public function getCommittedOn();
+
+	/**
+	 * @param string $file
+	 */
+	public function setFile( $file );
+
+	/**
+	 * @return string
+	 */
+	public function getFile();
 }

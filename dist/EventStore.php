@@ -225,7 +225,7 @@ final class EventStore implements StoresEvents
 	 */
 	private function commitEvent( IdentifiesCommit $commit, WrapsDomainEvent $event_envelope )
 	{
-		$commit_envelope = $this->getEnvelopeForEventCommit( $event_envelope, $commit );
+		$commit_envelope = $this->getCommitEventEnvelope( $event_envelope, $commit );
 
 		$this->persistence->persistEventEnvelope( $commit_envelope );
 	}
@@ -236,7 +236,7 @@ final class EventStore implements StoresEvents
 	 *
 	 * @return CommitEventEnvelope
 	 */
-	private function getEnvelopeForEventCommit( WrapsDomainEvent $event_envelope, IdentifiesCommit $commit )
+	private function getCommitEventEnvelope( WrapsDomainEvent $event_envelope, IdentifiesCommit $commit )
 	{
 		$mapper = $this->getEventEnvelopeMapper();
 

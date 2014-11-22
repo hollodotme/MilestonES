@@ -9,6 +9,7 @@ namespace hollodotme\MilestonES\Persistence;
 use hollodotme\MilestonES\Exceptions\EventStreamDoesNotExistForKey;
 use hollodotme\MilestonES\Exceptions\PersistenceHasNoTransactionStarted;
 use hollodotme\MilestonES\Exceptions\PersistenceHasStartedTransactionAlready;
+use hollodotme\MilestonES\Exceptions\RestoringFileWithContentFailed;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
@@ -82,7 +83,29 @@ class Memory implements PersistsEventEnvelopes
 
 		$key = $this->buildKey( $event_envelope->getStreamIdContract(), $event_envelope->getStreamId() );
 
-		$this->records_in_transaction[ $key ][] = $event_envelope;
+		if ( !empty($event_envelope->getFile()) )
+		{
+			$file_content = $this->getFileContent( $event_envelope->getFile() );
+		}
+		else
+		{
+			$file_content = null;
+		}
+
+		$this->records_in_transaction[ $key ][] = [
+			'envelope'     => clone $event_envelope,
+			'file_content' => $file_content
+		];
+	}
+
+	/**
+	 * @param string $file
+	 *
+	 * @return string
+	 */
+	private function getFileContent( $file )
+	{
+		return file_get_contents( $file );
 	}
 
 	/**
@@ -112,7 +135,42 @@ class Memory implements PersistsEventEnvelopes
 	 */
 	private function getCommitedRecordsForKey( $key )
 	{
-		return $this->records_commited[ $key ];
+		$records = [ ];
+
+		foreach ( $this->records_commited[ $key ] as $record )
+		{
+			/** @var WrapsEventForCommit $envelope */
+			$envelope = $record['envelope'];
+			if ( isset($record['file_content']) && !is_null( $record['file_content'] ) )
+			{
+				$file = $this->restoreFileWithContent( $record['file_content'] );
+				$envelope->setFile( $file );
+			}
+
+			$records[] = $envelope;
+		}
+
+		return $records;
+	}
+
+	/**
+	 * @param string $content
+	 *
+	 * @throws RestoringFileWithContentFailed
+	 * @return string
+	 */
+	private function restoreFileWithContent( $content )
+	{
+		$filepath = tempnam( '/tmp', 'MilestonES_File' );
+
+		if ( file_put_contents( $filepath, $content ) !== false )
+		{
+			return $filepath;
+		}
+		else
+		{
+			throw new RestoringFileWithContentFailed();
+		}
 	}
 
 	/**

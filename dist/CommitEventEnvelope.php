@@ -40,6 +40,9 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	/** @var string */
 	private $meta_data_contract;
 
+	/** @var string */
+	private $file;
+
 	/** @var \DateTimeImmutable */
 	private $occurred_on;
 
@@ -167,6 +170,22 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getFile()
+	{
+		return $this->file;
+	}
+
+	/**
+	 * @param string $file
+	 */
+	public function setFile( $file )
+	{
+		$this->file = $file;
+	}
+
+	/**
 	 * @param \DateTimeImmutable $occured_on
 	 */
 	public function setOccurredOn( \DateTimeImmutable $occured_on )
@@ -214,6 +233,7 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 		$envelope->setPayloadContract( $record['payload_contract'] );
 		$envelope->setMetaData( $record['meta_data'] );
 		$envelope->setMetaDataContract( $record['meta_data_contract'] );
+		$envelope->setFile( $record['file'] );
 		$envelope->setOccurredOn( \DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $record['occurred_on'] ) );
 		$envelope->setCommittedOn( \DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $record['committed_on'] ) );
 
