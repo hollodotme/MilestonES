@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Interfaces;
  *
  * @package Interfaces
  */
-interface Identifies
+interface Identifies extends \JsonSerializable
 {
 	public function __toString();
 

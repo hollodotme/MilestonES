@@ -50,6 +50,14 @@ class Identifier implements Identifies
 	}
 
 	/**
+	 * @return string
+	 */
+	public function jsonSerialize()
+	{
+		return $this->toString();
+	}
+
+	/**
 	 * @param Identifies $other
 	 *
 	 * @return bool

@@ -181,4 +181,13 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 			[ .8, 0.9 ],
 		];
 	}
+
+	public function testRepresentableAsJson()
+	{
+		$id = new Identifier( 'Unit-Test-ID' );
+
+		$json = json_encode( [ 'id' => $id ] );
+
+		$this->assertJsonStringEqualsJsonString( '{"id": "Unit-Test-ID"}', $json );
+	}
 }
