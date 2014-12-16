@@ -52,7 +52,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection          = new AggregateRootCollection();
 		$identifier          = new Identifier( 'Unit-Test-ID' );
 		$test_identifier     = new TestIdentifier( 'Unit-Test-ID' );
-		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
+		$aggregate_root      = UnitTestAggregate::schedule( 'Unit-Test' );
 		$aggregate_root_diff = UnitTestAggregateDiff::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
@@ -89,7 +89,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testAttachingTwoAggregateRootsWithSameIdFails()
 	{
 		$collection           = new AggregateRootCollection();
-		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
+		$aggregate_root       = UnitTestAggregate::schedule( 'Unit-Test' );
 		$other_aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );
@@ -114,7 +114,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection          = new AggregateRootCollection();
 		$identifier          = new Identifier( 'Unit-Test-ID' );
 		$test_identifier     = new TestIdentifier( 'Unit-Test-ID' );
-		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
+		$aggregate_root      = UnitTestAggregate::schedule( 'Unit-Test' );
 		$test_aggregate_root = UnitTestAggregateDiff::schedule( 'Unit-Test' );
 
 		$collection->attach( $aggregate_root );

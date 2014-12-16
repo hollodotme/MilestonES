@@ -13,14 +13,17 @@ use hollodotme\MilestonES\EventStoreConfigDelegate;
 use hollodotme\MilestonES\EventStream;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Test\Unit\TestEventObserver;
+use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithEmptyPersistence;
 use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithFailingPersistence;
 use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithGlobalObserver;
 use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
 
 require_once __DIR__ . '/../Fixures/TestEventObserver.php';
 require_once __DIR__ . '/../Fixures/TestMemoryPersistenceWithFailOnPersist.php';
+require_once __DIR__ . '/../Fixures/TestMemoryeEmptyPersistence.php';
 require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithGlobalObserver.php';
 require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithFailingPersistence.php';
+require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithEmptyPersistence.php';
 require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
 
 class EventStoreTest extends \PHPUnit_Framework_TestCase
@@ -32,7 +35,7 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$observer    = new TestEventObserver();
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
+		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new DomainEventEnvelopeCollection();
 		$collection[] = new DomainEventEnvelope( $event, [ ] );
@@ -49,7 +52,7 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$event_store = new EventStore( new TestEventStoreConfigDelegateWithGlobalObserver() );
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
+		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new DomainEventEnvelopeCollection();
 		$collection[] = new DomainEventEnvelope( $event, [ ] );
@@ -66,7 +69,7 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$observer    = new TestEventObserver();
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
+		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new DomainEventEnvelopeCollection();
 		$collection[] = new DomainEventEnvelope( $event, [ ] );
@@ -88,7 +91,7 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$detached_observer = new TestEventObserver();
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
+		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$event_store->attachCommittedEventObserver( $observer );
 		$event_store->attachCommittedEventObserver( $detached_observer );
@@ -120,12 +123,21 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$event_store->getEventStreamForId( new Identifier( 'Unit-Test-ID' ) );
 	}
 
+	/**
+	 * @expectedException \hollodotme\MilestonES\Exceptions\EventStreamNotFound
+	 */
+	public function testGetEventStreamForIdFailsWhenEventStreamIsEmpty()
+	{
+		$event_store = new EventStore( new TestEventStoreConfigDelegateWithEmptyPersistence() );
+		$event_store->getEventStreamForId( new Identifier( 'Unit-Test-ID' ) );
+	}
+
 	public function testGetEventStreamForId()
 	{
 		$event_store = new EventStore( new EventStoreConfigDelegate() );
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
+		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new DomainEventEnvelopeCollection();
 		$collection[] = new DomainEventEnvelope( $event, [ ] );
@@ -156,7 +168,7 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		$event_store = new EventStore( new TestEventStoreConfigDelegateWithFailingPersistence() );
 
 		$identifier = new Identifier( 'Unit-Test-ID' );
-		$event = new UnitTestEvent( $identifier, 'Unit-Test' );
+		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new DomainEventEnvelopeCollection();
 		$collection[] = new DomainEventEnvelope( $event, [ ] );

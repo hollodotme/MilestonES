@@ -161,9 +161,9 @@ class Memory implements PersistsEventEnvelopes
 	 */
 	private function restoreFileWithContent( $content )
 	{
-		$filepath = tempnam( '/tmp', 'MilestonES_File' );
+		$filepath = $this->getRestoreFilePath();
 
-		if ( file_put_contents( $filepath, $content ) !== false )
+		if ( @file_put_contents( $filepath, $content ) !== false )
 		{
 			return $filepath;
 		}
@@ -171,6 +171,14 @@ class Memory implements PersistsEventEnvelopes
 		{
 			throw new RestoringFileWithContentFailed();
 		}
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getRestoreFilePath()
+	{
+		return tempnam( '/tmp', 'MilestonES_File' );
 	}
 
 	/**

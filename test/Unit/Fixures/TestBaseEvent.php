@@ -11,9 +11,9 @@ use hollodotme\MilestonES\DomainEventEnvelope;
 /**
  * Class TestDomainEventEnvelope
  *
-*@package hollodotme\MilestonES\Test\Unit
+ * @package hollodotme\MilestonES\Test\Unit
  */
 class TestDomainEventEnvelope extends DomainEventEnvelope
 {
 
-} 
+}

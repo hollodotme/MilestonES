@@ -35,7 +35,7 @@
       </li>
       <li>Can get a tracked aggregate root by id
       </li>
-        <li>Can get aggregate root reconstituted from history
+      <li>Can get aggregate root reconstituted from history
       </li>
       <li>Can get aggregate root from event stream fails when aggregate root class is invalid
       </li>
@@ -48,35 +48,35 @@
       hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRoot
     </h2>
     <ul>
-        <li>Schedule triggers and applies change with id
+      <li>Schedule triggers and applies change with id
       </li>
-        <li>Can be reconstituted from history
+      <li>Can be reconstituted from history
       </li>
       <li>Changes can be cleared
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\CommitEventEnvelopeTest">
-        hollodotme\MilestonES\Test\Unit\EventStore\CommitEventEnvelope
+      hollodotme\MilestonES\Test\Unit\EventStore\CommitEventEnvelope
     </h2>
     <ul>
-        <li>From record
-        </li>
+      <li>From record
+      </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\DomainEventEnvelopeCollectionTest">
-        hollodotme\MilestonES\Test\Unit\EventStore\DomainEventEnvelopeCollection
+      hollodotme\MilestonES\Test\Unit\EventStore\DomainEventEnvelopeCollection
     </h2>
     <ul>
       <li>Collection is empty after contruction
       </li>
       <li>Collection is not empty after adding events
       </li>
-        <li>Adding an item fails when it is not a domain event envelope
+      <li>Adding an item fails when it is not a domain event envelope
       </li>
       <li>Collection takes auto and concrete index
       </li>
-        <li>Envelopes can be removed from collection using unset
+      <li>Envelopes can be removed from collection using unset
       </li>
-        <li>Can loop multiple times over collection
+      <li>Can loop multiple times over collection
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventEnvelopeMapperTest">
@@ -102,6 +102,8 @@
       </li>
       <li>Get event stream for id fails when event stream not found
       </li>
+      <li>Get event stream for id fails when event stream is empty
+      </li>
       <li>Get event stream for id
       </li>
       <li>Commit events fails when persistence fails
@@ -119,7 +121,7 @@
       </li>
       <li>Removing an event by offset unset after construction fails
       </li>
-        <li>Construction with array of non domain event envelopes fails
+      <li>Construction with array of non domain event envelopes fails
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\ClassNameIdentifierTest">
@@ -136,11 +138,11 @@
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\ContractTest">
-        hollodotme\MilestonES\Test\Unit\Identifiers\Contract
+      hollodotme\MilestonES\Test\Unit\Identifiers\Contract
     </h2>
     <ul>
-        <li>Objects can be used as id
-        </li>
+      <li>Objects can be used as id
+      </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Identifiers\IdentifierTest">
       hollodotme\MilestonES\Test\Unit\Identifiers\Identifier
@@ -150,7 +152,7 @@
       </li>
       <li>Numbers will be converted to strings
       </li>
-        <li>Non scalars as id will throw an exception
+      <li>Non scalars as id will throw an exception
       </li>
       <li>Can be constructed from string
       </li>
@@ -164,8 +166,8 @@
       </li>
       <li>Equals fails on different id string
       </li>
-        <li>Representable as json
-        </li>
+      <li>Representable as json
+      </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Persistance\MemoryTest">
       hollodotme\MilestonES\Test\Unit\Persistance\Memory
@@ -199,7 +201,9 @@
       </li>
       <li>Get event envelopes with id fails when envelopes are not committed
       </li>
-        <li>Files will be restored on reconstitution
+      <li>Files will be restored on reconstitution
+      </li>
+      <li>Restoring files on reconstituion fails when restore dir does not exist
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Serialization\PhpSerializerTest">

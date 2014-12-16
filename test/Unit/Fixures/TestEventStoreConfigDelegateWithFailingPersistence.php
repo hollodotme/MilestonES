@@ -10,6 +10,7 @@ use hollodotme\MilestonES\EventStoreConfigDelegate;
 
 /**
  * Class TestEventStoreConfigDelegateWithFailingPersistence
+ *
  * @package hollodotme\MilestonES\Test\Unit
  */
 class TestEventStoreConfigDelegateWithFailingPersistence extends EventStoreConfigDelegate

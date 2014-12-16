@@ -296,7 +296,18 @@ final class EventStore implements StoresEvents
 	{
 		try
 		{
-			return $this->persistence->getEventEnvelopesWithId( $id );
+			$event_envelopes = $this->persistence->getEventEnvelopesWithId( $id );
+
+			if ( count( $event_envelopes ) == 0 )
+			{
+				throw new \Exception(
+					'No event envelopes found for ' . $id->getStreamIdContract() . '#' . $id->getStreamId()
+				);
+			}
+			else
+			{
+				return $event_envelopes;
+			}
 		}
 		catch ( \Exception $e )
 		{

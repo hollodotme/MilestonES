@@ -10,6 +10,7 @@ use hollodotme\MilestonES\EventStoreConfigDelegate;
 
 /**
  * Class TestEventStoreConfigDelegateWithGlobalObserver
+ *
  * @package hollodotme\MilestonES\Test\Unit
  */
 class TestEventStoreConfigDelegateWithGlobalObserver extends EventStoreConfigDelegate
@@ -19,6 +20,6 @@ class TestEventStoreConfigDelegateWithGlobalObserver extends EventStoreConfigDel
 	 */
 	public function getGlobalObserversForCommitedEvents()
 	{
-		return [new TestEventObserver()];
+		return [ new TestEventObserver() ];
 	}
 }

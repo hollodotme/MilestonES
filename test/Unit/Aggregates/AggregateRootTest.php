@@ -30,7 +30,7 @@ class AggregateRootTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanBeReconstitutedFromHistory()
 	{
-		$identifier  = new Identifier( 'Unit-Test-ID' );
+		$identifier = new Identifier( 'Unit-Test-ID' );
 
 		$event          = new UnitTestEvent( $identifier, 'Unit-Test' );
 		$event_envelope = new DomainEventEnvelope( $event, [ ] );
