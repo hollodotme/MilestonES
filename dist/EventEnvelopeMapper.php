@@ -68,9 +68,9 @@ class EventEnvelopeMapper
 	/**
 	 * @param WrapsEventForCommit[] $commit_envelopes
 	 *
-	 * @return WrapsDomainEvent[]
+	 * @return array|\Iterator|\Countable|WrapsDomainEvent[]
 	 */
-	public function extractFromCommitEnvelopes( array $commit_envelopes )
+	public function extractFromCommitEnvelopes( $commit_envelopes )
 	{
 		$events = [ ];
 
@@ -92,7 +92,7 @@ class EventEnvelopeMapper
 		$event       = $this->getEventFromCommitEnvelope( $commit_envelope );
 		$meta_data   = $this->getMetaDataFromCommitEnvelope( $commit_envelope );
 		$occurred_on = $commit_envelope->getOccurredOn();
-		$file = $commit_envelope->getFile();
+		$file        = $commit_envelope->getFile();
 
 		return DomainEventEnvelope::fromRecord( $event, $meta_data, $file, $occurred_on );
 	}

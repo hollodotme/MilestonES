@@ -23,13 +23,13 @@ class Memory implements PersistsEventEnvelopes
 {
 
 	/** @var WrapsEventForCommit[] */
-	private $records_in_transaction;
+	protected $records_in_transaction;
 
 	/** @var WrapsEventForCommit[] */
-	private $records_commited;
+	protected $records_commited;
 
 	/** @var bool */
-	private $is_in_transaction;
+	protected $is_in_transaction;
 
 	public function __construct()
 	{
@@ -103,7 +103,7 @@ class Memory implements PersistsEventEnvelopes
 	 *
 	 * @return string
 	 */
-	private function getFileContent( $file )
+	protected function getFileContent( $file )
 	{
 		return file_get_contents( $file );
 	}
@@ -133,7 +133,7 @@ class Memory implements PersistsEventEnvelopes
 	 *
 	 * @return WrapsEventForCommit[]
 	 */
-	private function getCommitedRecordsForKey( $key )
+	protected function getCommitedRecordsForKey( $key )
 	{
 		$records = [ ];
 
@@ -159,7 +159,7 @@ class Memory implements PersistsEventEnvelopes
 	 * @throws RestoringFileWithContentFailed
 	 * @return string
 	 */
-	private function restoreFileWithContent( $content )
+	protected function restoreFileWithContent( $content )
 	{
 		$filepath = $this->getRestoreFilePath();
 
@@ -187,7 +187,7 @@ class Memory implements PersistsEventEnvelopes
 	 *
 	 * @return string
 	 */
-	private function buildKey( $stream_type, $stream_id )
+	protected function buildKey( $stream_type, $stream_id )
 	{
 		return $stream_type . '#' . $stream_id;
 	}
@@ -197,7 +197,7 @@ class Memory implements PersistsEventEnvelopes
 	 *
 	 * @return bool
 	 */
-	private function eventStreamExistsForKey( $key )
+	protected function eventStreamExistsForKey( $key )
 	{
 		return array_key_exists( $key, $this->records_commited );
 	}
@@ -205,7 +205,7 @@ class Memory implements PersistsEventEnvelopes
 	/**
 	 * @throws PersistenceHasStartedTransactionAlready
 	 */
-	private function guardIsNotInTransaction()
+	protected function guardIsNotInTransaction()
 	{
 		if ( $this->isInTransaction() )
 		{
@@ -216,7 +216,7 @@ class Memory implements PersistsEventEnvelopes
 	/**
 	 * @throws PersistenceHasNoTransactionStarted
 	 */
-	private function guardIsInTransaction()
+	protected function guardIsInTransaction()
 	{
 		if ( !$this->isInTransaction() )
 		{
@@ -224,12 +224,12 @@ class Memory implements PersistsEventEnvelopes
 		}
 	}
 
-	private function startTransaction()
+	protected function startTransaction()
 	{
 		$this->is_in_transaction = true;
 	}
 
-	private function endTransaction()
+	protected function endTransaction()
 	{
 		$this->is_in_transaction = false;
 	}
