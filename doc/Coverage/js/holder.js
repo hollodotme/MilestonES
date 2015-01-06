@@ -1,8 +1,8 @@
 /*
- Holder.js - client side image placeholders
- © 2012-2014 Ivan Malopinsky - http://imsky.co
- */
-(function (register, global, undefined) {
+Holder.js - client side image placeholders
+© 2012-2014 Ivan Malopinsky - http://imsky.co
+*/
+(function(register, global, undefined) {
 
 	//Constants and definitions
 
@@ -16,7 +16,7 @@
 		 * @param {string} name Theme name
 		 * @param {Object} theme Theme object, with foreground, background, size, font, and fontweight properties.
 		 */
-		addTheme: function (name, theme) {
+		addTheme: function(name, theme) {
 			name != null && theme != null && (App.settings.themes[name] = theme);
 			delete App.vars.cache.themeKeys;
 			return this;
@@ -28,7 +28,7 @@
 		 * @param {string} src Placeholder URL string
 		 * @param {string} el Selector of target element(s)
 		 */
-		addImage: function (src, el) {
+		addImage: function(src, el) {
 			var node = document.querySelectorAll(el);
 			if (node.length) {
 				for (var i = 0, l = node.length; i < l; i++) {
@@ -47,7 +47,7 @@
 		 *
 		 * @param {Object} userOptions Options object, can contain domain, themes, images, and bgnodes properties
 		 */
-		run: function (userOptions) {
+		run: function(userOptions) {
 			userOptions = userOptions || {};
 			var renderSettings = {};
 
@@ -128,8 +128,7 @@
 				try {
 					objectAttr.data = object.getAttribute('data');
 					objectAttr.dataSrc = object.getAttribute('data-src');
-				} catch (e) {
-				}
+				} catch (e) {}
 
 				var objectHasSrcURL = objectAttr.data != null && objectAttr.data.indexOf(options.domain) === 0;
 				var objectHasDataSrcURL = objectAttr.dataSrc != null && objectAttr.dataSrc.indexOf(options.domain) === 0;
@@ -149,8 +148,7 @@
 					imageAttr.src = image.getAttribute('src');
 					imageAttr.dataSrc = image.getAttribute('data-src');
 					imageAttr.rendered = image.getAttribute('data-holder-rendered');
-				} catch (e) {
-				}
+				} catch (e) {}
 
 				var imageHasSrc = imageAttr.src != null;
 				var imageHasDataSrcURL = imageAttr.dataSrc != null && imageAttr.dataSrc.indexOf(options.domain) === 0;
@@ -166,13 +164,13 @@
 							prepareImageElement(options, renderSettings, imageAttr.dataSrc, image);
 						} else {
 							//If the placeholder has not been rendered, check if the image exists and render a fallback if it doesn't
-							(function (src, options, renderSettings, dataSrc, image) {
-								imageExists(src, function (exists) {
-									if (!exists) {
-										prepareImageElement(options, renderSettings, dataSrc, image);
-									}
-								});
-							})(imageAttr.src, options, renderSettings, imageAttr.dataSrc, image);
+              (function(src, options, renderSettings, dataSrc, image){
+                imageExists(src, function(exists){
+                  if(!exists){
+                    prepareImageElement(options, renderSettings, dataSrc, image);
+                  }
+                });
+              })(imageAttr.src, options, renderSettings, imageAttr.dataSrc, image);
 						}
 					}
 				} else if (imageHasDataSrcURL) {
@@ -183,8 +181,8 @@
 			return this;
 		},
 		//todo: remove invisibleErrorFn for 2.5
-		invisibleErrorFn: function (fn) {
-			return function (el) {
+		invisibleErrorFn: function(fn) {
+			return function(el) {
 				if (el.hasAttribute('data-holder-invisible')) {
 					throw 'Holder: invisible placeholder';
 				}
@@ -233,15 +231,15 @@
 				}
 			}
 		},
-		defaults: {
-			size: 10,
-			units: 'pt',
-			scale: 1 / 16
-		},
+    defaults: {
+      size: 10,
+      units: 'pt',
+      scale: 1/16
+    },
 		flags: {
 			dimensions: {
 				regex: /^(\d+)x(\d+)$/,
-				output: function (val) {
+				output: function(val) {
 					var exec = this.regex.exec(val);
 					return {
 						width: +exec[1],
@@ -251,7 +249,7 @@
 			},
 			fluid: {
 				regex: /^([0-9]+%?)x([0-9]+%?)$/,
-				output: function (val) {
+				output: function(val) {
 					var exec = this.regex.exec(val);
 					return {
 						width: exec[1],
@@ -261,7 +259,7 @@
 			},
 			colors: {
 				regex: /(?:#|\^)([0-9a-f]{3,})\:(?:#|\^)([0-9a-f]{3,})/i,
-				output: function (val) {
+				output: function(val) {
 					var exec = this.regex.exec(val);
 					return {
 						foreground: '#' + exec[2],
@@ -271,13 +269,13 @@
 			},
 			text: {
 				regex: /text\:(.*)/,
-				output: function (val) {
+				output: function(val) {
 					return this.regex.exec(val)[1].replace('\\/', '/');
 				}
 			},
 			font: {
 				regex: /font\:(.*)/,
-				output: function (val) {
+				output: function(val) {
 					return this.regex.exec(val)[1];
 				}
 			},
@@ -286,7 +284,7 @@
 			},
 			textmode: {
 				regex: /textmode\:(.*)/,
-				output: function (val) {
+				output: function(val) {
 					return this.regex.exec(val)[1];
 				}
 			},
@@ -596,7 +594,7 @@
 				});
 			}
 			if (renderSettings.reRender) {
-				setTimeout(function () {
+				setTimeout(function() {
 					var image = getRenderedImage();
 					if (image == null) {
 						throw 'Holder: couldn\'t render placeholder';
@@ -631,7 +629,7 @@
 		scene.font = {
 			family: scene.theme.font ? scene.theme.font : 'Arial, Helvetica, Open Sans, sans-serif',
 			size: textSize(scene.width, scene.height, scene.theme.size ? scene.theme.size : App.defaults.size),
-			units: scene.theme.units ? scene.theme.units : App.defaults.units,
+      units: scene.theme.units ? scene.theme.units : App.defaults.units,
 			weight: scene.theme.fontweight ? scene.theme.fontweight : 'bold'
 		};
 		scene.text = scene.theme.text ? scene.theme.text : Math.floor(scene.width) + 'x' + Math.floor(scene.height);
@@ -874,15 +872,15 @@
 	}
 
 	//todo: see if possible to convert stagingRenderer to use HTML only
-	var stagingRenderer = (function () {
+	var stagingRenderer = (function() {
 		var svg = null,
 			stagingText = null,
 			stagingTextNode = null;
-		return function (graph) {
+		return function(graph) {
 			var rootNode = graph.root;
 			if (App.setup.supportsSVG) {
 				var firstTimeSetup = false;
-				var tnode = function (text) {
+				var tnode = function(text) {
 					return document.createTextNode(text);
 				};
 				if (svg == null) {
@@ -965,11 +963,11 @@
 		};
 	})();
 
-	var sgCanvasRenderer = (function () {
+	var sgCanvasRenderer = (function() {
 		var canvas = newEl('canvas');
 		var ctx = null;
 
-		return function (sceneGraph) {
+		return function(sceneGraph) {
 			if (ctx == null) {
 				ctx = canvas.getContext('2d');
 			}
@@ -1001,7 +999,7 @@
 		};
 	})();
 
-	var sgSVGRenderer = (function () {
+	var sgSVGRenderer = (function() {
 		//Prevent IE <9 from initializing SVG renderer
 		if (!global.XMLSerializer) return;
 		var svg = initSVG(null, 0, 0);
@@ -1010,7 +1008,7 @@
 
 		//todo: create a reusable pool for textNodes, resize if more words present
 
-		return function (sceneGraph, renderSettings) {
+		return function(sceneGraph, renderSettings) {
 			var root = sceneGraph.root;
 
 			initSVG(svg, root.properties.width, root.properties.height);
@@ -1155,34 +1153,34 @@
 
 		/*
 
-		 //External stylesheets: <link> method
-		 if (renderSettings.svgLinkStylesheet) {
+		//External stylesheets: <link> method
+		if (renderSettings.svgLinkStylesheet) {
 
-		 defs.removeChild(defs.firstChild);
-		 for (i = 0; i < stylesheets.length; i++) {
-		 var link = document.createElementNS('http://www.w3.org/1999/xhtml', 'link');
-		 link.setAttribute('href', stylesheets[i]);
-		 link.setAttribute('rel', 'stylesheet');
-		 link.setAttribute('type', 'text/css');
-		 defs.appendChild(link);
+			defs.removeChild(defs.firstChild);
+			for (i = 0; i < stylesheets.length; i++) {
+				var link = document.createElementNS('http://www.w3.org/1999/xhtml', 'link');
+				link.setAttribute('href', stylesheets[i]);
+				link.setAttribute('rel', 'stylesheet');
+				link.setAttribute('type', 'text/css');
+				defs.appendChild(link);
 			}
-		 }
-
-		 //External stylesheets: <style> and @import method
-		 if (renderSettings.svgImportStylesheet) {
-		 var style = document.createElementNS(SVG_NS, 'style');
-		 var styleText = [];
-
-		 for (i = 0; i < stylesheets.length; i++) {
-		 styleText.push('@import url(' + stylesheets[i] + ');');
-			}
-
-		 var styleTextNode = document.createTextNode(styleText.join('\n'));
-		 style.appendChild(styleTextNode);
-		 defs.appendChild(style);
 		}
 
-		 */
+		//External stylesheets: <style> and @import method
+		if (renderSettings.svgImportStylesheet) {
+			var style = document.createElementNS(SVG_NS, 'style');
+			var styleText = [];
+
+			for (i = 0; i < stylesheets.length; i++) {
+				styleText.push('@import url(' + stylesheets[i] + ');');
+			}
+
+			var styleTextNode = document.createTextNode(styleText.join('\n'));
+			style.appendChild(styleTextNode);
+			defs.appendChild(style);
+		}
+
+		*/
 
 		var svgText = serializer.serializeToString(svg);
 		svgText = svgText.replace(/\&amp;(\#[0-9]{2,}\;)/g, '&$1');
@@ -1236,7 +1234,7 @@
 	function debounce(fn) {
 		if (!App.vars.debounceTimer) fn.call(this);
 		if (App.vars.debounceTimer) clearTimeout(App.vars.debounceTimer);
-		App.vars.debounceTimer = setTimeout(function () {
+		App.vars.debounceTimer = setTimeout(function() {
 			App.vars.debounceTimer = null;
 			fn.call(this);
 		}, App.setup.debounce);
@@ -1246,7 +1244,7 @@
 	 * Holder-specific resize/orientation change callback, debounced to prevent excessive execution
 	 */
 	function resizeEvent() {
-		debounce(function () {
+		debounce(function() {
 			updateResizableElements(null);
 		});
 	}
@@ -1280,10 +1278,10 @@
 	 */
 	function imageExists(src, callback) {
 		var image = new Image();
-		image.onerror = function () {
+		image.onerror = function() {
 			callback.call(this, false);
 		};
-		image.onload = function () {
+		image.onload = function() {
 			callback.call(this, true);
 		};
 		image.src = src;
@@ -1314,14 +1312,14 @@
 	 * @param str Input string
 	 */
 	function decodeHtmlEntity(str) {
-		return str.replace(/&#(\d+);/g, function (match, dec) {
+		return str.replace(/&#(\d+);/g, function(match, dec) {
 			return String.fromCharCode(dec);
 		});
 	}
 
 	// Scene graph
 
-	var SceneGraph = function (sceneProperties) {
+	var SceneGraph = function(sceneProperties) {
 		var nodeCount = 1;
 
 		//todo: move merge to helpers section
@@ -1333,7 +1331,7 @@
 		}
 
 		var SceneNode = augment.defclass({
-			constructor: function (name) {
+			constructor: function(name) {
 				nodeCount++;
 				this.parent = null;
 				this.children = {};
@@ -1348,7 +1346,7 @@
 				this.width = 0;
 				this.height = 0;
 			},
-			resize: function (width, height) {
+			resize: function(width, height) {
 				if (width != null) {
 					this.width = width;
 				}
@@ -1356,45 +1354,45 @@
 					this.height = height;
 				}
 			},
-			moveTo: function (x, y, z) {
+			moveTo: function(x, y, z) {
 				this.x = x != null ? x : this.x;
 				this.y = y != null ? y : this.y;
 				this.z = z != null ? z : this.z;
 			},
-			add: function (child) {
-				var name = child.name;
-				if (this.children[name] == null) {
-					this.children[name] = child;
-					child.parent = this;
-				} else {
-					throw 'SceneGraph: child with that name already exists: ' + name;
+			add: function(child) {
+					var name = child.name;
+					if (this.children[name] == null) {
+						this.children[name] = child;
+						child.parent = this;
+					} else {
+						throw 'SceneGraph: child with that name already exists: ' + name;
+					}
 				}
-			}
-			/*,	// probably unnecessary in Holder
-			 remove: function(name){
-			 if(this.children[name] == null){
-			 throw 'SceneGraph: child with that name doesn\'t exist: '+name;
-			 }
-			 else{
-			 child.parent = null;
-			 delete this.children[name];
-			 }
-			 },
-			 removeAll: function(){
-			 for(var child in this.children){
-			 this.remove(child);
-			 }
-			 }*/
+				/*,	// probably unnecessary in Holder
+				remove: function(name){
+					if(this.children[name] == null){
+						throw 'SceneGraph: child with that name doesn\'t exist: '+name;
+					}
+					else{
+						child.parent = null;
+						delete this.children[name];
+					}
+				},
+				removeAll: function(){
+					for(var child in this.children){
+						this.remove(child);
+					}
+				}*/
 		});
 
-		var RootNode = augment(SceneNode, function (uber) {
-			this.constructor = function () {
+		var RootNode = augment(SceneNode, function(uber) {
+			this.constructor = function() {
 				uber.constructor.call(this, 'root');
 				this.properties = sceneProperties;
 			};
 		});
 
-		var Shape = augment(SceneNode, function (uber) {
+		var Shape = augment(SceneNode, function(uber) {
 			function constructor(name, props) {
 				uber.constructor.call(this, name);
 				this.properties = {
@@ -1418,7 +1416,7 @@
 			});
 
 			this.Text = augment.extend(this, {
-				constructor: function (text) {
+				constructor: function(text) {
 					constructor.call(this);
 					this.properties.text = text;
 				},
@@ -1438,7 +1436,7 @@
 
 	for (var flag in App.flags) {
 		if (!App.flags.hasOwnProperty(flag)) continue;
-		App.flags[flag].match = function (val) {
+		App.flags[flag].match = function(val) {
 			return val.match(this.regex);
 		};
 	}
@@ -1455,7 +1453,7 @@
 		renderers: ['html', 'canvas', 'svg']
 	};
 
-	App.dpr = function (val) {
+	App.dpr = function(val) {
 		return val * App.setup.ratio;
 	};
 
@@ -1470,7 +1468,7 @@
 
 	//Pre-flight
 
-	(function () {
+	(function() {
 		var devicePixelRatio = 1,
 			backingStoreRatio = 1;
 
@@ -1502,7 +1500,7 @@
 	register(Holder, 'Holder', global);
 
 	if (global.onDomReady) {
-		global.onDomReady(function () {
+		global.onDomReady(function() {
 			if (!App.vars.preempted) {
 				Holder.run();
 			}
@@ -1514,14 +1512,14 @@
 			}
 
 			if (typeof global.Turbolinks == 'object') {
-				global.document.addEventListener('page:change', function () {
+				global.document.addEventListener('page:change', function() {
 					Holder.run();
 				});
 			}
 		});
 	}
 
-})(function (fn, name, global) {
+})(function(fn, name, global) {
 	var isAMD = (typeof define === 'function' && define.amd);
 	var isNode = (typeof exports === 'object');
 	var isWeb = !isNode;

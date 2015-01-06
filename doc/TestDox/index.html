@@ -102,9 +102,17 @@
       </li>
       <li>Get event stream for id fails when event stream not found
       </li>
+      <li>Get event stream for id fails when event stream is empty
+      </li>
       <li>Get event stream for id
       </li>
       <li>Commit events fails when persistence fails
+      </li>
+      <li>Get event stream for id fails when event envelopes collection is not iteratable
+      </li>
+      <li>Get event stream for id fails when event envelopes collection is not countable
+      </li>
+      <li>Get event stream for id with countable iterator
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\ImmutableEventCollectionTest">
@@ -200,6 +208,8 @@
       <li>Get event envelopes with id fails when envelopes are not committed
       </li>
       <li>Files will be restored on reconstitution
+      </li>
+      <li>Restoring files on reconstituion fails when restore dir does not exist
       </li>
     </ul>
     <h2 id="hollodotme\MilestonES\Test\Unit\Serialization\PhpSerializerTest">
