@@ -9,14 +9,14 @@ namespace hollodotme\MilestonES\Test\Unit;
 use hollodotme\MilestonES\EventStoreConfigDelegate;
 
 /**
- * Class TestEventStoreConfigDelegateWithFailingPersistence
+ * Class TestEventStoreConfigDelegateWithEmptyPersistence
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class TestEventStoreConfigDelegateWithFailingPersistence extends EventStoreConfigDelegate
+class TestEventStoreConfigDelegateWithEmptyPersistence extends EventStoreConfigDelegate
 {
 	public function getPersistenceStrategy()
 	{
-		return new TestMemoryPersistenceWithFailOnPersist();
+		return new TestMemoryEmptyPersistence();
 	}
 }

@@ -30,7 +30,7 @@ class ImmutableDomainEventEnvelopeCollection extends DomainEventEnvelopeCollecti
 	}
 
 	/**
-	 * @param int|null        $offset
+	 * @param int|null         $offset
 	 * @param WrapsDomainEvent $value
 	 *
 	 * @throws EventCollectionIsImmutable

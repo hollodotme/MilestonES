@@ -1,7 +1,7 @@
 {
 	"name":              "hollodotme/milestones",
-	"description":       "An event store with milestone optimization",
-	"tags": 			 ["milestone", "event store", "stream"],
+	"description":       "A PHP event store",
+	"tags": 			 ["event sourcing", "event store"],
 	"minimum-stability": "stable",
     "license": "MIT",
 	"authors":           [

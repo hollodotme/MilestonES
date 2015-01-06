@@ -44,7 +44,7 @@ class UnitTestAggregate extends AggregateRoot
 	 */
 	protected function whenUnitTestEvent( UnitTestEvent $event )
 	{
-		$this->test_id = $event->getTestId();
+		$this->test_id     = $event->getTestId();
 		$this->description = $event->getDescription();
 	}
 

@@ -24,7 +24,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 
 	const TEST_EVENT_OCCURANCE_TIMESTAMP = '2014-09-19 11:40:00';
 
-	const TEST_COMMIT_TIMESTAMP = '2014-09-19 11:45:00';
+	const TEST_COMMIT_TIMESTAMP          = '2014-09-19 11:45:00';
 
 	private $serialization_strategy;
 

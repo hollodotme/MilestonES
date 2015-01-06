@@ -9,6 +9,7 @@ namespace hollodotme\MilestonES;
 use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
 use hollodotme\MilestonES\Exceptions\EventEnvelopesNotFound;
 use hollodotme\MilestonES\Exceptions\EventStreamNotFound;
+use hollodotme\MilestonES\Exceptions\InvalidEventEnvelopesCollection;
 use hollodotme\MilestonES\Exceptions\PersistingEventsFailed;
 use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\Identifies;
@@ -291,7 +292,18 @@ final class EventStore implements StoresEvents
 	{
 		try
 		{
-			return $this->persistence->getEventEnvelopesWithId( $id );
+			$event_envelopes = $this->persistence->getEventEnvelopesWithId( $id );
+
+			if ( count( $event_envelopes ) == 0 )
+			{
+				throw new \Exception(
+					'No event envelopes found for ' . $id->getStreamIdContract() . '#' . $id->getStreamId()
+				);
+			}
+			else
+			{
+				return $event_envelopes;
+			}
 		}
 		catch ( \Exception $e )
 		{
@@ -302,10 +314,46 @@ final class EventStore implements StoresEvents
 	/**
 	 * @param WrapsEventForCommit[] $envelopes
 	 *
-	 * @return WrapsDomainEvent[]
+	 * @throws InvalidEventEnvelopesCollection
+	 * @return array|\Countable|Interfaces\WrapsDomainEvent[]|\Iterator
 	 */
-	private function extractEventsFromEnvelopes( array $envelopes )
+	private function extractEventsFromEnvelopes( $envelopes )
 	{
-		return $this->envelope_mapper->extractFromCommitEnvelopes( $envelopes );
+		if ( $this->isArrayOrCountableIterator( $envelopes ) )
+		{
+			return $this->envelope_mapper->extractFromCommitEnvelopes( $envelopes );
+		}
+		else
+		{
+			throw new InvalidEventEnvelopesCollection();
+		}
+	}
+
+	/**
+	 * @param mixed $envelopes
+	 *
+	 * @return bool
+	 */
+	private function isArrayOrCountableIterator( $envelopes )
+	{
+		if ( is_array( $envelopes ) )
+		{
+			return true;
+		}
+		elseif ( $envelopes instanceof \Iterator )
+		{
+			if ( $envelopes instanceof \Countable )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
