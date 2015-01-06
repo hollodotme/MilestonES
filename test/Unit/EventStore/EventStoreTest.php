@@ -18,6 +18,7 @@ use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithGlobalObserv
 use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
 
 require_once __DIR__ . '/../Fixures/TestEventObserver.php';
+require_once __DIR__ . '/../Fixures/TestGlobalEventObserver.php';
 require_once __DIR__ . '/../Fixures/TestMemoryPersistenceWithFailOnPersist.php';
 require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithGlobalObserver.php';
 require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithFailingPersistence.php';
@@ -57,7 +58,7 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 		/** @var DomainEventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
-		$this->expectOutputString( UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n" );
+		$this->expectOutputString( UnitTestEvent::class . " with ID Unit-Test-ID was globally observed.\n" );
 	}
 
 	public function testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted()
@@ -77,7 +78,7 @@ class EventStoreTest extends \PHPUnit_Framework_TestCase
 
 		$this->expectOutputString(
 			UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n"
-			. UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n"
+			. UnitTestEvent::class . " with ID Unit-Test-ID was globally observed.\n"
 		);
 	}
 

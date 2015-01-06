@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hollodotme/Utilities.git",
-                "reference": "c74fb23177053dab4040f82ca700dfbe7dd81c02"
+                "reference": "aca6f9eae0ba8140d6976cb1fd6f86f6d8dd96fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/c74fb23177053dab4040f82ca700dfbe7dd81c02",
-                "reference": "c74fb23177053dab4040f82ca700dfbe7dd81c02",
+                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/aca6f9eae0ba8140d6976cb1fd6f86f6d8dd96fb",
+                "reference": "aca6f9eae0ba8140d6976cb1fd6f86f6d8dd96fb",
                 "shasum": ""
             },
             "require-dev": {
@@ -41,7 +41,7 @@
                 }
             ],
             "description": "Simple utilities to include",
-            "time": "2014-11-24 17:03:47"
+            "time": "2015-01-03 19:44:42"
         },
         {
             "name": "moontoast/math",
@@ -149,16 +149,16 @@
     "packages-dev": [
         {
             "name": "erusev/parsedown",
-            "version": "1.1.2",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "9816507a75b27b61035671cd2fc6f524a9b4c25c"
+                "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/9816507a75b27b61035671cd2fc6f524a9b4c25c",
-                "reference": "9816507a75b27b61035671cd2fc6f524a9b4c25c",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
+                "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
                 "shasum": ""
             },
             "type": "library",
@@ -184,7 +184,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2014-11-19 18:18:56"
+            "time": "2014-11-29 02:29:14"
         },
         {
             "name": "erusev/parsedown-extra",
@@ -285,6 +285,7 @@
         "hollodotme/utilities": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
 }

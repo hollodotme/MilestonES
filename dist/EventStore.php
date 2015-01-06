@@ -50,8 +50,6 @@ final class EventStore implements StoresEvents
 
 		$this->persistence     = $this->getPersistenceStrategy();
 		$this->envelope_mapper = $this->getEventEnvelopeMapper();
-
-		$this->attachGlobalObserversForCommitedEvents();
 	}
 
 	/**
@@ -178,24 +176,6 @@ final class EventStore implements StoresEvents
 		return $this->config_delegate->getSerializationStrategy();
 	}
 
-	private function attachGlobalObserversForCommitedEvents()
-	{
-		$observers = $this->getGlobalObserversForCommitedEvents();
-
-		foreach ( $observers as $observer )
-		{
-			$this->attachCommittedEventObserver( $observer );
-		}
-	}
-
-	/**
-	 * @return Interfaces\ObservesCommitedEvents[]
-	 */
-	private function getGlobalObserversForCommitedEvents()
-	{
-		return $this->config_delegate->getGlobalObserversForCommitedEvents();
-	}
-
 	/**
 	 * @return IdentifiesCommit
 	 */
@@ -271,6 +251,21 @@ final class EventStore implements StoresEvents
 		{
 			$observer->updateForCommitedDomainEventEnvelope( $event_envelope );
 		}
+
+		$global_observers = $this->getGlobalObserversForCommitedEvents();
+
+		foreach ( $global_observers as $observer )
+		{
+			$observer->updateForCommitedDomainEventEnvelope( $event_envelope );
+		}
+	}
+
+	/**
+	 * @return Interfaces\ObservesCommitedEvents[]
+	 */
+	private function getGlobalObserversForCommitedEvents()
+	{
+		return $this->config_delegate->getGlobalObserversForCommitedEvents();
 	}
 
 	/**
