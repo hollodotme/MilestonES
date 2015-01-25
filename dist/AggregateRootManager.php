@@ -139,7 +139,7 @@ class AggregateRootManager implements CommitsChanges
 
 		$this->commitChangesToEventStore( $changes );
 
-		$this->aggregate_root_collection->clearCommitedChanges( $changes );
+		$this->aggregate_root_collection->clearCommittedChanges( $changes );
 	}
 
 	/**
