@@ -6,7 +6,6 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Exceptions\CommittingChangesOfAggregateRootFailed;
 use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
 use hollodotme\MilestonES\Exceptions\RepositoryWithNameDoesNotExist;
 use hollodotme\MilestonES\Interfaces\AggregatesModels;
@@ -23,7 +22,7 @@ use hollodotme\MilestonES\Interfaces\StoresEvents;
 class AggregateRootManager implements CommitsChanges
 {
 
-	/** @var CollectsAggregateRoots */
+	/** @var CollectsAggregateRoots|AggregatesModels[] */
 	private $aggregate_root_collection;
 
 	/** @var StoresEvents */
@@ -131,45 +130,16 @@ class AggregateRootManager implements CommitsChanges
 		return new $repository_fqcn( $this->event_store, $this->aggregate_root_collection );
 	}
 
+	/**
+	 * @throws CommittingEventsFailed
+	 */
 	final public function commitChanges()
 	{
-		foreach ( $this->aggregate_root_collection as $aggregate_root )
-		{
-			$this->commitChangesOfAggregateRootIfNecessary( $aggregate_root );
-		}
-	}
+		$changes = $this->aggregate_root_collection->getChanges();
 
-	/**
-	 * @param AggregatesModels $aggregate_root
-	 *
-	 * @throws CommittingChangesOfAggregateRootFailed
-	 */
-	private function commitChangesOfAggregateRootIfNecessary( AggregatesModels $aggregate_root )
-	{
-		if ( $aggregate_root->hasChanges() )
-		{
-			$this->commitChangesAndClearAggregateRoot( $aggregate_root );
-		}
-	}
+		$this->commitChangesToEventStore( $changes );
 
-	/**
-	 * @param AggregatesModels $aggregate_root
-	 *
-	 * @throws CommittingChangesOfAggregateRootFailed
-	 */
-	private function commitChangesAndClearAggregateRoot( AggregatesModels $aggregate_root )
-	{
-		try
-		{
-			$changes = $aggregate_root->getChanges();
-			$this->commitChangesToEventStore( $aggregate_root->getChanges() );
-
-			$aggregate_root->clearCommittedChanges( $changes );
-		}
-		catch ( CommittingEventsFailed $e )
-		{
-			throw new CommittingChangesOfAggregateRootFailed( (string)$aggregate_root->getIdentifier(), 0, $e );
-		}
+		$this->aggregate_root_collection->clearCommitedChanges( $changes );
 	}
 
 	/**

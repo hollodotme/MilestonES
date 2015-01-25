@@ -12,6 +12,7 @@ use hollodotme\MilestonES\DomainEventEnvelope;
 use hollodotme\MilestonES\DomainEventEnvelopeCollection;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Interfaces\RepresentsEvent;
+use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
 
 class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
@@ -129,5 +130,79 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 		}
 
 		$this->expectOutputString( "Loop 1:\n0: Unit-Test-0\n2: Unit-Test-2\nLoop 2:\n0: Unit-Test-0\n2: Unit-Test-2" );
+	}
+
+	public function testCanSortCollectionByCallable()
+	{
+		$collection = new DomainEventEnvelopeCollection();
+
+		$first_event  = $this->getTestEvent( 'Unit-Test-1' );
+		$second_event = $this->getTestEvent( 'Unit-Test-2' );
+
+		$first_envelope  = new DomainEventEnvelope( $first_event, [ ] );
+		$second_envelope = new DomainEventEnvelope( $second_event, [ ] );
+
+		$collection[] = $first_envelope;
+		$collection[] = $second_envelope;
+
+		/**
+		 * Sort in reverse order
+		 */
+
+		/** @var DomainEventEnvelopeCollection $collection */
+		$collection->sort(
+			function ( WrapsDomainEvent $a, WrapsDomainEvent $b )
+			{
+				if ( $a->getOccurredOnMicrotime() < $b->getOccurredOnMicrotime() )
+				{
+					return 1;
+				}
+				elseif ( $a->getOccurredOnMicrotime() > $b->getOccurredOnMicrotime() )
+				{
+					return -1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+		);
+
+		$this->assertSame( $second_envelope, $collection[0] );
+		$this->assertSame( $first_envelope, $collection[1] );
+	}
+
+	public function testCanAppendCollectionToCollection()
+	{
+		$collection = new DomainEventEnvelopeCollection();
+
+		$first_event  = $this->getTestEvent( 'Unit-Test-1' );
+		$second_event = $this->getTestEvent( 'Unit-Test-2' );
+
+		$first_envelope  = new DomainEventEnvelope( $first_event, [ ] );
+		$second_envelope = new DomainEventEnvelope( $second_event, [ ] );
+
+		$collection[] = $first_envelope;
+		$collection[] = $second_envelope;
+
+		$collection_to_append = new DomainEventEnvelopeCollection();
+
+		$third_event  = $this->getTestEvent( 'Unit-Test-3' );
+		$fourth_event = $this->getTestEvent( 'Unit-Test-4' );
+
+		$third_envelope  = new DomainEventEnvelope( $third_event, [ ] );
+		$fourth_envelope = new DomainEventEnvelope( $fourth_event, [ ] );
+
+		$collection_to_append[] = $third_envelope;
+		$collection_to_append[] = $fourth_envelope;
+
+		/** @var DomainEventEnvelopeCollection $collection */
+		/** @var DomainEventEnvelopeCollection $collection_to_append */
+		$collection->append( $collection_to_append );
+
+		$this->assertSame( $first_envelope, $collection[0] );
+		$this->assertSame( $second_envelope, $collection[1] );
+		$this->assertSame( $third_envelope, $collection[2] );
+		$this->assertSame( $fourth_envelope, $collection[3] );
 	}
 }

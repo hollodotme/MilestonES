@@ -24,6 +24,11 @@ interface WrapsDomainEvent
 	public function getOccurredOn();
 
 	/**
+	 * @return float
+	 */
+	public function getOccurredOnMicrotime();
+
+	/**
 	 * @return RepresentsEvent
 	 */
 	public function getPayload();

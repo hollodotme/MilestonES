@@ -10,13 +10,18 @@ require_once __DIR__ . '/../Fixures/UnitTestAggregate.php';
 require_once __DIR__ . '/../Fixures/UnitTestAggregateDiff.php';
 require_once __DIR__ . '/../Fixures/UnitTestAggregateOtherId.php';
 require_once __DIR__ . '/../Fixures/TestIdentifier.php';
+require_once __DIR__ . '/../Fixures/TestAggregateRoot.php';
+require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
 
 use hollodotme\MilestonES\AggregateRootCollection;
 use hollodotme\MilestonES\Identifier;
+use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Test\Unit\TestAggregateRoot;
 use hollodotme\MilestonES\Test\Unit\TestIdentifier;
 use hollodotme\MilestonES\Test\Unit\UnitTestAggregate;
 use hollodotme\MilestonES\Test\Unit\UnitTestAggregateDiff;
 use hollodotme\MilestonES\Test\Unit\UnitTestAggregateOtherId;
+use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
 
 class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -160,5 +165,64 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection = new AggregateRootCollection();
 
 		$collection->find( new Identifier( 'Unit-Test-ID' ) );
+	}
+
+	public function testCanGetChangesOfAllAggregateRootsInCollectionInCorrectOrder()
+	{
+		$collection = new AggregateRootCollection();
+
+		$aggregate_root_1 = TestAggregateRoot::init( 'Unit-Test-ID-1', 'AR 1: First event' );
+
+		$collection->attach( $aggregate_root_1 );
+
+		$aggregate_root_2 = TestAggregateRoot::init( 'Unit-Test-ID-2', 'AR 2: First event' );
+
+		$aggregate_root_1->test( 'AR 1: Second event' );
+		$aggregate_root_2->test( 'AR 2: Second event' );
+
+		$collection->attach( $aggregate_root_2 );
+
+		/** @var WrapsDomainEvent[] $changes */
+		$changes = $collection->getChanges();
+
+		$first_event_in_changes  = $changes[0]->getPayload();
+		$second_event_in_changes = $changes[1]->getPayload();
+		$third_event_in_changes  = $changes[2]->getPayload();
+		$fourth_event_in_changes = $changes[3]->getPayload();
+
+		/** @var UnitTestEvent $first_event_in_changes */
+		$this->assertEquals( 'AR 1: First event', $first_event_in_changes->getDescription() );
+
+		/** @var UnitTestEvent $second_event_in_changes */
+		$this->assertEquals( 'AR 2: First event', $second_event_in_changes->getDescription() );
+
+		/** @var UnitTestEvent $third_event_in_changes */
+		$this->assertEquals( 'AR 1: Second event', $third_event_in_changes->getDescription() );
+
+		/** @var UnitTestEvent $fourth_event_in_changes */
+		$this->assertEquals( 'AR 2: Second event', $fourth_event_in_changes->getDescription() );
+	}
+
+	public function testCanClearChangesInAggregateRoots()
+	{
+		$collection = new AggregateRootCollection();
+
+		$aggregate_root_1 = TestAggregateRoot::init( 'Unit-Test-ID-1', 'AR 1: First event' );
+
+		$collection->attach( $aggregate_root_1 );
+
+		$aggregate_root_2 = TestAggregateRoot::init( 'Unit-Test-ID-2', 'AR 2: First event' );
+
+		$aggregate_root_1->test( 'AR 1: Second event' );
+		$aggregate_root_2->test( 'AR 2: Second event' );
+
+		$collection->attach( $aggregate_root_2 );
+
+		$changes = $collection->getChanges();
+
+		$collection->clearCommittedChanges( $changes );
+
+		$this->assertFalse( $aggregate_root_1->hasChanges() );
+		$this->assertFalse( $aggregate_root_2->hasChanges() );
 	}
 }

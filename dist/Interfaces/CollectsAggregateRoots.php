@@ -38,4 +38,14 @@ interface CollectsAggregateRoots extends \Iterator, \Countable
 	 * @return bool
 	 */
 	public function idExists( Identifies $id );
+
+	/**
+	 * @return CollectsDomainEventEnvelopes
+	 */
+	public function getChanges();
+
+	/**
+	 * @param CollectsDomainEventEnvelopes $committed_changes
+	 */
+	public function clearCommittedChanges( CollectsDomainEventEnvelopes $committed_changes );
 }

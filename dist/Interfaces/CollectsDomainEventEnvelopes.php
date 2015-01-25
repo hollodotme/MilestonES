@@ -13,5 +13,13 @@ namespace hollodotme\MilestonES\Interfaces;
  */
 interface CollectsDomainEventEnvelopes extends \Iterator, \ArrayAccess, \Countable
 {
+	/**
+	 * @param CollectsDomainEventEnvelopes $envelopes
+	 */
+	public function append( CollectsDomainEventEnvelopes $envelopes );
 
+	/**
+	 * @param callable $cmp_function
+	 */
+	public function sort( callable $cmp_function );
 }

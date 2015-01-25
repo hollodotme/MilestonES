@@ -38,6 +38,17 @@ class DomainEventEnvelopeCollection implements Interfaces\CollectsDomainEventEnv
 	}
 
 	/**
+	 * @param CollectsDomainEventEnvelopes $envelopes
+	 */
+	public function append( CollectsDomainEventEnvelopes $envelopes )
+	{
+		foreach ( $envelopes as $key => $envelope )
+		{
+			$this->offsetSet( null, $envelope );
+		}
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function isEmpty()
@@ -151,5 +162,13 @@ class DomainEventEnvelopeCollection implements Interfaces\CollectsDomainEventEnv
 		{
 			throw new ItemDoesNotRepresentADomainEventEnvelope( gettype( $item ) );
 		}
+	}
+
+	/**
+	 * @param callable $cmp_function
+	 */
+	public function sort( callable $cmp_function )
+	{
+		usort( $this->envelopes, $cmp_function );
 	}
 }

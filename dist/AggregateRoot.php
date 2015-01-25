@@ -49,6 +49,9 @@ abstract class AggregateRoot implements AggregatesModels
 		return !$this->tracked_changes->isEmpty();
 	}
 
+	/**
+	 * @param CollectsDomainEventEnvelopes $commited_events
+	 */
 	final public function clearCommittedChanges( CollectsDomainEventEnvelopes $commited_events )
 	{
 		$this->tracked_changes->removeEvents( $commited_events );

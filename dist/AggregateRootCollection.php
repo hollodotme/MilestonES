@@ -10,7 +10,9 @@ use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
 use hollodotme\MilestonES\Exceptions\AggregateRootWithEqualIdIsAlreadyAttached;
 use hollodotme\MilestonES\Interfaces\AggregatesModels;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
+use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 
 /**
  * Class AggregateRootCollection
@@ -148,5 +150,57 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	public function count()
 	{
 		return count( $this->aggregate_roots );
+	}
+
+	/**
+	 * @return CollectsDomainEventEnvelopes
+	 */
+	public function getChanges()
+	{
+		$changes = new DomainEventEnvelopeCollection();
+
+		foreach ( $this->aggregate_roots as $aggregate_root )
+		{
+			if ( $aggregate_root->hasChanges() )
+			{
+				$changes->append( $aggregate_root->getChanges() );
+			}
+		}
+
+		$changes->sort( $this->getChangesSortFunction() );
+
+		return $changes;
+	}
+
+	/**
+	 * @return callable
+	 */
+	private function getChangesSortFunction()
+	{
+		return function ( WrapsDomainEvent $envelope_a, WrapsDomainEvent $envelope_b )
+		{
+			$microtime_a = floatval( $envelope_a->getOccurredOnMicrotime() );
+			$microtime_b = floatval( $envelope_b->getOccurredOnMicrotime() );
+
+			if ( $microtime_a < $microtime_b )
+			{
+				return -1;
+			}
+			else
+			{
+				return 1;
+			}
+		};
+	}
+
+	/**
+	 * @param CollectsDomainEventEnvelopes $committed_changes
+	 */
+	public function clearCommittedChanges( CollectsDomainEventEnvelopes $committed_changes )
+	{
+		foreach ( $this->aggregate_roots as $aggregate_root )
+		{
+			$aggregate_root->clearCommittedChanges( $committed_changes );
+		}
 	}
 }

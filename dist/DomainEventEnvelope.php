@@ -30,6 +30,9 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 	/** @var \DateTimeImmutable */
 	private $occurred_on;
 
+	/** @var float */
+	private $occurred_on_microtime;
+
 	/**
 	 * @param RepresentsEvent $event
 	 * @param \stdClass|array $meta_data
@@ -41,6 +44,9 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 		$this->meta_data   = $meta_data;
 		$this->file = $file;
 		$this->occurred_on = new \DateTimeImmutable( 'now' );
+
+		usleep( 1 );
+		$this->occurred_on_microtime = microtime( true );
 	}
 
 	/**
@@ -57,6 +63,14 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 	public function getOccurredOn()
 	{
 		return $this->occurred_on;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getOccurredOnMicrotime()
+	{
+		return $this->occurred_on_microtime;
 	}
 
 	/**
