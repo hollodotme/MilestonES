@@ -101,11 +101,12 @@ abstract class AggregateRoot implements AggregatesModels
 		$event       = $event_envelope->getPayload();
 		$occurred_on = $event_envelope->getOccurredOn();
 		$file        = $event_envelope->getFile();
+		$meta_data = $event_envelope->getMetaData();
 
 		$method_name = 'when' . ( new Contract( $event ) )->getClassBasename();
 		if ( is_callable( [ $this, $method_name ] ) )
 		{
-			$this->{$method_name}( $event, $occurred_on, $file );
+			$this->{$method_name}( $event, $occurred_on, $file, $meta_data );
 		}
 	}
 
