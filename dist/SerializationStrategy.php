@@ -20,18 +20,18 @@ class SerializationStrategy
 	private $registry;
 
 	/** @var Contract */
-	private $default_contract;
+	private $defaultContract;
 
 	/**
 	 * @param SerializerRegistry $registry
-	 * @param Contract           $default_contract
+	 * @param Contract           $defaultContract
 	 *
 	 * @throws DefaultSerializationContractIsNotRegistered
 	 */
-	public function __construct( SerializerRegistry $registry, Contract $default_contract )
+	public function __construct( SerializerRegistry $registry, Contract $defaultContract )
 	{
-		$this->registry         = $registry;
-		$this->default_contract = $default_contract;
+		$this->registry        = $registry;
+		$this->defaultContract = $defaultContract;
 
 		$this->guardDefaultContractIsRegistered();
 	}
@@ -42,7 +42,7 @@ class SerializationStrategy
 	 */
 	public function getDefaultSerializer()
 	{
-		return $this->registry->getSerializerForContract( $this->default_contract );
+		return $this->registry->getSerializerForContract( $this->defaultContract );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class SerializationStrategy
 	 */
 	public function getDefaultContract()
 	{
-		return $this->default_contract;
+		return $this->defaultContract;
 	}
 
 	/**
@@ -69,9 +69,9 @@ class SerializationStrategy
 	 */
 	private function guardDefaultContractIsRegistered()
 	{
-		if ( !$this->registry->isContractRegistered( $this->default_contract ) )
+		if ( !$this->registry->isContractRegistered( $this->defaultContract ) )
 		{
-			throw new DefaultSerializationContractIsNotRegistered( $this->default_contract->toString() );
+			throw new DefaultSerializationContractIsNotRegistered( $this->defaultContract->toString() );
 		}
 	}
 }

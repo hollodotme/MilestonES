@@ -25,9 +25,9 @@ interface PersistsEventEnvelopes
 	public function isInTransaction();
 
 	/**
-	 * @param WrapsEventForCommit $event_envelope
+	 * @param WrapsEventForCommit $commitEnvelope
 	 */
-	public function persistEventEnvelope( WrapsEventForCommit $event_envelope );
+	public function persistEventEnvelope( WrapsEventForCommit $commitEnvelope );
 
 	/**
 	 * @param IdentifiesEventStream $id

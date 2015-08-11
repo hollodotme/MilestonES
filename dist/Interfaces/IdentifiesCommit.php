@@ -16,10 +16,10 @@ interface IdentifiesCommit
 	/**
 	 * @return Identifies
 	 */
-	public function getId();
+	public function getCommitId();
 
 	/**
 	 * @return \DateTimeImmutable
 	 */
-	public function getDateTime();
+	public function getCommittedOn();
 }

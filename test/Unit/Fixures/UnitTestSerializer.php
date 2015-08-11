@@ -4,7 +4,7 @@
  * @author hollodotme
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\Interfaces\SerializesData;
 
@@ -26,12 +26,12 @@ class UnitTestSerializer implements SerializesData
 	}
 
 	/**
-	 * @param string $serialized_data
+	 * @param string $serializedData
 	 *
 	 * @return mixed
 	 */
-	public function unserializeData( $serialized_data )
+	public function unserializeData( $serializedData )
 	{
-		return $serialized_data;
+		return $serializedData;
 	}
 }

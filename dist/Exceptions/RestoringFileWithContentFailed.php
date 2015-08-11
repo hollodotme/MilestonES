@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class RestoringFileWithContentFailed extends Exception
+class RestoringFileWithContentFailed extends MilestonESException
 {
 
 } 

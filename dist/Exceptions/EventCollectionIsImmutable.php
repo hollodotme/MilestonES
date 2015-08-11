@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class EventCollectionIsImmutable extends Exception
+class EventCollectionIsImmutable extends MilestonESException
 {
 
 }

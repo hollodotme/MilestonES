@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class IdentifierArgumentIsNotAClassName extends Exception
+class IdentifierArgumentIsNotAClassName extends MilestonESException
 {
 
 }

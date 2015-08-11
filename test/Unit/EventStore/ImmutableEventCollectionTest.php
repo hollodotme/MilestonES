@@ -6,12 +6,10 @@
 
 namespace hollodotme\MilestonES\Test\Unit\EventStore;
 
-require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
-
 use hollodotme\MilestonES\DomainEventEnvelope;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\ImmutableDomainEventEnvelopeCollection;
-use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 {

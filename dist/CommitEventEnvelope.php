@@ -20,34 +20,34 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	private $id;
 
 	/** @var string */
-	private $commit_id;
+	private $commitId;
 
 	/** @var string */
-	private $stream_id;
+	private $streamId;
 
 	/** @var string */
-	private $stream_id_contract;
+	private $streamIdContract;
 
 	/** @var string */
 	private $payload;
 
 	/** @var string */
-	private $payload_contract;
+	private $payloadContract;
 
 	/** @var string */
-	private $meta_data;
+	private $metaData;
 
 	/** @var string */
-	private $meta_data_contract;
+	private $metaDataContract;
 
 	/** @var string */
 	private $file;
 
 	/** @var \DateTimeImmutable */
-	private $occurred_on;
+	private $occurredOn;
 
 	/** @var \DateTimeImmutable */
-	private $committed_on;
+	private $committedOn;
 
 	/**
 	 * @return int|null
@@ -58,11 +58,11 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param string $stream_id
+	 * @param string $streamId
 	 */
-	public function setStreamId( $stream_id )
+	public function setStreamId( $streamId )
 	{
-		$this->stream_id = (string)$stream_id;
+		$this->streamId = (string)$streamId;
 	}
 
 	/**
@@ -70,15 +70,15 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getStreamId()
 	{
-		return $this->stream_id;
+		return $this->streamId;
 	}
 
 	/**
-	 * @param string $stream_id_contract
+	 * @param string $streamIdContract
 	 */
-	public function setStreamIdContract( $stream_id_contract )
+	public function setStreamIdContract( $streamIdContract )
 	{
-		$this->stream_id_contract = (string)$stream_id_contract;
+		$this->streamIdContract = (string)$streamIdContract;
 	}
 
 	/**
@@ -86,15 +86,15 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getStreamIdContract()
 	{
-		return $this->stream_id_contract;
+		return $this->streamIdContract;
 	}
 
 	/**
-	 * @param string $commit_id
+	 * @param string $commitId
 	 */
-	public function setCommitId( $commit_id )
+	public function setCommitId( $commitId )
 	{
-		$this->commit_id = (string)$commit_id;
+		$this->commitId = (string)$commitId;
 	}
 
 	/**
@@ -102,7 +102,7 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getCommitId()
 	{
-		return $this->commit_id;
+		return $this->commitId;
 	}
 
 	/**
@@ -122,11 +122,11 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param string $payload_contract
+	 * @param string $payloadContract
 	 */
-	public function setPayloadContract( $payload_contract )
+	public function setPayloadContract( $payloadContract )
 	{
-		$this->payload_contract = $payload_contract;
+		$this->payloadContract = $payloadContract;
 	}
 
 	/**
@@ -134,15 +134,15 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getPayloadContract()
 	{
-		return $this->payload_contract;
+		return $this->payloadContract;
 	}
 
 	/**
-	 * @param string $meta_data
+	 * @param string $metaData
 	 */
-	public function setMetaData( $meta_data )
+	public function setMetaData( $metaData )
 	{
-		$this->meta_data = $meta_data;
+		$this->metaData = $metaData;
 	}
 
 	/**
@@ -150,15 +150,15 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getMetaData()
 	{
-		return $this->meta_data;
+		return $this->metaData;
 	}
 
 	/**
-	 * @param string $meta_data_contract
+	 * @param string $metaDataContract
 	 */
-	public function setMetaDataContract( $meta_data_contract )
+	public function setMetaDataContract( $metaDataContract )
 	{
-		$this->meta_data_contract = $meta_data_contract;
+		$this->metaDataContract = $metaDataContract;
 	}
 
 	/**
@@ -166,7 +166,7 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getMetaDataContract()
 	{
-		return $this->meta_data_contract;
+		return $this->metaDataContract;
 	}
 
 	/**
@@ -186,11 +186,11 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	}
 
 	/**
-	 * @param \DateTimeImmutable $occured_on
+	 * @param \DateTimeImmutable $occurredOn
 	 */
-	public function setOccurredOn( \DateTimeImmutable $occured_on )
+	public function setOccurredOn( \DateTimeImmutable $occurredOn )
 	{
-		$this->occurred_on = $occured_on;
+		$this->occurredOn = $occurredOn;
 	}
 
 	/**
@@ -198,15 +198,15 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getOccurredOn()
 	{
-		return $this->occurred_on;
+		return $this->occurredOn;
 	}
 
 	/**
-	 * @param \DateTimeImmutable $committed_on
+	 * @param \DateTimeImmutable $committedOn
 	 */
-	public function setCommittedOn( \DateTimeImmutable $committed_on )
+	public function setCommittedOn( \DateTimeImmutable $committedOn )
 	{
-		$this->committed_on = $committed_on;
+		$this->committedOn = $committedOn;
 	}
 
 	/**
@@ -214,7 +214,7 @@ final class CommitEventEnvelope implements WrapsEventForCommit
 	 */
 	public function getCommittedOn()
 	{
-		return $this->committed_on;
+		return $this->committedOn;
 	}
 
 	/**

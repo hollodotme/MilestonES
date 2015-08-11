@@ -4,9 +4,7 @@
  * @author h.woltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
-
-require_once __DIR__ . '/UnitTestEvent.php';
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\AggregateRoot;
 use hollodotme\MilestonES\Identifier;

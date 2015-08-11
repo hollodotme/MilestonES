@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class AggregateRootNotFound extends Exception
+class AggregateRootNotFound extends MilestonESException
 {
 
 } 

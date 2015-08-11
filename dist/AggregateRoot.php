@@ -6,10 +6,10 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Interfaces\AggregatesModels;
+use hollodotme\MilestonES\Interfaces\AggregatesObjects;
+use hollodotme\MilestonES\Interfaces\CarriesEventData;
 use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\Identifies;
-use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 
 /**
@@ -17,15 +17,15 @@ use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
  *
  * @package hollodotme\MilestonES
  */
-abstract class AggregateRoot implements AggregatesModels
+abstract class AggregateRoot implements AggregatesObjects
 {
 
 	/** @var DomainEventEnvelopeCollection */
-	private $tracked_changes;
+	private $trackedChanges;
 
 	final protected function __construct()
 	{
-		$this->tracked_changes = new DomainEventEnvelopeCollection();
+		$this->trackedChanges = new DomainEventEnvelopeCollection();
 	}
 
 	/**
@@ -38,7 +38,7 @@ abstract class AggregateRoot implements AggregatesModels
 	 */
 	final public function getChanges()
 	{
-		return $this->tracked_changes;
+		return $this->trackedChanges;
 	}
 
 	/**
@@ -46,80 +46,80 @@ abstract class AggregateRoot implements AggregatesModels
 	 */
 	final public function hasChanges()
 	{
-		return !$this->tracked_changes->isEmpty();
+		return !$this->trackedChanges->isEmpty();
 	}
 
 	/**
-	 * @param CollectsDomainEventEnvelopes $commited_events
+	 * @param CollectsDomainEventEnvelopes $commitedEvents
 	 */
-	final public function clearCommittedChanges( CollectsDomainEventEnvelopes $commited_events )
+	final public function clearCommittedChanges( CollectsDomainEventEnvelopes $commitedEvents )
 	{
-		$this->tracked_changes->removeEvents( $commited_events );
+		$this->trackedChanges->removeEvents( $commitedEvents );
 	}
 
 	/**
-	 * @param EventStream $event_stream
+	 * @param EventStream $eventStream
 	 */
-	final protected function applyEventStream( EventStream $event_stream )
+	final protected function applyEventStream( EventStream $eventStream )
 	{
-		foreach ( $event_stream as $event_envelope )
+		foreach ( $eventStream as $eventEnvelope )
 		{
-			$this->applyChange( $event_envelope );
+			$this->applyChange( $eventEnvelope );
 		}
 	}
 
 	/**
-	 * @param RepresentsEvent $event
-	 * @param \stdClass|array $meta_data
-	 * @param string|null     $file
+	 * @param CarriesEventData $event
+	 * @param \stdClass|array  $metaData
+	 * @param string|null      $file
 	 */
-	protected function trackThat( RepresentsEvent $event, $meta_data, $file = null )
+	protected function trackThat( CarriesEventData $event, $metaData, $file = null )
 	{
-		$domain_event_envelope   = $this->getDomainEventEnvelope( $event, $meta_data, $file );
-		$this->tracked_changes[] = $domain_event_envelope;
+		$domainEventEnvelope    = $this->getDomainEventEnvelope( $event, $metaData, $file );
+		$this->trackedChanges[] = $domainEventEnvelope;
 
-		$this->applyChange( $domain_event_envelope );
+		$this->applyChange( $domainEventEnvelope );
 	}
 
 	/**
-	 * @param RepresentsEvent $event
-	 * @param \stdClass|array $meta_data
-	 * @param string          $file
+	 * @param CarriesEventData $event
+	 * @param \stdClass|array  $metaData
+	 * @param string           $file
 	 *
 	 * @return DomainEventEnvelope
 	 */
-	protected function getDomainEventEnvelope( RepresentsEvent $event, $meta_data, $file )
+	protected function getDomainEventEnvelope( CarriesEventData $event, $metaData, $file )
 	{
-		return new DomainEventEnvelope( $event, $meta_data, $file );
+		return new DomainEventEnvelope( $event, $metaData, $file );
 	}
 
 	/**
-	 * @param WrapsDomainEvent $event_envelope
+	 * @param WrapsDomainEvent $eventEnvelope
 	 */
-	protected function applyChange( WrapsDomainEvent $event_envelope )
+	protected function applyChange( WrapsDomainEvent $eventEnvelope )
 	{
-		$event       = $event_envelope->getPayload();
-		$occurred_on = $event_envelope->getOccurredOn();
-		$file        = $event_envelope->getFile();
-		$meta_data = $event_envelope->getMetaData();
+		$event      = $eventEnvelope->getPayload();
+		$occurredOn = $eventEnvelope->getOccurredOn();
+		$file       = $eventEnvelope->getFile();
+		$metaData   = $eventEnvelope->getMetaData();
 
-		$method_name = 'when' . ( new Contract( $event ) )->getClassBasename();
-		if ( is_callable( [ $this, $method_name ] ) )
+		$methodName = 'when' . ( new Contract( $event ) )->getClassBasename();
+		if ( is_callable( [ $this, $methodName ] ) )
 		{
-			$this->{$method_name}( $event, $occurred_on, $file, $meta_data );
+			$this->{$methodName}( $event, $occurredOn, $file, $metaData );
 		}
 	}
 
 	/**
-	 * @param EventStream $event_streem
+	 * @param EventStream $eventStream
 	 *
 	 * @return static
 	 */
-	public static function reconstituteFromHistory( EventStream $event_streem )
+	public static function reconstituteFromHistory( EventStream $eventStream )
 	{
 		$instance = new static();
 
-		$instance->applyEventStream( $event_streem );
+		$instance->applyEventStream( $eventStream );
 
 		return $instance;
 	}

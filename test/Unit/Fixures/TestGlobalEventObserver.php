@@ -4,7 +4,7 @@
  * @author hollodotme
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
 use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
@@ -17,11 +17,11 @@ use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 class TestGlobalEventObserver implements ObservesCommitedEvents
 {
 	/**
-	 * @param WrapsDomainEvent $event_envelope
+	 * @param WrapsDomainEvent $eventEnvelope
 	 */
-	public function updateForCommitedDomainEventEnvelope( WrapsDomainEvent $event_envelope )
+	public function updateForCommitedDomainEventEnvelope( WrapsDomainEvent $eventEnvelope )
 	{
-		echo get_class( $event_envelope->getPayload() ) . " with ID {$event_envelope->getStreamId(
-			)} was globally observed.\n";
+		echo get_class( $eventEnvelope->getPayload() )
+		     . " with ID {$eventEnvelope->getStreamId()} was globally observed.\n";
 	}
 }

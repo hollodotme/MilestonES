@@ -8,7 +8,7 @@ namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
 use hollodotme\MilestonES\Exceptions\RepositoryWithNameDoesNotExist;
-use hollodotme\MilestonES\Interfaces\AggregatesModels;
+use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\CommitsChanges;
@@ -22,112 +22,112 @@ use hollodotme\MilestonES\Interfaces\StoresEvents;
 class AggregateRootManager implements CommitsChanges
 {
 
-	/** @var CollectsAggregateRoots|AggregatesModels[] */
-	private $aggregate_root_collection;
-
 	/** @var StoresEvents */
-	private $event_store;
+	private $eventStore;
+
+	/** @var CollectsAggregateRoots|AggregatesObjects[] */
+	private $aggregateRootCollection;
 
 	/** @var AggregateRootRepository[] */
 	private $repositories = [ ];
 
 	/**
-	 * @param StoresEvents           $event_store
-	 * @param CollectsAggregateRoots $collection
+	 * @param StoresEvents           $eventStore
+	 * @param CollectsAggregateRoots $aggregateRootCollection
 	 */
-	public function __construct( StoresEvents $event_store, CollectsAggregateRoots $collection )
+	public function __construct( StoresEvents $eventStore, CollectsAggregateRoots $aggregateRootCollection )
 	{
-		$this->event_store               = $event_store;
-		$this->aggregate_root_collection = $collection;
+		$this->eventStore              = $eventStore;
+		$this->aggregateRootCollection = $aggregateRootCollection;
 	}
 
 	/**
-	 * @param string $aggregate_root_fqcn
+	 * @param string $aggregateRootFqcn
 	 *
 	 * @return AggregateRootRepository
 	 */
-	public function getRepository( $aggregate_root_fqcn )
+	public function getRepository( $aggregateRootFqcn )
 	{
-		$respoitory_fqcn = $this->getAggregateRootRepositoryFqcn( $aggregate_root_fqcn );
+		$respoitoryFqcn = $this->getAggregateRootRepositoryFqcn( $aggregateRootFqcn );
 
-		if ( $this->isRepositoryTracked( $respoitory_fqcn ) )
+		if ( $this->isRepositoryTracked( $respoitoryFqcn ) )
 		{
-			return $this->getTrackedRepository( $respoitory_fqcn );
+			return $this->getTrackedRepository( $respoitoryFqcn );
 		}
 		else
 		{
-			$repository = $this->createAggregateRootRepository( $respoitory_fqcn );
-			$this->trackRepository( $respoitory_fqcn, $repository );
+			$repository = $this->createAggregateRootRepository( $respoitoryFqcn );
+			$this->trackRepository( $respoitoryFqcn, $repository );
 
 			return $repository;
 		}
 	}
 
 	/**
-	 * @param string $repository_fqcn
+	 * @param string $repositoryFqcn
 	 *
 	 * @return bool
 	 */
-	private function isRepositoryTracked( $repository_fqcn )
+	private function isRepositoryTracked( $repositoryFqcn )
 	{
-		return array_key_exists( $repository_fqcn, $this->repositories );
+		return array_key_exists( $repositoryFqcn, $this->repositories );
 	}
 
 	/**
-	 * @param string $repository_fqcn
+	 * @param string $repositoryFqcn
 	 *
 	 * @return AggregateRootRepository
 	 */
-	private function getTrackedRepository( $repository_fqcn )
+	private function getTrackedRepository( $repositoryFqcn )
 	{
-		return $this->repositories[ $repository_fqcn ];
+		return $this->repositories[ $repositoryFqcn ];
 	}
 
 	/**
-	 * @param string                  $repository_fqcn
+	 * @param string $repositoryFqcn
 	 * @param AggregateRootRepository $repository
 	 */
-	private function trackRepository( $repository_fqcn, AggregateRootRepository $repository )
+	private function trackRepository( $repositoryFqcn, AggregateRootRepository $repository )
 	{
-		$this->repositories[ $repository_fqcn ] = $repository;
+		$this->repositories[ $repositoryFqcn ] = $repository;
 	}
 
 	/**
-	 * @param string $aggregate_root_fqcn
+	 * @param string $aggregateRootFqcn
 	 *
 	 * @return string
 	 */
-	protected function getAggregateRootRepositoryFqcn( $aggregate_root_fqcn )
+	protected function getAggregateRootRepositoryFqcn( $aggregateRootFqcn )
 	{
-		return $aggregate_root_fqcn . 'Repository';
+		return $aggregateRootFqcn . 'Repository';
 	}
 
 	/**
-	 * @param string $repository_fqcn
+	 * @param string $repositoryFqcn
 	 *
 	 * @throws RepositoryWithNameDoesNotExist
 	 * @return AggregateRootRepository
 	 */
-	protected function createAggregateRootRepository( $repository_fqcn )
+	protected function createAggregateRootRepository( $repositoryFqcn )
 	{
-		if ( class_exists( $repository_fqcn, true ) )
+		if ( class_exists( $repositoryFqcn, true ) )
 		{
-			return $this->createAggregateRootRepositoryByFqcn( $repository_fqcn );
+			return $this->createAggregateRootRepositoryByFqcn( $repositoryFqcn );
 		}
 		else
 		{
-			throw new RepositoryWithNameDoesNotExist( $repository_fqcn );
+			throw new RepositoryWithNameDoesNotExist( $repositoryFqcn );
 		}
 	}
 
 	/**
-	 * @param string $repository_fqcn
+	 * @param string $repositoryFqcn
 	 *
 	 * @return AggregateRootRepository
 	 */
-	protected function createAggregateRootRepositoryByFqcn( $repository_fqcn )
+	protected function createAggregateRootRepositoryByFqcn( $repositoryFqcn )
 	{
-		return new $repository_fqcn( $this->event_store, $this->aggregate_root_collection );
+		return new $repositoryFqcn( $this->eventStore, $this->aggregateRootCollection );
 	}
 
 	/**
@@ -135,11 +135,11 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	final public function commitChanges()
 	{
-		$changes = $this->aggregate_root_collection->getChanges();
+		$changes = $this->aggregateRootCollection->getChanges();
 
 		$this->commitChangesToEventStore( $changes );
 
-		$this->aggregate_root_collection->clearCommittedChanges( $changes );
+		$this->aggregateRootCollection->clearCommittedChanges( $changes );
 	}
 
 	/**
@@ -149,6 +149,6 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	private function commitChangesToEventStore( CollectsDomainEventEnvelopes $events )
 	{
-		$this->event_store->commitEvents( $events );
+		$this->eventStore->commitEvents( $events );
 	}
 }

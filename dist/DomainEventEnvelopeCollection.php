@@ -165,10 +165,10 @@ class DomainEventEnvelopeCollection implements Interfaces\CollectsDomainEventEnv
 	}
 
 	/**
-	 * @param callable $cmp_function
+	 * @param callable $compareFunction
 	 */
-	public function sort( callable $cmp_function )
+	public function sort( callable $compareFunction )
 	{
-		usort( $this->envelopes, $cmp_function );
+		usort( $this->envelopes, $compareFunction );
 	}
 }

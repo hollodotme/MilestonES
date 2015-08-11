@@ -14,9 +14,9 @@ namespace hollodotme\MilestonES\Interfaces;
 interface WrapsEventForCommit
 {
 	/**
-	 * @param string $stream_id
+	 * @param string $streamId
 	 */
-	public function setStreamId( $stream_id );
+	public function setStreamId( $streamId );
 
 	/**
 	 * @return string
@@ -24,9 +24,9 @@ interface WrapsEventForCommit
 	public function getStreamId();
 
 	/**
-	 * @param string $stream_id_contract
+	 * @param string $streamIdContract
 	 */
-	public function setStreamIdContract( $stream_id_contract );
+	public function setStreamIdContract( $streamIdContract );
 
 	/**
 	 * @return string
@@ -44,9 +44,9 @@ interface WrapsEventForCommit
 	public function getPayload();
 
 	/**
-	 * @param string $payload_contract
+	 * @param string $payloadContract
 	 */
-	public function setPayloadContract( $payload_contract );
+	public function setPayloadContract( $payloadContract );
 
 	/**
 	 * @return string
@@ -54,9 +54,9 @@ interface WrapsEventForCommit
 	public function getPayloadContract();
 
 	/**
-	 * @param string $meta_data
+	 * @param string $metaData
 	 */
-	public function setMetaData( $meta_data );
+	public function setMetaData( $metaData );
 
 	/**
 	 * @return string
@@ -64,9 +64,9 @@ interface WrapsEventForCommit
 	public function getMetaData();
 
 	/**
-	 * @param string $meta_data_contract
+	 * @param string $metaDataContract
 	 */
-	public function setMetaDataContract( $meta_data_contract );
+	public function setMetaDataContract( $metaDataContract );
 
 	/**
 	 * @return string
@@ -74,9 +74,9 @@ interface WrapsEventForCommit
 	public function getMetaDataContract();
 
 	/**
-	 * @param string $commit_id
+	 * @param string $commitId
 	 */
-	public function setCommitId( $commit_id );
+	public function setCommitId( $commitId );
 
 	/**
 	 * @return string
@@ -84,9 +84,9 @@ interface WrapsEventForCommit
 	public function getCommitId();
 
 	/**
-	 * @param \DateTimeImmutable $occured_on
+	 * @param \DateTimeImmutable $occurredOn
 	 */
-	public function setOccurredOn( \DateTimeImmutable $occured_on );
+	public function setOccurredOn( \DateTimeImmutable $occurredOn );
 
 	/**
 	 * @return \DateTimeImmutable
@@ -94,9 +94,9 @@ interface WrapsEventForCommit
 	public function getOccurredOn();
 
 	/**
-	 * @param \DateTimeImmutable $committed_on
+	 * @param \DateTimeImmutable $committedOn
 	 */
-	public function setCommittedOn( \DateTimeImmutable $committed_on );
+	public function setCommittedOn( \DateTimeImmutable $committedOn );
 
 	/**
 	 * @return \DateTimeImmutable

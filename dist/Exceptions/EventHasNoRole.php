@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class EventHasNoRole extends Exception
+class EventHasNoRole extends MilestonESException
 {
 
 } 

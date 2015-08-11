@@ -4,7 +4,7 @@
  * @author hollodotme
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\AggregateRoot;
 use hollodotme\MilestonES\Identifier;

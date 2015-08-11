@@ -6,14 +6,12 @@
 
 namespace hollodotme\MilestonES\Test\Unit\EventStore;
 
-require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
-
 use hollodotme\MilestonES\DomainEventEnvelope;
 use hollodotme\MilestonES\DomainEventEnvelopeCollection;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Interfaces\RepresentsEvent;
+use hollodotme\MilestonES\Interfaces\CarriesEventData;
 use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
-use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -115,7 +113,7 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 
 		echo "Loop 1:";
 
-		/** @var RepresentsEvent $event */
+		/** @var CarriesEventData $event */
 		foreach ( $collection as $index => $event )
 		{
 			echo "\n{$index}: {$event->getStreamId()}";
@@ -123,7 +121,7 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 
 		echo "\nLoop 2:";
 
-		/** @var RepresentsEvent $event */
+		/** @var CarriesEventData $event */
 		foreach ( $collection as $index => $event )
 		{
 			echo "\n{$index}: {$event->getStreamId()}";

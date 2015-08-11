@@ -7,7 +7,7 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
-use hollodotme\MilestonES\Interfaces\AggregatesModels;
+use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
@@ -23,19 +23,19 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 {
 
 	/** @var StoresEvents */
-	protected $event_store;
+	protected $eventStore;
 
 	/** @var CollectsAggregateRoots */
-	protected $aggregate_root_collection;
+	protected $aggregateRootCollection;
 
 	/**
-	 * @param StoresEvents           $event_store
+	 * @param StoresEvents $eventStore
 	 * @param CollectsAggregateRoots $collection
 	 */
-	final public function __construct( StoresEvents $event_store, CollectsAggregateRoots $collection )
+	final public function __construct( StoresEvents $eventStore, CollectsAggregateRoots $collection )
 	{
-		$this->aggregate_root_collection = $collection;
-		$this->event_store               = $event_store;
+		$this->aggregateRootCollection = $collection;
+		$this->eventStore              = $eventStore;
 
 		$this->attachCommitedEventObserversToEventStore();
 	}
@@ -46,28 +46,28 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	abstract public function getCommitedEventObservers();
 
 	/**
-	 * @param AggregatesModels $aggregate_root
+	 * @param AggregatesObjects $aggregateRoot
 	 */
-	final public function track( AggregatesModels $aggregate_root )
+	final public function track( AggregatesObjects $aggregateRoot )
 	{
-		$this->trackAggregateRoot( $aggregate_root );
+		$this->trackAggregateRoot( $aggregateRoot );
 	}
 
 	/**
-	 * @param AggregatesModels $aggregate_root
+	 * @param AggregatesObjects $aggregateRoot
 	 *
 	 * @return bool
 	 */
-	final public function isTracked( AggregatesModels $aggregate_root )
+	final public function isTracked( AggregatesObjects $aggregateRoot )
 	{
-		return $this->aggregate_root_collection->isAttached( $aggregate_root );
+		return $this->aggregateRootCollection->isAttached( $aggregateRoot );
 	}
 
 	/**
 	 * @param Identifies $id
 	 *
 	 * @throws AggregateRootNotFound
-	 * @return AggregatesModels
+	 * @return AggregatesObjects
 	 */
 	final public function getWithId( Identifies $id )
 	{
@@ -77,10 +77,10 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 		}
 		else
 		{
-			$aggregate_root = $this->createAggregateRootByEventStream( $id );
-			$this->trackAggregateRoot( $aggregate_root );
+			$aggregateRoot = $this->createAggregateRootByEventStream( $id );
+			$this->trackAggregateRoot( $aggregateRoot );
 
-			return $aggregate_root;
+			return $aggregateRoot;
 		}
 	}
 
@@ -97,15 +97,15 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 */
 	private function attachCommitedEventObserverToEventStore( ObservesCommitedEvents $observer )
 	{
-		$this->event_store->attachCommittedEventObserver( $observer );
+		$this->eventStore->attachCommittedEventObserver( $observer );
 	}
 
 	/**
-	 * @param AggregatesModels $aggregate_root
+	 * @param AggregatesObjects $aggregateRoot
 	 */
-	private function trackAggregateRoot( AggregatesModels $aggregate_root )
+	private function trackAggregateRoot( AggregatesObjects $aggregateRoot )
 	{
-		$this->aggregate_root_collection->attach( $aggregate_root );
+		$this->aggregateRootCollection->attach( $aggregateRoot );
 	}
 
 	/**
@@ -115,18 +115,18 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 */
 	private function isAggregateRootTrackedWithId( Identifies $id )
 	{
-		return $this->aggregate_root_collection->idExists( $id );
+		return $this->aggregateRootCollection->idExists( $id );
 	}
 
 	/**
 	 * @param Identifies $id
 	 *
 	 * @throws Exceptions\AggregateRootNotFound
-	 * @return AggregatesModels
+	 * @return AggregatesObjects
 	 */
 	private function getTrackedAggregateRootWithId( Identifies $id )
 	{
-		return $this->aggregate_root_collection->find( $id );
+		return $this->aggregateRootCollection->find( $id );
 	}
 
 	/**
@@ -134,15 +134,15 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 *
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
 	 * @throws Exceptions\AggregateRootNotFound
-	 * @return AggregatesModels
+	 * @return AggregatesObjects
 	 */
 	private function createAggregateRootByEventStream( Identifies $id )
 	{
 		try
 		{
-			$event_stream = $this->getEventStreamForAggregateRootId( $id );
+			$eventStream = $this->getEventStreamForAggregateRootId( $id );
 
-			return $this->reconstituteAggregateRootFromHistory( $event_stream );
+			return $this->reconstituteAggregateRootFromHistory( $eventStream );
 		}
 		catch ( Exceptions\EventStreamNotFound $e )
 		{
@@ -158,23 +158,23 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	 */
 	private function getEventStreamForAggregateRootId( Identifies $id )
 	{
-		return $this->event_store->getEventStreamForId( $id );
+		return $this->eventStore->getEventStreamForId( $id );
 	}
 
 	/**
-	 * @param EventStream $event_stream
+	 * @param EventStream $eventStream
 	 *
 	 * @throws Exceptions\ClassIsNotAnAggregateRoot
-	 * @return AggregatesModels
+	 * @return AggregatesObjects
 	 */
-	private function reconstituteAggregateRootFromHistory( EventStream $event_stream )
+	private function reconstituteAggregateRootFromHistory( EventStream $eventStream )
 	{
-		$aggregate_root_name = $this->getAggregateRootName();
+		$aggregateRootName = $this->getAggregateRootName();
 
-		if ( is_callable( [ $aggregate_root_name, 'reconstituteFromHistory' ] ) )
+		if ( is_callable( [ $aggregateRootName, 'reconstituteFromHistory' ] ) )
 		{
-			/** @var AggregatesModels $aggregate_root_name */
-			return $aggregate_root_name::reconstituteFromHistory( $event_stream );
+			/** @var AggregatesObjects $aggregateRootName */
+			return $aggregateRootName::reconstituteFromHistory( $eventStream );
 		}
 		else
 		{

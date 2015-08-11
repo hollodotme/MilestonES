@@ -19,7 +19,7 @@ interface CollectsDomainEventEnvelopes extends \Iterator, \ArrayAccess, \Countab
 	public function append( CollectsDomainEventEnvelopes $envelopes );
 
 	/**
-	 * @param callable $cmp_function
+	 * @param callable $compareFunction
 	 */
-	public function sort( callable $cmp_function );
+	public function sort( callable $compareFunction );
 }

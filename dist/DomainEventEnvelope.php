@@ -7,8 +7,8 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Interfaces;
+use hollodotme\MilestonES\Interfaces\CarriesEventData;
 use hollodotme\MilestonES\Interfaces\Identifies;
-use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 
 /**
  * Class BaseRepresentsEvent
@@ -18,35 +18,35 @@ use hollodotme\MilestonES\Interfaces\RepresentsEvent;
 class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 {
 
-	/** @var RepresentsEvent */
+	/** @var CarriesEventData */
 	private $event;
 
 	/** @var \stdClass|array */
-	private $meta_data;
+	private $metaData;
 
 	/** @var string */
 	private $file;
 
 	/** @var \DateTimeImmutable */
-	private $occurred_on;
+	private $occurredOn;
 
 	/** @var float */
-	private $occurred_on_microtime;
+	private $occurredOnMicrotime;
 
 	/**
-	 * @param RepresentsEvent $event
-	 * @param \stdClass|array $meta_data
-	 * @param string          $file
+	 * @param CarriesEventData $event
+	 * @param \stdClass|array  $metaData
+	 * @param string           $file
 	 */
-	public function __construct( RepresentsEvent $event, $meta_data, $file = null )
+	public function __construct( CarriesEventData $event, $metaData, $file = null )
 	{
-		$this->event       = $event;
-		$this->meta_data   = $meta_data;
-		$this->file = $file;
-		$this->occurred_on = new \DateTimeImmutable( 'now' );
+		$this->event      = $event;
+		$this->metaData   = $metaData;
+		$this->file       = $file;
+		$this->occurredOn = new \DateTimeImmutable( 'now' );
 
 		usleep( 1 );
-		$this->occurred_on_microtime = microtime( true );
+		$this->occurredOnMicrotime = microtime( true );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 	 */
 	public function getOccurredOn()
 	{
-		return $this->occurred_on;
+		return $this->occurredOn;
 	}
 
 	/**
@@ -70,11 +70,11 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 	 */
 	public function getOccurredOnMicrotime()
 	{
-		return $this->occurred_on_microtime;
+		return $this->occurredOnMicrotime;
 	}
 
 	/**
-	 * @return RepresentsEvent
+	 * @return CarriesEventData
 	 */
 	public function getPayload()
 	{
@@ -86,7 +86,7 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 	 */
 	public function getMetaData()
 	{
-		return $this->meta_data;
+		return $this->metaData;
 	}
 
 	/**
@@ -98,17 +98,17 @@ class DomainEventEnvelope implements Interfaces\WrapsDomainEvent
 	}
 
 	/**
-	 * @param RepresentsEvent    $event
-	 * @param \stdClass|array    $meta_data
+	 * @param CarriesEventData   $event
+	 * @param \stdClass|array    $metaData
 	 * @param string             $file
-	 * @param \DateTimeImmutable $occurred_on
+	 * @param \DateTimeImmutable $occurredOn
 	 *
 	 * @return DomainEventEnvelope
 	 */
-	public static function fromRecord( RepresentsEvent $event, $meta_data, $file, \DateTimeImmutable $occurred_on )
+	public static function fromRecord( CarriesEventData $event, $metaData, $file, \DateTimeImmutable $occurredOn )
 	{
-		$envelope = new self( $event, $meta_data, $file );
-		$envelope->occurred_on = $occurred_on;
+		$envelope             = new self( $event, $metaData, $file );
+		$envelope->occurredOn = $occurredOn;
 
 		return $envelope;
 	}

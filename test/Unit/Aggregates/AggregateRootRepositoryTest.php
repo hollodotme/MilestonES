@@ -6,12 +6,6 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
-require_once __DIR__ . '/../Fixures/TestEventObserver.php';
-require_once __DIR__ . '/../Fixures/UnitTestAggregate.php';
-require_once __DIR__ . '/../Fixures/UnitTestAggregateRepository.php';
-require_once __DIR__ . '/../Fixures/TestAggregateRootRepositoryWithTestEventObserver.php';
-require_once __DIR__ . '/../Fixures/TestAggregateRootRepositoryWithInvalidAggregateRootName.php';
-
 use hollodotme\MilestonES\AggregateRootCollection;
 use hollodotme\MilestonES\DomainEventEnvelope;
 use hollodotme\MilestonES\DomainEventEnvelopeCollection;
@@ -20,11 +14,11 @@ use hollodotme\MilestonES\EventStoreConfigDelegate;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\Identifies;
-use hollodotme\MilestonES\Test\Unit\TestAggregateRootRepositoryWithInvalidAggregateRootName;
-use hollodotme\MilestonES\Test\Unit\TestAggregateRootRepositoryWithTestEventObserver;
-use hollodotme\MilestonES\Test\Unit\UnitTestAggregate;
-use hollodotme\MilestonES\Test\Unit\UnitTestAggregateRepository;
-use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestAggregateRootRepositoryWithInvalidAggregateRootName;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestAggregateRootRepositoryWithTestEventObserver;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregate;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregateRepository;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -103,6 +97,7 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 		$collection   = new DomainEventEnvelopeCollection();
 		$collection[] = new DomainEventEnvelope( $event, [ ] );
 
+		/** @var DomainEventEnvelopeCollection $collection */
 		$this->event_store->commitEvents( $collection );
 	}
 
@@ -123,7 +118,7 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 		$this->simulateEventStreamWithID( new Identifier( 'Unit-Test-ID' ) );
 
 		$this->expectOutputString(
-			"hollodotme\\MilestonES\\Test\\Unit\\UnitTestEvent with ID Unit-Test-ID was committed.\n"
+			"hollodotme\\MilestonES\\Test\\Unit\\Fixures\\UnitTestEvent with ID Unit-Test-ID was committed.\n"
 		);
 	}
 }

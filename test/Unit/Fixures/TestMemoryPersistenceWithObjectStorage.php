@@ -4,7 +4,7 @@
  * @author h.woltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 use hollodotme\MilestonES\Persistence\Memory;
@@ -25,7 +25,7 @@ class TestMemoryPersistenceWithObjectStorage extends Memory
 	{
 		$records = new \SplObjectStorage();
 
-		foreach ( $this->records_commited[ $key ] as $record )
+		foreach ( $this->recordsCommited[ $key ] as $record )
 		{
 			/** @var WrapsEventForCommit $envelope */
 			$envelope = $record['envelope'];

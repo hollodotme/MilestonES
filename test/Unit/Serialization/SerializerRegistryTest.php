@@ -6,12 +6,10 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Serialization;
 
-require_once __DIR__ . '/../Fixures/UnitTestSerializer.php';
-
 use hollodotme\MilestonES\Contract;
 use hollodotme\MilestonES\SerializerRegistry;
 use hollodotme\MilestonES\Serializers\PhpSerializer;
-use hollodotme\MilestonES\Test\Unit\UnitTestSerializer;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestSerializer;
 
 class SerializerRegistryTest extends \PHPUnit_Framework_TestCase
 {

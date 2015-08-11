@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class EventEnvelopesNotFound extends Exception
+class EventEnvelopesNotFound extends MilestonESException
 {
 
 }

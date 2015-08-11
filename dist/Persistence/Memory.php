@@ -23,19 +23,19 @@ class Memory implements PersistsEventEnvelopes
 {
 
 	/** @var WrapsEventForCommit[] */
-	protected $records_in_transaction;
+	protected $recordsInTransaction;
 
 	/** @var WrapsEventForCommit[] */
-	protected $records_commited;
+	protected $recordsCommited;
 
 	/** @var bool */
-	protected $is_in_transaction;
+	protected $isInTransaction;
 
 	public function __construct()
 	{
-		$this->is_in_transaction      = false;
-		$this->records_commited = [ ];
-		$this->records_in_transaction = [ ];
+		$this->isInTransaction      = false;
+		$this->recordsCommited      = [ ];
+		$this->recordsInTransaction = [ ];
 	}
 
 	public function beginTransaction()
@@ -44,15 +44,15 @@ class Memory implements PersistsEventEnvelopes
 
 		$this->startTransaction();
 
-		$this->records_in_transaction = [ ];
+		$this->recordsInTransaction = [ ];
 	}
 
 	public function commitTransaction()
 	{
 		$this->guardIsInTransaction();
 
-		$this->records_commited       = array_merge_recursive( $this->records_commited, $this->records_in_transaction );
-		$this->records_in_transaction = [ ];
+		$this->recordsCommited      = array_merge_recursive( $this->recordsCommited, $this->recordsInTransaction );
+		$this->recordsInTransaction = [ ];
 
 		$this->endTransaction();
 	}
@@ -61,7 +61,7 @@ class Memory implements PersistsEventEnvelopes
 	{
 		$this->guardIsInTransaction();
 
-		$this->records_in_transaction = [ ];
+		$this->recordsInTransaction = [ ];
 
 		$this->endTransaction();
 	}
@@ -71,30 +71,30 @@ class Memory implements PersistsEventEnvelopes
 	 */
 	public function isInTransaction()
 	{
-		return $this->is_in_transaction;
+		return $this->isInTransaction;
 	}
 
 	/**
-	 * @param WrapsEventForCommit $event_envelope
+	 * @param WrapsEventForCommit $commitEnvelope
 	 */
-	public function persistEventEnvelope( WrapsEventForCommit $event_envelope )
+	public function persistEventEnvelope( WrapsEventForCommit $commitEnvelope )
 	{
 		$this->guardIsInTransaction();
 
-		$key = $this->buildKey( $event_envelope->getStreamIdContract(), $event_envelope->getStreamId() );
+		$key = $this->buildKey( $commitEnvelope->getStreamIdContract(), $commitEnvelope->getStreamId() );
 
-		if ( !empty($event_envelope->getFile()) )
+		if ( !empty($commitEnvelope->getFile()) )
 		{
-			$file_content = $this->getFileContent( $event_envelope->getFile() );
+			$fileContent = $this->getFileContent( $commitEnvelope->getFile() );
 		}
 		else
 		{
-			$file_content = null;
+			$fileContent = null;
 		}
 
-		$this->records_in_transaction[ $key ][] = [
-			'envelope'     => clone $event_envelope,
-			'file_content' => $file_content
+		$this->recordsInTransaction[ $key ][] = [
+			'envelope'    => clone $commitEnvelope,
+			'fileContent' => $fileContent
 		];
 	}
 
@@ -137,13 +137,13 @@ class Memory implements PersistsEventEnvelopes
 	{
 		$records = [ ];
 
-		foreach ( $this->records_commited[ $key ] as $record )
+		foreach ( $this->recordsCommited[ $key ] as $record )
 		{
 			/** @var WrapsEventForCommit $envelope */
 			$envelope = $record['envelope'];
-			if ( isset($record['file_content']) && !is_null( $record['file_content'] ) )
+			if ( isset($record['fileContent']) && !is_null( $record['fileContent'] ) )
 			{
-				$file = $this->restoreFileWithContent( $record['file_content'] );
+				$file = $this->restoreFileWithContent( $record['fileContent'] );
 				$envelope->setFile( $file );
 			}
 
@@ -182,14 +182,14 @@ class Memory implements PersistsEventEnvelopes
 	}
 
 	/**
-	 * @param string $stream_type
-	 * @param string $stream_id
+	 * @param string $streamType
+	 * @param string $streamId
 	 *
 	 * @return string
 	 */
-	protected function buildKey( $stream_type, $stream_id )
+	protected function buildKey( $streamType, $streamId )
 	{
-		return $stream_type . '#' . $stream_id;
+		return $streamType . '#' . $streamId;
 	}
 
 	/**
@@ -199,7 +199,7 @@ class Memory implements PersistsEventEnvelopes
 	 */
 	protected function eventStreamExistsForKey( $key )
 	{
-		return array_key_exists( $key, $this->records_commited );
+		return array_key_exists( $key, $this->recordsCommited );
 	}
 
 	/**
@@ -226,11 +226,11 @@ class Memory implements PersistsEventEnvelopes
 
 	protected function startTransaction()
 	{
-		$this->is_in_transaction = true;
+		$this->isInTransaction = true;
 	}
 
 	protected function endTransaction()
 	{
-		$this->is_in_transaction = false;
+		$this->isInTransaction = false;
 	}
 }

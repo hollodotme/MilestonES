@@ -15,7 +15,7 @@ use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\SerializationStrategy;
 use hollodotme\MilestonES\SerializerRegistry;
 use hollodotme\MilestonES\Serializers\PhpSerializer;
-use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
 
@@ -60,13 +60,13 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertNull( $commit_envelope->getId() );
 
-		$this->assertEquals( $this->commit->getId(), $commit_envelope->getCommitId() );
+		$this->assertEquals( $this->commit->getCommitId(), $commit_envelope->getCommitId() );
 		$this->assertNotInstanceOf(
 			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $commit_envelope->getCommitId()
 		);
 		$this->assertInternalType( 'string', $commit_envelope->getCommitId() );
 
-		$this->assertSame( $this->commit->getDateTime(), $commit_envelope->getCommittedOn() );
+		$this->assertSame( $this->commit->getCommittedOn(), $commit_envelope->getCommittedOn() );
 		$this->assertSame( $event_envelope->getOccurredOn(), $commit_envelope->getOccurredOn() );
 
 		$this->assertEquals( $event_envelope->getStreamId(), $commit_envelope->getStreamId() );
@@ -111,7 +111,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		$event_envelope  = $this->getTestEventEnvelope();
 		$commit_envelope = $mapper->putEventInEnvelopeForCommit( $event_envelope, $this->commit );
 
-		$extracted_envelopes = $mapper->extractFromCommitEnvelopes( [ $commit_envelope ] );
+		$extracted_envelopes = $mapper->extractEventEnvelopesFromCommitEnvelopes( [ $commit_envelope ] );
 
 		/** @var DomainEventEnvelope $extracted_envelope */
 		$extracted_envelope = $extracted_envelopes[0];

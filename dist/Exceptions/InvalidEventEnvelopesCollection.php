@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class InvalidEventEnvelopesCollection extends Exception
+class InvalidEventEnvelopesCollection extends MilestonESException
 {
 
 }

@@ -14,7 +14,7 @@ namespace hollodotme\MilestonES\Interfaces;
 interface ObservesCommitedEvents
 {
 	/**
-	 * @param WrapsDomainEvent $event_envelope
+	 * @param WrapsDomainEvent $eventEnvelope
 	 */
-	public function updateForCommitedDomainEventEnvelope( WrapsDomainEvent $event_envelope );
+	public function updateForCommitedDomainEventEnvelope( WrapsDomainEvent $eventEnvelope );
 }

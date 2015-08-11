@@ -7,14 +7,11 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface RepresentsEvent
+ * Interface CarriesEventStoreRecord
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface RepresentsEvent
+interface CarriesEventStoreRecord
 {
-	/**
-	 * @return Identifies
-	 */
-	public function getStreamId();
+
 }

@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class EventStreamNotFound extends Exception
+class EventStreamNotFound extends MilestonESException
 {
 
 }

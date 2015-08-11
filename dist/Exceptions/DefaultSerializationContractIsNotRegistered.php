@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class DefaultSerializationContractIsNotRegistered extends Exception
+class DefaultSerializationContractIsNotRegistered extends MilestonESException
 {
 
 } 

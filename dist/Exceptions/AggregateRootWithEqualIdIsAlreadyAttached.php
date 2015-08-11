@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class AggregateRootWithEqualIdIsAlreadyAttached extends Exception
+class AggregateRootWithEqualIdIsAlreadyAttached extends MilestonESException
 {
 
 } 

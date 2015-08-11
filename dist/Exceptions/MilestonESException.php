@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Exceptions;
 
 /**
- * Class Exception
+ * Class MilestonESException
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-abstract class Exception extends \Exception
+class MilestonESException extends \Exception
 {
 
 }

@@ -4,7 +4,7 @@
  * @author hwoltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\DomainEventEnvelope;
 

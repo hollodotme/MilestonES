@@ -12,29 +12,14 @@ use hollodotme\MilestonES\EventStore;
 use hollodotme\MilestonES\EventStoreConfigDelegate;
 use hollodotme\MilestonES\EventStream;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Test\Unit\TestEventObserver;
-use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithEmptyPersistence;
-use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithFailingPersistence;
-use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithGlobalObserver;
-use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithInvalidEnvelopeCollection;
-use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithNonCountableIteratorPersistence;
-use hollodotme\MilestonES\Test\Unit\TestEventStoreConfigDelegateWithObjectStoragePersistence;
-use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
-
-require_once __DIR__ . '/../Fixures/TestEventObserver.php';
-require_once __DIR__ . '/../Fixures/TestGlobalEventObserver.php';
-require_once __DIR__ . '/../Fixures/TestMemoryPersistenceWithFailOnPersist.php';
-require_once __DIR__ . '/../Fixures/TestMemoryeEmptyPersistence.php';
-require_once __DIR__ . '/../Fixures/TestMemoryPersistanceReturningStringStream.php';
-require_once __DIR__ . '/../Fixures/TestMemoryPersistenceReturningNotCountableIterator.php';
-require_once __DIR__ . '/../Fixures/TestMemoryPersistenceWithObjectStorage.php';
-require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithGlobalObserver.php';
-require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithFailingPersistence.php';
-require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithEmptyPersistence.php';
-require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithInvalidEnvelopeCollection.php';
-require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithNonCountableIteratorPersistence.php';
-require_once __DIR__ . '/../Fixures/TestEventStoreConfigDelegateWithObjectStoragePersistence.php';
-require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
+use hollodotme\MilestonES\Test\Unit\Fixures\TestEventObserver;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestEventStoreConfigDelegateWithEmptyPersistence;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestEventStoreConfigDelegateWithFailingPersistence;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestEventStoreConfigDelegateWithGlobalObserver;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestEventStoreConfigDelegateWithInvalidEnvelopeCollection;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestEventStoreConfigDelegateWithNonCountableIteratorPersistence;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestEventStoreConfigDelegateWithObjectStoragePersistence;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 class EventStoreTest extends \PHPUnit_Framework_TestCase
 {

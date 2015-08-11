@@ -6,7 +6,6 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
 
 /**
@@ -17,35 +16,35 @@ use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
 final class Commit implements IdentifiesCommit
 {
 
-	/** @var Identifies */
-	private $id;
+	/** @var CommitId */
+	private $commitId;
 
 	/** @var \DateTimeImmutable */
-	private $date_time;
+	private $committedOn;
 
 	/**
-	 * @param Identifies $commid_id
-	 * @param \DateTimeImmutable $commit_date_time
+	 * @param CommitId           $commitId
+	 * @param \DateTimeImmutable $committedOn
 	 */
-	public function __construct( Identifies $commid_id, \DateTimeImmutable $commit_date_time )
+	public function __construct( CommitId $commitId, \DateTimeImmutable $committedOn )
 	{
-		$this->id        = $commid_id;
-		$this->date_time = $commit_date_time;
+		$this->commitId    = $commitId;
+		$this->committedOn = $committedOn;
 	}
 
 	/**
-	 * @return Identifies
+	 * @return CommitId
 	 */
-	public function getId()
+	public function getCommitId()
 	{
-		return $this->id;
+		return $this->commitId;
 	}
 
 	/**
 	 * @return \DateTimeImmutable
 	 */
-	public function getDateTime()
+	public function getCommittedOn()
 	{
-		return $this->date_time;
+		return $this->committedOn;
 	}
 }

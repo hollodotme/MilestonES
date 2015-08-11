@@ -6,13 +6,11 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Persistance;
 
-require_once __DIR__ . '/../Fixures/TestMemoryInvalidRestoreFileDir.php';
-
 use hollodotme\MilestonES\CommitEventEnvelope;
 use hollodotme\MilestonES\EventStreamIdentifier;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Persistence\Memory;
-use hollodotme\MilestonES\Test\Unit\TestMemoryInvalidRestoreFileDir;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestMemoryInvalidRestoreFileDir;
 
 class MemoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -207,7 +205,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 		$envelope          = new CommitEventEnvelope();
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
 		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
-		$envelope->setFile( __DIR__ . '/../Fixures/event_file_test' );
+		$envelope->setFile( __DIR__ . '/../Fixures/eventFileTest' );
 
 		$this->persistence->beginTransaction();
 
@@ -238,7 +236,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 		$envelope          = new CommitEventEnvelope();
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
 		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
-		$envelope->setFile( __DIR__ . '/../Fixures/event_file_test' );
+		$envelope->setFile( __DIR__ . '/../Fixures/eventFileTest' );
 
 		$persistence = new TestMemoryInvalidRestoreFileDir();
 

@@ -29,7 +29,7 @@ interface WrapsDomainEvent
 	public function getOccurredOnMicrotime();
 
 	/**
-	 * @return RepresentsEvent
+	 * @return CarriesEventData
 	 */
 	public function getPayload();
 

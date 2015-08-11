@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class AggregateRootIsAttachedMoreThanOnce extends Exception
+class AggregateRootIsAttachedMoreThanOnce extends MilestonESException
 {
 
 } 
