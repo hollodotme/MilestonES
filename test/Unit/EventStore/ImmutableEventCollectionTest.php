@@ -6,9 +6,9 @@
 
 namespace hollodotme\MilestonES\Test\Unit\EventStore;
 
-use hollodotme\MilestonES\DomainEventEnvelope;
+use hollodotme\MilestonES\EventEnvelope;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\ImmutableDomainEventEnvelopeCollection;
+use hollodotme\MilestonES\ImmutableEventEnvelopeCollection;
 use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
@@ -18,10 +18,10 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testAddingEventsByArrayAccessAfterConstructionFails()
 	{
-		$collection = new ImmutableDomainEventEnvelopeCollection( [ ] );
+		$collection = new ImmutableEventEnvelopeCollection( [ ] );
 		$event      = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
 
-		$collection[] = new DomainEventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( $event, [ ] );
 	}
 
 	/**
@@ -29,10 +29,10 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testAddingEventsByOffsetSetAfterConstructionFails()
 	{
-		$collection = new ImmutableDomainEventEnvelopeCollection( [ ] );
+		$collection = new ImmutableEventEnvelopeCollection( [ ] );
 		$event      = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
 
-		$collection->offsetSet( null, new DomainEventEnvelope( $event, [ ] ) );
+		$collection->offsetSet( null, new EventEnvelope( $event, [ ] ) );
 	}
 
 	/**
@@ -41,8 +41,8 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testRemovingAnEventByUnsetAfterConstructionFails()
 	{
 		$event          = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
-		$event_envelope = new DomainEventEnvelope( $event, [ ] );
-		$collection     = new ImmutableDomainEventEnvelopeCollection( [ $event_envelope ] );
+		$event_envelope = new EventEnvelope( $event, [ ] );
+		$collection = new ImmutableEventEnvelopeCollection( [ $event_envelope ] );
 
 		unset($collection[0]);
 	}
@@ -53,17 +53,17 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	public function testRemovingAnEventByOffsetUnsetAfterConstructionFails()
 	{
 		$event          = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
-		$event_envelope = new DomainEventEnvelope( $event, [ ] );
-		$collection     = new ImmutableDomainEventEnvelopeCollection( [ $event_envelope ] );
+		$event_envelope = new EventEnvelope( $event, [ ] );
+		$collection = new ImmutableEventEnvelopeCollection( [ $event_envelope ] );
 
 		$collection->offsetUnset( 0 );
 	}
 
 	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\ItemDoesNotRepresentADomainEventEnvelope
+	 * @expectedException \hollodotme\MilestonES\Exceptions\NotAnEventEnvelope
 	 */
 	public function testConstructionWithArrayOfNonDomainEventEnvelopesFails()
 	{
-		new ImmutableDomainEventEnvelopeCollection( [ 'I am not an event' ] );
+		new ImmutableEventEnvelopeCollection( [ 'I am not an event' ] );
 	}
 }

@@ -14,7 +14,7 @@ namespace hollodotme\MilestonES\Interfaces;
 interface IdentifiesCommit
 {
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getCommitId();
 

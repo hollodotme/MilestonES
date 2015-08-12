@@ -16,7 +16,7 @@ use hollodotme\MilestonES\AggregateRoot;
 class UnitTestAggregateDiff extends AggregateRoot
 {
 
-	/** @var \hollodotme\MilestonES\Interfaces\Identifies */
+	/** @var \hollodotme\MilestonES\Interfaces\IdentifiesObject */
 	private $test_id;
 
 	/** @var string */
@@ -54,7 +54,7 @@ class UnitTestAggregateDiff extends AggregateRoot
 	}
 
 	/**
-	 * @return \hollodotme\MilestonES\Interfaces\Identifies
+	 * @return \hollodotme\MilestonES\Interfaces\IdentifiesObject
 	 */
 	public function getIdentifier()
 	{
@@ -62,7 +62,7 @@ class UnitTestAggregateDiff extends AggregateRoot
 	}
 
 	/**
-	 * @return \hollodotme\MilestonES\Interfaces\Identifies
+	 * @return \hollodotme\MilestonES\Interfaces\IdentifiesObject
 	 */
 	public function getTestId()
 	{

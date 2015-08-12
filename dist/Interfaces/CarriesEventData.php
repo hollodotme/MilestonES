@@ -14,7 +14,7 @@ namespace hollodotme\MilestonES\Interfaces;
 interface CarriesEventData
 {
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getStreamId();
 }

@@ -16,7 +16,7 @@ use hollodotme\MilestonES\Persistence\Memory;
  */
 class TestMemoryEmptyPersistence extends Memory
 {
-	public function getEventEnvelopesWithId( IdentifiesEventStream $id )
+	public function getEventStreamWithId( IdentifiesEventStream $id )
 	{
 		return [ ];
 	}

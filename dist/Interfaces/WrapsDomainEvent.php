@@ -14,7 +14,7 @@ namespace hollodotme\MilestonES\Interfaces;
 interface WrapsDomainEvent
 {
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getStreamId();
 

@@ -6,12 +6,12 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Exceptions\AggregateRootIsAlreadyAttached;
 use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
-use hollodotme\MilestonES\Exceptions\AggregateRootWithEqualIdIsAlreadyAttached;
 use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
-use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
-use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\CollectsEventEnvelopes;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 
 /**
@@ -64,7 +64,7 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	/**
 	 * @param AggregatesObjects $aggregateRoot
 	 *
-	 * @throws AggregateRootWithEqualIdIsAlreadyAttached
+	 * @throws AggregateRootIsAlreadyAttached
 	 */
 	public function attach( AggregatesObjects $aggregateRoot )
 	{
@@ -74,17 +74,17 @@ class AggregateRootCollection implements CollectsAggregateRoots
 		}
 		elseif ( !$this->isAttached( $aggregateRoot ) )
 		{
-			throw new AggregateRootWithEqualIdIsAlreadyAttached( (string)$aggregateRoot->getIdentifier() );
+			throw new AggregateRootIsAlreadyAttached( (string)$aggregateRoot->getIdentifier() );
 		}
 	}
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @throws AggregateRootNotFound
 	 * @return AggregateRoot
 	 */
-	final public function find( Identifies $id )
+	final public function find( IdentifiesObject $id )
 	{
 		if ( $this->idExists( $id ) )
 		{
@@ -97,11 +97,11 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	}
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @return bool
 	 */
-	public function idExists( Identifies $id )
+	public function idExists( IdentifiesObject $id )
 	{
 		$idExists = false;
 
@@ -114,12 +114,12 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	}
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @throws AggregateRootNotFound
 	 * @return AggregatesObjects
 	 */
-	private function getAggregateRootWithId( Identifies $id )
+	private function getAggregateRootWithId( IdentifiesObject $id )
 	{
 		$aggregateRoot = null;
 
@@ -153,11 +153,11 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	}
 
 	/**
-	 * @return CollectsDomainEventEnvelopes
+	 * @return CollectsEventEnvelopes
 	 */
 	public function getChanges()
 	{
-		$changes = new DomainEventEnvelopeCollection();
+		$changes = new EventEnvelopeCollection();
 
 		foreach ( $this->aggregateRoots as $aggregateRoot )
 		{
@@ -194,9 +194,9 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	}
 
 	/**
-	 * @param CollectsDomainEventEnvelopes $committedChanges
+	 * @param CollectsEventEnvelopes $committedChanges
 	 */
-	public function clearCommittedChanges( CollectsDomainEventEnvelopes $committedChanges )
+	public function clearCommittedChanges( CollectsEventEnvelopes $committedChanges )
 	{
 		foreach ( $this->aggregateRoots as $aggregateRoot )
 		{

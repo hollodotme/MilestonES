@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
-use hollodotme\MilestonES\DomainEventEnvelope;
+use hollodotme\MilestonES\EventEnvelope;
 use hollodotme\MilestonES\EventStream;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregate;
@@ -30,7 +30,7 @@ class AggregateRootTest extends \PHPUnit_Framework_TestCase
 		$identifier = new Identifier( 'Unit-Test-ID' );
 
 		$event         = new UnitTestEvent( $identifier, 'Unit-Test' );
-		$eventEnvelope = new DomainEventEnvelope( $event, [ ] );
+		$eventEnvelope = new EventEnvelope( $event, [ ] );
 
 		$stream = new EventStream( [ $eventEnvelope ] );
 

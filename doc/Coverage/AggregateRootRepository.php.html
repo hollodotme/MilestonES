@@ -187,8 +187,8 @@
      </tr>
 
      <tr>
-         <td class="success" colspan="4">&nbsp;<a href="#72"><abbr title="getWithId( Identifies $id )">getWithId</abbr></a>
-         </td>
+         <td class="success" colspan="4">&nbsp;<a href="#72"><abbr
+                 title="getWithId( IdentifiesObject $id )">getWithId</abbr></a></td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -234,7 +234,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#98"><abbr
-                 title="attachCommitedEventObserverToEventStore( ObservesCommitedEvents $observer )">attachCommitedEventObserverToEventStore</abbr></a>
+                 title="attachCommitedEventObserverToEventStore( ListensForPublishedEvents $observer )">attachCommitedEventObserverToEventStore</abbr></a>
          </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
@@ -279,7 +279,8 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#116"><abbr
-                 title="isAggregateRootTrackedWithId( Identifies $id )">isAggregateRootTrackedWithId</abbr></a></td>
+                 title="isAggregateRootTrackedWithId( IdentifiesObject $id )">isAggregateRootTrackedWithId</abbr></a>
+         </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -301,7 +302,8 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#127"><abbr
-                 title="getTrackedAggregateRootWithId( Identifies $id )">getTrackedAggregateRootWithId</abbr></a></td>
+                 title="getTrackedAggregateRootWithId( IdentifiesObject $id )">getTrackedAggregateRootWithId</abbr></a>
+         </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -323,7 +325,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#139"><abbr
-                 title="createAggregateRootByEventStream( Identifies $id )">createAggregateRootByEventStream</abbr></a>
+                 title="createAggregateRootByEventStream( IdentifiesObject $id )">createAggregateRootByEventStream</abbr></a>
          </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
@@ -346,7 +348,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#159"><abbr
-                 title="getEventStreamForAggregateRootId( Identifies $id )">getEventStreamForAggregateRootId</abbr></a>
+                 title="getEventStreamForAggregateRootId( IdentifiesObject $id )">getEventStreamForAggregateRootId</abbr></a>
          </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
@@ -436,8 +438,24 @@
                  class="default">AggregatesObjects</span><span class="keyword">;</span></td>
      </tr>
      <tr><td><div align="right"><a name="11"></a><a href="#11">11</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">CollectsAggregateRoots</span><span class="keyword">;</span></td></tr>
-     <tr><td><div align="right"><a name="12"></a><a href="#12">12</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">Identifies</span><span class="keyword">;</span></td></tr>
-     <tr><td><div align="right"><a name="13"></a><a href="#13">13</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">ObservesCommitedEvents</span><span class="keyword">;</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="12"></a><a href="#12">12</a></div>
+         </td>
+         <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
+                 class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
+                 class="default">Interfaces</span><span class="default">\</span><span
+                 class="default">IdentifiesObject</span><span class="keyword">;</span></td>
+     </tr>
+     <tr>
+         <td>
+             <div align="right"><a name="13"></a><a href="#13">13</a></div>
+         </td>
+         <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
+                 class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
+                 class="default">Interfaces</span><span class="default">\</span><span class="default">ListensForPublishedEvents</span><span
+                 class="keyword">;</span></td>
+     </tr>
      <tr><td><div align="right"><a name="14"></a><a href="#14">14</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">StoresEvents</span><span class="keyword">;</span></td></tr>
      <tr><td><div align="right"><a name="15"></a><a href="#15">15</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">TracksAggregateRoots</span><span class="keyword">;</span></td></tr>
      <tr><td><div align="right"><a name="16"></a><a href="#16">16</a></div></td><td class="codeLine"></td></tr>
@@ -539,7 +557,13 @@
      </tr>
      <tr><td><div align="right"><a name="42"></a><a href="#42">42</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="43"></a><a href="#43">43</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-     <tr><td><div align="right"><a name="44"></a><a href="#44">44</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;ObservesCommitedEvents[]</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="44"></a><a href="#44">44</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;ListensForPublishedEvents[]</span>
+         </td>
+     </tr>
      <tr><td><div align="right"><a name="45"></a><a href="#45">45</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
      <tr><td><div align="right"><a name="46"></a><a href="#46">46</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">abstract</span><span class="default">&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getCommitedEventObservers</span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
      <tr><td><div align="right"><a name="47"></a><a href="#47">47</a></div></td><td class="codeLine"></td></tr>
@@ -626,7 +650,13 @@
      <tr class="warning"><td><div align="right"><a name="64"></a><a href="#64">64</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
      <tr><td><div align="right"><a name="65"></a><a href="#65">65</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="66"></a><a href="#66">66</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-     <tr><td><div align="right"><a name="67"></a><a href="#67">67</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$id</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="67"></a><a href="#67">67</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesObject&nbsp;$id</span>
+         </td>
+     </tr>
      <tr><td><div align="right"><a name="68"></a><a href="#68">68</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
      <tr><td><div align="right"><a name="69"></a><a href="#69">69</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;AggregateRootNotFound</span></td></tr>
      <tr>
@@ -637,7 +667,18 @@
                  class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;AggregatesObjects</span></td>
      </tr>
      <tr><td><div align="right"><a name="71"></a><a href="#71">71</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
-     <tr><td><div align="right"><a name="72"></a><a href="#72">72</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">final</span><span class="default">&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getWithId</span><span class="keyword">(</span><span class="default">&nbsp;</span><span class="default">Identifies</span><span class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="72"></a><a href="#72">72</a></div>
+         </td>
+         <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                 class="keyword">final</span><span class="default">&nbsp;</span><span class="keyword">public</span><span
+                 class="default">&nbsp;</span><span class="keyword">function</span><span
+                 class="default">&nbsp;</span><span class="default">getWithId</span><span class="keyword">(</span><span
+                 class="default">&nbsp;</span><span class="default">IdentifiesObject</span><span
+                 class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span
+                 class="keyword">)</span></td>
+     </tr>
      <tr><td><div align="right"><a name="73"></a><a href="#73">73</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
      <tr class="covered-by-large-tests popin" data-title="4 tests cover line 74"
          data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;/ul&gt;"
@@ -767,9 +808,25 @@
      </tr>
      <tr><td><div align="right"><a name="94"></a><a href="#94">94</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="95"></a><a href="#95">95</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-     <tr><td><div align="right"><a name="96"></a><a href="#96">96</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;ObservesCommitedEvents&nbsp;$observer</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="96"></a><a href="#96">96</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;ListensForPublishedEvents&nbsp;$observer</span>
+         </td>
+     </tr>
      <tr><td><div align="right"><a name="97"></a><a href="#97">97</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
-     <tr><td><div align="right"><a name="98"></a><a href="#98">98</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">private</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">attachCommitedEventObserverToEventStore</span><span class="keyword">(</span><span class="default">&nbsp;</span><span class="default">ObservesCommitedEvents</span><span class="default">&nbsp;</span><span class="default">$observer</span><span class="default">&nbsp;</span><span class="keyword">)</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="98"></a><a href="#98">98</a></div>
+         </td>
+         <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                 class="keyword">private</span><span class="default">&nbsp;</span><span
+                 class="keyword">function</span><span class="default">&nbsp;</span><span class="default">attachCommitedEventObserverToEventStore</span><span
+                 class="keyword">(</span><span class="default">&nbsp;</span><span class="default">ListensForPublishedEvents</span><span
+                 class="default">&nbsp;</span><span class="default">$observer</span><span
+                 class="default">&nbsp;</span><span class="keyword">)</span></td>
+     </tr>
      <tr><td><div align="right"><a name="99"></a><a href="#99">99</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
      <tr class="covered-by-large-tests popin" data-title="1 test covers line 100"
          data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanRegisterEventObservers&lt;/li&gt;&lt;/ul&gt;"
@@ -779,7 +836,7 @@
          </td>
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="default">$this</span><span class="default">-&gt;</span><span
-                 class="default">eventStore</span><span class="default">-&gt;</span><span class="default">attachCommittedEventObserver</span><span
+                 class="default">eventStore</span><span class="default">-&gt;</span><span class="default">attachEventListener</span><span
                  class="keyword">(</span><span class="default">&nbsp;</span><span class="default">$observer</span><span
                  class="default">&nbsp;</span><span class="keyword">)</span><span class="keyword">;</span></td>
      </tr>
@@ -835,11 +892,27 @@
      </tr>
      <tr><td><div align="right"><a name="110"></a><a href="#110">110</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="111"></a><a href="#111">111</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-     <tr><td><div align="right"><a name="112"></a><a href="#112">112</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$id</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="112"></a><a href="#112">112</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesObject&nbsp;$id</span>
+         </td>
+     </tr>
      <tr><td><div align="right"><a name="113"></a><a href="#113">113</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
      <tr><td><div align="right"><a name="114"></a><a href="#114">114</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;bool</span></td></tr>
      <tr><td><div align="right"><a name="115"></a><a href="#115">115</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
-     <tr><td><div align="right"><a name="116"></a><a href="#116">116</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">private</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">isAggregateRootTrackedWithId</span><span class="keyword">(</span><span class="default">&nbsp;</span><span class="default">Identifies</span><span class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="116"></a><a href="#116">116</a></div>
+         </td>
+         <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                 class="keyword">private</span><span class="default">&nbsp;</span><span
+                 class="keyword">function</span><span class="default">&nbsp;</span><span class="default">isAggregateRootTrackedWithId</span><span
+                 class="keyword">(</span><span class="default">&nbsp;</span><span
+                 class="default">IdentifiesObject</span><span class="default">&nbsp;</span><span
+                 class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
+     </tr>
      <tr><td><div align="right"><a name="117"></a><a href="#117">117</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
      <tr class="covered-by-large-tests popin" data-title="4 tests cover line 118"
          data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;/ul&gt;"
@@ -857,7 +930,13 @@
      <tr class="warning"><td><div align="right"><a name="119"></a><a href="#119">119</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
      <tr><td><div align="right"><a name="120"></a><a href="#120">120</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="121"></a><a href="#121">121</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-     <tr><td><div align="right"><a name="122"></a><a href="#122">122</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$id</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="122"></a><a href="#122">122</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesObject&nbsp;$id</span>
+         </td>
+     </tr>
      <tr><td><div align="right"><a name="123"></a><a href="#123">123</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
      <tr><td><div align="right"><a name="124"></a><a href="#124">124</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;Exceptions\AggregateRootNotFound</span></td></tr>
      <tr>
@@ -868,7 +947,17 @@
                  class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;AggregatesObjects</span></td>
      </tr>
      <tr><td><div align="right"><a name="126"></a><a href="#126">126</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
-     <tr><td><div align="right"><a name="127"></a><a href="#127">127</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">private</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getTrackedAggregateRootWithId</span><span class="keyword">(</span><span class="default">&nbsp;</span><span class="default">Identifies</span><span class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="127"></a><a href="#127">127</a></div>
+         </td>
+         <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                 class="keyword">private</span><span class="default">&nbsp;</span><span
+                 class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getTrackedAggregateRootWithId</span><span
+                 class="keyword">(</span><span class="default">&nbsp;</span><span
+                 class="default">IdentifiesObject</span><span class="default">&nbsp;</span><span
+                 class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
+     </tr>
      <tr><td><div align="right"><a name="128"></a><a href="#128">128</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
      <tr class="covered-by-large-tests popin" data-title="1 test covers line 129"
          data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;/ul&gt;"
@@ -886,9 +975,21 @@
      <tr class="warning"><td><div align="right"><a name="130"></a><a href="#130">130</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
      <tr><td><div align="right"><a name="131"></a><a href="#131">131</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="132"></a><a href="#132">132</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-     <tr><td><div align="right"><a name="133"></a><a href="#133">133</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$id</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="133"></a><a href="#133">133</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesObject&nbsp;$id</span>
+         </td>
+     </tr>
      <tr><td><div align="right"><a name="134"></a><a href="#134">134</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
-     <tr><td><div align="right"><a name="135"></a><a href="#135">135</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;Exceptions\ClassIsNotAnAggregateRoot</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="135"></a><a href="#135">135</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;Exceptions\NotAnAggregateRoot</span>
+         </td>
+     </tr>
      <tr><td><div align="right"><a name="136"></a><a href="#136">136</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;Exceptions\AggregateRootNotFound</span></td></tr>
      <tr>
          <td>
@@ -898,7 +999,17 @@
                  class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;AggregatesObjects</span></td>
      </tr>
      <tr><td><div align="right"><a name="138"></a><a href="#138">138</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
-     <tr><td><div align="right"><a name="139"></a><a href="#139">139</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">private</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">createAggregateRootByEventStream</span><span class="keyword">(</span><span class="default">&nbsp;</span><span class="default">Identifies</span><span class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="139"></a><a href="#139">139</a></div>
+         </td>
+         <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                 class="keyword">private</span><span class="default">&nbsp;</span><span
+                 class="keyword">function</span><span class="default">&nbsp;</span><span class="default">createAggregateRootByEventStream</span><span
+                 class="keyword">(</span><span class="default">&nbsp;</span><span
+                 class="default">IdentifiesObject</span><span class="default">&nbsp;</span><span
+                 class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
+     </tr>
      <tr><td><div align="right"><a name="140"></a><a href="#140">140</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
      <tr><td><div align="right"><a name="141"></a><a href="#141">141</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">try</span></td></tr>
      <tr><td><div align="right"><a name="142"></a><a href="#142">142</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
@@ -962,12 +1073,28 @@
      <tr class="warning"><td><div align="right"><a name="151"></a><a href="#151">151</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
      <tr><td><div align="right"><a name="152"></a><a href="#152">152</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="153"></a><a href="#153">153</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-     <tr><td><div align="right"><a name="154"></a><a href="#154">154</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$id</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="154"></a><a href="#154">154</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesObject&nbsp;$id</span>
+         </td>
+     </tr>
      <tr><td><div align="right"><a name="155"></a><a href="#155">155</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
      <tr><td><div align="right"><a name="156"></a><a href="#156">156</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;Exceptions\EventStreamNotFound</span></td></tr>
      <tr><td><div align="right"><a name="157"></a><a href="#157">157</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;EventStream</span></td></tr>
      <tr><td><div align="right"><a name="158"></a><a href="#158">158</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
-     <tr><td><div align="right"><a name="159"></a><a href="#159">159</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">private</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getEventStreamForAggregateRootId</span><span class="keyword">(</span><span class="default">&nbsp;</span><span class="default">Identifies</span><span class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="159"></a><a href="#159">159</a></div>
+         </td>
+         <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                 class="keyword">private</span><span class="default">&nbsp;</span><span
+                 class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getEventStreamForAggregateRootId</span><span
+                 class="keyword">(</span><span class="default">&nbsp;</span><span
+                 class="default">IdentifiesObject</span><span class="default">&nbsp;</span><span
+                 class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
+     </tr>
      <tr><td><div align="right"><a name="160"></a><a href="#160">160</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
      <tr class="covered-by-large-tests popin" data-title="3 tests cover line 161"
          data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;/ul&gt;"
@@ -993,7 +1120,13 @@
          </td>
      </tr>
      <tr><td><div align="right"><a name="166"></a><a href="#166">166</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
-     <tr><td><div align="right"><a name="167"></a><a href="#167">167</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;Exceptions\ClassIsNotAnAggregateRoot</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="167"></a><a href="#167">167</a></div>
+         </td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;Exceptions\NotAnAggregateRoot</span>
+         </td>
+     </tr>
      <tr>
          <td>
              <div align="right"><a name="168"></a><a href="#168">168</a></div>
@@ -1084,7 +1217,7 @@
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="keyword">throw</span><span class="default">&nbsp;</span><span class="keyword">new</span><span
                  class="default">&nbsp;</span><span class="default">Exceptions</span><span class="default">\</span><span
-                 class="default">ClassIsNotAnAggregateRoot</span><span class="keyword">(</span><span
+                 class="default">NotAnAggregateRoot</span><span class="keyword">(</span><span
                  class="keyword">)</span><span class="keyword">;</span></td>
      </tr>
      <tr><td><div align="right"><a name="182"></a><a href="#182">182</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
@@ -1127,7 +1260,7 @@
     <p>
         <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage
             2.1.4</a> using <a href="http://php.net/" target="_top">PHP 5.5.9-1ubuntu4.9</a> and <a
-                href="http://phpunit.de/">PHPUnit 4.7.2</a> at Tue Aug 11 21:32:52 CEST 2015.
+                href="http://phpunit.de/">PHPUnit 4.7.2</a> at Wed Aug 12 22:01:15 CEST 2015.
         </small>
     </p>
     <a title="Back to the top" id="toplink" href="#"><span class="glyphicon glyphicon-arrow-up"></span></a>

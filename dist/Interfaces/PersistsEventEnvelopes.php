@@ -25,14 +25,14 @@ interface PersistsEventEnvelopes
 	public function isInTransaction();
 
 	/**
-	 * @param WrapsEventForCommit $commitEnvelope
+	 * @param CarriesCommitData $commitEnvelope
 	 */
-	public function persistEventEnvelope( WrapsEventForCommit $commitEnvelope );
+	public function persistCommitEnvelope( CarriesCommitData $commitEnvelope );
 
 	/**
 	 * @param IdentifiesEventStream $id
 	 *
-	 * @return WrapsEventForCommit[]
+	 * @return ServesCommitData[]
 	 */
-	public function getEventEnvelopesWithId( IdentifiesEventStream $id );
+	public function getEventStreamWithId( IdentifiesEventStream $id );
 }

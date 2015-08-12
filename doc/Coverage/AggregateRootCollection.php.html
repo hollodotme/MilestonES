@@ -234,7 +234,8 @@
      </tr>
 
      <tr>
-         <td class="success" colspan="4">&nbsp;<a href="#87"><abbr title="find( Identifies $id )">find</abbr></a></td>
+         <td class="success" colspan="4">&nbsp;<a href="#87"><abbr title="find( IdentifiesObject $id )">find</abbr></a>
+         </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -256,7 +257,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#104"><abbr
-                 title="idExists( Identifies $id )">idExists</abbr></a></td>
+                 title="idExists( IdentifiesObject $id )">idExists</abbr></a></td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -277,8 +278,8 @@
      </tr>
 
      <tr>
-         <td class="success" colspan="4">&nbsp;<a href="#122"><abbr title="getAggregateRootWithId( Identifies $id )">getAggregateRootWithId</abbr></a>
-         </td>
+         <td class="success" colspan="4">&nbsp;<a href="#122"><abbr
+                 title="getAggregateRootWithId( IdentifiesObject $id )">getAggregateRootWithId</abbr></a></td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -438,7 +439,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#199"><abbr
-                 title="clearCommittedChanges( CollectsDomainEventEnvelopes $committedChanges )">clearCommittedChanges</abbr></a>
+                 title="clearCommittedChanges( CollectsEventEnvelopes $committedChanges )">clearCommittedChanges</abbr></a>
          </td>
          <td class="success big">
              <div class="progress">
@@ -485,7 +486,15 @@
      <tr><td><div align="right"><a name="7"></a><a href="#7">7</a></div></td><td class="codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="keyword">;</span></td></tr>
      <tr><td><div align="right"><a name="8"></a><a href="#8">8</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="9"></a><a href="#9">9</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Exceptions</span><span class="default">\</span><span class="default">AggregateRootNotFound</span><span class="keyword">;</span></td></tr>
-     <tr><td><div align="right"><a name="10"></a><a href="#10">10</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Exceptions</span><span class="default">\</span><span class="default">AggregateRootWithEqualIdIsAlreadyAttached</span><span class="keyword">;</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="10"></a><a href="#10">10</a></div>
+         </td>
+         <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
+                 class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
+                 class="default">Exceptions</span><span class="default">\</span><span class="default">AggregateRootIsAlreadyAttached</span><span
+                 class="keyword">;</span></td>
+     </tr>
      <tr>
          <td>
              <div align="right"><a name="11"></a><a href="#11">11</a></div>
@@ -502,7 +511,7 @@
          </td>
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
-                 class="default">Interfaces</span><span class="default">\</span><span class="default">CollectsDomainEventEnvelopes</span><span
+                 class="default">Interfaces</span><span class="default">\</span><span class="default">CollectsEventEnvelopes</span><span
                  class="keyword">;</span></td>
      </tr>
      <tr>
@@ -512,7 +521,7 @@
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
                  class="default">Interfaces</span><span class="default">\</span><span
-                 class="default">Identifies</span><span class="keyword">;</span></td>
+                 class="default">IdentifiesObject</span><span class="keyword">;</span></td>
      </tr>
      <tr>
          <td>
@@ -895,7 +904,7 @@
          <td>
              <div align="right"><a name="67"></a><a href="#67">67</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;AggregateRootWithEqualIdIsAlreadyAttached</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@throws&nbsp;AggregateRootIsAlreadyAttached</span>
          </td>
      </tr>
      <tr>
@@ -995,9 +1004,8 @@
          </td>
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="keyword">throw</span><span class="default">&nbsp;</span><span class="keyword">new</span><span
-                 class="default">&nbsp;</span><span
-                 class="default">AggregateRootWithEqualIdIsAlreadyAttached</span><span class="keyword">(</span><span
-                 class="default">&nbsp;</span><span class="default">(string)</span><span
+                 class="default">&nbsp;</span><span class="default">AggregateRootIsAlreadyAttached</span><span
+                 class="keyword">(</span><span class="default">&nbsp;</span><span class="default">(string)</span><span
                  class="default">$aggregateRoot</span><span class="default">-&gt;</span><span class="default">getIdentifier</span><span
                  class="keyword">(</span><span class="keyword">)</span><span class="default">&nbsp;</span><span
                  class="keyword">)</span><span class="keyword">;</span></td>
@@ -1033,8 +1041,8 @@
          <td>
              <div align="right"><a name="82"></a><a href="#82">82</a></div>
          </td>
-         <td class="codeLine"><span
-                 class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$id</span></td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesObject&nbsp;$id</span>
+         </td>
      </tr>
      <tr>
          <td>
@@ -1070,8 +1078,9 @@
                  class="keyword">final</span><span class="default">&nbsp;</span><span class="keyword">public</span><span
                  class="default">&nbsp;</span><span class="keyword">function</span><span
                  class="default">&nbsp;</span><span class="default">find</span><span class="keyword">(</span><span
-                 class="default">&nbsp;</span><span class="default">Identifies</span><span class="default">&nbsp;</span><span
-                 class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
+                 class="default">&nbsp;</span><span class="default">IdentifiesObject</span><span
+                 class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span
+                 class="keyword">)</span></td>
      </tr>
      <tr>
          <td>
@@ -1176,8 +1185,8 @@
          <td>
              <div align="right"><a name="100"></a><a href="#100">100</a></div>
          </td>
-         <td class="codeLine"><span
-                 class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$id</span></td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesObject&nbsp;$id</span>
+         </td>
      </tr>
      <tr>
          <td>
@@ -1204,9 +1213,9 @@
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="keyword">public</span><span class="default">&nbsp;</span><span
                  class="keyword">function</span><span class="default">&nbsp;</span><span class="default">idExists</span><span
-                 class="keyword">(</span><span class="default">&nbsp;</span><span class="default">Identifies</span><span
-                 class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span
-                 class="keyword">)</span></td>
+                 class="keyword">(</span><span class="default">&nbsp;</span><span
+                 class="default">IdentifiesObject</span><span class="default">&nbsp;</span><span
+                 class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
      </tr>
      <tr>
          <td>
@@ -1319,8 +1328,8 @@
          <td>
              <div align="right"><a name="117"></a><a href="#117">117</a></div>
          </td>
-         <td class="codeLine"><span
-                 class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Identifies&nbsp;$id</span></td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesObject&nbsp;$id</span>
+         </td>
      </tr>
      <tr>
          <td>
@@ -1355,9 +1364,9 @@
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="keyword">private</span><span class="default">&nbsp;</span><span
                  class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getAggregateRootWithId</span><span
-                 class="keyword">(</span><span class="default">&nbsp;</span><span class="default">Identifies</span><span
-                 class="default">&nbsp;</span><span class="default">$id</span><span class="default">&nbsp;</span><span
-                 class="keyword">)</span></td>
+                 class="keyword">(</span><span class="default">&nbsp;</span><span
+                 class="default">IdentifiesObject</span><span class="default">&nbsp;</span><span
+                 class="default">$id</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
      </tr>
      <tr>
          <td>
@@ -1635,7 +1644,7 @@
          <td>
              <div align="right"><a name="156"></a><a href="#156">156</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;CollectsDomainEventEnvelopes</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;CollectsEventEnvelopes</span>
          </td>
      </tr>
      <tr>
@@ -1668,7 +1677,7 @@
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="default">$changes</span><span class="default">&nbsp;</span><span class="keyword">=</span><span
                  class="default">&nbsp;</span><span class="keyword">new</span><span class="default">&nbsp;</span><span
-                 class="default">DomainEventEnvelopeCollection</span><span class="keyword">(</span><span
+                 class="default">EventEnvelopeCollection</span><span class="keyword">(</span><span
                  class="keyword">)</span><span class="keyword">;</span></td>
      </tr>
      <tr>
@@ -1985,7 +1994,7 @@
          <td>
              <div align="right"><a name="197"></a><a href="#197">197</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;CollectsDomainEventEnvelopes&nbsp;$committedChanges</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;CollectsEventEnvelopes&nbsp;$committedChanges</span>
          </td>
      </tr>
      <tr>
@@ -2001,8 +2010,8 @@
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="keyword">public</span><span class="default">&nbsp;</span><span
                  class="keyword">function</span><span class="default">&nbsp;</span><span class="default">clearCommittedChanges</span><span
-                 class="keyword">(</span><span class="default">&nbsp;</span><span class="default">CollectsDomainEventEnvelopes</span><span
-                 class="default">&nbsp;</span><span class="default">$committedChanges</span><span
+                 class="keyword">(</span><span class="default">&nbsp;</span><span
+                 class="default">CollectsEventEnvelopes</span><span class="default">&nbsp;</span><span class="default">$committedChanges</span><span
                  class="default">&nbsp;</span><span class="keyword">)</span></td>
      </tr>
      <tr>
@@ -2080,7 +2089,7 @@
     <p>
         <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage
             2.1.4</a> using <a href="http://php.net/" target="_top">PHP 5.5.9-1ubuntu4.9</a> and <a
-                href="http://phpunit.de/">PHPUnit 4.7.2</a> at Tue Aug 11 21:32:52 CEST 2015.
+                href="http://phpunit.de/">PHPUnit 4.7.2</a> at Wed Aug 12 22:01:15 CEST 2015.
         </small>
     </p>
     <a title="Back to the top" id="toplink" href="#"><span class="glyphicon glyphicon-arrow-up"></span></a>

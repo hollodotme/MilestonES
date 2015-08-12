@@ -19,11 +19,11 @@ interface CollectsAggregateRoots extends \Iterator, \Countable
 	public function attach( AggregatesObjects $aggregateRoot );
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @return AggregatesObjects
 	 */
-	public function find( Identifies $id );
+	public function find( IdentifiesObject $id );
 
 	/**
 	 * @param AggregatesObjects $aggregateRoot
@@ -33,19 +33,19 @@ interface CollectsAggregateRoots extends \Iterator, \Countable
 	public function isAttached( AggregatesObjects $aggregateRoot );
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @return bool
 	 */
-	public function idExists( Identifies $id );
+	public function idExists( IdentifiesObject $id );
 
 	/**
-	 * @return CollectsDomainEventEnvelopes
+	 * @return CollectsEventEnvelopes
 	 */
 	public function getChanges();
 
 	/**
-	 * @param CollectsDomainEventEnvelopes $committedChanges
+	 * @param CollectsEventEnvelopes $committedChanges
 	 */
-	public function clearCommittedChanges( CollectsDomainEventEnvelopes $committedChanges );
+	public function clearCommittedChanges( CollectsEventEnvelopes $committedChanges );
 }

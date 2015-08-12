@@ -6,11 +6,11 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Interfaces\CarriesCommitData;
 use hollodotme\MilestonES\Interfaces\CarriesEventData;
 use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
-use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 
 /**
  * Class EventEnvelopeMapper
@@ -35,7 +35,7 @@ class EventEnvelopeMapper
 	 * @param WrapsDomainEvent $eventEnvelope
 	 * @param IdentifiesCommit $commit
 	 *
-	 * @return CommitEventEnvelope
+	 * @return CommitEnvelope
 	 */
 	public function putEventInEnvelopeForCommit( WrapsDomainEvent $eventEnvelope, IdentifiesCommit $commit )
 	{
@@ -45,7 +45,7 @@ class EventEnvelopeMapper
 		$metaDataContract = $this->getMetaDataContract();
 		$metaData         = $this->serializeDataWithContract( $eventEnvelope->getMetaData(), $metaDataContract );
 
-		$envelope = new CommitEventEnvelope();
+		$envelope = new CommitEnvelope();
 		$envelope->setCommitId( $commit->getCommitId() );
 
 		$envelope->setOccurredOn( $eventEnvelope->getOccurredOn() );
@@ -66,7 +66,7 @@ class EventEnvelopeMapper
 	}
 
 	/**
-	 * @param WrapsEventForCommit[] $commitEnvelopes
+	 * @param CarriesCommitData[] $commitEnvelopes
 	 *
 	 * @return array|\Iterator|\Countable|WrapsDomainEvent[]
 	 */
@@ -83,26 +83,26 @@ class EventEnvelopeMapper
 	}
 
 	/**
-	 * @param WrapsEventForCommit $commitEnvelope
+	 * @param CarriesCommitData $commitEnvelope
 	 *
 	 * @return CarriesEventData
 	 */
-	private function extractEventEnvelopeFromCommitEnvelope( WrapsEventForCommit $commitEnvelope )
+	private function extractEventEnvelopeFromCommitEnvelope( CarriesCommitData $commitEnvelope )
 	{
 		$event      = $this->getEventFromCommitEnvelope( $commitEnvelope );
 		$metaData   = $this->getMetaDataFromCommitEnvelope( $commitEnvelope );
 		$occurredOn = $commitEnvelope->getOccurredOn();
 		$file       = $commitEnvelope->getFile();
 
-		return DomainEventEnvelope::fromRecord( $event, $metaData, $file, $occurredOn );
+		return EventEnvelope::fromRecord( $event, $metaData, $file, $occurredOn );
 	}
 
 	/**
-	 * @param WrapsEventForCommit $commitEnvelope
+	 * @param CarriesCommitData $commitEnvelope
 	 *
 	 * @return mixed
 	 */
-	private function getEventFromCommitEnvelope( WrapsEventForCommit $commitEnvelope )
+	private function getEventFromCommitEnvelope( CarriesCommitData $commitEnvelope )
 	{
 		$payloadContract = Contract::fromString( $commitEnvelope->getPayloadContract() );
 
@@ -110,11 +110,11 @@ class EventEnvelopeMapper
 	}
 
 	/**
-	 * @param WrapsEventForCommit $commitEnvelope
+	 * @param CarriesCommitData $commitEnvelope
 	 *
 	 * @return mixed
 	 */
-	private function getMetaDataFromCommitEnvelope( WrapsEventForCommit $commitEnvelope )
+	private function getMetaDataFromCommitEnvelope( CarriesCommitData $commitEnvelope )
 	{
 		$metaDataContract = Contract::fromString( $commitEnvelope->getMetaDataContract() );
 

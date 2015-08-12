@@ -17,7 +17,7 @@ use hollodotme\MilestonES\Identifier;
 class UnitTestAggregate extends AggregateRoot
 {
 
-	/** @var \hollodotme\MilestonES\Interfaces\Identifies */
+	/** @var \hollodotme\MilestonES\Interfaces\IdentifiesObject */
 	private $testId;
 
 	/** @var string */
@@ -55,7 +55,7 @@ class UnitTestAggregate extends AggregateRoot
 	}
 
 	/**
-	 * @return \hollodotme\MilestonES\Interfaces\Identifies
+	 * @return \hollodotme\MilestonES\Interfaces\IdentifiesObject
 	 */
 	public function getIdentifier()
 	{
@@ -63,7 +63,7 @@ class UnitTestAggregate extends AggregateRoot
 	}
 
 	/**
-	 * @return \hollodotme\MilestonES\Interfaces\Identifies
+	 * @return \hollodotme\MilestonES\Interfaces\IdentifiesObject
 	 */
 	public function getTestId()
 	{

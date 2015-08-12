@@ -82,7 +82,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\AggregateRootWithEqualIdIsAlreadyAttached
+	 * @expectedException \hollodotme\MilestonES\Exceptions\AggregateRootIsAlreadyAttached
 	 */
 	public function testAttachingTwoAggregateRootsWithSameIdFails()
 	{

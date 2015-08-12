@@ -14,7 +14,7 @@ namespace hollodotme\MilestonES\Interfaces;
 interface GeneratesIdentifier
 {
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public static function generate();
 }

@@ -7,13 +7,13 @@
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
 use hollodotme\MilestonES\AggregateRootCollection;
-use hollodotme\MilestonES\DomainEventEnvelope;
-use hollodotme\MilestonES\DomainEventEnvelopeCollection;
+use hollodotme\MilestonES\EventEnvelope;
+use hollodotme\MilestonES\EventEnvelopeCollection;
 use hollodotme\MilestonES\EventStore;
-use hollodotme\MilestonES\EventStoreConfigDelegate;
+use hollodotme\MilestonES\EventStoreConfig;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
-use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 use hollodotme\MilestonES\Test\Unit\Fixures\TestAggregateRootRepositoryWithInvalidAggregateRootName;
 use hollodotme\MilestonES\Test\Unit\Fixures\TestAggregateRootRepositoryWithTestEventObserver;
 use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregate;
@@ -31,7 +31,7 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->event_store = new EventStore( new EventStoreConfigDelegate() );
+		$this->event_store = new EventStore( new EventStoreConfig() );
 		$this->collection  = new AggregateRootCollection();
 	}
 
@@ -75,7 +75,7 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\ClassIsNotAnAggregateRoot
+	 * @expectedException \hollodotme\MilestonES\Exceptions\NotAnAggregateRoot
 	 */
 	public function testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid()
 	{
@@ -90,14 +90,14 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 		$repository->getWithId( new Identifier( 'Unit-Test-ID' ) );
 	}
 
-	private function simulateEventStreamWithID( Identifies $id )
+	private function simulateEventStreamWithID( IdentifiesObject $id )
 	{
 		$event = new UnitTestEvent( $id, 'Unit-Test' );
 
-		$collection   = new DomainEventEnvelopeCollection();
-		$collection[] = new DomainEventEnvelope( $event, [ ] );
+		$collection   = new EventEnvelopeCollection();
+		$collection[] = new EventEnvelope( $event, [ ] );
 
-		/** @var DomainEventEnvelopeCollection $collection */
+		/** @var EventEnvelopeCollection $collection */
 		$this->event_store->commitEvents( $collection );
 	}
 

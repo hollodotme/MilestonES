@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Persistance;
 
-use hollodotme\MilestonES\CommitEventEnvelope;
+use hollodotme\MilestonES\CommitEnvelope;
 use hollodotme\MilestonES\EventStreamIdentifier;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Persistence\Memory;
@@ -102,23 +102,23 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 
 	public function testPersistEventEnvelope()
 	{
-		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
-		$envelope          = new CommitEventEnvelope();
-		$envelope->setStreamId( $stream_identifier->getStreamId() );
-		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
+		$streamId = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
+		$envelope = new CommitEnvelope();
+		$envelope->setStreamId( $streamId->getStreamId() );
+		$envelope->setStreamIdContract( $streamId->getStreamIdContract() );
 
 		$this->persistence->beginTransaction();
 
-		$this->persistence->persistEventEnvelope( $envelope );
+		$this->persistence->persistCommitEnvelope( $envelope );
 
 		$this->persistence->commitTransaction();
 
-		$commited_envelopes = $this->persistence->getEventEnvelopesWithId( $stream_identifier );
+		$commitedEnvelopes = $this->persistence->getEventStreamWithId( $streamId );
 
-		$this->assertCount( 1, $commited_envelopes );
+		$this->assertCount( 1, $commitedEnvelopes );
 		$this->assertContainsOnlyInstancesOf(
-			'\hollodotme\MilestonES\Interfaces\WrapsEventForCommit',
-			$commited_envelopes
+			'\hollodotme\MilestonES\Interfaces\CarriesCommitData',
+			$commitedEnvelopes
 		);
 	}
 
@@ -128,11 +128,11 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 	public function testPersistEventEnvelopeFailsWhenNotInTransaction()
 	{
 		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
-		$envelope          = new CommitEventEnvelope();
+		$envelope = new CommitEnvelope();
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
 		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
 
-		$this->persistence->persistEventEnvelope( $envelope );
+		$this->persistence->persistCommitEnvelope( $envelope );
 	}
 
 	public function testGetEventEnvelopesWithId()
@@ -140,28 +140,28 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 		$first_stream_identifier  = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID_1' ) );
 		$second_stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID_X' ) );
 
-		$envelope1 = new CommitEventEnvelope();
+		$envelope1 = new CommitEnvelope();
 		$envelope1->setStreamId( $first_stream_identifier->getStreamId() );
 		$envelope1->setStreamIdContract( $first_stream_identifier->getStreamIdContract() );
 
-		$envelope2 = new CommitEventEnvelope();
+		$envelope2 = new CommitEnvelope();
 		$envelope2->setStreamId( $second_stream_identifier->getStreamId() );
 		$envelope2->setStreamIdContract( $second_stream_identifier->getStreamIdContract() );
 
-		$envelope3 = new CommitEventEnvelope();
+		$envelope3 = new CommitEnvelope();
 		$envelope3->setStreamId( $second_stream_identifier->getStreamId() );
 		$envelope3->setStreamIdContract( $second_stream_identifier->getStreamIdContract() );
 
 		$this->persistence->beginTransaction();
 
-		$this->persistence->persistEventEnvelope( $envelope1 );
-		$this->persistence->persistEventEnvelope( $envelope2 );
-		$this->persistence->persistEventEnvelope( $envelope3 );
+		$this->persistence->persistCommitEnvelope( $envelope1 );
+		$this->persistence->persistCommitEnvelope( $envelope2 );
+		$this->persistence->persistCommitEnvelope( $envelope3 );
 
 		$this->persistence->commitTransaction();
 
-		$envelopes_first_stream  = $this->persistence->getEventEnvelopesWithId( $first_stream_identifier );
-		$envelopes_second_stream = $this->persistence->getEventEnvelopesWithId( $second_stream_identifier );
+		$envelopes_first_stream  = $this->persistence->getEventStreamWithId( $first_stream_identifier );
+		$envelopes_second_stream = $this->persistence->getEventStreamWithId( $second_stream_identifier );
 
 		$this->assertCount( 1, $envelopes_first_stream );
 		$this->assertCount( 2, $envelopes_second_stream );
@@ -179,7 +179,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 	{
 		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
 
-		$this->persistence->getEventEnvelopesWithId( $stream_identifier );
+		$this->persistence->getEventStreamWithId( $stream_identifier );
 	}
 
 	/**
@@ -188,36 +188,36 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 	public function testGetEventEnvelopesWithIdFailsWhenEnvelopesAreNotCommitted()
 	{
 		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
-		$envelope          = new CommitEventEnvelope();
+		$envelope = new CommitEnvelope();
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
 		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
 
 		$this->persistence->beginTransaction();
 
-		$this->persistence->persistEventEnvelope( $envelope );
+		$this->persistence->persistCommitEnvelope( $envelope );
 
-		$this->persistence->getEventEnvelopesWithId( $stream_identifier );
+		$this->persistence->getEventStreamWithId( $stream_identifier );
 	}
 
 	public function testFilesWillBeRestoredOnReconstitution()
 	{
 		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
-		$envelope          = new CommitEventEnvelope();
+		$envelope = new CommitEnvelope();
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
 		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
 		$envelope->setFile( __DIR__ . '/../Fixures/eventFileTest' );
 
 		$this->persistence->beginTransaction();
 
-		$this->persistence->persistEventEnvelope( $envelope );
+		$this->persistence->persistCommitEnvelope( $envelope );
 
 		$this->persistence->commitTransaction();
 
-		$commited_envelopes = $this->persistence->getEventEnvelopesWithId( $stream_identifier );
+		$commited_envelopes = $this->persistence->getEventStreamWithId( $stream_identifier );
 
 		$this->assertCount( 1, $commited_envelopes );
 
-		/** @var CommitEventEnvelope $restored_envelope */
+		/** @var CommitEnvelope $restored_envelope */
 		$restored_envelope = $commited_envelopes[0];
 
 		$this->assertNotEquals( $envelope->getFile(), $restored_envelope->getFile() );
@@ -233,7 +233,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 	public function testRestoringFilesOnReconstituionFailsWhenRestoreDirDoesNotExist()
 	{
 		$stream_identifier = new EventStreamIdentifier( new Identifier( 'Unit\\Test\\ID' ) );
-		$envelope          = new CommitEventEnvelope();
+		$envelope = new CommitEnvelope();
 		$envelope->setStreamId( $stream_identifier->getStreamId() );
 		$envelope->setStreamIdContract( $stream_identifier->getStreamIdContract() );
 		$envelope->setFile( __DIR__ . '/../Fixures/eventFileTest' );
@@ -242,10 +242,10 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 
 		$persistence->beginTransaction();
 
-		$persistence->persistEventEnvelope( $envelope );
+		$persistence->persistCommitEnvelope( $envelope );
 
 		$persistence->commitTransaction();
 
-		$persistence->getEventEnvelopesWithId( $stream_identifier );
+		$persistence->getEventStreamWithId( $stream_identifier );
 	}
 }

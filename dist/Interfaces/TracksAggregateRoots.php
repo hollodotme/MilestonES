@@ -26,9 +26,9 @@ interface TracksAggregateRoots
 	public function isTracked( AggregatesObjects $aggregateRoot );
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @return AggregatesObjects
 	 */
-	public function getWithId( Identifies $id );
+	public function getWithId( IdentifiesObject $id );
 }

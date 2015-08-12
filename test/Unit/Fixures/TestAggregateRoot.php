@@ -8,7 +8,7 @@ namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\AggregateRoot;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 
 /**
  * Class TestAggregateRoot
@@ -39,7 +39,7 @@ final class TestAggregateRoot extends AggregateRoot
 	}
 
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getIdentifier()
 	{

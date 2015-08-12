@@ -6,8 +6,8 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Interfaces\Identifies;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 
 /**
  * Class EventStreamIdentifier
@@ -17,23 +17,23 @@ use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 final class EventStreamIdentifier implements IdentifiesEventStream
 {
 
-	/** @var Identifies */
+	/** @var IdentifiesObject */
 	private $streamId;
 
 	/** @var Contract */
 	private $streamIdContract;
 
 	/**
-	 * @param Identifies $streamId
+	 * @param IdentifiesObject $streamId
 	 */
-	public function __construct( Identifies $streamId )
+	public function __construct( IdentifiesObject $streamId )
 	{
 		$this->streamId         = $streamId;
 		$this->streamIdContract = new Contract( get_class( $streamId ) );
 	}
 
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getStreamId()
 	{

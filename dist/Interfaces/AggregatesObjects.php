@@ -16,9 +16,9 @@ use hollodotme\MilestonES\EventStream;
 interface AggregatesObjects extends HasIdentity, TracksChanges
 {
 	/**
-	 * @param CollectsDomainEventEnvelopes $committedEvents
+	 * @param CollectsEventEnvelopes $committedEvents
 	 */
-	public function clearCommittedChanges( CollectsDomainEventEnvelopes $committedEvents );
+	public function clearCommittedChanges( CollectsEventEnvelopes $committedEvents );
 
 	/**
 	 * @param EventStream $eventStream

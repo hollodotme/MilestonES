@@ -7,7 +7,7 @@
 namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\Interfaces\CarriesEventData;
-use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 
 /**
  * Class UnitTestEvent
@@ -17,24 +17,24 @@ use hollodotme\MilestonES\Interfaces\Identifies;
 class UnitTestEvent implements CarriesEventData
 {
 
-	/** @var Identifies */
+	/** @var IdentifiesObject */
 	private $testId;
 
 	/** @var string */
 	private $description;
 
 	/**
-	 * @param Identifies $testId
+	 * @param IdentifiesObject $testId
 	 * @param string     $description
 	 */
-	public function __construct( Identifies $testId, $description )
+	public function __construct( IdentifiesObject $testId, $description )
 	{
 		$this->testId = $testId;
 		$this->description = $description;
 	}
 
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getTestId()
 	{
@@ -50,7 +50,7 @@ class UnitTestEvent implements CarriesEventData
 	}
 
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getStreamId()
 	{

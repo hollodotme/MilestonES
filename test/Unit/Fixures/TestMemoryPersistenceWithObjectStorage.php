@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
-use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
+use hollodotme\MilestonES\Interfaces\CarriesCommitData;
 use hollodotme\MilestonES\Persistence\Memory;
 
 /**
@@ -19,7 +19,7 @@ class TestMemoryPersistenceWithObjectStorage extends Memory
 	/**
 	 * @param string $key
 	 *
-	 * @return WrapsEventForCommit[]
+	 * @return CarriesCommitData[]
 	 */
 	protected function getCommitedRecordsForKey( $key )
 	{
@@ -27,7 +27,7 @@ class TestMemoryPersistenceWithObjectStorage extends Memory
 
 		foreach ( $this->recordsCommited[ $key ] as $record )
 		{
-			/** @var WrapsEventForCommit $envelope */
+			/** @var CarriesCommitData $envelope */
 			$envelope = $record['envelope'];
 			if ( isset($record['file_content']) && !is_null( $record['file_content'] ) )
 			{

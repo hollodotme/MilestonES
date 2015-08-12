@@ -6,14 +6,24 @@
 
 namespace hollodotme\MilestonES\Interfaces;
 
+use hollodotme\MilestonES\EventStream;
+
 /**
  * Interface StoresEvents
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface StoresEvents extends ObservedForCommitedEvents
+interface StoresEvents extends PublishesEvents
 {
-	public function commitEvents( CollectsDomainEventEnvelopes $eventEnvelopes );
+	/**
+	 * @param CollectsEventEnvelopes $eventEnvelopes
+	 */
+	public function commitEvents( CollectsEventEnvelopes $eventEnvelopes );
 
-	public function getEventStreamForId( Identifies $id );
+	/**
+	 * @param IdentifiesObject $id
+	 *
+	 * @return EventStream
+	 */
+	public function getEventStreamForId( IdentifiesObject $id );
 }

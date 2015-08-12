@@ -10,7 +10,7 @@ use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
 use hollodotme\MilestonES\Exceptions\RepositoryWithNameDoesNotExist;
 use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
-use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
+use hollodotme\MilestonES\Interfaces\CollectsEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\CommitsChanges;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
 
@@ -143,11 +143,11 @@ class AggregateRootManager implements CommitsChanges
 	}
 
 	/**
-	 * @param CollectsDomainEventEnvelopes $events
+	 * @param CollectsEventEnvelopes $events
 	 *
 	 * @throws CommittingEventsFailed
 	 */
-	private function commitChangesToEventStore( CollectsDomainEventEnvelopes $events )
+	private function commitChangesToEventStore( CollectsEventEnvelopes $events )
 	{
 		$this->eventStore->commitEvents( $events );
 	}

@@ -8,8 +8,8 @@ namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CarriesEventData;
-use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
-use hollodotme\MilestonES\Interfaces\Identifies;
+use hollodotme\MilestonES\Interfaces\CollectsEventEnvelopes;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 
 /**
@@ -20,21 +20,21 @@ use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 abstract class AggregateRoot implements AggregatesObjects
 {
 
-	/** @var DomainEventEnvelopeCollection */
+	/** @var EventEnvelopeCollection */
 	private $trackedChanges;
 
 	final protected function __construct()
 	{
-		$this->trackedChanges = new DomainEventEnvelopeCollection();
+		$this->trackedChanges = new EventEnvelopeCollection();
 	}
 
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	abstract public function getIdentifier();
 
 	/**
-	 * @return DomainEventEnvelopeCollection
+	 * @return EventEnvelopeCollection
 	 */
 	final public function getChanges()
 	{
@@ -50,9 +50,9 @@ abstract class AggregateRoot implements AggregatesObjects
 	}
 
 	/**
-	 * @param CollectsDomainEventEnvelopes $commitedEvents
+	 * @param CollectsEventEnvelopes $commitedEvents
 	 */
-	final public function clearCommittedChanges( CollectsDomainEventEnvelopes $commitedEvents )
+	final public function clearCommittedChanges( CollectsEventEnvelopes $commitedEvents )
 	{
 		$this->trackedChanges->removeEvents( $commitedEvents );
 	}
@@ -86,11 +86,11 @@ abstract class AggregateRoot implements AggregatesObjects
 	 * @param \stdClass|array  $metaData
 	 * @param string           $file
 	 *
-	 * @return DomainEventEnvelope
+	 * @return EventEnvelope
 	 */
 	protected function getDomainEventEnvelope( CarriesEventData $event, $metaData, $file )
 	{
-		return new DomainEventEnvelope( $event, $metaData, $file );
+		return new EventEnvelope( $event, $metaData, $file );
 	}
 
 	/**

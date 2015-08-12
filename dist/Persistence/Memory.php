@@ -10,9 +10,9 @@ use hollodotme\MilestonES\Exceptions\EventStreamDoesNotExistForKey;
 use hollodotme\MilestonES\Exceptions\PersistenceHasNoTransactionStarted;
 use hollodotme\MilestonES\Exceptions\PersistenceHasStartedTransactionAlready;
 use hollodotme\MilestonES\Exceptions\RestoringFileWithContentFailed;
+use hollodotme\MilestonES\Interfaces\CarriesCommitData;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
-use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 
 /**
  * Class Memory
@@ -22,10 +22,10 @@ use hollodotme\MilestonES\Interfaces\WrapsEventForCommit;
 class Memory implements PersistsEventEnvelopes
 {
 
-	/** @var WrapsEventForCommit[] */
+	/** @var CarriesCommitData[] */
 	protected $recordsInTransaction;
 
-	/** @var WrapsEventForCommit[] */
+	/** @var CarriesCommitData[] */
 	protected $recordsCommited;
 
 	/** @var bool */
@@ -75,9 +75,9 @@ class Memory implements PersistsEventEnvelopes
 	}
 
 	/**
-	 * @param WrapsEventForCommit $commitEnvelope
+	 * @param CarriesCommitData $commitEnvelope
 	 */
-	public function persistEventEnvelope( WrapsEventForCommit $commitEnvelope )
+	public function persistCommitEnvelope( CarriesCommitData $commitEnvelope )
 	{
 		$this->guardIsInTransaction();
 
@@ -112,9 +112,9 @@ class Memory implements PersistsEventEnvelopes
 	 * @param IdentifiesEventStream $id
 	 *
 	 * @throws EventStreamDoesNotExistForKey
-	 * @return WrapsEventForCommit[]
+	 * @return CarriesCommitData[]
 	 */
-	public function getEventEnvelopesWithId( IdentifiesEventStream $id )
+	public function getEventStreamWithId( IdentifiesEventStream $id )
 	{
 		$key = $this->buildKey( $id->getStreamIdContract(), $id->getStreamId() );
 
@@ -131,7 +131,7 @@ class Memory implements PersistsEventEnvelopes
 	/**
 	 * @param string $key
 	 *
-	 * @return WrapsEventForCommit[]
+	 * @return CarriesCommitData[]
 	 */
 	protected function getCommitedRecordsForKey( $key )
 	{
@@ -139,7 +139,7 @@ class Memory implements PersistsEventEnvelopes
 
 		foreach ( $this->recordsCommited[ $key ] as $record )
 		{
-			/** @var WrapsEventForCommit $envelope */
+			/** @var CarriesCommitData $envelope */
 			$envelope = $record['envelope'];
 			if ( isset($record['fileContent']) && !is_null( $record['fileContent'] ) )
 			{

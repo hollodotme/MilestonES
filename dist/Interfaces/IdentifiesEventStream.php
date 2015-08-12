@@ -14,12 +14,12 @@ namespace hollodotme\MilestonES\Interfaces;
 interface IdentifiesEventStream
 {
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getStreamId();
 
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getStreamIdContract();
 }

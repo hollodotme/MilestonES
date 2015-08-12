@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES;
  *
  * @package hollodotme\MilestonES
  */
-final class Contract extends ClassNameIdentifier
+final class Contract extends ClassId
 {
 	/**
 	 * @param string|object $id
