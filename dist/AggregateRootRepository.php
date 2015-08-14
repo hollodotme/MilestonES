@@ -12,6 +12,7 @@ use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
+use hollodotme\MilestonES\Interfaces\TakesSnapshots;
 use hollodotme\MilestonES\Interfaces\TracksAggregateRoots;
 
 /**
@@ -19,7 +20,7 @@ use hollodotme\MilestonES\Interfaces\TracksAggregateRoots;
  *
  * @package hollodotme\MilestonES
  */
-abstract class AggregateRootRepository implements TracksAggregateRoots
+abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSnapshots
 {
 
 	/** @var StoresEvents */
@@ -188,5 +189,13 @@ abstract class AggregateRootRepository implements TracksAggregateRoots
 	protected function getAggregateRootName()
 	{
 		return preg_replace( "#Repository$#", '', get_class( $this ) );
+	}
+
+	/**
+	 * @param AggregatesObjects $aggregateRoot
+	 */
+	public function takeSnapshot( AggregatesObjects $aggregateRoot )
+	{
+		$snapshot = new Snapshot( SnapshotId::generate(), $aggregateRoot );
 	}
 }

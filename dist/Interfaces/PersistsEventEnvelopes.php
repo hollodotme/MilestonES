@@ -11,19 +11,8 @@ namespace hollodotme\MilestonES\Interfaces;
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface PersistsEventEnvelopes
+interface PersistsEventEnvelopes extends PersistsInTransaction
 {
-	public function beginTransaction();
-
-	public function commitTransaction();
-
-	public function rollbackTransaction();
-
-	/**
-	 * @return bool
-	 */
-	public function isInTransaction();
-
 	/**
 	 * @param CarriesCommitData $commitEnvelope
 	 */
