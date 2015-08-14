@@ -14,7 +14,7 @@ namespace hollodotme\MilestonES\Interfaces;
 interface ListensForPublishedEvents
 {
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 */
-	public function update( WrapsDomainEvent $eventEnvelope );
+	public function update( ServesEventStreamData $eventEnvelope );
 }

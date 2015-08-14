@@ -8,7 +8,7 @@ namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
 use hollodotme\MilestonES\AggregateRootCollection;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 use hollodotme\MilestonES\Test\Unit\Fixures\TestAggregateRoot;
 use hollodotme\MilestonES\Test\Unit\Fixures\TestIdentifier;
 use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregate;
@@ -175,7 +175,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$collection->attach( $aggregate_root_2 );
 
-		/** @var WrapsDomainEvent[] $changes */
+		/** @var ServesEventStreamData[] $changes */
 		$changes = $collection->getChanges();
 
 		$first_event_in_changes  = $changes[0]->getPayload();

@@ -250,8 +250,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#91"><abbr
-                 title="getDomainEventEnvelope( CarriesEventData $event, $metaData, $file )">getDomainEventEnvelope</abbr></a>
-         </td>
+                 title="getEventEnvelope( CarriesEventData $event, $metaData, $file )">getEventEnvelope</abbr></a></td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -273,7 +272,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#99"><abbr
-                 title="applyChange( WrapsDomainEvent $eventEnvelope )">applyChange</abbr></a></td>
+                 title="applyChange( ServesEventStreamData $eventEnvelope )">applyChange</abbr></a></td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -366,7 +365,15 @@
                  class="default">Interfaces</span><span class="default">\</span><span
                  class="default">IdentifiesObject</span><span class="keyword">;</span></td>
      </tr>
-     <tr><td><div align="right"><a name="13"></a><a href="#13">13</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">WrapsDomainEvent</span><span class="keyword">;</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="13"></a><a href="#13">13</a></div>
+         </td>
+         <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
+                 class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
+                 class="default">Interfaces</span><span class="default">\</span><span class="default">ServesEventStreamData</span><span
+                 class="keyword">;</span></td>
+     </tr>
      <tr><td><div align="right"><a name="14"></a><a href="#14">14</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="15"></a><a href="#15">15</a></div></td><td class="codeLine"><span class="comment">/**</span></td></tr>
      <tr><td><div align="right"><a name="16"></a><a href="#16">16</a></div></td><td class="codeLine"><span class="comment">&nbsp;*&nbsp;Class&nbsp;AggregateRoot</span></td></tr>
@@ -699,11 +706,11 @@
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="default">$domainEventEnvelope</span><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="keyword">=</span><span class="default">&nbsp;</span><span class="default">$this</span><span
-                 class="default">-&gt;</span><span class="default">getDomainEventEnvelope</span><span
-                 class="keyword">(</span><span class="default">&nbsp;</span><span class="default">$event</span><span
-                 class="keyword">,</span><span class="default">&nbsp;</span><span class="default">$metaData</span><span
-                 class="keyword">,</span><span class="default">&nbsp;</span><span class="default">$file</span><span
-                 class="default">&nbsp;</span><span class="keyword">)</span><span class="keyword">;</span></td>
+                 class="default">-&gt;</span><span class="default">getEventEnvelope</span><span class="keyword">(</span><span
+                 class="default">&nbsp;</span><span class="default">$event</span><span class="keyword">,</span><span
+                 class="default">&nbsp;</span><span class="default">$metaData</span><span class="keyword">,</span><span
+                 class="default">&nbsp;</span><span class="default">$file</span><span class="default">&nbsp;</span><span
+                 class="keyword">)</span><span class="keyword">;</span></td>
      </tr>
      <tr class="covered-by-large-tests popin" data-title="14 tests cover line 79"
          data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testCanAttachAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testAttachingSameAggregateRootMoreThanOnceHasNoEffect&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testTwoAggregateRootsWithDifferentIdentifierClassesButSameIdCanBeAttached&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testTwoAggregateRootsWithDifferentIdsCanBeAttached&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testAttachingTwoAggregateRootsWithSameIdFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testAggregateRootCanBeFoundByIdWhenAttached&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testAggregateRootsWithDifferentIdentifierClassesButSameIdCanBeFoundWhenAttached&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testCanLoopOverCollectionMoreThanOnce&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testCanGetChangesOfAllAggregateRootsInCollectionInCorrectOrder&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest::testCanClearChangesInAggregateRoots&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootTest::testScheduleTriggersAndAppliesChangeWithId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootTest::testChangesCanBeCleared&lt;/li&gt;&lt;/ul&gt;"
@@ -796,7 +803,7 @@
          </td>
          <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                  class="keyword">protected</span><span class="default">&nbsp;</span><span
-                 class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getDomainEventEnvelope</span><span
+                 class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getEventEnvelope</span><span
                  class="keyword">(</span><span class="default">&nbsp;</span><span
                  class="default">CarriesEventData</span><span class="default">&nbsp;</span><span
                  class="default">$event</span><span class="keyword">,</span><span class="default">&nbsp;</span><span
@@ -845,7 +852,7 @@
          <td>
              <div align="right"><a name="97"></a><a href="#97">97</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;WrapsDomainEvent&nbsp;$eventEnvelope</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;ServesEventStreamData&nbsp;$eventEnvelope</span>
          </td>
      </tr>
      <tr>
@@ -862,9 +869,9 @@
                  class="keyword">protected</span><span class="default">&nbsp;</span><span
                  class="keyword">function</span><span class="default">&nbsp;</span><span
                  class="default">applyChange</span><span class="keyword">(</span><span
-                 class="default">&nbsp;</span><span class="default">WrapsDomainEvent</span><span
-                 class="default">&nbsp;</span><span class="default">$eventEnvelope</span><span
-                 class="default">&nbsp;</span><span class="keyword">)</span></td>
+                 class="default">&nbsp;</span><span class="default">ServesEventStreamData</span><span class="default">&nbsp;</span><span
+                 class="default">$eventEnvelope</span><span class="default">&nbsp;</span><span class="keyword">)</span>
+         </td>
      </tr>
      <tr>
          <td>
@@ -1129,7 +1136,7 @@
     <p>
         <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage
             2.1.4</a> using <a href="http://php.net/" target="_top">PHP 5.5.9-1ubuntu4.9</a> and <a
-                href="http://phpunit.de/">PHPUnit 4.7.2</a> at Wed Aug 12 22:01:15 CEST 2015.
+                href="http://phpunit.de/">PHPUnit 4.7.2</a> at Fri Aug 14 21:39:18 CEST 2015.
         </small>
     </p>
     <a title="Back to the top" id="toplink" href="#"><span class="glyphicon glyphicon-arrow-up"></span></a>

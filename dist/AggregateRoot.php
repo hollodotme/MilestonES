@@ -10,7 +10,7 @@ use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CarriesEventData;
 use hollodotme\MilestonES\Interfaces\CollectsEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\IdentifiesObject;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class AggregateRoot
@@ -75,7 +75,7 @@ abstract class AggregateRoot implements AggregatesObjects
 	 */
 	protected function trackThat( CarriesEventData $event, $metaData, $file = null )
 	{
-		$domainEventEnvelope    = $this->getDomainEventEnvelope( $event, $metaData, $file );
+		$domainEventEnvelope = $this->getEventEnvelope( $event, $metaData, $file );
 		$this->trackedChanges[] = $domainEventEnvelope;
 
 		$this->applyChange( $domainEventEnvelope );
@@ -88,15 +88,15 @@ abstract class AggregateRoot implements AggregatesObjects
 	 *
 	 * @return EventEnvelope
 	 */
-	protected function getDomainEventEnvelope( CarriesEventData $event, $metaData, $file )
+	protected function getEventEnvelope( CarriesEventData $event, $metaData, $file )
 	{
 		return new EventEnvelope( $event, $metaData, $file );
 	}
 
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 */
-	protected function applyChange( WrapsDomainEvent $eventEnvelope )
+	protected function applyChange( ServesEventStreamData $eventEnvelope )
 	{
 		$event      = $eventEnvelope->getPayload();
 		$occurredOn = $eventEnvelope->getOccurredOn();

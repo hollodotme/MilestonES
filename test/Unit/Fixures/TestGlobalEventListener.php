@@ -7,7 +7,7 @@
 namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class TestGlobalEventListener
@@ -17,9 +17,9 @@ use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 class TestGlobalEventListener implements ListensForPublishedEvents
 {
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 */
-	public function update( WrapsDomainEvent $eventEnvelope )
+	public function update( ServesEventStreamData $eventEnvelope )
 	{
 		echo get_class( $eventEnvelope->getPayload() )
 		     . " with ID {$eventEnvelope->getStreamId()} was globally observed.\n";

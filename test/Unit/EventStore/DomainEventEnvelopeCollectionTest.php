@@ -10,7 +10,7 @@ use hollodotme\MilestonES\EventEnvelope;
 use hollodotme\MilestonES\EventEnvelopeCollection;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\Interfaces\CarriesEventData;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
@@ -149,7 +149,7 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 
 		/** @var EventEnvelopeCollection $collection */
 		$collection->sort(
-			function ( WrapsDomainEvent $a, WrapsDomainEvent $b )
+			function ( ServesEventStreamData $a, ServesEventStreamData $b )
 			{
 				if ( $a->getOccurredOnMicrotime() < $b->getOccurredOnMicrotime() )
 				{

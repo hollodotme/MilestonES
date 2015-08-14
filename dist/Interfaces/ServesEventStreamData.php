@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface WrapsDomainEvent
+ * Interface ServesEventStreamData
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface WrapsDomainEvent
+interface ServesEventStreamData
 {
 	/**
 	 * @return IdentifiesObject

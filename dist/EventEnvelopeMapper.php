@@ -10,7 +10,7 @@ use hollodotme\MilestonES\Interfaces\CarriesCommitData;
 use hollodotme\MilestonES\Interfaces\CarriesEventData;
 use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class EventEnvelopeMapper
@@ -32,12 +32,12 @@ class EventEnvelopeMapper
 	}
 
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 * @param IdentifiesCommit $commit
 	 *
 	 * @return CommitEnvelope
 	 */
-	public function putEventInEnvelopeForCommit( WrapsDomainEvent $eventEnvelope, IdentifiesCommit $commit )
+	public function putEventInEnvelopeForCommit( ServesEventStreamData $eventEnvelope, IdentifiesCommit $commit )
 	{
 		$streamIdentifier = $this->getStreamIdentifierForEventEnvelope( $eventEnvelope );
 		$payloadContract  = $this->getPayloadContract();
@@ -68,7 +68,7 @@ class EventEnvelopeMapper
 	/**
 	 * @param CarriesCommitData[] $commitEnvelopes
 	 *
-	 * @return array|\Iterator|\Countable|WrapsDomainEvent[]
+	 * @return array|\Iterator|\Countable|ServesEventStreamData[]
 	 */
 	public function extractEventEnvelopesFromCommitEnvelopes( $commitEnvelopes )
 	{
@@ -122,11 +122,11 @@ class EventEnvelopeMapper
 	}
 
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 *
 	 * @return IdentifiesEventStream
 	 */
-	private function getStreamIdentifierForEventEnvelope( WrapsDomainEvent $eventEnvelope )
+	private function getStreamIdentifierForEventEnvelope( ServesEventStreamData $eventEnvelope )
 	{
 		return new EventStreamIdentifier( $eventEnvelope->getStreamId() );
 	}

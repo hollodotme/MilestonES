@@ -439,7 +439,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#221"><abbr
-                 title="commitEvent( IdentifiesCommit $commit, WrapsDomainEvent $eventEnvelope )">commitEvent</abbr></a>
+                 title="commitEvent( IdentifiesCommit $commit, ServesEventStreamData $eventEnvelope )">commitEvent</abbr></a>
          </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
@@ -462,7 +462,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#234"><abbr
-                 title="getCommitEventEnvelope( WrapsDomainEvent $eventEnvelope, IdentifiesCommit $commit )">getCommitEventEnvelope</abbr></a>
+                 title="getCommitEventEnvelope( ServesEventStreamData $eventEnvelope, IdentifiesCommit $commit )">getCommitEventEnvelope</abbr></a>
          </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
@@ -508,7 +508,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#255"><abbr
-                 title="publishEvent( WrapsDomainEvent $eventEnvelope )">publishEvent</abbr></a></td>
+                 title="publishEvent( ServesEventStreamData $eventEnvelope )">publishEvent</abbr></a></td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -530,7 +530,7 @@
 
      <tr>
          <td class="success" colspan="4">&nbsp;<a href="#263"><abbr
-                 title="notifyAboutCommittedEvent( WrapsDomainEvent $eventEnvelope )">notifyAboutCommittedEvent</abbr></a>
+                 title="notifyAboutCommittedEvent( ServesEventStreamData $eventEnvelope )">notifyAboutCommittedEvent</abbr></a>
          </td>
       <td class="success big">       <div class="progress">
          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
@@ -694,12 +694,21 @@
          </td>
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
+                 class="default">Interfaces</span><span class="default">\</span><span
+                 class="default">CarriesCommitData</span><span class="keyword">;</span></td>
+     </tr>
+     <tr>
+         <td>
+             <div align="right"><a name="15"></a><a href="#15">15</a></div>
+         </td>
+         <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
+                 class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
                  class="default">Interfaces</span><span class="default">\</span><span class="default">CollectsEventEnvelopes</span><span
                  class="keyword">;</span></td>
      </tr>
      <tr>
          <td>
-             <div align="right"><a name="15"></a><a href="#15">15</a></div>
+             <div align="right"><a name="16"></a><a href="#16">16</a></div>
          </td>
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
@@ -708,7 +717,7 @@
      </tr>
      <tr>
          <td>
-             <div align="right"><a name="16"></a><a href="#16">16</a></div>
+             <div align="right"><a name="17"></a><a href="#17">17</a></div>
          </td>
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
@@ -717,7 +726,7 @@
      </tr>
      <tr>
          <td>
-             <div align="right"><a name="17"></a><a href="#17">17</a></div>
+             <div align="right"><a name="18"></a><a href="#18">18</a></div>
          </td>
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
@@ -726,33 +735,48 @@
      </tr>
      <tr>
          <td>
-             <div align="right"><a name="18"></a><a href="#18">18</a></div>
+             <div align="right"><a name="19"></a><a href="#19">19</a></div>
          </td>
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
                  class="default">Interfaces</span><span class="default">\</span><span class="default">ListensForPublishedEvents</span><span
                  class="keyword">;</span></td>
      </tr>
-     <tr><td><div align="right"><a name="19"></a><a href="#19">19</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">PersistsEventEnvelopes</span><span class="keyword">;</span></td></tr>
      <tr>
          <td>
              <div align="right"><a name="20"></a><a href="#20">20</a></div>
          </td>
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
+                 class="default">Interfaces</span><span class="default">\</span><span class="default">PersistsEventEnvelopes</span><span
+                 class="keyword">;</span></td>
+     </tr>
+     <tr>
+         <td>
+             <div align="right"><a name="21"></a><a href="#21">21</a></div>
+         </td>
+         <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
+                 class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
                  class="default">Interfaces</span><span class="default">\</span><span class="default">ServesEventStoreConfig</span><span
                  class="keyword">;</span></td>
      </tr>
-     <tr><td><div align="right"><a name="21"></a><a href="#21">21</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">StoresEvents</span><span class="keyword">;</span></td></tr>
-     <tr><td><div align="right"><a name="22"></a><a href="#22">22</a></div></td><td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span class="default">Interfaces</span><span class="default">\</span><span class="default">WrapsDomainEvent</span><span class="keyword">;</span></td></tr>
+     <tr>
+         <td>
+             <div align="right"><a name="22"></a><a href="#22">22</a></div>
+         </td>
+         <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
+                 class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
+                 class="default">Interfaces</span><span class="default">\</span><span
+                 class="default">StoresEvents</span><span class="keyword">;</span></td>
+     </tr>
      <tr>
          <td>
              <div align="right"><a name="23"></a><a href="#23">23</a></div>
          </td>
          <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">hollodotme</span><span
                  class="default">\</span><span class="default">MilestonES</span><span class="default">\</span><span
-                 class="default">Interfaces</span><span class="default">\</span><span
-                 class="default">CarriesCommitData</span><span class="keyword">;</span></td>
+                 class="default">Interfaces</span><span class="default">\</span><span class="default">ServesEventStreamData</span><span
+                 class="keyword">;</span></td>
      </tr>
      <tr><td><div align="right"><a name="24"></a><a href="#24">24</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="25"></a><a href="#25">25</a></div></td><td class="codeLine"><span class="comment">/**</span></td></tr>
@@ -2210,7 +2234,7 @@
          <td>
              <div align="right"><a name="219"></a><a href="#219">219</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;WrapsDomainEvent&nbsp;$eventEnvelope</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;ServesEventStreamData&nbsp;$eventEnvelope</span>
          </td>
      </tr>
      <tr>
@@ -2229,9 +2253,9 @@
                  class="default">commitEvent</span><span class="keyword">(</span><span
                  class="default">&nbsp;</span><span class="default">IdentifiesCommit</span><span
                  class="default">&nbsp;</span><span class="default">$commit</span><span class="keyword">,</span><span
-                 class="default">&nbsp;</span><span class="default">WrapsDomainEvent</span><span
-                 class="default">&nbsp;</span><span class="default">$eventEnvelope</span><span
-                 class="default">&nbsp;</span><span class="keyword">)</span></td>
+                 class="default">&nbsp;</span><span class="default">ServesEventStreamData</span><span class="default">&nbsp;</span><span
+                 class="default">$eventEnvelope</span><span class="default">&nbsp;</span><span class="keyword">)</span>
+         </td>
      </tr>
      <tr>
          <td>
@@ -2295,7 +2319,7 @@
          <td>
              <div align="right"><a name="229"></a><a href="#229">229</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;WrapsDomainEvent&nbsp;$eventEnvelope</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;ServesEventStreamData&nbsp;$eventEnvelope</span>
          </td>
      </tr>
      <tr>
@@ -2332,7 +2356,7 @@
                  class="keyword">private</span><span class="default">&nbsp;</span><span
                  class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getCommitEventEnvelope</span><span
                  class="keyword">(</span><span class="default">&nbsp;</span><span
-                 class="default">WrapsDomainEvent</span><span class="default">&nbsp;</span><span class="default">$eventEnvelope</span><span
+                 class="default">ServesEventStreamData</span><span class="default">&nbsp;</span><span class="default">$eventEnvelope</span><span
                  class="keyword">,</span><span class="default">&nbsp;</span><span
                  class="default">IdentifiesCommit</span><span class="default">&nbsp;</span><span
                  class="default">$commit</span><span class="default">&nbsp;</span><span class="keyword">)</span></td>
@@ -2488,7 +2512,7 @@
          <td>
              <div align="right"><a name="253"></a><a href="#253">253</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;WrapsDomainEvent&nbsp;$eventEnvelope</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;ServesEventStreamData&nbsp;$eventEnvelope</span>
          </td>
      </tr>
      <tr>
@@ -2505,9 +2529,9 @@
                  class="keyword">private</span><span class="default">&nbsp;</span><span
                  class="keyword">function</span><span class="default">&nbsp;</span><span
                  class="default">publishEvent</span><span class="keyword">(</span><span
-                 class="default">&nbsp;</span><span class="default">WrapsDomainEvent</span><span
-                 class="default">&nbsp;</span><span class="default">$eventEnvelope</span><span
-                 class="default">&nbsp;</span><span class="keyword">)</span></td>
+                 class="default">&nbsp;</span><span class="default">ServesEventStreamData</span><span class="default">&nbsp;</span><span
+                 class="default">$eventEnvelope</span><span class="default">&nbsp;</span><span class="keyword">)</span>
+         </td>
      </tr>
      <tr>
          <td>
@@ -2551,7 +2575,7 @@
          <td>
              <div align="right"><a name="261"></a><a href="#261">261</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;WrapsDomainEvent&nbsp;$eventEnvelope</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;ServesEventStreamData&nbsp;$eventEnvelope</span>
          </td>
      </tr>
      <tr>
@@ -2568,7 +2592,7 @@
                  class="keyword">private</span><span class="default">&nbsp;</span><span
                  class="keyword">function</span><span class="default">&nbsp;</span><span class="default">notifyAboutCommittedEvent</span><span
                  class="keyword">(</span><span class="default">&nbsp;</span><span
-                 class="default">WrapsDomainEvent</span><span class="default">&nbsp;</span><span class="default">$eventEnvelope</span><span
+                 class="default">ServesEventStreamData</span><span class="default">&nbsp;</span><span class="default">$eventEnvelope</span><span
                  class="default">&nbsp;</span><span class="keyword">)</span></td>
      </tr>
      <tr>
@@ -2784,8 +2808,8 @@
          <td>
              <div align="right"><a name="290"></a><a href="#290">290</a></div>
          </td>
-         <td class="codeLine"><span
-                 class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;WrapsDomainEvent[]</span></td>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;ServesEventStreamData[]</span>
+         </td>
      </tr>
      <tr>
          <td>
@@ -3132,7 +3156,7 @@
          <td>
              <div align="right"><a name="332"></a><a href="#332">332</a></div>
          </td>
-         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;array|\Countable|Interfaces\WrapsDomainEvent[]|\Iterator</span>
+         <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;array|\Countable|Interfaces\ServesEventStreamData[]|\Iterator</span>
          </td>
      </tr>
      <tr>
@@ -3480,7 +3504,7 @@
     <p>
         <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage
             2.1.4</a> using <a href="http://php.net/" target="_top">PHP 5.5.9-1ubuntu4.9</a> and <a
-                href="http://phpunit.de/">PHPUnit 4.7.2</a> at Wed Aug 12 22:01:15 CEST 2015.
+                href="http://phpunit.de/">PHPUnit 4.7.2</a> at Fri Aug 14 21:39:18 CEST 2015.
         </small>
     </p>
     <a title="Back to the top" id="toplink" href="#"><span class="glyphicon glyphicon-arrow-up"></span></a>

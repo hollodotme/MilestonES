@@ -8,7 +8,7 @@ namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\NotAnEventEnvelope;
 use hollodotme\MilestonES\Interfaces\CollectsEventEnvelopes;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class EventEnvelopeCollection
@@ -19,7 +19,7 @@ class EventEnvelopeCollection implements Interfaces\CollectsEventEnvelopes
 {
 
 	/**
-	 * @var WrapsDomainEvent[]
+	 * @var ServesEventStreamData[]
 	 */
 	protected $envelopes = [ ];
 
@@ -30,7 +30,7 @@ class EventEnvelopeCollection implements Interfaces\CollectsEventEnvelopes
 	{
 		$this->envelopes = array_filter(
 			$this->envelopes,
-			function ( WrapsDomainEvent $cur_envelope ) use ( $envelopes )
+			function ( ServesEventStreamData $cur_envelope ) use ( $envelopes )
 			{
 				return !in_array( $cur_envelope, iterator_to_array( $envelopes ), true );
 			}
@@ -57,7 +57,7 @@ class EventEnvelopeCollection implements Interfaces\CollectsEventEnvelopes
 	}
 
 	/**
-	 * @return Interfaces\WrapsDomainEvent
+	 * @return Interfaces\ServesEventStreamData
 	 */
 	public function current()
 	{
@@ -103,7 +103,7 @@ class EventEnvelopeCollection implements Interfaces\CollectsEventEnvelopes
 	/**
 	 * @param mixed $offset
 	 *
-	 * @return WrapsDomainEvent
+	 * @return ServesEventStreamData
 	 */
 	public function offsetGet( $offset )
 	{
@@ -119,7 +119,7 @@ class EventEnvelopeCollection implements Interfaces\CollectsEventEnvelopes
 
 	/**
 	 * @param int|null         $offset
-	 * @param WrapsDomainEvent $value
+	 * @param ServesEventStreamData $value
 	 */
 	public function offsetSet( $offset, $value )
 	{
@@ -158,7 +158,7 @@ class EventEnvelopeCollection implements Interfaces\CollectsEventEnvelopes
 	 */
 	private function guardType( $item )
 	{
-		if ( !($item instanceof Interfaces\WrapsDomainEvent) )
+		if ( !($item instanceof Interfaces\ServesEventStreamData) )
 		{
 			throw new NotAnEventEnvelope( gettype( $item ) );
 		}

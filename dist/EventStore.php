@@ -19,8 +19,8 @@ use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
 use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\ServesEventStoreConfig;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 use hollodotme\MilestonES\Interfaces\StoresEvents;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 
 /**
  * Class EventStores
@@ -216,9 +216,9 @@ final class EventStore implements StoresEvents
 
 	/**
 	 * @param IdentifiesCommit $commit
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 */
-	private function commitEvent( IdentifiesCommit $commit, WrapsDomainEvent $eventEnvelope )
+	private function commitEvent( IdentifiesCommit $commit, ServesEventStreamData $eventEnvelope )
 	{
 		$commitEnvelope = $this->getCommitEventEnvelope( $eventEnvelope, $commit );
 
@@ -226,12 +226,12 @@ final class EventStore implements StoresEvents
 	}
 
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 * @param IdentifiesCommit $commit
 	 *
 	 * @return CommitEnvelope
 	 */
-	private function getCommitEventEnvelope( WrapsDomainEvent $eventEnvelope, IdentifiesCommit $commit )
+	private function getCommitEventEnvelope( ServesEventStreamData $eventEnvelope, IdentifiesCommit $commit )
 	{
 		$mapper = $this->getEventEnvelopeMapper();
 
@@ -250,17 +250,17 @@ final class EventStore implements StoresEvents
 	}
 
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 */
-	private function publishEvent( WrapsDomainEvent $eventEnvelope )
+	private function publishEvent( ServesEventStreamData $eventEnvelope )
 	{
 		$this->notifyAboutCommittedEvent( $eventEnvelope );
 	}
 
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 */
-	private function notifyAboutCommittedEvent( WrapsDomainEvent $eventEnvelope )
+	private function notifyAboutCommittedEvent( ServesEventStreamData $eventEnvelope )
 	{
 		foreach ( $this->eventListeners as $observer )
 		{
@@ -287,7 +287,7 @@ final class EventStore implements StoresEvents
 	 * @param IdentifiesEventStream $id
 	 *
 	 * @throws EventEnvelopesNotFound
-	 * @return WrapsDomainEvent[]
+	 * @return ServesEventStreamData[]
 	 */
 	private function getStoredEventsWithId( IdentifiesEventStream $id )
 	{
@@ -329,7 +329,7 @@ final class EventStore implements StoresEvents
 	 * @param CarriesCommitData[] $envelopes
 	 *
 	 * @throws InvalidEventEnvelopeCollection
-	 * @return array|\Countable|Interfaces\WrapsDomainEvent[]|\Iterator
+	 * @return array|\Countable|Interfaces\ServesEventStreamData[]|\Iterator
 	 */
 	private function extractEventsFromEnvelopes( $envelopes )
 	{

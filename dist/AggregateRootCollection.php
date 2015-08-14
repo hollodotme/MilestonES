@@ -12,7 +12,7 @@ use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\CollectsEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\IdentifiesObject;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class AggregateRootCollection
@@ -177,7 +177,7 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	 */
 	private function getChangesSortFunction()
 	{
-		return function ( WrapsDomainEvent $envelopeA, WrapsDomainEvent $envelopeB )
+		return function ( ServesEventStreamData $envelopeA, ServesEventStreamData $envelopeB )
 		{
 			$microtimeA = floatval( $envelopeA->getOccurredOnMicrotime() );
 			$microtimeB = floatval( $envelopeB->getOccurredOnMicrotime() );

@@ -7,7 +7,7 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\EventCollectionIsImmutable;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class ImmutableEventEnvelopeCollection
@@ -17,7 +17,7 @@ use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
 class ImmutableEventEnvelopeCollection extends EventEnvelopeCollection
 {
 	/**
-	 * @param WrapsDomainEvent[] $events
+	 * @param ServesEventStreamData[] $events
 	 *
 	 * @throws Exceptions\NotAnEventEnvelope
 	 */
@@ -31,7 +31,7 @@ class ImmutableEventEnvelopeCollection extends EventEnvelopeCollection
 
 	/**
 	 * @param int|null         $offset
-	 * @param WrapsDomainEvent $value
+	 * @param ServesEventStreamData $value
 	 *
 	 * @throws EventCollectionIsImmutable
 	 */

@@ -7,7 +7,7 @@
 namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class TestEventListener
@@ -18,9 +18,9 @@ class TestEventListener implements ListensForPublishedEvents
 {
 
 	/**
-	 * @param WrapsDomainEvent $eventEnvelope
+	 * @param ServesEventStreamData $eventEnvelope
 	 */
-	public function update( WrapsDomainEvent $eventEnvelope )
+	public function update( ServesEventStreamData $eventEnvelope )
 	{
 		echo get_class( $eventEnvelope->getPayload() ) . " with ID {$eventEnvelope->getStreamId()} was committed.\n";
 	}

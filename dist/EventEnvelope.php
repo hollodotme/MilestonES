@@ -15,7 +15,7 @@ use hollodotme\MilestonES\Interfaces\IdentifiesObject;
  *
  * @package hollodotme\MilestonES\Events
  */
-class EventEnvelope implements Interfaces\WrapsDomainEvent
+class EventEnvelope implements Interfaces\ServesEventStreamData
 {
 
 	/** @var CarriesEventData */
