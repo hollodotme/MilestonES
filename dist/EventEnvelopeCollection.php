@@ -30,9 +30,9 @@ class EventEnvelopeCollection implements Interfaces\CollectsEventEnvelopes
 	{
 		$this->envelopes = array_filter(
 			$this->envelopes,
-			function ( ServesEventStreamData $cur_envelope ) use ( $envelopes )
+			function ( ServesEventStreamData $envelope ) use ( $envelopes )
 			{
-				return !in_array( $cur_envelope, iterator_to_array( $envelopes ), true );
+				return !in_array( $envelope, iterator_to_array( $envelopes ), true );
 			}
 		);
 	}
@@ -118,7 +118,7 @@ class EventEnvelopeCollection implements Interfaces\CollectsEventEnvelopes
 	}
 
 	/**
-	 * @param int|null         $offset
+	 * @param int|null $offset
 	 * @param ServesEventStreamData $value
 	 */
 	public function offsetSet( $offset, $value )

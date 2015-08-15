@@ -7,7 +7,7 @@
 namespace hollodotme\MilestonES\Test\Unit\Identifiers;
 
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Test\Unit\Fixures\TestIdentifier;
+use hollodotme\MilestonES\Test\Unit\Fixtures\TestIdentifier;
 
 class IdentifierTest extends \PHPUnit_Framework_TestCase
 {

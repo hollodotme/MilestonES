@@ -9,7 +9,7 @@ namespace hollodotme\MilestonES\Test\Unit\Serialization;
 use hollodotme\MilestonES\Contract;
 use hollodotme\MilestonES\SerializerRegistry;
 use hollodotme\MilestonES\Serializers\PhpSerializer;
-use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestSerializer;
+use hollodotme\MilestonES\Test\Unit\Fixtures\UnitTestSerializer;
 
 class SerializerRegistryTest extends \PHPUnit_Framework_TestCase
 {

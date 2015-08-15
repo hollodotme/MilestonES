@@ -11,9 +11,13 @@ use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
-use hollodotme\MilestonES\Interfaces\StoresEvents;
-use hollodotme\MilestonES\Interfaces\TakesSnapshots;
+use hollodotme\MilestonES\Interfaces\StoresApplicationState;
 use hollodotme\MilestonES\Interfaces\TracksAggregateRoots;
+use hollodotme\MilestonES\Snapshots\Interfaces\CarriesSnapshotData;
+use hollodotme\MilestonES\Snapshots\Interfaces\CollectsSnapshots;
+use hollodotme\MilestonES\Snapshots\Interfaces\TakesSnapshots;
+use hollodotme\MilestonES\Snapshots\Snapshot;
+use hollodotme\MilestonES\Snapshots\SnapshotId;
 
 /**
  * Class AggregateRootRepository
@@ -23,28 +27,37 @@ use hollodotme\MilestonES\Interfaces\TracksAggregateRoots;
 abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSnapshots
 {
 
-	/** @var StoresEvents */
-	protected $eventStore;
+	/** @var StoresApplicationState */
+	protected $applicationStateStore;
 
 	/** @var CollectsAggregateRoots */
 	protected $aggregateRootCollection;
 
-	/**
-	 * @param StoresEvents $eventStore
-	 * @param CollectsAggregateRoots $collection
-	 */
-	final public function __construct( StoresEvents $eventStore, CollectsAggregateRoots $collection )
-	{
-		$this->aggregateRootCollection = $collection;
-		$this->eventStore              = $eventStore;
+	/** @var CollectsSnapshots|CarriesSnapshotData[] */
+	private $snapshotCollection;
 
-		$this->attachCommitedEventObserversToEventStore();
+	/**
+	 * @param StoresApplicationState $applicationStateStore
+	 * @param CollectsAggregateRoots $aggregateRootCollection
+	 * @param CollectsSnapshots      $snapshotCollection
+	 */
+	final public function __construct(
+		StoresApplicationState $applicationStateStore,
+		CollectsAggregateRoots $aggregateRootCollection,
+		CollectsSnapshots $snapshotCollection
+	)
+	{
+		$this->applicationStateStore   = $applicationStateStore;
+		$this->aggregateRootCollection = $aggregateRootCollection;
+		$this->snapshotCollection      = $snapshotCollection;
+
+		$this->attachEventListenersToEventStore();
 	}
 
 	/**
 	 * @return ListensForPublishedEvents[]
 	 */
-	abstract public function getCommitedEventObservers();
+	abstract public function getEventListeners();
 
 	/**
 	 * @param AggregatesObjects $aggregateRoot
@@ -85,9 +98,9 @@ abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSna
 		}
 	}
 
-	private function attachCommitedEventObserversToEventStore()
+	private function attachEventListenersToEventStore()
 	{
-		foreach ( $this->getCommitedEventObservers() as $observer )
+		foreach ( $this->getEventListeners() as $observer )
 		{
 			$this->attachCommitedEventObserverToEventStore( $observer );
 		}
@@ -98,7 +111,7 @@ abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSna
 	 */
 	private function attachCommitedEventObserverToEventStore( ListensForPublishedEvents $observer )
 	{
-		$this->eventStore->attachEventListener( $observer );
+		$this->applicationStateStore->attachEventListener( $observer );
 	}
 
 	/**
@@ -159,7 +172,7 @@ abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSna
 	 */
 	private function getEventStreamForAggregateRootId( IdentifiesObject $id )
 	{
-		return $this->eventStore->getEventStreamForId( $id );
+		return $this->applicationStateStore->getEventStreamForId( $id );
 	}
 
 	/**
@@ -197,5 +210,7 @@ abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSna
 	public function takeSnapshot( AggregatesObjects $aggregateRoot )
 	{
 		$snapshot = new Snapshot( SnapshotId::generate(), $aggregateRoot );
+
+		$this->snapshotCollection->add( $snapshot );
 	}
 }

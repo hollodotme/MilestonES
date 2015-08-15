@@ -4,8 +4,8 @@
     <title></title>
   </head>
   <body>
-    <h2 id="hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollectionTest">
-      hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootCollection
+  <h2 id="hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootCollectionTest">
+    hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootCollection
     </h2>
     <ul>
       <li>Can attach aggregate root
@@ -31,8 +31,8 @@
       <li>Can clear changes in aggregate roots
       </li>
     </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepositoryTest">
-      hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootRepository
+  <h2 id="hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest">
+    hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepository
     </h2>
     <ul>
       <li>Can track an aggregate root
@@ -45,11 +45,11 @@
       </li>
       <li>Get aggregate root from event stream fails when nothing tracked and event stream not found
       </li>
-      <li>Can register event observers
+      <li>Can register event listeners
       </li>
     </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRootTest">
-      hollodotme\MilestonES\Test\Unit\Aggregates\AggregateRoot
+  <h2 id="hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootTest">
+    hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRoot
     </h2>
     <ul>
       <li>Schedule triggers and applies change with id
@@ -59,45 +59,8 @@
       <li>Changes can be cleared
       </li>
     </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\CommitEventEnvelopeTest">
-      hollodotme\MilestonES\Test\Unit\EventStore\CommitEventEnvelope
-    </h2>
-    <ul>
-      <li>From record
-      </li>
-    </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\DomainEventEnvelopeCollectionTest">
-      hollodotme\MilestonES\Test\Unit\EventStore\DomainEventEnvelopeCollection
-    </h2>
-    <ul>
-      <li>Collection is empty after contruction
-      </li>
-      <li>Collection is not empty after adding events
-      </li>
-      <li>Adding an item fails when it is not a domain event envelope
-      </li>
-      <li>Collection takes auto and concrete index
-      </li>
-      <li>Envelopes can be removed from collection using unset
-      </li>
-      <li>Can loop multiple times over collection
-      </li>
-      <li>Can sort collection by callable
-      </li>
-      <li>Can append collection to collection
-      </li>
-    </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventEnvelopeMapperTest">
-      hollodotme\MilestonES\Test\Unit\EventStore\EventEnvelopeMapper
-    </h2>
-    <ul>
-      <li>Put event in envelope for commit
-      </li>
-      <li>Extract event from envelope
-      </li>
-    </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\EventStoreTest">
-      hollodotme\MilestonES\Test\Unit\EventStore\EventStore
+  <h2 id="hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest">
+    hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStore
     </h2>
     <ul>
       <li>Can attach and notify observers when event is committed
@@ -123,8 +86,45 @@
       <li>Get event stream for id with countable iterator
       </li>
     </ul>
-    <h2 id="hollodotme\MilestonES\Test\Unit\EventStore\ImmutableEventCollectionTest">
-      hollodotme\MilestonES\Test\Unit\EventStore\ImmutableEventCollection
+  <h2 id="hollodotme\MilestonES\Test\Unit\ApplicationStateStore\CommitEventEnvelopeTest">
+    hollodotme\MilestonES\Test\Unit\ApplicationStateStore\CommitEventEnvelope
+  </h2>
+  <ul>
+      <li>From record
+      </li>
+    </ul>
+  <h2 id="hollodotme\MilestonES\Test\Unit\ApplicationStateStore\DomainEventEnvelopeCollectionTest">
+    hollodotme\MilestonES\Test\Unit\ApplicationStateStore\DomainEventEnvelopeCollection
+    </h2>
+    <ul>
+      <li>Collection is empty after contruction
+      </li>
+      <li>Collection is not empty after adding events
+      </li>
+      <li>Adding an item fails when it is not a domain event envelope
+      </li>
+      <li>Collection takes auto and concrete index
+      </li>
+      <li>Envelopes can be removed from collection using unset
+      </li>
+      <li>Can loop multiple times over collection
+      </li>
+      <li>Can sort collection by callable
+      </li>
+      <li>Can append collection to collection
+      </li>
+    </ul>
+  <h2 id="hollodotme\MilestonES\Test\Unit\ApplicationStateStore\EventEnvelopeMapperTest">
+    hollodotme\MilestonES\Test\Unit\ApplicationStateStore\EventEnvelopeMapper
+    </h2>
+    <ul>
+      <li>Put event in envelope for commit
+      </li>
+      <li>Extract event from envelope
+      </li>
+    </ul>
+  <h2 id="hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ImmutableEventCollectionTest">
+    hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ImmutableEventCollection
     </h2>
     <ul>
       <li>Adding events by array access after construction fails

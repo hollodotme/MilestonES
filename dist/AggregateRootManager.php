@@ -12,7 +12,13 @@ use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\CollectsEventEnvelopes;
 use hollodotme\MilestonES\Interfaces\CommitsChanges;
-use hollodotme\MilestonES\Interfaces\StoresEvents;
+use hollodotme\MilestonES\Interfaces\StoresApplicationState;
+use hollodotme\MilestonES\Interfaces\TracksAggregateRootRepositories;
+use hollodotme\MilestonES\Interfaces\TracksAggregateRoots;
+use hollodotme\MilestonES\Snapshots\Interfaces\CarriesSnapshotData;
+use hollodotme\MilestonES\Snapshots\Interfaces\CollectsSnapshots;
+use hollodotme\MilestonES\Snapshots\Interfaces\TakesSnapshots;
+use hollodotme\MilestonES\Snapshots\SnapshotCollection;
 
 /**
  * Class AggregateRootManager
@@ -22,23 +28,27 @@ use hollodotme\MilestonES\Interfaces\StoresEvents;
 class AggregateRootManager implements CommitsChanges
 {
 
-	/** @var StoresEvents */
-	private $eventStore;
+	/** @var StoresApplicationState */
+	private $applicationStateStore;
 
 	/** @var CollectsAggregateRoots|AggregatesObjects[] */
 	private $aggregateRootCollection;
 
-	/** @var AggregateRootRepository[] */
-	private $repositories = [ ];
+	/** @var TracksAggregateRootRepositories|TracksAggregateRoots[] */
+	private $aggregateRootRepositoryMap;
+
+	/** @var CollectsSnapshots|CarriesSnapshotData[] */
+	private $snapshotCollection;
 
 	/**
-	 * @param StoresEvents           $eventStore
-	 * @param CollectsAggregateRoots $aggregateRootCollection
+	 * @param StoresApplicationState $applicationStateStore
 	 */
-	public function __construct( StoresEvents $eventStore, CollectsAggregateRoots $aggregateRootCollection )
+	public function __construct( StoresApplicationState $applicationStateStore )
 	{
-		$this->eventStore              = $eventStore;
-		$this->aggregateRootCollection = $aggregateRootCollection;
+		$this->applicationStateStore      = $applicationStateStore;
+		$this->aggregateRootCollection    = new AggregateRootCollection();
+		$this->aggregateRootRepositoryMap = new AggregateRootRepositoryMap();
+		$this->snapshotCollection         = new SnapshotCollection();
 	}
 
 	/**
@@ -50,46 +60,17 @@ class AggregateRootManager implements CommitsChanges
 	{
 		$respoitoryFqcn = $this->getAggregateRootRepositoryFqcn( $aggregateRootFqcn );
 
-		if ( $this->isRepositoryTracked( $respoitoryFqcn ) )
+		if ( $this->aggregateRootRepositoryMap->isTracked( $respoitoryFqcn ) )
 		{
-			return $this->getTrackedRepository( $respoitoryFqcn );
+			return $this->aggregateRootRepositoryMap->getTracked( $respoitoryFqcn );
 		}
 		else
 		{
 			$repository = $this->createAggregateRootRepository( $respoitoryFqcn );
-			$this->trackRepository( $respoitoryFqcn, $repository );
+			$this->aggregateRootRepositoryMap->track( $respoitoryFqcn, $repository );
 
 			return $repository;
 		}
-	}
-
-	/**
-	 * @param string $repositoryFqcn
-	 *
-	 * @return bool
-	 */
-	private function isRepositoryTracked( $repositoryFqcn )
-	{
-		return array_key_exists( $repositoryFqcn, $this->repositories );
-	}
-
-	/**
-	 * @param string $repositoryFqcn
-	 *
-	 * @return AggregateRootRepository
-	 */
-	private function getTrackedRepository( $repositoryFqcn )
-	{
-		return $this->repositories[ $repositoryFqcn ];
-	}
-
-	/**
-	 * @param string $repositoryFqcn
-	 * @param AggregateRootRepository $repository
-	 */
-	private function trackRepository( $repositoryFqcn, AggregateRootRepository $repository )
-	{
-		$this->repositories[ $repositoryFqcn ] = $repository;
 	}
 
 	/**
@@ -127,7 +108,10 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	protected function createAggregateRootRepositoryByFqcn( $repositoryFqcn )
 	{
-		return new $repositoryFqcn( $this->eventStore, $this->aggregateRootCollection );
+		/** @var TracksAggregateRoots|TakesSnapshots $repositoryFqcn */
+		return new $repositoryFqcn(
+			$this->applicationStateStore, $this->aggregateRootCollection, $this->snapshotCollection
+		);
 	}
 
 	/**
@@ -138,6 +122,7 @@ class AggregateRootManager implements CommitsChanges
 		$changes = $this->aggregateRootCollection->getChanges();
 
 		$this->commitChangesToEventStore( $changes );
+		$this->commitSnapshotsToEventStore( $this->snapshotCollection );
 
 		$this->aggregateRootCollection->clearCommittedChanges( $changes );
 	}
@@ -149,6 +134,14 @@ class AggregateRootManager implements CommitsChanges
 	 */
 	private function commitChangesToEventStore( CollectsEventEnvelopes $events )
 	{
-		$this->eventStore->commitEvents( $events );
+		$this->applicationStateStore->commitEvents( $events );
+	}
+
+	/**
+	 * @param CollectsSnapshots $snapshots
+	 */
+	private function commitSnapshotsToEventStore( CollectsSnapshots $snapshots )
+	{
+		$this->applicationStateStore->commitSnapshots( $snapshots );
 	}
 }

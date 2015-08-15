@@ -37,7 +37,7 @@ class EventEnvelopeMapper
 	 *
 	 * @return CommitEnvelope
 	 */
-	public function putEventInEnvelopeForCommit( ServesEventStreamData $eventEnvelope, IdentifiesCommit $commit )
+	public function createCommitEnvelope( ServesEventStreamData $eventEnvelope, IdentifiesCommit $commit )
 	{
 		$streamIdentifier = $this->getStreamIdentifierForEventEnvelope( $eventEnvelope );
 		$payloadContract  = $this->getPayloadContract();

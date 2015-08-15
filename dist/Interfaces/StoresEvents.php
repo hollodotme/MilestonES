@@ -13,7 +13,7 @@ use hollodotme\MilestonES\EventStream;
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface StoresEvents extends PublishesEvents
+interface StoresEvents
 {
 	/**
 	 * @param CollectsEventEnvelopes $eventEnvelopes

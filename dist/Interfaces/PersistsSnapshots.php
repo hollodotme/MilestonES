@@ -6,6 +6,8 @@
 
 namespace hollodotme\MilestonES\Interfaces;
 
+use hollodotme\MilestonES\Snapshots\Interfaces\CarriesSnapshotData;
+
 /**
  * Interface PersistsSnapshots
  *
