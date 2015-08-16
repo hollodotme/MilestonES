@@ -17,7 +17,7 @@ use hollodotme\MilestonES\SerializerRegistry;
 interface ServesApplicationStateStoreConfig
 {
 	/**
-	 * @return PersistsEventEnvelopes
+	 * @return PersistsCommitEnvelopes
 	 */
 	public function getEventPersistence();
 

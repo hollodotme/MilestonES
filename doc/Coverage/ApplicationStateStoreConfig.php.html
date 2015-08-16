@@ -22,7 +22,7 @@
 
                 </ol>
             </div>
-        </div>
+    </div>
     </div>
 </header>
 <div class="container">
@@ -211,7 +211,7 @@
         </tr>
 
         <tr>
-            <td class="success" colspan="4">&nbsp;<a href="#42"><abbr title="getGlobalEventListeners()">getGlobalEventListeners</abbr></a>
+            <td class="success" colspan="4">&nbsp;<a href="#41"><abbr title="getGlobalEventListeners()">getGlobalEventListeners</abbr></a>
             </td>
             <td class="success big">
                 <div class="progress">
@@ -245,7 +245,7 @@
         </tr>
 
         <tr>
-            <td class="success" colspan="4">&nbsp;<a href="#50"><abbr title="getSerializerRegistry()">getSerializerRegistry</abbr></a>
+            <td class="success" colspan="4">&nbsp;<a href="#49"><abbr title="getSerializerRegistry()">getSerializerRegistry</abbr></a>
             </td>
             <td class="success big">
                 <div class="progress">
@@ -279,7 +279,7 @@
         </tr>
 
         <tr>
-            <td class="success" colspan="4">&nbsp;<a href="#65"><abbr title="getSerializationDefaultContract()">getSerializationDefaultContract</abbr></a>
+            <td class="success" colspan="4">&nbsp;<a href="#64"><abbr title="getSerializationDefaultContract()">getSerializationDefaultContract</abbr></a>
             </td>
             <td class="success big">
                 <div class="progress">
@@ -313,7 +313,7 @@
         </tr>
 
         <tr>
-            <td class="success" colspan="4">&nbsp;<a href="#73"><abbr title="getSerializationStrategy()">getSerializationStrategy</abbr></a>
+            <td class="success" colspan="4">&nbsp;<a href="#72"><abbr title="getSerializationStrategy()">getSerializationStrategy</abbr></a>
             </td>
             <td class="success big">
                 <div class="progress">
@@ -418,7 +418,7 @@
             <td class="codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span
                     class="default">hollodotme</span><span class="default">\</span><span
                     class="default">MilestonES</span><span class="default">\</span><span
-                    class="default">Interfaces</span><span class="default">\</span><span class="default">PersistsEventEnvelopes</span><span
+                    class="default">Interfaces</span><span class="default">\</span><span class="default">PersistsCommitEnvelopes</span><span
                     class="keyword">;</span></td>
         </tr>
         <tr>
@@ -523,7 +523,7 @@
             <td>
                 <div align="right"><a name="24"></a><a href="#24">24</a></div>
             </td>
-            <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;PersistsEventEnvelopes</span>
+            <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;PersistsCommitEnvelopes</span>
             </td>
         </tr>
         <tr>
@@ -609,50 +609,44 @@
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span>
             </td>
         </tr>
-        <tr>
-            <td>
-                <div align="right"><a name="36"></a><a href="#36">36</a></div>
-            </td>
-            <td class="codeLine"></td>
-        </tr>
-        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 37"
+        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 36"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
             data-placement="bottom" data-html="true">
             <td>
-                <div align="right"><a name="37"></a><a href="#37">37</a></div>
+                <div align="right"><a name="36"></a><a href="#36">36</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="38"></a><a href="#38">38</a></div>
+                <div align="right"><a name="37"></a><a href="#37">37</a></div>
             </td>
             <td class="codeLine"></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="39"></a><a href="#39">39</a></div>
+                <div align="right"><a name="38"></a><a href="#38">38</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="40"></a><a href="#40">40</a></div>
+                <div align="right"><a name="39"></a><a href="#39">39</a></div>
             </td>
             <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;ListensForPublishedEvents[]</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="41"></a><a href="#41">41</a></div>
+                <div align="right"><a name="40"></a><a href="#40">40</a></div>
             </td>
             <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="42"></a><a href="#42">42</a></div>
+                <div align="right"><a name="41"></a><a href="#41">41</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">public</span><span class="default">&nbsp;</span><span
@@ -661,16 +655,16 @@
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="43"></a><a href="#43">43</a></div>
+                <div align="right"><a name="42"></a><a href="#42">42</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span>
             </td>
         </tr>
-        <tr class="covered-by-large-tests popin" data-title="15 tests cover line 44"
+        <tr class="covered-by-large-tests popin" data-title="15 tests cover line 43"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
             data-placement="bottom" data-html="true">
             <td>
-                <div align="right"><a name="44"></a><a href="#44">44</a></div>
+                <div align="right"><a name="43"></a><a href="#43">43</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">return</span><span class="default">&nbsp;</span><span class="keyword">[</span><span
@@ -678,40 +672,40 @@
         </tr>
         <tr class="warning">
             <td>
-                <div align="right"><a name="45"></a><a href="#45">45</a></div>
+                <div align="right"><a name="44"></a><a href="#44">44</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="46"></a><a href="#46">46</a></div>
+                <div align="right"><a name="45"></a><a href="#45">45</a></div>
             </td>
             <td class="codeLine"></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="47"></a><a href="#47">47</a></div>
+                <div align="right"><a name="46"></a><a href="#46">46</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="48"></a><a href="#48">48</a></div>
+                <div align="right"><a name="47"></a><a href="#47">47</a></div>
             </td>
             <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;SerializerRegistry</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="49"></a><a href="#49">49</a></div>
+                <div align="right"><a name="48"></a><a href="#48">48</a></div>
             </td>
             <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="50"></a><a href="#50">50</a></div>
+                <div align="right"><a name="49"></a><a href="#49">49</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">public</span><span class="default">&nbsp;</span><span
@@ -720,16 +714,16 @@
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="51"></a><a href="#51">51</a></div>
+                <div align="right"><a name="50"></a><a href="#50">50</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span>
             </td>
         </tr>
-        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 52"
+        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 51"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
             data-placement="bottom" data-html="true">
             <td>
-                <div align="right"><a name="52"></a><a href="#52">52</a></div>
+                <div align="right"><a name="51"></a><a href="#51">51</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="default">$registry</span><span class="default">&nbsp;</span><span
@@ -739,9 +733,19 @@
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="53"></a><a href="#53">53</a></div>
+                <div align="right"><a name="52"></a><a href="#52">52</a></div>
             </td>
             <td class="codeLine"></td>
+        </tr>
+        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 53"
+            data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
+            data-placement="bottom" data-html="true">
+            <td>
+                <div align="right"><a name="53"></a><a href="#53">53</a></div>
+            </td>
+            <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    class="default">$registry</span><span class="default">-&gt;</span><span class="default">registerSerializerForContract</span><span
+                    class="keyword">(</span></td>
         </tr>
         <tr class="covered-by-large-tests popin" data-title="17 tests cover line 54"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
@@ -749,9 +753,12 @@
             <td>
                 <div align="right"><a name="54"></a><a href="#54">54</a></div>
             </td>
-            <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-                    class="default">$registry</span><span class="default">-&gt;</span><span class="default">registerSerializerForContract</span><span
-                    class="keyword">(</span></td>
+            <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    class="keyword">new</span><span class="default">&nbsp;</span><span
+                    class="default">Contract</span><span class="keyword">(</span><span
+                    class="default">&nbsp;</span><span class="default">PhpSerializer</span><span
+                    class="default">::</span><span class="keyword">class</span><span class="default">&nbsp;</span><span
+                    class="keyword">)</span><span class="keyword">,</span></td>
         </tr>
         <tr class="covered-by-large-tests popin" data-title="17 tests cover line 55"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
@@ -761,10 +768,8 @@
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">new</span><span class="default">&nbsp;</span><span
-                    class="default">Contract</span><span class="keyword">(</span><span
-                    class="default">&nbsp;</span><span class="default">PhpSerializer</span><span
-                    class="default">::</span><span class="keyword">class</span><span class="default">&nbsp;</span><span
-                    class="keyword">)</span><span class="keyword">,</span></td>
+                    class="default">PhpSerializer</span><span class="keyword">(</span><span class="keyword">)</span>
+            </td>
         </tr>
         <tr class="covered-by-large-tests popin" data-title="17 tests cover line 56"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
@@ -772,31 +777,20 @@
             <td>
                 <div align="right"><a name="56"></a><a href="#56">56</a></div>
             </td>
-            <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-                    class="keyword">new</span><span class="default">&nbsp;</span><span
-                    class="default">PhpSerializer</span><span class="keyword">(</span><span class="keyword">)</span>
-            </td>
-        </tr>
-        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 57"
-            data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
-            data-placement="bottom" data-html="true">
-            <td>
-                <div align="right"><a name="57"></a><a href="#57">57</a></div>
-            </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">)</span><span class="keyword">;</span></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="58"></a><a href="#58">58</a></div>
+                <div align="right"><a name="57"></a><a href="#57">57</a></div>
             </td>
             <td class="codeLine"></td>
         </tr>
-        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 59"
+        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 58"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
             data-placement="bottom" data-html="true">
             <td>
-                <div align="right"><a name="59"></a><a href="#59">59</a></div>
+                <div align="right"><a name="58"></a><a href="#58">58</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">return</span><span class="default">&nbsp;</span><span
@@ -804,40 +798,40 @@
         </tr>
         <tr class="warning">
             <td>
-                <div align="right"><a name="60"></a><a href="#60">60</a></div>
+                <div align="right"><a name="59"></a><a href="#59">59</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="61"></a><a href="#61">61</a></div>
+                <div align="right"><a name="60"></a><a href="#60">60</a></div>
             </td>
             <td class="codeLine"></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="62"></a><a href="#62">62</a></div>
+                <div align="right"><a name="61"></a><a href="#61">61</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="63"></a><a href="#63">63</a></div>
+                <div align="right"><a name="62"></a><a href="#62">62</a></div>
             </td>
             <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;Contract</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="64"></a><a href="#64">64</a></div>
+                <div align="right"><a name="63"></a><a href="#63">63</a></div>
             </td>
             <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="65"></a><a href="#65">65</a></div>
+                <div align="right"><a name="64"></a><a href="#64">64</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">public</span><span class="default">&nbsp;</span><span
@@ -846,16 +840,16 @@
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="66"></a><a href="#66">66</a></div>
+                <div align="right"><a name="65"></a><a href="#65">65</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span>
             </td>
         </tr>
-        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 67"
+        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 66"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
             data-placement="bottom" data-html="true">
             <td>
-                <div align="right"><a name="67"></a><a href="#67">67</a></div>
+                <div align="right"><a name="66"></a><a href="#66">66</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">return</span><span class="default">&nbsp;</span><span
@@ -867,40 +861,40 @@
         </tr>
         <tr class="warning">
             <td>
-                <div align="right"><a name="68"></a><a href="#68">68</a></div>
+                <div align="right"><a name="67"></a><a href="#67">67</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="69"></a><a href="#69">69</a></div>
+                <div align="right"><a name="68"></a><a href="#68">68</a></div>
             </td>
             <td class="codeLine"></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="70"></a><a href="#70">70</a></div>
+                <div align="right"><a name="69"></a><a href="#69">69</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="71"></a><a href="#71">71</a></div>
+                <div align="right"><a name="70"></a><a href="#70">70</a></div>
             </td>
             <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;SerializationStrategy</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="72"></a><a href="#72">72</a></div>
+                <div align="right"><a name="71"></a><a href="#71">71</a></div>
             </td>
             <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="73"></a><a href="#73">73</a></div>
+                <div align="right"><a name="72"></a><a href="#72">72</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">final</span><span
                     class="default">&nbsp;</span><span class="keyword">public</span><span
@@ -910,16 +904,16 @@
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="74"></a><a href="#74">74</a></div>
+                <div align="right"><a name="73"></a><a href="#73">73</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span>
             </td>
         </tr>
-        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 75"
+        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 74"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
             data-placement="bottom" data-html="true">
             <td>
-                <div align="right"><a name="75"></a><a href="#75">75</a></div>
+                <div align="right"><a name="74"></a><a href="#74">74</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="default">$registry</span><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
@@ -927,11 +921,11 @@
                     class="default">-&gt;</span><span class="default">getSerializerRegistry</span><span class="keyword">(</span><span
                     class="keyword">)</span><span class="keyword">;</span></td>
         </tr>
-        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 76"
+        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 75"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
             data-placement="bottom" data-html="true">
             <td>
-                <div align="right"><a name="76"></a><a href="#76">76</a></div>
+                <div align="right"><a name="75"></a><a href="#75">75</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="default">$defaultContract</span><span class="default">&nbsp;</span><span
@@ -941,15 +935,15 @@
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="77"></a><a href="#77">77</a></div>
+                <div align="right"><a name="76"></a><a href="#76">76</a></div>
             </td>
             <td class="codeLine"></td>
         </tr>
-        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 78"
+        <tr class="covered-by-large-tests popin" data-title="17 tests cover line 77"
             data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanTrackAnAggregateRoot&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetATrackedAggregateRootById&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootReconstitutedFromHistory&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanGetAggregateRootFromEventStreamFailsWhenAggregateRootClassIsInvalid&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootRepositoryTest::testCanRegisterEventListeners&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanAttachAndNotifyGlobalAndSpecificObserversWhenEventIsCommitted&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCanDetachObservers&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamNotFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventStreamIsEmpty&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForId&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testCommitEventsFailsWhenPersistenceFails&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest::testGetEventStreamForIdWithCountableIterator&lt;/li&gt;&lt;/ul&gt;"
             data-placement="bottom" data-html="true">
             <td>
-                <div align="right"><a name="78"></a><a href="#78">78</a></div>
+                <div align="right"><a name="77"></a><a href="#77">77</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="keyword">return</span><span class="default">&nbsp;</span><span
@@ -961,14 +955,14 @@
         </tr>
         <tr class="warning">
             <td>
-                <div align="right"><a name="79"></a><a href="#79">79</a></div>
+                <div align="right"><a name="78"></a><a href="#78">78</a></div>
             </td>
             <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span>
             </td>
         </tr>
         <tr>
             <td>
-                <div align="right"><a name="80"></a><a href="#80">80</a></div>
+                <div align="right"><a name="79"></a><a href="#79">79</a></div>
             </td>
             <td class="codeLine"><span class="keyword">}</span></td>
         </tr>
@@ -988,7 +982,7 @@
         <p>
             <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage
                 2.1.4</a> using <a href="http://php.net/" target="_top">PHP 5.5.9-1ubuntu4.9</a> and <a
-                    href="http://phpunit.de/">PHPUnit 4.7.2</a> at Sat Aug 15 23:25:49 CEST 2015.
+                    href="http://phpunit.de/">PHPUnit 4.7.2</a> at Sun Aug 16 16:03:18 CEST 2015.
             </small>
         </p>
         <a title="Back to the top" id="toplink" href="#"><span class="glyphicon glyphicon-arrow-up"></span></a>

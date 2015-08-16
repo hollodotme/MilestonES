@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface PersistsEventEnvelopes
+ * Interface PersistsCommitEnvelopes
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface PersistsEventEnvelopes extends PersistsInTransaction
+interface PersistsCommitEnvelopes extends PersistsInTransaction
 {
 	/**
 	 * @param CarriesCommitData $commitEnvelope

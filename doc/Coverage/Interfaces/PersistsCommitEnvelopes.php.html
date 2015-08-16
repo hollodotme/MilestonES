@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Code Coverage for /vagrant/dist/Exceptions/CommittingSnapshotsFailed.php</title>
+    <title>Code Coverage for /vagrant/dist/Interfaces/PersistsCommitEnvelopes.php</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
@@ -18,12 +18,12 @@
             <div class="col-md-12">
                 <ol class="breadcrumb">
                     <li><a href="../index.html">/vagrant/dist</a></li>
-                    <li><a href="index.html">Exceptions</a></li>
-                    <li class="active">CommittingSnapshotsFailed.php</li>
+                    <li><a href="index.html">Interfaces</a></li>
+                    <li class="active">PersistsCommitEnvelopes.php</li>
 
                 </ol>
             </div>
-    </div>
+        </div>
     </div>
 </header>
 <div class="container">
@@ -50,20 +50,13 @@
         </thead>
         <tbody>
         <tr>
-            <td class="success">Total</td>
-            <td class="success big">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00"
-                         aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
-                        <span class="sr-only">100.00% covered (success)</span>
-                    </div>
-                </div>
+            <td class="None">Total</td>
+            <td class="None big">&nbsp;</td>
+            <td class="None small">
+                <div align="right"></div>
             </td>
-            <td class="success small">
-                <div align="right">100.00%</div>
-            </td>
-            <td class="success small">
-                <div align="right">1&nbsp;/&nbsp;1</div>
+            <td class="None small">
+                <div align="right">&nbsp;</div>
             </td>
             <td class="None big">&nbsp;</td>
             <td class="None small">
@@ -73,39 +66,6 @@
                 <div align="right">&nbsp;</div>
             </td>
             <td class="None small"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></td>
-            <td class="None big">&nbsp;</td>
-            <td class="None small">
-                <div align="right"></div>
-            </td>
-            <td class="None small">
-                <div align="right">&nbsp;</div>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="success">CommittingSnapshotsFailed</td>
-            <td class="success big">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100.00"
-                         aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
-                        <span class="sr-only">100.00% covered (success)</span>
-                    </div>
-                </div>
-            </td>
-            <td class="success small">
-                <div align="right">100.00%</div>
-            </td>
-            <td class="success small">
-                <div align="right">1&nbsp;/&nbsp;1</div>
-            </td>
-            <td class="None big">&nbsp;</td>
-            <td class="None small">
-                <div align="right"></div>
-            </td>
-            <td class="None small">
-                <div align="right">&nbsp;</div>
-            </td>
-            <td class="None small">0</td>
             <td class="None big">&nbsp;</td>
             <td class="None small">
                 <div align="right"></div>
@@ -142,7 +102,7 @@
             <td>
                 <div align="right"><a name="4"></a><a href="#4">4</a></div>
             </td>
-            <td class="codeLine"><span class="comment">&nbsp;*&nbsp;@author&nbsp;hollodotme</span></td>
+            <td class="codeLine"><span class="comment">&nbsp;*&nbsp;@author&nbsp;h.woltersdorf</span></td>
         </tr>
         <tr>
             <td>
@@ -163,7 +123,7 @@
             <td class="codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span
                     class="default">hollodotme</span><span class="default">\</span><span
                     class="default">MilestonES</span><span class="default">\</span><span
-                    class="default">Exceptions</span><span class="keyword">;</span></td>
+                    class="default">Interfaces</span><span class="keyword">;</span></td>
         </tr>
         <tr>
             <td>
@@ -181,7 +141,7 @@
             <td>
                 <div align="right"><a name="10"></a><a href="#10">10</a></div>
             </td>
-            <td class="codeLine"><span class="comment">&nbsp;*&nbsp;Class&nbsp;CommittingSnapshotsFailed</span></td>
+            <td class="codeLine"><span class="comment">&nbsp;*&nbsp;Interface&nbsp;PersistsCommitEnvelopes</span></td>
         </tr>
         <tr>
             <td>
@@ -194,7 +154,7 @@
                 <div align="right"><a name="12"></a><a href="#12">12</a></div>
             </td>
             <td class="codeLine"><span
-                    class="comment">&nbsp;*&nbsp;@package&nbsp;hollodotme\MilestonES\Exceptions</span></td>
+                    class="comment">&nbsp;*&nbsp;@package&nbsp;hollodotme\MilestonES\Interfaces</span></td>
         </tr>
         <tr>
             <td>
@@ -206,10 +166,10 @@
             <td>
                 <div align="right"><a name="14"></a><a href="#14">14</a></div>
             </td>
-            <td class="codeLine"><span class="keyword">final</span><span class="default">&nbsp;</span><span
-                    class="keyword">class</span><span class="default">&nbsp;</span><span class="default">CommittingSnapshotsFailed</span><span
-                    class="default">&nbsp;</span><span class="keyword">extends</span><span class="default">&nbsp;</span><span
-                    class="default">MilestonESException</span></td>
+            <td class="codeLine"><span class="keyword">interface</span><span class="default">&nbsp;</span><span
+                    class="default">PersistsCommitEnvelopes</span><span class="default">&nbsp;</span><span
+                    class="keyword">extends</span><span class="default">&nbsp;</span><span class="default">PersistsInTransaction</span>
+            </td>
         </tr>
         <tr>
             <td>
@@ -221,11 +181,86 @@
             <td>
                 <div align="right"><a name="16"></a><a href="#16">16</a></div>
             </td>
-            <td class="codeLine"></td>
+            <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span>
+            </td>
         </tr>
         <tr>
             <td>
                 <div align="right"><a name="17"></a><a href="#17">17</a></div>
+            </td>
+            <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;CarriesCommitData&nbsp;$commitEnvelope</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="18"></a><a href="#18">18</a></div>
+            </td>
+            <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="19"></a><a href="#19">19</a></div>
+            </td>
+            <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    class="keyword">public</span><span class="default">&nbsp;</span><span
+                    class="keyword">function</span><span class="default">&nbsp;</span><span class="default">persistCommitEnvelope</span><span
+                    class="keyword">(</span><span class="default">&nbsp;</span><span
+                    class="default">CarriesCommitData</span><span class="default">&nbsp;</span><span class="default">$commitEnvelope</span><span
+                    class="default">&nbsp;</span><span class="keyword">)</span><span class="keyword">;</span></td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="20"></a><a href="#20">20</a></div>
+            </td>
+            <td class="codeLine"></td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="21"></a><a href="#21">21</a></div>
+            </td>
+            <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="22"></a><a href="#22">22</a></div>
+            </td>
+            <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;IdentifiesEventStream&nbsp;$id</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="23"></a><a href="#23">23</a></div>
+            </td>
+            <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="24"></a><a href="#24">24</a></div>
+            </td>
+            <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;ServesCommitData[]</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="25"></a><a href="#25">25</a></div>
+            </td>
+            <td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="26"></a><a href="#26">26</a></div>
+            </td>
+            <td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    class="keyword">public</span><span class="default">&nbsp;</span><span
+                    class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getEventStreamWithId</span><span
+                    class="keyword">(</span><span class="default">&nbsp;</span><span class="default">IdentifiesEventStream</span><span
+                    class="default">&nbsp;</span><span class="default">$id</span><span
+                    class="default">&nbsp;</span><span class="keyword">)</span><span class="keyword">;</span></td>
+        </tr>
+        <tr>
+            <td>
+                <div align="right"><a name="27"></a><a href="#27">27</a></div>
             </td>
             <td class="codeLine"><span class="keyword">}</span></td>
         </tr>

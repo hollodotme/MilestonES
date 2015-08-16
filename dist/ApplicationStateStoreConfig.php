@@ -7,7 +7,7 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
-use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
+use hollodotme\MilestonES\Interfaces\PersistsCommitEnvelopes;
 use hollodotme\MilestonES\Interfaces\PersistsSnapshots;
 use hollodotme\MilestonES\Interfaces\ServesApplicationStateStoreConfig;
 use hollodotme\MilestonES\Persistence\Memory;
@@ -21,7 +21,7 @@ use hollodotme\MilestonES\Serializers\PhpSerializer;
 class ApplicationStateStoreConfig implements ServesApplicationStateStoreConfig
 {
 	/**
-	 * @return PersistsEventEnvelopes
+	 * @return PersistsCommitEnvelopes
 	 */
 	public function getEventPersistence()
 	{

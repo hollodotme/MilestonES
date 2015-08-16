@@ -12,14 +12,14 @@ use hollodotme\MilestonES\Exceptions\PersistenceHasStartedTransactionAlready;
 use hollodotme\MilestonES\Exceptions\RestoringFileWithContentFailed;
 use hollodotme\MilestonES\Interfaces\CarriesCommitData;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
-use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
+use hollodotme\MilestonES\Interfaces\PersistsCommitEnvelopes;
 
 /**
  * Class Memory
  *
  * @package hollodotme\MilestonES\Persistence
  */
-class Memory implements PersistsEventEnvelopes
+class Memory implements PersistsCommitEnvelopes
 {
 
 	/** @var CarriesCommitData[] */

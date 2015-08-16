@@ -20,7 +20,7 @@ use hollodotme\MilestonES\Interfaces\IdentifiesCommit;
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
-use hollodotme\MilestonES\Interfaces\PersistsEventEnvelopes;
+use hollodotme\MilestonES\Interfaces\PersistsCommitEnvelopes;
 use hollodotme\MilestonES\Interfaces\PersistsSnapshots;
 use hollodotme\MilestonES\Interfaces\ServesApplicationStateStoreConfig;
 use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
@@ -41,7 +41,7 @@ final class ApplicationStateStore implements StoresApplicationState
 	/** @var ListensForPublishedEvents[] */
 	private $globalEventListeners;
 
-	/** @var PersistsEventEnvelopes */
+	/** @var PersistsCommitEnvelopes */
 	private $eventPersistence;
 
 	/** @var PersistsSnapshots */
