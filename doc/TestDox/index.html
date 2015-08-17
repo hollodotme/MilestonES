@@ -41,11 +41,17 @@
       </li>
       <li>Can get aggregate root reconstituted from history
       </li>
+      <li>Recostituted aggregate root is tracked
+      </li>
       <li>Can get aggregate root from event stream fails when aggregate root class is invalid
       </li>
       <li>Get aggregate root from event stream fails when nothing tracked and event stream not found
       </li>
       <li>Can register event listeners
+      </li>
+      <li>Can take snapshot of an aggregate root
+      </li>
+      <li>Taking snapshot of aggregate root with uncommited changes throws exception
       </li>
     </ul>
   <h2 id="hollodotme\MilestonES\Test\Unit\AggregateRoot\AggregateRootTest">
@@ -57,6 +63,10 @@
       <li>Can be reconstituted from history
       </li>
       <li>Changes can be cleared
+      </li>
+      <li>Changes raise aggregate root revision
+      </li>
+      <li>Changes contain last aggregate root revision
       </li>
     </ul>
   <h2 id="hollodotme\MilestonES\Test\Unit\ApplicationStateStore\ApplicationStateStoreTest">
@@ -280,7 +290,7 @@
   <ul>
     <li>Can get stream id and contract after construction
     </li>
-    <li>Can get aggregate root and contract after contruction
+    <li>Can get aggregate root revision and contract after contruction
     </li>
     <li>Can get snapshot microtime after construction
     </li>

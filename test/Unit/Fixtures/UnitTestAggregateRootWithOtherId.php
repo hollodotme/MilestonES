@@ -10,15 +10,15 @@ use hollodotme\MilestonES\AggregateRoot;
 use hollodotme\MilestonES\Identifier;
 
 /**
- * Class UnitTestAggregate
+ * Class UnitTestAggregateRootWithOtherId
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class UnitTestAggregate extends AggregateRoot
+class UnitTestAggregateRootWithOtherId extends AggregateRoot
 {
 
 	/** @var \hollodotme\MilestonES\Interfaces\IdentifiesObject */
-	private $testId;
+	private $test_id;
 
 	/** @var string */
 	private $description;
@@ -26,11 +26,11 @@ class UnitTestAggregate extends AggregateRoot
 	/**
 	 * @param string $text
 	 *
-	 * @return UnitTestAggregate
+	 * @return UnitTestAggregateRoot
 	 */
 	public static function schedule( $text )
 	{
-		$id       = new Identifier( 'Unit-Test-ID' );
+		$id       = new Identifier( 'Unit-Test-ID-X' );
 		$instance = new self();
 		$instance->trackThat( new UnitTestEvent( $id, $text ), [ ] );
 
@@ -42,7 +42,7 @@ class UnitTestAggregate extends AggregateRoot
 	 */
 	protected function whenUnitTestEvent( UnitTestEvent $event )
 	{
-		$this->testId = $event->getTestId();
+		$this->test_id     = $event->getTestId();
 		$this->description = $event->getDescription();
 	}
 
@@ -59,7 +59,7 @@ class UnitTestAggregate extends AggregateRoot
 	 */
 	public function getIdentifier()
 	{
-		return $this->testId;
+		return $this->test_id;
 	}
 
 	/**
@@ -67,6 +67,6 @@ class UnitTestAggregate extends AggregateRoot
 	 */
 	public function getTestId()
 	{
-		return $this->testId;
+		return $this->test_id;
 	}
 }

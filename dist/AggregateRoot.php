@@ -23,9 +23,13 @@ abstract class AggregateRoot implements AggregatesObjects
 	/** @var EventEnvelopeCollection */
 	private $trackedChanges;
 
+	/** @var int */
+	private $revision;
+
 	final protected function __construct()
 	{
 		$this->trackedChanges = new EventEnvelopeCollection();
+		$this->revision = 0;
 	}
 
 	/**
@@ -58,6 +62,14 @@ abstract class AggregateRoot implements AggregatesObjects
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getRevision()
+	{
+		return $this->revision;
+	}
+
+	/**
 	 * @param EventStream $eventStream
 	 */
 	final protected function applyEventStream( EventStream $eventStream )
@@ -75,10 +87,10 @@ abstract class AggregateRoot implements AggregatesObjects
 	 */
 	protected function trackThat( CarriesEventData $event, $metaData, $file = null )
 	{
-		$domainEventEnvelope = $this->getEventEnvelope( $event, $metaData, $file );
-		$this->trackedChanges[] = $domainEventEnvelope;
+		$eventEnvelope          = $this->getEventEnvelope( $event, $metaData, $file );
+		$this->trackedChanges[] = $eventEnvelope;
 
-		$this->applyChange( $domainEventEnvelope );
+		$this->applyChange( $eventEnvelope );
 	}
 
 	/**
@@ -90,13 +102,13 @@ abstract class AggregateRoot implements AggregatesObjects
 	 */
 	protected function getEventEnvelope( CarriesEventData $event, $metaData, $file )
 	{
-		return new EventEnvelope( $event, $metaData, $file );
+		return new EventEnvelope( $this->revision, $event, $metaData, $file );
 	}
 
 	/**
 	 * @param ServesEventStreamData $eventEnvelope
 	 */
-	protected function applyChange( ServesEventStreamData $eventEnvelope )
+	private function applyChange( ServesEventStreamData $eventEnvelope )
 	{
 		$event      = $eventEnvelope->getPayload();
 		$occurredOn = $eventEnvelope->getOccurredOn();
@@ -107,6 +119,11 @@ abstract class AggregateRoot implements AggregatesObjects
 		if ( is_callable( [ $this, $methodName ] ) )
 		{
 			$this->{$methodName}( $event, $occurredOn, $file, $metaData );
+
+			$this->revision++;
+		}
+		else
+		{
 		}
 	}
 

@@ -61,4 +61,9 @@ interface ConsumesCommitData
 	 * @param string $file
 	 */
 	public function setFile( $file );
+
+	/**
+	 * @param int $lastRevision
+	 */
+	public function setLastRevision( $lastRevision );
 }

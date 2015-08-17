@@ -44,6 +44,9 @@ final class CommitEnvelope implements CarriesCommitData
 	/** @var string */
 	private $file;
 
+	/** @var int */
+	private $lastRevision;
+
 	/** @var \DateTimeImmutable */
 	private $occurredOn;
 
@@ -187,6 +190,22 @@ final class CommitEnvelope implements CarriesCommitData
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getLastRevision()
+	{
+		return $this->lastRevision;
+	}
+
+	/**
+	 * @param int $lastRevision
+	 */
+	public function setLastRevision( $lastRevision )
+	{
+		$this->lastRevision = $lastRevision;
+	}
+
+	/**
 	 * @param \DateTimeImmutable $occurredOn
 	 */
 	public function setOccurredOn( \DateTimeImmutable $occurredOn )
@@ -235,6 +254,7 @@ final class CommitEnvelope implements CarriesCommitData
 		$commitEnvelope->metaData         = $commitData->getMetaData();
 		$commitEnvelope->metaDataContract = $commitData->getMetaDataContract();
 		$commitEnvelope->file             = $commitData->getFile();
+		$commitEnvelope->lastRevision = $commitData->getLastRevision();
 		$commitEnvelope->occurredOn       = $commitData->getOccurredOn();
 		$commitEnvelope->committedOn      = $commitData->getCommittedOn();
 

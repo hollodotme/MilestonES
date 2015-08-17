@@ -33,7 +33,7 @@ class EventEnvelopeMapper
 
 	/**
 	 * @param ServesEventStreamData $eventEnvelope
-	 * @param IdentifiesCommit $commit
+	 * @param IdentifiesCommit      $commit
 	 *
 	 * @return CommitEnvelope
 	 */
@@ -89,12 +89,13 @@ class EventEnvelopeMapper
 	 */
 	private function extractEventEnvelopeFromCommitEnvelope( CarriesCommitData $commitEnvelope )
 	{
-		$event      = $this->getEventFromCommitEnvelope( $commitEnvelope );
-		$metaData   = $this->getMetaDataFromCommitEnvelope( $commitEnvelope );
-		$occurredOn = $commitEnvelope->getOccurredOn();
-		$file       = $commitEnvelope->getFile();
+		$lastRevision = $commitEnvelope->getLastRevision();
+		$event        = $this->getEventFromCommitEnvelope( $commitEnvelope );
+		$metaData     = $this->getMetaDataFromCommitEnvelope( $commitEnvelope );
+		$occurredOn   = $commitEnvelope->getOccurredOn();
+		$file         = $commitEnvelope->getFile();
 
-		return EventEnvelope::fromRecord( $event, $metaData, $file, $occurredOn );
+		return EventEnvelope::fromRecord( $lastRevision, $event, $metaData, $file, $occurredOn );
 	}
 
 	/**

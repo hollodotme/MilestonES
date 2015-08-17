@@ -7,14 +7,13 @@
 namespace hollodotme\MilestonES\Test\Unit\Fixtures;
 
 use hollodotme\MilestonES\AggregateRoot;
-use hollodotme\MilestonES\Identifier;
 
 /**
- * Class UnitTestAggregateOtherId
+ * Class UnitTestAggregateRootDiff
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class UnitTestAggregateOtherId extends AggregateRoot
+class UnitTestAggregateRootDiff extends AggregateRoot
 {
 
 	/** @var \hollodotme\MilestonES\Interfaces\IdentifiesObject */
@@ -26,11 +25,11 @@ class UnitTestAggregateOtherId extends AggregateRoot
 	/**
 	 * @param string $text
 	 *
-	 * @return UnitTestAggregate
+	 * @return UnitTestAggregateRoot
 	 */
 	public static function schedule( $text )
 	{
-		$id       = new Identifier( 'Unit-Test-ID-X' );
+		$id       = new TestIdentifier( 'Unit-Test-ID' );
 		$instance = new self();
 		$instance->trackThat( new UnitTestEvent( $id, $text ), [ ] );
 

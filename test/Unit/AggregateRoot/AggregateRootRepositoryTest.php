@@ -18,8 +18,8 @@ use hollodotme\MilestonES\Snapshots\Interfaces\CollectsSnapshots;
 use hollodotme\MilestonES\Snapshots\SnapshotCollection;
 use hollodotme\MilestonES\Test\Unit\Fixtures\TestAggregateRootRepositoryWithInvalidAggregateRootName;
 use hollodotme\MilestonES\Test\Unit\Fixtures\TestAggregateRootRepositoryWithTestEventObserver;
-use hollodotme\MilestonES\Test\Unit\Fixtures\UnitTestAggregate;
-use hollodotme\MilestonES\Test\Unit\Fixtures\UnitTestAggregateRepository;
+use hollodotme\MilestonES\Test\Unit\Fixtures\UnitTestAggregateRoot;
+use hollodotme\MilestonES\Test\Unit\Fixtures\UnitTestAggregateRootRepository;
 use hollodotme\MilestonES\Test\Unit\Fixtures\UnitTestEvent;
 
 class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
@@ -43,13 +43,13 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanTrackAnAggregateRoot()
 	{
-		$repository = new UnitTestAggregateRepository(
+		$repository = new UnitTestAggregateRootRepository(
 			$this->applicationStateStore,
 			$this->aggregateRootCollection,
 			$this->snapshotCollection
 		);
 
-		$aggregateRoot = UnitTestAggregate::schedule( 'Unit-Test' );
+		$aggregateRoot = UnitTestAggregateRoot::schedule( 'Unit-Test' );
 
 		$repository->track( $aggregateRoot );
 
@@ -58,13 +58,13 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanGetATrackedAggregateRootById()
 	{
-		$repository = new UnitTestAggregateRepository(
+		$repository = new UnitTestAggregateRootRepository(
 			$this->applicationStateStore,
 			$this->aggregateRootCollection,
 			$this->snapshotCollection
 		);
 
-		$aggregateRoot = UnitTestAggregate::schedule( 'Unit-Test' );
+		$aggregateRoot = UnitTestAggregateRoot::schedule( 'Unit-Test' );
 
 		$repository->track( $aggregateRoot );
 
@@ -79,19 +79,36 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 		$identifier = new Identifier( 'Unit-Test-ID' );
 		$this->simulateEventStreamWithID( $identifier );
 
-		$repository = new UnitTestAggregateRepository(
+		$repository = new UnitTestAggregateRootRepository(
 			$this->applicationStateStore,
 			$this->aggregateRootCollection,
 			$this->snapshotCollection
 		);
 
-		/** @var UnitTestAggregate $reconstituted */
+		/** @var UnitTestAggregateRoot $reconstituted */
 		$reconstituted = $repository->getWithId( new Identifier( 'Unit-Test-ID' ) );
 
-		$this->assertInstanceOf( UnitTestAggregate::class, $reconstituted );
+		$this->assertInstanceOf( UnitTestAggregateRoot::class, $reconstituted );
 		$this->assertTrue( $repository->isTracked( $reconstituted ) );
 		$this->assertTrue( $reconstituted->getIdentifier()->equals( $identifier ) );
 		$this->assertEquals( 'Unit-Test', $reconstituted->getDescription() );
+	}
+
+	public function testRecostitutedAggregateRootIsTracked()
+	{
+		$identifier = new Identifier( 'Unit-Test-ID' );
+		$this->simulateEventStreamWithID( $identifier );
+
+		$repository = new UnitTestAggregateRootRepository(
+			$this->applicationStateStore,
+			$this->aggregateRootCollection,
+			$this->snapshotCollection
+		);
+
+		/** @var UnitTestAggregateRoot $reconstituted */
+		$reconstituted = $repository->getWithId( new Identifier( 'Unit-Test-ID' ) );
+
+		$this->assertTrue( $repository->isTracked( $reconstituted ) );
 	}
 
 	/**
@@ -116,7 +133,7 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 		$event = new UnitTestEvent( $id, 'Unit-Test' );
 
 		$collection   = new EventEnvelopeCollection();
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 
 		/** @var EventEnvelopeCollection $collection */
 		$this->applicationStateStore->commitEvents( $collection );
@@ -127,7 +144,7 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetAggregateRootFromEventStreamFailsWhenNothingTrackedAndEventStreamNotFound()
 	{
-		$repository = new UnitTestAggregateRepository(
+		$repository = new UnitTestAggregateRootRepository(
 			$this->applicationStateStore,
 			$this->aggregateRootCollection,
 			$this->snapshotCollection
@@ -146,8 +163,45 @@ class AggregateRootRepositoryTest extends \PHPUnit_Framework_TestCase
 
 		$this->simulateEventStreamWithID( new Identifier( 'Unit-Test-ID' ) );
 
-		$this->expectOutputString(
-			"hollodotme\\MilestonES\\Test\\Unit\\Fixtures\\UnitTestEvent with ID Unit-Test-ID was committed.\n"
+		$this->expectOutputString( UnitTestEvent::class . " with ID Unit-Test-ID was committed.\n" );
+	}
+
+	public function testCanTakeSnapshotOfAnAggregateRoot()
+	{
+		$repository = new UnitTestAggregateRootRepository(
+			$this->applicationStateStore,
+			$this->aggregateRootCollection,
+			$this->snapshotCollection
 		);
+
+		$aggregateRoot = UnitTestAggregateRoot::schedule( 'Unit-Test' );
+		$aggregateRoot->clearCommittedChanges( $aggregateRoot->getChanges() );
+
+		$this->assertCount( 0, $this->snapshotCollection );
+
+		$repository->takeSnapshot( $aggregateRoot );
+
+		$this->assertCount( 1, $this->snapshotCollection );
+		$this->assertSame( $aggregateRoot, $this->snapshotCollection->current()->getAggregateRoot() );
+		$this->assertSame(
+			$aggregateRoot->getRevision(),
+			$this->snapshotCollection->current()->getAggregateRootRevision()
+		);
+	}
+
+	/**
+	 * @expectedException \hollodotme\MilestonES\Exceptions\AggregateRootHasUncommittedChanges
+	 */
+	public function testTakingSnapshotOfAggregateRootWithUncommitedChangesThrowsException()
+	{
+		$repository = new UnitTestAggregateRootRepository(
+			$this->applicationStateStore,
+			$this->aggregateRootCollection,
+			$this->snapshotCollection
+		);
+
+		$aggregateRoot = UnitTestAggregateRoot::schedule( 'Unit-Test' );
+
+		$repository->takeSnapshot( $aggregateRoot );
 	}
 }

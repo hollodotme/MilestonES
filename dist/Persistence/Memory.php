@@ -109,14 +109,16 @@ class Memory implements PersistsCommitEnvelopes
 	}
 
 	/**
-	 * @param IdentifiesEventStream $id
+	 * @param IdentifiesEventStream $eventStreamId
 	 *
+	 * @param int                   $revisionOffset
+	 *
+	 * @return \hollodotme\MilestonES\Interfaces\CarriesCommitData[]
 	 * @throws EventStreamDoesNotExistForKey
-	 * @return CarriesCommitData[]
 	 */
-	public function getEventStreamWithId( IdentifiesEventStream $id )
+	public function getEventStreamWithId( IdentifiesEventStream $eventStreamId, $revisionOffset = 0 )
 	{
-		$key = $this->buildKey( $id->getStreamIdContract(), $id->getStreamId() );
+		$key = $this->buildKey( $eventStreamId->getStreamIdContract(), $eventStreamId->getStreamId() );
 
 		if ( $this->eventStreamExistsForKey( $key ) )
 		{

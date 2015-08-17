@@ -137,9 +137,9 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 	 */
 	private function getTestEventEnvelope()
 	{
-		$event          = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit test event' );
-		$event_envelope = new EventEnvelope( $event, [ ] );
+		$event         = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit test event' );
+		$eventEnvelope = new EventEnvelope( 0, $event, [ ] );
 
-		return $event_envelope;
+		return $eventEnvelope;
 	}
 }

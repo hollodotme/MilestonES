@@ -21,7 +21,7 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection = new ImmutableEventEnvelopeCollection( [ ] );
 		$event      = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
 
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection = new ImmutableEventEnvelopeCollection( [ ] );
 		$event      = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
 
-		$collection->offsetSet( null, new EventEnvelope( $event, [ ] ) );
+		$collection->offsetSet( null, new EventEnvelope( 0, $event, [ ] ) );
 	}
 
 	/**
@@ -40,9 +40,9 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRemovingAnEventByUnsetAfterConstructionFails()
 	{
-		$event          = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
-		$event_envelope = new EventEnvelope( $event, [ ] );
-		$collection = new ImmutableEventEnvelopeCollection( [ $event_envelope ] );
+		$event         = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
+		$eventEnvelope = new EventEnvelope( 0, $event, [ ] );
+		$collection    = new ImmutableEventEnvelopeCollection( [ $eventEnvelope ] );
 
 		unset($collection[0]);
 	}
@@ -52,9 +52,9 @@ class ImmutableEventCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRemovingAnEventByOffsetUnsetAfterConstructionFails()
 	{
-		$event          = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
-		$event_envelope = new EventEnvelope( $event, [ ] );
-		$collection = new ImmutableEventEnvelopeCollection( [ $event_envelope ] );
+		$event         = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit-Test' );
+		$eventEnvelope = new EventEnvelope( 0, $event, [ ] );
+		$collection    = new ImmutableEventEnvelopeCollection( [ $eventEnvelope ] );
 
 		$collection->offsetUnset( 0 );
 	}

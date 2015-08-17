@@ -33,7 +33,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new EventEnvelopeCollection();
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 
 		$event_store->attachEventListener( $observer );
 		/** @var EventEnvelopeCollection $collection */
@@ -50,7 +50,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new EventEnvelopeCollection();
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 
 		/** @var EventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
@@ -67,7 +67,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new EventEnvelopeCollection();
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 
 		$event_store->attachEventListener( $observer );
 		/** @var EventEnvelopeCollection $collection */
@@ -81,7 +81,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanDetachObservers()
 	{
-		$event_store = new ApplicationStateStore( new ApplicationStateStoreConfig() );
+		$event_store  = new ApplicationStateStore( new ApplicationStateStoreConfig() );
 		$observer          = new TestEventListener();
 		$detached_observer = new TestEventListener();
 
@@ -92,7 +92,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 		$event_store->attachEventListener( $detached_observer );
 
 		$collection   = new EventEnvelopeCollection();
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 
 		/** @var EventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
@@ -135,24 +135,24 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new EventEnvelopeCollection();
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 
 		/** @var EventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
 		$stream = $event_store->getEventStreamForId( $identifier );
-		/** @var EventEnvelope $fetched_event_envelope */
-		$fetched_event_envelope = $stream[0];
-		/** @var UnitTestEvent $fetched_event */
-		$fetched_event = $fetched_event_envelope->getPayload();
+		/** @var EventEnvelope $fetchedEventEnvelope */
+		$fetchedEventEnvelope = $stream[0];
+		/** @var UnitTestEvent $fetchedEvent */
+		$fetchedEvent = $fetchedEventEnvelope->getPayload();
 
 		$this->assertInstanceOf( EventStream::class, $stream );
 		$this->assertCount( 1, $stream );
-		$this->assertInstanceOf( EventEnvelope::class, $fetched_event_envelope );
-		$this->assertEquals( get_class( $event ), get_class( $fetched_event ) );
-		$this->assertTrue( $fetched_event_envelope->getStreamId()->equals( $identifier ) );
-		$this->assertTrue( $fetched_event->getStreamId()->equals( $identifier ) );
-		$this->assertEquals( 'Unit-Test', $fetched_event->getDescription() );
+		$this->assertInstanceOf( EventEnvelope::class, $fetchedEventEnvelope );
+		$this->assertEquals( get_class( $event ), get_class( $fetchedEvent ) );
+		$this->assertTrue( $fetchedEventEnvelope->getStreamId()->equals( $identifier ) );
+		$this->assertTrue( $fetchedEvent->getStreamId()->equals( $identifier ) );
+		$this->assertEquals( 'Unit-Test', $fetchedEvent->getDescription() );
 	}
 
 	/**
@@ -166,7 +166,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new EventEnvelopeCollection();
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 
 		/** @var EventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
@@ -199,24 +199,24 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 		$event      = new UnitTestEvent( $identifier, 'Unit-Test' );
 
 		$collection   = new EventEnvelopeCollection();
-		$collection[] = new EventEnvelope( $event, [ ] );
+		$collection[] = new EventEnvelope( 0, $event, [ ] );
 
 		/** @var EventEnvelopeCollection $collection */
 		$event_store->commitEvents( $collection );
 
 		$stream = $event_store->getEventStreamForId( $identifier );
 
-		/** @var EventEnvelope $fetched_event_envelope */
-		$fetched_event_envelope = $stream[0];
-		/** @var UnitTestEvent $fetched_event */
-		$fetched_event = $fetched_event_envelope->getPayload();
+		/** @var EventEnvelope $fetchedEventEnvelope */
+		$fetchedEventEnvelope = $stream[0];
+		/** @var UnitTestEvent $fetchedEvent */
+		$fetchedEvent = $fetchedEventEnvelope->getPayload();
 
 		$this->assertInstanceOf( EventStream::class, $stream );
 		$this->assertCount( 1, $stream );
-		$this->assertInstanceOf( EventEnvelope::class, $fetched_event_envelope );
-		$this->assertEquals( get_class( $event ), get_class( $fetched_event ) );
-		$this->assertTrue( $fetched_event_envelope->getStreamId()->equals( $identifier ) );
-		$this->assertTrue( $fetched_event->getStreamId()->equals( $identifier ) );
-		$this->assertEquals( 'Unit-Test', $fetched_event->getDescription() );
+		$this->assertInstanceOf( EventEnvelope::class, $fetchedEventEnvelope );
+		$this->assertEquals( get_class( $event ), get_class( $fetchedEvent ) );
+		$this->assertTrue( $fetchedEventEnvelope->getStreamId()->equals( $identifier ) );
+		$this->assertTrue( $fetchedEvent->getStreamId()->equals( $identifier ) );
+		$this->assertEquals( 'Unit-Test', $fetchedEvent->getDescription() );
 	}
 }

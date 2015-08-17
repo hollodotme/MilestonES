@@ -7,17 +7,18 @@
 namespace hollodotme\MilestonES\Test\Unit\Fixtures;
 
 use hollodotme\MilestonES\AggregateRoot;
+use hollodotme\MilestonES\Identifier;
 
 /**
- * Class UnitTestAggregateDiff
+ * Class UnitTestAggregateRoot
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class UnitTestAggregateDiff extends AggregateRoot
+class UnitTestAggregateRoot extends AggregateRoot
 {
 
 	/** @var \hollodotme\MilestonES\Interfaces\IdentifiesObject */
-	private $test_id;
+	private $testId;
 
 	/** @var string */
 	private $description;
@@ -25,11 +26,11 @@ class UnitTestAggregateDiff extends AggregateRoot
 	/**
 	 * @param string $text
 	 *
-	 * @return UnitTestAggregate
+	 * @return UnitTestAggregateRoot
 	 */
 	public static function schedule( $text )
 	{
-		$id       = new TestIdentifier( 'Unit-Test-ID' );
+		$id       = new Identifier( 'Unit-Test-ID' );
 		$instance = new self();
 		$instance->trackThat( new UnitTestEvent( $id, $text ), [ ] );
 
@@ -41,7 +42,7 @@ class UnitTestAggregateDiff extends AggregateRoot
 	 */
 	protected function whenUnitTestEvent( UnitTestEvent $event )
 	{
-		$this->test_id     = $event->getTestId();
+		$this->testId = $event->getTestId();
 		$this->description = $event->getDescription();
 	}
 
@@ -58,7 +59,7 @@ class UnitTestAggregateDiff extends AggregateRoot
 	 */
 	public function getIdentifier()
 	{
-		return $this->test_id;
+		return $this->testId;
 	}
 
 	/**
@@ -66,6 +67,6 @@ class UnitTestAggregateDiff extends AggregateRoot
 	 */
 	public function getTestId()
 	{
-		return $this->test_id;
+		return $this->testId;
 	}
 }

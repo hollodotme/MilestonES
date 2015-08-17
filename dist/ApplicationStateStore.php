@@ -327,21 +327,22 @@ final class ApplicationStateStore implements StoresApplicationState
 	}
 
 	/**
-	 * @param IdentifiesEventStream $id
+	 * @param IdentifiesEventStream $eventStreamId
 	 *
+	 * @return Interfaces\CarriesCommitData[]
 	 * @throws EventEnvelopesNotFound
-	 * @return CarriesCommitData[]
 	 */
-	private function getStoredEventEnvelopesWithId( IdentifiesEventStream $id )
+	private function getStoredEventEnvelopesWithId( IdentifiesEventStream $eventStreamId )
 	{
 		try
 		{
-			$eventEnvelopes = $this->eventPersistence->getEventStreamWithId( $id );
+			$eventEnvelopes = $this->eventPersistence->getEventStreamWithId( $eventStreamId, 0 );
 
 			if ( count( $eventEnvelopes ) == 0 )
 			{
 				throw new \Exception(
-					'No event envelopes found for ' . $id->getStreamIdContract() . '#' . $id->getStreamId()
+					'No event envelopes found for ' . $eventStreamId->getStreamIdContract() . '#'
+					. $eventStreamId->getStreamId()
 				);
 			}
 			else
@@ -351,7 +352,9 @@ final class ApplicationStateStore implements StoresApplicationState
 		}
 		catch ( \Exception $e )
 		{
-			throw new EventEnvelopesNotFound( $id->getStreamIdContract() . '#' . $id->getStreamId() );
+			throw new EventEnvelopesNotFound(
+				$eventStreamId->getStreamIdContract() . '#' . $eventStreamId->getStreamId()
+			);
 		}
 	}
 

@@ -66,4 +66,9 @@ interface ServesCommitData
 	 * @return string
 	 */
 	public function getFile();
+
+	/**
+	 * @return int
+	 */
+	public function getLastRevision();
 }

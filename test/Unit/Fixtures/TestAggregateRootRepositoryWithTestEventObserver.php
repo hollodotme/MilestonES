@@ -26,6 +26,6 @@ class TestAggregateRootRepositoryWithTestEventObserver extends AggregateRootRepo
 
 	protected function getAggregateRootName()
 	{
-		return UnitTestAggregate::class;
+		return UnitTestAggregateRoot::class;
 	}
 }

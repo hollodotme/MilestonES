@@ -33,6 +33,9 @@ final class Snapshot implements CarriesSnapshotData
 	/** @var Contract */
 	private $aggregateRootContract;
 
+	/** @var int */
+	private $aggregateRootRevision;
+
 	/** @var float */
 	private $takenOnMicrotime;
 
@@ -47,6 +50,7 @@ final class Snapshot implements CarriesSnapshotData
 		$this->streamIdContract      = new Contract( $aggregateRoot->getIdentifier() );
 		$this->aggregateRoot         = $aggregateRoot;
 		$this->aggregateRootContract = new Contract( $aggregateRoot );
+		$this->aggregateRootRevision = $aggregateRoot->getRevision();
 		$this->takenOnMicrotime      = microtime( true );
 	}
 
@@ -88,6 +92,14 @@ final class Snapshot implements CarriesSnapshotData
 	public function getAggregateRootContract()
 	{
 		return $this->aggregateRootContract;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getAggregateRootRevision()
+	{
+		return $this->aggregateRootRevision;
 	}
 
 	/**

@@ -30,11 +30,11 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 
 	public function testCollectionIsNotEmptyAfterAddingEvents()
 	{
-		$collection     = new EventEnvelopeCollection();
-		$event          = $this->getTestEvent( 'Unit-Test-ID' );
-		$event_envelope = new EventEnvelope( $event, [ ] );
+		$collection    = new EventEnvelopeCollection();
+		$event         = $this->getTestEvent( 'Unit-Test-ID' );
+		$eventEnvelope = new EventEnvelope( 0, $event, [ ] );
 
-		$collection[] = $event_envelope;
+		$collection[] = $eventEnvelope;
 
 		/** @var EventEnvelopeCollection $collection */
 		$this->assertFalse( $collection->isEmpty() );
@@ -55,36 +55,36 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$collection = new EventEnvelopeCollection();
 
-		$first_event  = $this->getTestEvent( 'Unit-Test-3' );
-		$second_event = $this->getTestEvent( 'Unit-Test-2' );
+		$firstEvent  = $this->getTestEvent( 'Unit-Test-3' );
+		$secondEvent = $this->getTestEvent( 'Unit-Test-2' );
 
-		$first_envelope  = new EventEnvelope( $first_event, [ ] );
-		$second_envelope = new EventEnvelope( $second_event, [ ] );
+		$firstEnvelope  = new EventEnvelope( 0, $firstEvent, [ ] );
+		$secondEnvelope = new EventEnvelope( 1, $secondEvent, [ ] );
 
-		$collection[]    = $first_envelope;
-		$collection["2"] = $second_envelope;
+		$collection[]    = $firstEnvelope;
+		$collection["2"] = $secondEnvelope;
 
 		/** @var EventEnvelopeCollection $collection */
 		$this->assertFalse( $collection->isEmpty() );
 		$this->assertCount( 2, $collection );
 		$this->assertTrue( isset($collection[0]) );
 		$this->assertTrue( isset($collection["2"]) );
-		$this->assertSame( $first_envelope, $collection[0] );
-		$this->assertSame( $second_envelope, $collection["2"] );
+		$this->assertSame( $firstEnvelope, $collection[0] );
+		$this->assertSame( $secondEnvelope, $collection["2"] );
 	}
 
 	public function testEnvelopesCanBeRemovedFromCollectionUsingUnset()
 	{
 		$collection = new EventEnvelopeCollection();
 
-		$first_event  = $this->getTestEvent( 'Unit-Test-3' );
-		$second_event = $this->getTestEvent( 'Unit-Test-2' );
+		$firstEvent  = $this->getTestEvent( 'Unit-Test-3' );
+		$secondEvent = $this->getTestEvent( 'Unit-Test-2' );
 
-		$first_envelope  = new EventEnvelope( $first_event, [ ] );
-		$second_envelope = new EventEnvelope( $second_event, [ ] );
+		$firstEnvelope  = new EventEnvelope( 0, $firstEvent, [ ] );
+		$secondEnvelope = new EventEnvelope( 1, $secondEvent, [ ] );
 
-		$collection[]    = $first_envelope;
-		$collection["2"] = $second_envelope;
+		$collection[]    = $firstEnvelope;
+		$collection["2"] = $secondEnvelope;
 
 		unset($collection[0]);
 		unset($collection["2"]);
@@ -102,14 +102,14 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$collection = new EventEnvelopeCollection();
 
-		$first_event  = $this->getTestEvent( 'Unit-Test-0' );
-		$second_event = $this->getTestEvent( 'Unit-Test-2' );
+		$firstEvent  = $this->getTestEvent( 'Unit-Test-0' );
+		$secondEvent = $this->getTestEvent( 'Unit-Test-2' );
 
-		$first_envelope  = new EventEnvelope( $first_event, [ ] );
-		$second_envelope = new EventEnvelope( $second_event, [ ] );
+		$firstEnvelope  = new EventEnvelope( 0, $firstEvent, [ ] );
+		$secondEnvelope = new EventEnvelope( 1, $secondEvent, [ ] );
 
-		$collection[]    = $first_envelope;
-		$collection["2"] = $second_envelope;
+		$collection[]    = $firstEnvelope;
+		$collection["2"] = $secondEnvelope;
 
 		echo "Loop 1:";
 
@@ -134,14 +134,14 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$collection = new EventEnvelopeCollection();
 
-		$first_event  = $this->getTestEvent( 'Unit-Test-1' );
-		$second_event = $this->getTestEvent( 'Unit-Test-2' );
+		$firstEvent  = $this->getTestEvent( 'Unit-Test-1' );
+		$secondEvent = $this->getTestEvent( 'Unit-Test-2' );
 
-		$first_envelope  = new EventEnvelope( $first_event, [ ] );
-		$second_envelope = new EventEnvelope( $second_event, [ ] );
+		$firstEnvelope  = new EventEnvelope( 0, $firstEvent, [ ] );
+		$secondEnvelope = new EventEnvelope( 1, $secondEvent, [ ] );
 
-		$collection[] = $first_envelope;
-		$collection[] = $second_envelope;
+		$collection[] = $firstEnvelope;
+		$collection[] = $secondEnvelope;
 
 		/**
 		 * Sort in reverse order
@@ -166,41 +166,41 @@ class DomainEventEnvelopeCollectionTest extends \PHPUnit_Framework_TestCase
 			}
 		);
 
-		$this->assertSame( $second_envelope, $collection[0] );
-		$this->assertSame( $first_envelope, $collection[1] );
+		$this->assertSame( $secondEnvelope, $collection[0] );
+		$this->assertSame( $firstEnvelope, $collection[1] );
 	}
 
 	public function testCanAppendCollectionToCollection()
 	{
 		$collection = new EventEnvelopeCollection();
 
-		$first_event  = $this->getTestEvent( 'Unit-Test-1' );
-		$second_event = $this->getTestEvent( 'Unit-Test-2' );
+		$firstEvent  = $this->getTestEvent( 'Unit-Test-1' );
+		$secondEvent = $this->getTestEvent( 'Unit-Test-2' );
 
-		$first_envelope  = new EventEnvelope( $first_event, [ ] );
-		$second_envelope = new EventEnvelope( $second_event, [ ] );
+		$firstEnvelope  = new EventEnvelope( 0, $firstEvent, [ ] );
+		$secondEnvelope = new EventEnvelope( 1, $secondEvent, [ ] );
 
-		$collection[] = $first_envelope;
-		$collection[] = $second_envelope;
+		$collection[] = $firstEnvelope;
+		$collection[] = $secondEnvelope;
 
 		$collection_to_append = new EventEnvelopeCollection();
 
-		$third_event  = $this->getTestEvent( 'Unit-Test-3' );
-		$fourth_event = $this->getTestEvent( 'Unit-Test-4' );
+		$thirdEvent  = $this->getTestEvent( 'Unit-Test-3' );
+		$fourthEvent = $this->getTestEvent( 'Unit-Test-4' );
 
-		$third_envelope  = new EventEnvelope( $third_event, [ ] );
-		$fourth_envelope = new EventEnvelope( $fourth_event, [ ] );
+		$thirdEnvelope  = new EventEnvelope( 2, $thirdEvent, [ ] );
+		$fourthEnvelope = new EventEnvelope( 3, $fourthEvent, [ ] );
 
-		$collection_to_append[] = $third_envelope;
-		$collection_to_append[] = $fourth_envelope;
+		$collection_to_append[] = $thirdEnvelope;
+		$collection_to_append[] = $fourthEnvelope;
 
 		/** @var EventEnvelopeCollection $collection */
 		/** @var EventEnvelopeCollection $collection_to_append */
 		$collection->append( $collection_to_append );
 
-		$this->assertSame( $first_envelope, $collection[0] );
-		$this->assertSame( $second_envelope, $collection[1] );
-		$this->assertSame( $third_envelope, $collection[2] );
-		$this->assertSame( $fourth_envelope, $collection[3] );
+		$this->assertSame( $firstEnvelope, $collection[0] );
+		$this->assertSame( $secondEnvelope, $collection[1] );
+		$this->assertSame( $thirdEnvelope, $collection[2] );
+		$this->assertSame( $fourthEnvelope, $collection[3] );
 	}
 }

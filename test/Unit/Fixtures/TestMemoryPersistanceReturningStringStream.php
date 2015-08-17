@@ -16,7 +16,7 @@ use hollodotme\MilestonES\Persistence\Memory;
  */
 class TestMemoryPersistanceReturningStringStream extends Memory
 {
-	public function getEventStreamWithId( IdentifiesEventStream $id )
+	public function getEventStreamWithId( IdentifiesEventStream $eventStreamId, $revisionOffset = 0 )
 	{
 		return 'Unit-Test-String';
 	}

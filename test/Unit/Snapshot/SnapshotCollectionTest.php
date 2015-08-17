@@ -10,7 +10,7 @@ use hollodotme\MilestonES\Snapshots\Interfaces\CarriesSnapshotData;
 use hollodotme\MilestonES\Snapshots\Snapshot;
 use hollodotme\MilestonES\Snapshots\SnapshotCollection;
 use hollodotme\MilestonES\Snapshots\SnapshotId;
-use hollodotme\MilestonES\Test\Unit\Fixtures\UnitTestAggregate;
+use hollodotme\MilestonES\Test\Unit\Fixtures\UnitTestAggregateRoot;
 
 class SnapshotCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,14 +40,14 @@ class SnapshotCollectionTest extends \PHPUnit_Framework_TestCase
 			],
 			[
 				[
-					new Snapshot( SnapshotId::generate(), UnitTestAggregate::schedule( 'Unit-Test' ) ),
+					new Snapshot( SnapshotId::generate(), UnitTestAggregateRoot::schedule( 'Unit-Test' ) ),
 				],
 				1,
 			],
 			[
 				[
-					new Snapshot( SnapshotId::generate(), UnitTestAggregate::schedule( 'Unit-Test-1' ) ),
-					new Snapshot( SnapshotId::generate(), UnitTestAggregate::schedule( 'Unit-Test-2' ) ),
+					new Snapshot( SnapshotId::generate(), UnitTestAggregateRoot::schedule( 'Unit-Test-1' ) ),
+					new Snapshot( SnapshotId::generate(), UnitTestAggregateRoot::schedule( 'Unit-Test-2' ) ),
 				],
 				2,
 			],
@@ -113,9 +113,9 @@ class SnapshotCollectionTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanClearCommittedSnapshots()
 	{
-		$snapshot1 = new Snapshot( SnapshotId::generate(), UnitTestAggregate::schedule( 'Unit-Test-1' ) );
-		$snapshot2 = new Snapshot( SnapshotId::generate(), UnitTestAggregate::schedule( 'Unit-Test-2' ) );
-		$snapshot3 = new Snapshot( SnapshotId::generate(), UnitTestAggregate::schedule( 'Unit-Test-3' ) );
+		$snapshot1 = new Snapshot( SnapshotId::generate(), UnitTestAggregateRoot::schedule( 'Unit-Test-1' ) );
+		$snapshot2 = new Snapshot( SnapshotId::generate(), UnitTestAggregateRoot::schedule( 'Unit-Test-2' ) );
+		$snapshot3 = new Snapshot( SnapshotId::generate(), UnitTestAggregateRoot::schedule( 'Unit-Test-3' ) );
 
 		$collection = new SnapshotCollection();
 		$collection->add( $snapshot1 );

@@ -19,9 +19,10 @@ interface PersistsCommitEnvelopes extends PersistsInTransaction
 	public function persistCommitEnvelope( CarriesCommitData $commitEnvelope );
 
 	/**
-	 * @param IdentifiesEventStream $id
+	 * @param IdentifiesEventStream $eventStreamId
+	 * @param int                   $revisionOffset
 	 *
 	 * @return ServesCommitData[]
 	 */
-	public function getEventStreamWithId( IdentifiesEventStream $id );
+	public function getEventStreamWithId( IdentifiesEventStream $eventStreamId, $revisionOffset = 0 );
 }

@@ -6,7 +6,9 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Exceptions\AggregateRootHasUncommittedChanges;
 use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
+use hollodotme\MilestonES\Exceptions\NotAnAggregateRoot;
 use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
 use hollodotme\MilestonES\Interfaces\IdentifiesObject;
@@ -178,7 +180,7 @@ abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSna
 	/**
 	 * @param EventStream $eventStream
 	 *
-	 * @throws Exceptions\NotAnAggregateRoot
+	 * @throws NotAnAggregateRoot
 	 * @return AggregatesObjects
 	 */
 	private function reconstituteAggregateRootFromHistory( EventStream $eventStream )
@@ -192,7 +194,7 @@ abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSna
 		}
 		else
 		{
-			throw new Exceptions\NotAnAggregateRoot();
+			throw new NotAnAggregateRoot();
 		}
 	}
 
@@ -206,11 +208,20 @@ abstract class AggregateRootRepository implements TracksAggregateRoots, TakesSna
 
 	/**
 	 * @param AggregatesObjects $aggregateRoot
+	 *
+	 * @throws AggregateRootHasUncommittedChanges
 	 */
 	public function takeSnapshot( AggregatesObjects $aggregateRoot )
 	{
-		$snapshot = new Snapshot( SnapshotId::generate(), $aggregateRoot );
+		if ( !$aggregateRoot->hasChanges() )
+		{
+			$snapshot = new Snapshot( SnapshotId::generate(), $aggregateRoot );
 
-		$this->snapshotCollection->add( $snapshot );
+			$this->snapshotCollection->add( $snapshot );
+		}
+		else
+		{
+			throw new AggregateRootHasUncommittedChanges();
+		}
 	}
 }

@@ -6,26 +6,29 @@
 
 namespace hollodotme\MilestonES;
 
-use hollodotme\MilestonES\Interfaces;
 use hollodotme\MilestonES\Interfaces\CarriesEventData;
 use hollodotme\MilestonES\Interfaces\IdentifiesObject;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class BaseRepresentsEvent
  *
  * @package hollodotme\MilestonES\Events
  */
-class EventEnvelope implements Interfaces\ServesEventStreamData
+class EventEnvelope implements ServesEventStreamData
 {
 
 	/** @var CarriesEventData */
-	private $event;
+	private $payload;
 
 	/** @var \stdClass|array */
 	private $metaData;
 
 	/** @var string */
 	private $file;
+
+	/** @var int */
+	private $lastRevision;
 
 	/** @var \DateTimeImmutable */
 	private $occurredOn;
@@ -34,16 +37,18 @@ class EventEnvelope implements Interfaces\ServesEventStreamData
 	private $occurredOnMicrotime;
 
 	/**
-	 * @param CarriesEventData $event
+	 * @param int              $lastRevision
+	 * @param CarriesEventData $payload
 	 * @param \stdClass|array  $metaData
 	 * @param string           $file
 	 */
-	public function __construct( CarriesEventData $event, $metaData, $file = null )
+	public function __construct( $lastRevision, CarriesEventData $payload, $metaData, $file = null )
 	{
-		$this->event      = $event;
-		$this->metaData   = $metaData;
-		$this->file       = $file;
-		$this->occurredOn = new \DateTimeImmutable( 'now' );
+		$this->lastRevision = $lastRevision;
+		$this->payload      = $payload;
+		$this->metaData     = $metaData;
+		$this->file         = $file;
+		$this->occurredOn   = new \DateTimeImmutable( 'now' );
 
 		usleep( 1 );
 		$this->occurredOnMicrotime = microtime( true );
@@ -54,7 +59,7 @@ class EventEnvelope implements Interfaces\ServesEventStreamData
 	 */
 	public function getStreamId()
 	{
-		return $this->event->getStreamId();
+		return $this->payload->getStreamId();
 	}
 
 	/**
@@ -78,7 +83,7 @@ class EventEnvelope implements Interfaces\ServesEventStreamData
 	 */
 	public function getPayload()
 	{
-		return $this->event;
+		return $this->payload;
 	}
 
 	/**
@@ -98,6 +103,15 @@ class EventEnvelope implements Interfaces\ServesEventStreamData
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getLastRevision()
+	{
+		return $this->lastRevision;
+	}
+
+	/**
+	 * @param int $lastRevision
 	 * @param CarriesEventData   $event
 	 * @param \stdClass|array    $metaData
 	 * @param string             $file
@@ -105,9 +119,11 @@ class EventEnvelope implements Interfaces\ServesEventStreamData
 	 *
 	 * @return EventEnvelope
 	 */
-	public static function fromRecord( CarriesEventData $event, $metaData, $file, \DateTimeImmutable $occurredOn )
+	public static function fromRecord(
+		$lastRevision, CarriesEventData $event, $metaData, $file, \DateTimeImmutable $occurredOn
+	)
 	{
-		$envelope             = new self( $event, $metaData, $file );
+		$envelope = new self( $lastRevision, $event, $metaData, $file );
 		$envelope->occurredOn = $occurredOn;
 
 		return $envelope;

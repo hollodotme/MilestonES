@@ -13,7 +13,7 @@ use hollodotme\MilestonES\EventStream;
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface AggregatesObjects extends HasIdentity, TracksChanges
+interface AggregatesObjects extends HasIdentity, TracksChanges, HasRevision
 {
 	/**
 	 * @param CollectsEventEnvelopes $committedEvents

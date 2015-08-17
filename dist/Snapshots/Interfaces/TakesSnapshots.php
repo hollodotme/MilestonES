@@ -6,6 +6,7 @@
 
 namespace hollodotme\MilestonES\Snapshots\Interfaces;
 
+use hollodotme\MilestonES\Exceptions\AggregateRootHasUncommittedChanges;
 use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 
 /**
@@ -17,6 +18,8 @@ interface TakesSnapshots
 {
 	/**
 	 * @param AggregatesObjects $aggregateRoot
+	 *
+	 * @throws AggregateRootHasUncommittedChanges
 	 */
 	public function takeSnapshot( AggregatesObjects $aggregateRoot );
 }

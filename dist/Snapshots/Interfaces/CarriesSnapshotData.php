@@ -44,6 +44,11 @@ interface CarriesSnapshotData
 	public function getAggregateRootContract();
 
 	/**
+	 * @return int
+	 */
+	public function getAggregateRootRevision();
+
+	/**
 	 * @return float
 	 */
 	public function getTakenOnMicrotime();

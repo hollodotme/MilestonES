@@ -10,11 +10,11 @@ use hollodotme\MilestonES\AggregateRootRepository;
 use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
 
 /**
- * Class UnitTestAggregateRepository
+ * Class UnitTestAggregateRootRepository
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class UnitTestAggregateRepository extends AggregateRootRepository
+class UnitTestAggregateRootRepository extends AggregateRootRepository
 {
 	/**
 	 * @return ListensForPublishedEvents[]
