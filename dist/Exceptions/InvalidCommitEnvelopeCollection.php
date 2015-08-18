@@ -7,11 +7,11 @@
 namespace hollodotme\MilestonES\Exceptions;
 
 /**
- * Class EventEnvelopesNotFound
+ * Class InvalidCommitEnvelopeCollection
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class EventEnvelopesNotFound extends MilestonESException
+class InvalidCommitEnvelopeCollection extends MilestonESException
 {
 
 }

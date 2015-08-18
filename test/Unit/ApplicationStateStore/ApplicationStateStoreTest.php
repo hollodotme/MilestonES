@@ -173,7 +173,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\InvalidEventEnvelopeCollection
+	 * @expectedException \hollodotme\MilestonES\Exceptions\InvalidCommitEnvelopeCollection
 	 */
 	public function testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotIteratable()
 	{
@@ -182,7 +182,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\InvalidEventEnvelopeCollection
+	 * @expectedException \hollodotme\MilestonES\Exceptions\InvalidCommitEnvelopeCollection
 	 */
 	public function testGetEventStreamForIdFailsWhenEventEnvelopesCollectionIsNotCountable()
 	{

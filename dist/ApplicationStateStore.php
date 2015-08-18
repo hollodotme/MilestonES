@@ -6,11 +6,12 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Exceptions\CommitEnvelopesNotFound;
 use hollodotme\MilestonES\Exceptions\CommittingEventsFailed;
 use hollodotme\MilestonES\Exceptions\CommittingSnapshotsFailed;
-use hollodotme\MilestonES\Exceptions\EventEnvelopesNotFound;
 use hollodotme\MilestonES\Exceptions\EventStreamNotFound;
-use hollodotme\MilestonES\Exceptions\InvalidEventEnvelopeCollection;
+use hollodotme\MilestonES\Exceptions\InvalidCommitEnvelopeCollection;
+use hollodotme\MilestonES\Exceptions\MilestonESException;
 use hollodotme\MilestonES\Exceptions\PersistingEventsFailed;
 use hollodotme\MilestonES\Exceptions\PersistingSnapshotsFailed;
 use hollodotme\MilestonES\Exceptions\SnapshotNotFound;
@@ -96,7 +97,7 @@ final class ApplicationStateStore implements StoresApplicationState
 
 			return new EventStream( $events );
 		}
-		catch ( EventEnvelopesNotFound $e )
+		catch ( CommitEnvelopesNotFound $e )
 		{
 			throw new EventStreamNotFound( $id, 0, $e );
 		}
@@ -314,82 +315,83 @@ final class ApplicationStateStore implements StoresApplicationState
 	}
 
 	/**
-	 * @param IdentifiesEventStream $id
+	 * @param IdentifiesEventStream $eventStreamId
 	 *
-	 * @throws EventEnvelopesNotFound
-	 * @return ServesEventStreamData[]
+	 * @return Interfaces\ServesEventStreamData[]
+	 * @throws CommitEnvelopesNotFound
+	 * @throws InvalidCommitEnvelopeCollection
 	 */
-	private function getStoredEventsWithId( IdentifiesEventStream $id )
+	private function getStoredEventsWithId( IdentifiesEventStream $eventStreamId )
 	{
-		$envelopes = $this->getStoredEventEnvelopesWithId( $id );
+		$commitEnvelopes = $this->getStoredCommitEnvelopesWithId( $eventStreamId );
 
-		return $this->extractEventsFromEnvelopes( $envelopes );
+		return $this->extractEventEnvelopes( $commitEnvelopes );
 	}
 
 	/**
 	 * @param IdentifiesEventStream $eventStreamId
 	 *
+	 * @throws CommitEnvelopesNotFound
 	 * @return Interfaces\CarriesCommitData[]
-	 * @throws EventEnvelopesNotFound
 	 */
-	private function getStoredEventEnvelopesWithId( IdentifiesEventStream $eventStreamId )
+	private function getStoredCommitEnvelopesWithId( IdentifiesEventStream $eventStreamId )
 	{
 		try
 		{
-			$eventEnvelopes = $this->eventPersistence->getEventStreamWithId( $eventStreamId, 0 );
+			$commitEnvelopes = $this->eventPersistence->getEventStreamWithId( $eventStreamId, 0 );
 
-			if ( count( $eventEnvelopes ) == 0 )
+			if ( count( $commitEnvelopes ) == 0 )
 			{
-				throw new \Exception(
-					'No event envelopes found for ' . $eventStreamId->getStreamIdContract() . '#'
+				throw new MilestonESException(
+					'No commit envelopes found for ' . $eventStreamId->getStreamIdContract() . '#'
 					. $eventStreamId->getStreamId()
 				);
 			}
 			else
 			{
-				return $eventEnvelopes;
+				return $commitEnvelopes;
 			}
 		}
-		catch ( \Exception $e )
+		catch ( MilestonESException $e )
 		{
-			throw new EventEnvelopesNotFound(
+			throw new CommitEnvelopesNotFound(
 				$eventStreamId->getStreamIdContract() . '#' . $eventStreamId->getStreamId()
 			);
 		}
 	}
 
 	/**
-	 * @param CarriesCommitData[] $envelopes
+	 * @param CarriesCommitData[] $commitEnvelopes
 	 *
-	 * @throws InvalidEventEnvelopeCollection
+	 * @throws InvalidCommitEnvelopeCollection
 	 * @return array|\Countable|Interfaces\ServesEventStreamData[]|\Iterator
 	 */
-	private function extractEventsFromEnvelopes( $envelopes )
+	private function extractEventEnvelopes( $commitEnvelopes )
 	{
-		if ( $this->guardIsArrayOrCountableIterator( $envelopes ) )
+		if ( $this->guardIsArrayOrCountableIterator( $commitEnvelopes ) )
 		{
-			return $this->envelopeMapper->extractEventEnvelopesFromCommitEnvelopes( $envelopes );
+			return $this->envelopeMapper->extractEventEnvelopesFromCommitEnvelopes( $commitEnvelopes );
 		}
 		else
 		{
-			throw new InvalidEventEnvelopeCollection();
+			throw new InvalidCommitEnvelopeCollection();
 		}
 	}
 
 	/**
-	 * @param mixed $envelopes
+	 * @param mixed $commitEnvelopes
 	 *
 	 * @return bool
 	 */
-	private function guardIsArrayOrCountableIterator( $envelopes )
+	private function guardIsArrayOrCountableIterator( $commitEnvelopes )
 	{
-		if ( is_array( $envelopes ) )
+		if ( is_array( $commitEnvelopes ) )
 		{
 			return true;
 		}
-		elseif ( $envelopes instanceof \Iterator )
+		elseif ( $commitEnvelopes instanceof \Iterator )
 		{
-			if ( $envelopes instanceof \Countable )
+			if ( $commitEnvelopes instanceof \Countable )
 			{
 				return true;
 			}

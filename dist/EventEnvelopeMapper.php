@@ -72,14 +72,14 @@ class EventEnvelopeMapper
 	 */
 	public function extractEventEnvelopesFromCommitEnvelopes( $commitEnvelopes )
 	{
-		$events = [ ];
+		$eventEnvelopes = [ ];
 
 		foreach ( $commitEnvelopes as $commitEnvelope )
 		{
-			$events[] = $this->extractEventEnvelopeFromCommitEnvelope( $commitEnvelope );
+			$eventEnvelopes[] = $this->extractEventEnvelopeFromCommitEnvelope( $commitEnvelope );
 		}
 
-		return $events;
+		return $eventEnvelopes;
 	}
 
 	/**
