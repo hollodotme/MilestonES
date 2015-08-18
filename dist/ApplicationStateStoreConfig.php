@@ -10,7 +10,8 @@ use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
 use hollodotme\MilestonES\Interfaces\PersistsCommitEnvelopes;
 use hollodotme\MilestonES\Interfaces\PersistsSnapshots;
 use hollodotme\MilestonES\Interfaces\ServesApplicationStateStoreConfig;
-use hollodotme\MilestonES\Persistence\Memory;
+use hollodotme\MilestonES\Persistence\CommitEnvelopeMemoryPersistence;
+use hollodotme\MilestonES\Persistence\SnapshotMemoryPersistence;
 use hollodotme\MilestonES\Serializers\PhpSerializer;
 
 /**
@@ -23,9 +24,9 @@ class ApplicationStateStoreConfig implements ServesApplicationStateStoreConfig
 	/**
 	 * @return PersistsCommitEnvelopes
 	 */
-	public function getEventPersistence()
+	public function getCommitEnvelopePersistence()
 	{
-		return new Memory();
+		return new CommitEnvelopeMemoryPersistence( sys_get_temp_dir() );
 	}
 
 	/**
@@ -33,6 +34,7 @@ class ApplicationStateStoreConfig implements ServesApplicationStateStoreConfig
 	 */
 	public function getSnapshotPersistence()
 	{
+		return new SnapshotMemoryPersistence();
 	}
 
 	/**

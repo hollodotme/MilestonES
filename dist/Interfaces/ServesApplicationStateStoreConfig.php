@@ -19,7 +19,7 @@ interface ServesApplicationStateStoreConfig
 	/**
 	 * @return PersistsCommitEnvelopes
 	 */
-	public function getEventPersistence();
+	public function getCommitEnvelopePersistence();
 
 	/**
 	 * @return PersistsSnapshots

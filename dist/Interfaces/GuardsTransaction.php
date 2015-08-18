@@ -6,11 +6,11 @@
 namespace hollodotme\MilestonES\Interfaces;
 
 /**
- * Interface PersistsInTransaction
+ * Interface GuardsTransaction
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface PersistsInTransaction
+interface GuardsTransaction
 {
 	public function beginTransaction();
 

@@ -15,8 +15,8 @@ use hollodotme\MilestonES\ApplicationStateStoreConfig;
  */
 class TestApplicationStateStoreConfigWithNonCountableIteratorPersistence extends ApplicationStateStoreConfig
 {
-	public function getEventPersistence()
+	public function getCommitEnvelopePersistence()
 	{
-		return new TestMemoryPersistenceReturningNotCountableIterator();
+		return new TestCommitEnvelopeMemoryPersistenceReturningNotCountableIterator( sys_get_temp_dir() );
 	}
 }

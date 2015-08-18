@@ -15,8 +15,8 @@ use hollodotme\MilestonES\ApplicationStateStoreConfig;
  */
 class TestApplicationStateStoreConfigWithEmptyPersistence extends ApplicationStateStoreConfig
 {
-	public function getEventPersistence()
+	public function getCommitEnvelopePersistence()
 	{
-		return new TestMemoryPersistenceWithEmptyEventStream();
+		return new TestCommitEnvelopeMemoryPersistenceWithEmptyEventStream( sys_get_temp_dir() );
 	}
 }

@@ -58,7 +58,7 @@ final class ApplicationStateStore implements StoresApplicationState
 	{
 		$this->eventListeners       = [ ];
 		$this->globalEventListeners = $eventStoreConfig->getGlobalEventListeners();
-		$this->eventPersistence     = $eventStoreConfig->getEventPersistence();
+		$this->eventPersistence = $eventStoreConfig->getCommitEnvelopePersistence();
 		$this->snapshotPersistence  = $eventStoreConfig->getSnapshotPersistence();
 		$this->envelopeMapper       = new EventEnvelopeMapper( $eventStoreConfig->getSerializationStrategy() );
 	}
@@ -338,7 +338,7 @@ final class ApplicationStateStore implements StoresApplicationState
 	{
 		try
 		{
-			$commitEnvelopes = $this->eventPersistence->getEventStreamWithId( $eventStreamId, 0 );
+			$commitEnvelopes = $this->eventPersistence->getCommitEnvelopesForStreamId( $eventStreamId, 0 );
 
 			if ( count( $commitEnvelopes ) == 0 )
 			{

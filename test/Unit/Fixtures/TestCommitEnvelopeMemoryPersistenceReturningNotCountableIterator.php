@@ -7,16 +7,16 @@
 namespace hollodotme\MilestonES\Test\Unit\Fixtures;
 
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
-use hollodotme\MilestonES\Persistence\Memory;
+use hollodotme\MilestonES\Persistence\CommitEnvelopeMemoryPersistence;
 
 /**
- * Class TestMemoryPersistenceReturningNotCountableIterator
+ * Class TestCommitEnvelopeMemoryPersistenceReturningNotCountableIterator
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class TestMemoryPersistenceReturningNotCountableIterator extends Memory
+class TestCommitEnvelopeMemoryPersistenceReturningNotCountableIterator extends CommitEnvelopeMemoryPersistence
 {
-	public function getEventStreamWithId( IdentifiesEventStream $eventStreamId, $revisionOffset = 0 )
+	public function getCommitEnvelopesForStreamId( IdentifiesEventStream $eventStreamId, $startRevision = 0 )
 	{
 		return new TestIterator();
 	}

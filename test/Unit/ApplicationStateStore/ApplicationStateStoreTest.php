@@ -81,7 +81,7 @@ class ApplicationStateStoreTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanDetachObservers()
 	{
-		$event_store  = new ApplicationStateStore( new ApplicationStateStoreConfig() );
+		$event_store = new ApplicationStateStore( new ApplicationStateStoreConfig() );
 		$observer          = new TestEventListener();
 		$detached_observer = new TestEventListener();
 

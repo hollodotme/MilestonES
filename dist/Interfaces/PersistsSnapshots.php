@@ -13,7 +13,7 @@ use hollodotme\MilestonES\Snapshots\Interfaces\CarriesSnapshotData;
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface PersistsSnapshots extends PersistsInTransaction
+interface PersistsSnapshots extends GuardsTransaction
 {
 	/**
 	 * @param CarriesSnapshotData $snapshot
@@ -21,9 +21,9 @@ interface PersistsSnapshots extends PersistsInTransaction
 	public function persistSnapshot( CarriesSnapshotData $snapshot );
 
 	/**
-	 * @param IdentifiesObject $streamId
+	 * @param IdentifiesEventStream $eventStreamId
 	 *
 	 * @return CarriesSnapshotData
 	 */
-	public function getLatestSnapshotForStreamId( IdentifiesObject $streamId );
+	public function getLatestSnapshotForStreamId( IdentifiesEventStream $eventStreamId );
 }

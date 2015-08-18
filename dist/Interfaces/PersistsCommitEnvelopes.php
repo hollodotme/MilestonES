@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Interfaces;
  *
  * @package hollodotme\MilestonES\Interfaces
  */
-interface PersistsCommitEnvelopes extends PersistsInTransaction
+interface PersistsCommitEnvelopes extends GuardsTransaction
 {
 	/**
 	 * @param CarriesCommitData $commitEnvelope
@@ -20,9 +20,9 @@ interface PersistsCommitEnvelopes extends PersistsInTransaction
 
 	/**
 	 * @param IdentifiesEventStream $eventStreamId
-	 * @param int                   $revisionOffset
+	 * @param int                   $startRevision
 	 *
 	 * @return ServesCommitData[]
 	 */
-	public function getEventStreamWithId( IdentifiesEventStream $eventStreamId, $revisionOffset = 0 );
+	public function getCommitEnvelopesForStreamId( IdentifiesEventStream $eventStreamId, $startRevision = 0 );
 }
