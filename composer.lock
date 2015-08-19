@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "93cf1af8e65e60e14bef6c07ed7dd4df",
+    "hash": "eb5985a5e8a8adc449c6db559b68d666",
     "packages": [
         {
             "name": "hollodotme/utilities",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hollodotme/Utilities.git",
-                "reference": "7d5061d6f0926e92722699f63e37153bcafd1fdf"
+                "reference": "fc55946a93c56287b883ba1daca74edcf4c2a772"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/7d5061d6f0926e92722699f63e37153bcafd1fdf",
-                "reference": "7d5061d6f0926e92722699f63e37153bcafd1fdf",
+                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/fc55946a93c56287b883ba1daca74edcf4c2a772",
+                "reference": "fc55946a93c56287b883ba1daca74edcf4c2a772",
                 "shasum": ""
             },
             "require-dev": {
@@ -41,19 +41,19 @@
                 }
             ],
             "description": "Simple utilities to include",
-            "time": "2015-01-10 23:39:05"
+            "time": "2015-02-19 21:08:53"
         },
         {
             "name": "moontoast/math",
             "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/moontoast/math.git",
+                "url": "https://github.com/ramsey/moontoast-math.git",
                 "reference": "fce28a9d1e73e73376cb44e5e581675d15fbe2f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moontoast/math/zipball/fce28a9d1e73e73376cb44e5e581675d15fbe2f3",
+                "url": "https://api.github.com/repos/ramsey/moontoast-math/zipball/fce28a9d1e73e73376cb44e5e581675d15fbe2f3",
                 "reference": "fce28a9d1e73e73376cb44e5e581675d15fbe2f3",
                 "shasum": ""
             },
@@ -80,27 +80,32 @@
             "time": "2013-01-19 17:42:34"
         },
         {
-            "name": "rhumsaa/uuid",
-            "version": "2.8.0",
+            "name": "ramsey/uuid",
+            "version": "2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc"
+                "reference": "9c1e2d34bdefd42608c612e08d6e1da1e13a3530"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/cca98c652cac412c9c2f109c69e5532f313435fc",
-                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/9c1e2d34bdefd42608c612e08d6e1da1e13a3530",
+                "reference": "9c1e2d34bdefd42608c612e08d6e1da1e13a3530",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
+            "replace": {
+                "rhumsaa/uuid": "self.version"
+            },
             "require-dev": {
                 "doctrine/dbal": ">=2.3",
+                "jakub-onderka/php-parallel-lint": "^0.9.0",
                 "moontoast/math": "~1.1",
                 "phpunit/phpunit": "~4.1",
                 "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "^2.3",
                 "symfony/console": "~2.3"
             },
             "suggest": {
@@ -112,11 +117,6 @@
                 "bin/uuid"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Rhumsaa\\Uuid\\": "src/"
@@ -136,29 +136,29 @@
                     "homepage": "http://benramsey.com"
                 }
             ],
-            "description": "A PHP 5.3+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
-            "homepage": "https://github.com/ramsey/uuid",
+            "description": "NO LONGER MAINTAINED. Use ramsey/uuid instead. A PHP 5.3+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
+            "homepage": "https://github.com/ramsey/rhumsaa-uuid",
             "keywords": [
                 "guid",
                 "identifier",
                 "uuid"
             ],
-            "time": "2014-11-09 18:42:56"
+            "time": "2015-07-23 19:00:41"
         }
     ],
     "packages-dev": [
         {
             "name": "erusev/parsedown",
-            "version": "1.5.1",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "9da19c1108c39df9b42adc42e39b8371070652d0"
+                "reference": "0e89e3714bda18973184d30646306bb0a482bd96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/9da19c1108c39df9b42adc42e39b8371070652d0",
-                "reference": "9da19c1108c39df9b42adc42e39b8371070652d0",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/0e89e3714bda18973184d30646306bb0a482bd96",
+                "reference": "0e89e3714bda18973184d30646306bb0a482bd96",
                 "shasum": ""
             },
             "type": "library",
@@ -184,7 +184,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2015-01-24 13:01:47"
+            "time": "2015-08-03 09:24:05"
         },
         {
             "name": "erusev/parsedown-extra",
