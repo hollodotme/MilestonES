@@ -13,8 +13,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #end
 
   # network-config
-  #config.vm.network "public_network", type: "dhcp"
-  config.vm.network "private_network", ip: "192.168.1.50"
+  config.vm.network "public_network", type: "dhcp"
+  #config.vm.network "private_network", ip: "192.168.1.50"
   config.vm.boot_timeout = 600
 
   # SSH-config
