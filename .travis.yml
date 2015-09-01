@@ -10,6 +10,7 @@ before_script:
  - php composer.phar install -o --dev --no-interaction
 
 script:
+ - mkdir -p build/logs
  - phpunit -c test/Unit/phpunit.xml test/Unit/
 
 after_script:
