@@ -1,3 +1,4 @@
-src_dir: .
+src_dir: ./dist
+service_name: travis-ci
 coverage_clover: doc/Coverage/clover.xml
 json_path: doc/Coverage/coveralls-upload.json
