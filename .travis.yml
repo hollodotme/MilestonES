@@ -7,10 +7,9 @@ php:
 
 before_script:
  - wget http://getcomposer.org/composer.phar
- - php composer.phar install -o --dev --no-interaction
+ - php composer.phar install -o --no-interaction
 
 script:
- - mkdir -p build/logs
  - phpunit -c test/Unit/phpunit.xml test/Unit/
 
 after_script:
