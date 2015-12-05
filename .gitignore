@@ -5,5 +5,5 @@ temp/
 vagrant
 !env/vagrant/
 
-doc/Coverage/
-doc/TestDox/
+doc/Coverage/*
+doc/TestDox/*

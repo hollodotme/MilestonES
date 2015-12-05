@@ -8,7 +8,7 @@ namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\IdentifierArgumentIsNotScalar;
 use hollodotme\MilestonES\Interfaces\IdentifiesObject;
-use hollodotme\Utilities\String;
+use hollodotme\Utilities\Str;
 
 /**
  * Interface Identifier
@@ -84,7 +84,7 @@ class Identifier implements IdentifiesObject
 	 */
 	protected function guardType( $id )
 	{
-		if ( !String::isValid( $id ) )
+		if ( !Str::isValid( $id ) )
 		{
 			throw new IdentifierArgumentIsNotScalar( gettype( $id ) );
 		}

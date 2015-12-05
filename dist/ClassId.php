@@ -8,7 +8,7 @@ namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\IdentifierArgumentIsNotAClassName;
 use hollodotme\Utilities\ClassName;
-use hollodotme\Utilities\String;
+use hollodotme\Utilities\Str;
 
 /**
  * Class ClassId
@@ -25,7 +25,7 @@ class ClassId extends Identifier
 	 */
 	public function toString()
 	{
-		$canonical = ( new String( $this->id ) )->toCanonical( self::NS_SEPARATOR );
+		$canonical = ( new Str( $this->id ) )->toCanonical( self::NS_SEPARATOR );
 
 		return (string)$canonical;
 	}
@@ -37,7 +37,7 @@ class ClassId extends Identifier
 	 */
 	public static function fromString( $string )
 	{
-		$string = ( new String( $string ) )->fromCanonical( self::NS_SEPARATOR );
+		$string = ( new Str( $string ) )->fromCanonical( self::NS_SEPARATOR );
 
 		return parent::fromString( (string)$string );
 	}
