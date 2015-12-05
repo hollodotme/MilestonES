@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "93cf1af8e65e60e14bef6c07ed7dd4df",
+    "hash": "703ff984e5f8eaf9b30c6cfda2111265",
+    "content-hash": "ab100724d47e97b434dfd349bc279e9a",
     "packages": [
         {
             "name": "hollodotme/utilities",
@@ -12,16 +13,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hollodotme/Utilities.git",
-                "reference": "7d5061d6f0926e92722699f63e37153bcafd1fdf"
+                "reference": "095bc921e911089ad23414bf921229d03ff1e3bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/7d5061d6f0926e92722699f63e37153bcafd1fdf",
-                "reference": "7d5061d6f0926e92722699f63e37153bcafd1fdf",
+                "url": "https://api.github.com/repos/hollodotme/Utilities/zipball/095bc921e911089ad23414bf921229d03ff1e3bf",
+                "reference": "095bc921e911089ad23414bf921229d03ff1e3bf",
                 "shasum": ""
             },
             "require-dev": {
-                "hollodotme/treemdown": "~1.0"
+                "hollodotme/treemdown": "~1.0",
+                "satooshi/php-coveralls": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -41,19 +43,19 @@
                 }
             ],
             "description": "Simple utilities to include",
-            "time": "2015-01-10 23:39:05"
+            "time": "2015-12-05 16:37:08"
         },
         {
             "name": "moontoast/math",
             "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/moontoast/math.git",
+                "url": "https://github.com/ramsey/moontoast-math.git",
                 "reference": "fce28a9d1e73e73376cb44e5e581675d15fbe2f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moontoast/math/zipball/fce28a9d1e73e73376cb44e5e581675d15fbe2f3",
+                "url": "https://api.github.com/repos/ramsey/moontoast-math/zipball/fce28a9d1e73e73376cb44e5e581675d15fbe2f3",
                 "reference": "fce28a9d1e73e73376cb44e5e581675d15fbe2f3",
                 "shasum": ""
             },
@@ -80,46 +82,45 @@
             "time": "2013-01-19 17:42:34"
         },
         {
-            "name": "rhumsaa/uuid",
-            "version": "2.8.0",
+            "name": "ramsey/uuid",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc"
+                "reference": "3c84b9e2965a5fa666dec8617a3a66a8179c6ca8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/cca98c652cac412c9c2f109c69e5532f313435fc",
-                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/3c84b9e2965a5fa666dec8617a3a66a8179c6ca8",
+                "reference": "3c84b9e2965a5fa666dec8617a3a66a8179c6ca8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.4"
+            },
+            "replace": {
+                "rhumsaa/uuid": "self.version"
             },
             "require-dev": {
-                "doctrine/dbal": ">=2.3",
-                "moontoast/math": "~1.1",
-                "phpunit/phpunit": "~4.1",
-                "satooshi/php-coveralls": "~0.6",
-                "symfony/console": "~2.3"
+                "apigen/apigen": "^4.1",
+                "ircmaxell/random-lib": "^1.1",
+                "jakub-onderka/php-parallel-lint": "^0.9.0",
+                "moontoast/math": "^1.1",
+                "phpunit/phpunit": "^4.7",
+                "satooshi/php-coveralls": "^0.6.1",
+                "squizlabs/php_codesniffer": "^2.3"
             },
             "suggest": {
-                "doctrine/dbal": "Allow the use of a UUID as doctrine field type.",
-                "moontoast/math": "Support for converting UUID to 128-bit integer (in string form).",
-                "symfony/console": "Support for use of the bin/uuid command line tool."
+                "ext-uuid": "Provides the PECL UUID extension for use with the PeclUuidTimeGenerator and PeclUuidRandomGenerator",
+                "ircmaxell/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
+                "moontoast/math": "Provides support for converting UUID to 128-bit integer (in string form).",
+                "ramsey/uuid-console": "A console application for generating UUIDs with ramsey/uuid",
+                "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
-            "bin": [
-                "bin/uuid"
-            ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "Rhumsaa\\Uuid\\": "src/"
+                    "Ramsey\\Uuid\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -132,33 +133,38 @@
                     "email": "marijn.huizendveld@gmail.com"
                 },
                 {
+                    "name": "Thibaud Fabre",
+                    "email": "thibaud@aztech.io"
+                },
+                {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "email": "ben@benramsey.com",
+                    "homepage": "https://benramsey.com"
                 }
             ],
-            "description": "A PHP 5.3+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
+            "description": "Formerly rhumsaa/uuid. A PHP 5.4+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
             "homepage": "https://github.com/ramsey/uuid",
             "keywords": [
                 "guid",
                 "identifier",
                 "uuid"
             ],
-            "time": "2014-11-09 18:42:56"
+            "time": "2015-10-21 16:27:25"
         }
     ],
     "packages-dev": [
         {
             "name": "erusev/parsedown",
-            "version": "1.5.1",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "9da19c1108c39df9b42adc42e39b8371070652d0"
+                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/9da19c1108c39df9b42adc42e39b8371070652d0",
-                "reference": "9da19c1108c39df9b42adc42e39b8371070652d0",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
                 "shasum": ""
             },
             "type": "library",
@@ -184,20 +190,20 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2015-01-24 13:01:47"
+            "time": "2015-10-04 16:44:32"
         },
         {
             "name": "erusev/parsedown-extra",
-            "version": "0.7.0",
+            "version": "0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown-extra.git",
-                "reference": "11a44e076d02ffcc4021713398a60cd73f78b6f5"
+                "reference": "0db5cce7354e4b76f155d092ab5eb3981c21258c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown-extra/zipball/11a44e076d02ffcc4021713398a60cd73f78b6f5",
-                "reference": "11a44e076d02ffcc4021713398a60cd73f78b6f5",
+                "url": "https://api.github.com/repos/erusev/parsedown-extra/zipball/0db5cce7354e4b76f155d092ab5eb3981c21258c",
+                "reference": "0db5cce7354e4b76f155d092ab5eb3981c21258c",
                 "shasum": ""
             },
             "require": {
@@ -228,7 +234,7 @@
                 "parsedown",
                 "parser"
             ],
-            "time": "2015-01-25 14:52:34"
+            "time": "2015-11-01 10:19:22"
         },
         {
             "name": "hollodotme/treemdown",
@@ -282,6 +288,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "ramsey/uuid": 0,
+        "moontoast/math": 0,
         "hollodotme/utilities": 20
     },
     "prefer-stable": false,
