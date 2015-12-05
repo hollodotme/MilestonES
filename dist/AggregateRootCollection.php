@@ -6,13 +6,13 @@
 
 namespace hollodotme\MilestonES;
 
+use hollodotme\MilestonES\Exceptions\AggregateRootIsAlreadyAttached;
 use hollodotme\MilestonES\Exceptions\AggregateRootNotFound;
-use hollodotme\MilestonES\Exceptions\AggregateRootWithEqualIdIsAlreadyAttached;
-use hollodotme\MilestonES\Interfaces\AggregatesModels;
+use hollodotme\MilestonES\Interfaces\AggregatesObjects;
 use hollodotme\MilestonES\Interfaces\CollectsAggregateRoots;
-use hollodotme\MilestonES\Interfaces\CollectsDomainEventEnvelopes;
-use hollodotme\MilestonES\Interfaces\Identifies;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
+use hollodotme\MilestonES\Interfaces\CollectsEventEnvelopes;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
 
 /**
  * Class AggregateRootCollection
@@ -25,19 +25,19 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	/**
 	 * @var AggregateRoot[]
 	 */
-	private $aggregate_roots = [ ];
+	private $aggregateRoots = [ ];
 
 	/**
 	 * @return AggregateRoot
 	 */
 	public function current()
 	{
-		return current( $this->aggregate_roots );
+		return current( $this->aggregateRoots );
 	}
 
 	public function next()
 	{
-		next( $this->aggregate_roots );
+		next( $this->aggregateRoots );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	 */
 	public function key()
 	{
-		return key( $this->aggregate_roots );
+		return key( $this->aggregateRoots );
 	}
 
 	/**
@@ -53,38 +53,38 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	 */
 	public function valid()
 	{
-		return (key( $this->aggregate_roots ) !== null);
+		return (key( $this->aggregateRoots ) !== null);
 	}
 
 	public function rewind()
 	{
-		reset( $this->aggregate_roots );
+		reset( $this->aggregateRoots );
 	}
 
 	/**
-	 * @param AggregatesModels $aggregate_root
+	 * @param AggregatesObjects $aggregateRoot
 	 *
-	 * @throws AggregateRootWithEqualIdIsAlreadyAttached
+	 * @throws AggregateRootIsAlreadyAttached
 	 */
-	public function attach( AggregatesModels $aggregate_root )
+	public function attach( AggregatesObjects $aggregateRoot )
 	{
-		if ( !$this->idExists( $aggregate_root->getIdentifier() ) )
+		if ( !$this->idExists( $aggregateRoot->getIdentifier() ) )
 		{
-			$this->aggregate_roots[] = $aggregate_root;
+			$this->aggregateRoots[] = $aggregateRoot;
 		}
-		elseif ( !$this->isAttached( $aggregate_root ) )
+		elseif ( !$this->isAttached( $aggregateRoot ) )
 		{
-			throw new AggregateRootWithEqualIdIsAlreadyAttached( (string)$aggregate_root->getIdentifier() );
+			throw new AggregateRootIsAlreadyAttached( (string)$aggregateRoot->getIdentifier() );
 		}
 	}
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @throws AggregateRootNotFound
 	 * @return AggregateRoot
 	 */
-	final public function find( Identifies $id )
+	final public function find( IdentifiesObject $id )
 	{
 		if ( $this->idExists( $id ) )
 		{
@@ -97,51 +97,51 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	}
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @return bool
 	 */
-	public function idExists( Identifies $id )
+	public function idExists( IdentifiesObject $id )
 	{
-		$id_exists = false;
+		$idExists = false;
 
-		for ( $this->rewind(); ($this->valid() && !$id_exists); $this->next() )
+		for ( $this->rewind(); ($this->valid() && !$idExists); $this->next() )
 		{
-			$id_exists = $this->current()->getIdentifier()->equals( $id );
+			$idExists = $this->current()->getIdentifier()->equals( $id );
 		}
 
-		return $id_exists;
+		return $idExists;
 	}
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
 	 * @throws AggregateRootNotFound
-	 * @return AggregatesModels
+	 * @return AggregatesObjects
 	 */
-	private function getAggregateRootWithId( Identifies $id )
+	private function getAggregateRootWithId( IdentifiesObject $id )
 	{
-		$aggregate_root = null;
+		$aggregateRoot = null;
 
-		for ( $this->rewind(); ($this->valid() && is_null( $aggregate_root )); $this->next() )
+		for ( $this->rewind(); ($this->valid() && is_null( $aggregateRoot )); $this->next() )
 		{
 			if ( $this->current()->getIdentifier()->equals( $id ) )
 			{
-				$aggregate_root = $this->current();
+				$aggregateRoot = $this->current();
 			}
 		}
 
-		return $aggregate_root;
+		return $aggregateRoot;
 	}
 
 	/**
-	 * @param AggregatesModels $aggregate_root
+	 * @param AggregatesObjects $aggregateRoot
 	 *
 	 * @return bool
 	 */
-	public function isAttached( AggregatesModels $aggregate_root )
+	public function isAttached( AggregatesObjects $aggregateRoot )
 	{
-		return in_array( $aggregate_root, $this->aggregate_roots, true );
+		return in_array( $aggregateRoot, $this->aggregateRoots, true );
 	}
 
 	/**
@@ -149,21 +149,21 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	 */
 	public function count()
 	{
-		return count( $this->aggregate_roots );
+		return count( $this->aggregateRoots );
 	}
 
 	/**
-	 * @return CollectsDomainEventEnvelopes
+	 * @return CollectsEventEnvelopes
 	 */
 	public function getChanges()
 	{
-		$changes = new DomainEventEnvelopeCollection();
+		$changes = new EventEnvelopeCollection();
 
-		foreach ( $this->aggregate_roots as $aggregate_root )
+		foreach ( $this->aggregateRoots as $aggregateRoot )
 		{
-			if ( $aggregate_root->hasChanges() )
+			if ( $aggregateRoot->hasChanges() )
 			{
-				$changes->append( $aggregate_root->getChanges() );
+				$changes->append( $aggregateRoot->getChanges() );
 			}
 		}
 
@@ -177,12 +177,12 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	 */
 	private function getChangesSortFunction()
 	{
-		return function ( WrapsDomainEvent $envelope_a, WrapsDomainEvent $envelope_b )
+		return function ( ServesEventStreamData $envelopeA, ServesEventStreamData $envelopeB )
 		{
-			$microtime_a = floatval( $envelope_a->getOccurredOnMicrotime() );
-			$microtime_b = floatval( $envelope_b->getOccurredOnMicrotime() );
+			$microtimeA = floatval( $envelopeA->getOccurredOnMicrotime() );
+			$microtimeB = floatval( $envelopeB->getOccurredOnMicrotime() );
 
-			if ( $microtime_a < $microtime_b )
+			if ( $microtimeA < $microtimeB )
 			{
 				return -1;
 			}
@@ -194,13 +194,13 @@ class AggregateRootCollection implements CollectsAggregateRoots
 	}
 
 	/**
-	 * @param CollectsDomainEventEnvelopes $committed_changes
+	 * @param CollectsEventEnvelopes $committedChanges
 	 */
-	public function clearCommittedChanges( CollectsDomainEventEnvelopes $committed_changes )
+	public function clearCommittedChanges( CollectsEventEnvelopes $committedChanges )
 	{
-		foreach ( $this->aggregate_roots as $aggregate_root )
+		foreach ( $this->aggregateRoots as $aggregateRoot )
 		{
-			$aggregate_root->clearCommittedChanges( $committed_changes );
+			$aggregateRoot->clearCommittedChanges( $committedChanges );
 		}
 	}
 }

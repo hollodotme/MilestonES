@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class RepositoryWithNameDoesNotExist extends Exception
+class RepositoryWithNameDoesNotExist extends MilestonESException
 {
 
 }

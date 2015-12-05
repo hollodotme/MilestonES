@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class PersistenceHasNoTransactionStarted extends Exception
+class PersistenceHasNoTransactionStarted extends MilestonESException
 {
 
 }

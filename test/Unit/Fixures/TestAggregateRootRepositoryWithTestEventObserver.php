@@ -4,10 +4,10 @@
  * @author h.woltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\AggregateRootRepository;
-use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
+use hollodotme\MilestonES\Interfaces\ListensForPublishedEvents;
 
 /**
  * Class TestAggregateRootRepositoryWithTestEventObserver
@@ -17,11 +17,11 @@ use hollodotme\MilestonES\Interfaces\ObservesCommitedEvents;
 class TestAggregateRootRepositoryWithTestEventObserver extends AggregateRootRepository
 {
 	/**
-	 * @return ObservesCommitedEvents[]
+	 * @return ListensForPublishedEvents[]
 	 */
 	public function getCommitedEventObservers()
 	{
-		return [ new TestEventObserver() ];
+		return [ new TestEventListener() ];
 	}
 
 	protected function getAggregateRootName()

@@ -4,10 +4,7 @@
  * @author h.woltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
-
-require_once __DIR__ . '/UnitTestEvent.php';
-require_once __DIR__ . '/TestIdentifier.php';
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\AggregateRoot;
 
@@ -19,7 +16,7 @@ use hollodotme\MilestonES\AggregateRoot;
 class UnitTestAggregateDiff extends AggregateRoot
 {
 
-	/** @var \hollodotme\MilestonES\Interfaces\Identifies */
+	/** @var \hollodotme\MilestonES\Interfaces\IdentifiesObject */
 	private $test_id;
 
 	/** @var string */
@@ -57,7 +54,7 @@ class UnitTestAggregateDiff extends AggregateRoot
 	}
 
 	/**
-	 * @return \hollodotme\MilestonES\Interfaces\Identifies
+	 * @return \hollodotme\MilestonES\Interfaces\IdentifiesObject
 	 */
 	public function getIdentifier()
 	{
@@ -65,7 +62,7 @@ class UnitTestAggregateDiff extends AggregateRoot
 	}
 
 	/**
-	 * @return \hollodotme\MilestonES\Interfaces\Identifies
+	 * @return \hollodotme\MilestonES\Interfaces\IdentifiesObject
 	 */
 	public function getTestId()
 	{

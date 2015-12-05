@@ -4,7 +4,7 @@
  * @author h.woltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\Interfaces\IdentifiesEventStream;
 use hollodotme\MilestonES\Persistence\Memory;
@@ -16,7 +16,7 @@ use hollodotme\MilestonES\Persistence\Memory;
  */
 class TestMemoryPersistanceReturningStringStream extends Memory
 {
-	public function getEventEnvelopesWithId( IdentifiesEventStream $id )
+	public function getEventStreamWithId( IdentifiesEventStream $id )
 	{
 		return 'Unit-Test-String';
 	}

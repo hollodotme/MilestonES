@@ -4,41 +4,41 @@
  * @author hwoltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
-use hollodotme\MilestonES\Interfaces\Identifies;
-use hollodotme\MilestonES\Interfaces\RepresentsEvent;
+use hollodotme\MilestonES\Interfaces\CarriesEventData;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
 
 /**
  * Class UnitTestEvent
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class UnitTestEvent implements RepresentsEvent
+class UnitTestEvent implements CarriesEventData
 {
 
-	/** @var Identifies */
-	private $test_id;
+	/** @var IdentifiesObject */
+	private $testId;
 
 	/** @var string */
 	private $description;
 
 	/**
-	 * @param Identifies $test_id
+	 * @param IdentifiesObject $testId
 	 * @param string     $description
 	 */
-	public function __construct( Identifies $test_id, $description )
+	public function __construct( IdentifiesObject $testId, $description )
 	{
-		$this->test_id     = $test_id;
+		$this->testId = $testId;
 		$this->description = $description;
 	}
 
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getTestId()
 	{
-		return $this->test_id;
+		return $this->testId;
 	}
 
 	/**
@@ -50,10 +50,10 @@ class UnitTestEvent implements RepresentsEvent
 	}
 
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getStreamId()
 	{
-		return $this->test_id;
+		return $this->testId;
 	}
 }

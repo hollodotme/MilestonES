@@ -7,15 +7,15 @@
 namespace hollodotme\MilestonES;
 
 use hollodotme\MilestonES\Exceptions\IdentifierArgumentIsNotScalar;
-use hollodotme\MilestonES\Interfaces\Identifies;
-use hollodotme\Utilities\String;
+use hollodotme\MilestonES\Interfaces\IdentifiesObject;
+use hollodotme\Utilities\Str;
 
 /**
  * Interface Identifier
  *
  * @package Interfaces
  */
-class Identifier implements Identifies
+class Identifier implements IdentifiesObject
 {
 
 	/**
@@ -58,11 +58,11 @@ class Identifier implements Identifies
 	}
 
 	/**
-	 * @param Identifies $other
+	 * @param IdentifiesObject $other
 	 *
 	 * @return bool
 	 */
-	public function equals( Identifies $other )
+	public function equals( IdentifiesObject $other )
 	{
 		return ($other->toString() == $this->toString() && get_class( $this ) == get_class( $other ));
 	}
@@ -84,7 +84,7 @@ class Identifier implements Identifies
 	 */
 	protected function guardType( $id )
 	{
-		if ( !String::isValid( $id ) )
+		if ( !Str::isValid( $id ) )
 		{
 			throw new IdentifierArgumentIsNotScalar( gettype( $id ) );
 		}

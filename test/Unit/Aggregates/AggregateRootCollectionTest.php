@@ -6,22 +6,15 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
-require_once __DIR__ . '/../Fixures/UnitTestAggregate.php';
-require_once __DIR__ . '/../Fixures/UnitTestAggregateDiff.php';
-require_once __DIR__ . '/../Fixures/UnitTestAggregateOtherId.php';
-require_once __DIR__ . '/../Fixures/TestIdentifier.php';
-require_once __DIR__ . '/../Fixures/TestAggregateRoot.php';
-require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
-
 use hollodotme\MilestonES\AggregateRootCollection;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Interfaces\WrapsDomainEvent;
-use hollodotme\MilestonES\Test\Unit\TestAggregateRoot;
-use hollodotme\MilestonES\Test\Unit\TestIdentifier;
-use hollodotme\MilestonES\Test\Unit\UnitTestAggregate;
-use hollodotme\MilestonES\Test\Unit\UnitTestAggregateDiff;
-use hollodotme\MilestonES\Test\Unit\UnitTestAggregateOtherId;
-use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
+use hollodotme\MilestonES\Interfaces\ServesEventStreamData;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestAggregateRoot;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestIdentifier;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregate;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregateDiff;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregateOtherId;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -89,7 +82,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \hollodotme\MilestonES\Exceptions\AggregateRootWithEqualIdIsAlreadyAttached
+	 * @expectedException \hollodotme\MilestonES\Exceptions\AggregateRootIsAlreadyAttached
 	 */
 	public function testAttachingTwoAggregateRootsWithSameIdFails()
 	{
@@ -182,7 +175,7 @@ class AggregateRootCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$collection->attach( $aggregate_root_2 );
 
-		/** @var WrapsDomainEvent[] $changes */
+		/** @var ServesEventStreamData[] $changes */
 		$changes = $collection->getChanges();
 
 		$first_event_in_changes  = $changes[0]->getPayload();

@@ -18,7 +18,7 @@ class SerializerRegistry
 {
 
 	/** @var SerializesData[] */
-	private $serializer_map = [ ];
+	private $serializerMap = [ ];
 
 	/**
 	 * @param Contract $contract
@@ -26,7 +26,7 @@ class SerializerRegistry
 	 */
 	public function registerSerializerForContract( Contract $contract, SerializesData $serializer )
 	{
-		$this->serializer_map[ $contract->toString() ] = $serializer;
+		$this->serializerMap[ $contract->toString() ] = $serializer;
 	}
 
 	/**
@@ -54,7 +54,7 @@ class SerializerRegistry
 	 */
 	public function isContractRegistered( Contract $contract )
 	{
-		return array_key_exists( $contract->toString(), $this->serializer_map );
+		return array_key_exists( $contract->toString(), $this->serializerMap );
 	}
 
 	/**
@@ -64,6 +64,6 @@ class SerializerRegistry
 	 */
 	private function getSerializerForRegisteredContract( Contract $contract )
 	{
-		return $this->serializer_map[ $contract->toString() ];
+		return $this->serializerMap[ $contract->toString() ];
 	}
 } 

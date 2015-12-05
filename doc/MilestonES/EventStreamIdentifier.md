@@ -12,8 +12,8 @@ An object of type EventStreamIdentifier is used to retrieve a unique event_envel
 An event_envelope stream is identified by an ID and a type ID.
 The type ID is used to guard uniqueness of IDs within the scope of the type, but without uniqueness in the whole system.
 
-Every ID has to be a unique class implementing `Interfaces\Identifies`.
-The type ID is build from the ID's class name and also implements `Interfaces\Identifies`.
+Every ID has to be a unique class implementing `Interfaces\IdentifiesObject`.
+The type ID is build from the ID's class name and also implements `Interfaces\IdentifiesObject`.
 
 ## Example
 

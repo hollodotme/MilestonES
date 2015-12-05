@@ -9,13 +9,13 @@ namespace hollodotme\MilestonES\Test\Unit\EventStore;
 use hollodotme\MilestonES\Commit;
 use hollodotme\MilestonES\CommitId;
 use hollodotme\MilestonES\Contract;
-use hollodotme\MilestonES\DomainEventEnvelope;
+use hollodotme\MilestonES\EventEnvelope;
 use hollodotme\MilestonES\EventEnvelopeMapper;
 use hollodotme\MilestonES\Identifier;
 use hollodotme\MilestonES\SerializationStrategy;
 use hollodotme\MilestonES\SerializerRegistry;
 use hollodotme\MilestonES\Serializers\PhpSerializer;
-use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
 
@@ -60,18 +60,18 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertNull( $commit_envelope->getId() );
 
-		$this->assertEquals( $this->commit->getId(), $commit_envelope->getCommitId() );
+		$this->assertEquals( $this->commit->getCommitId(), $commit_envelope->getCommitId() );
 		$this->assertNotInstanceOf(
-			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $commit_envelope->getCommitId()
+			'\\hollodotme\\MilestonES\\Interfaces\\IdentifiesObject', $commit_envelope->getCommitId()
 		);
 		$this->assertInternalType( 'string', $commit_envelope->getCommitId() );
 
-		$this->assertSame( $this->commit->getDateTime(), $commit_envelope->getCommittedOn() );
+		$this->assertSame( $this->commit->getCommittedOn(), $commit_envelope->getCommittedOn() );
 		$this->assertSame( $event_envelope->getOccurredOn(), $commit_envelope->getOccurredOn() );
 
 		$this->assertEquals( $event_envelope->getStreamId(), $commit_envelope->getStreamId() );
 		$this->assertNotInstanceOf(
-			'\\hollodotme\\MilestonES\\Interfaces\\Identifies', $commit_envelope->getStreamId()
+			'\\hollodotme\\MilestonES\\Interfaces\\IdentifiesObject', $commit_envelope->getStreamId()
 		);
 		$this->assertInternalType( 'string', $commit_envelope->getStreamId() );
 
@@ -79,14 +79,14 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 			new Contract( get_class( $event_envelope->getStreamId() ) ), $commit_envelope->getStreamIdContract()
 		);
 		$this->assertNotInstanceOf(
-			'\\hollodotme\\MilestonES\\Interfaces\\Identifies',
+			'\\hollodotme\\MilestonES\\Interfaces\\IdentifiesObject',
 			$commit_envelope->getStreamIdContract()
 		);
 		$this->assertInternalType( 'string', $commit_envelope->getStreamIdContract() );
 
 		$this->assertEquals( new Contract( PhpSerializer::class ), $commit_envelope->getPayloadContract() );
 		$this->assertNotInstanceOf(
-			'\\hollodotme\\MilestonES\\Interfaces\\Identifies',
+			'\\hollodotme\\MilestonES\\Interfaces\\IdentifiesObject',
 			$commit_envelope->getPayloadContract()
 		);
 		$this->assertInternalType( 'string', $commit_envelope->getPayloadContract() );
@@ -96,7 +96,7 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals( new Contract( PhpSerializer::class ), $commit_envelope->getMetaDataContract() );
 		$this->assertNotInstanceOf(
-			'\\hollodotme\\MilestonES\\Interfaces\\Identifies',
+			'\\hollodotme\\MilestonES\\Interfaces\\IdentifiesObject',
 			$commit_envelope->getMetaDataContract()
 		);
 		$this->assertInternalType( 'string', $commit_envelope->getMetaDataContract() );
@@ -111,9 +111,9 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 		$event_envelope  = $this->getTestEventEnvelope();
 		$commit_envelope = $mapper->putEventInEnvelopeForCommit( $event_envelope, $this->commit );
 
-		$extracted_envelopes = $mapper->extractFromCommitEnvelopes( [ $commit_envelope ] );
+		$extracted_envelopes = $mapper->extractEventEnvelopesFromCommitEnvelopes( [ $commit_envelope ] );
 
-		/** @var DomainEventEnvelope $extracted_envelope */
+		/** @var EventEnvelope $extracted_envelope */
 		$extracted_envelope = $extracted_envelopes[0];
 
 		/** @var UnitTestEvent $extracted_event */
@@ -133,12 +133,12 @@ class EventEnvelopeMapperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @return DomainEventEnvelope
+	 * @return EventEnvelope
 	 */
 	private function getTestEventEnvelope()
 	{
 		$event          = new UnitTestEvent( new Identifier( 'Unit-Test-ID' ), 'Unit test event' );
-		$event_envelope = new DomainEventEnvelope( $event, [ ] );
+		$event_envelope = new EventEnvelope( $event, [ ] );
 
 		return $event_envelope;
 	}

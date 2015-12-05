@@ -1,5 +1,9 @@
 vendor/
+temp/
 .idea/
 .vagrant/
 vagrant
 !env/vagrant/
+
+doc/Coverage/*
+doc/TestDox/*

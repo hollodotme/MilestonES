@@ -6,6 +6,8 @@
 
 namespace hollodotme\MilestonES\Interfaces;
 
+use hollodotme\MilestonES\EventEnvelope;
+
 /**
  * Interface TracksChanges
  *
@@ -14,7 +16,7 @@ namespace hollodotme\MilestonES\Interfaces;
 interface TracksChanges
 {
 	/**
-	 * @return CollectsDomainEventEnvelopes
+	 * @return CollectsEventEnvelopes|EventEnvelope[]
 	 */
 	public function getChanges();
 

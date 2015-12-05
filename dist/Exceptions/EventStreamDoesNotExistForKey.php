@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class EventStreamDoesNotExistForKey extends Exception
+class EventStreamDoesNotExistForKey extends MilestonESException
 {
 
 }

@@ -6,7 +6,7 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Identifiers;
 
-use hollodotme\MilestonES\ClassNameIdentifier;
+use hollodotme\MilestonES\ClassId;
 
 class ClassNameIdentifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class ClassNameIdentifierTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testClassNameIsRepresentedAsCanonicalString( $class_name, $expected_canonical )
 	{
-		$identifier = new ClassNameIdentifier( $class_name );
+		$identifier = new ClassId( $class_name );
 
 		$this->assertSame( $expected_canonical, $identifier->toString() );
 		$this->assertSame( $expected_canonical, (string)$identifier );
@@ -39,7 +39,7 @@ class ClassNameIdentifierTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testConstructionFailsOnInvalidClassNames( $invalid_class_name )
 	{
-		new ClassNameIdentifier( $invalid_class_name );
+		new ClassId( $invalid_class_name );
 	}
 
 	public function invalidClassNameProvider()
@@ -63,7 +63,7 @@ class ClassNameIdentifierTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testClassNameIsReconstitutedFromCanonical( $canonical, $expected_fqcn )
 	{
-		$identifier = ClassNameIdentifier::fromString( $canonical );
+		$identifier = ClassId::fromString( $canonical );
 
 		$this->assertEquals( $expected_fqcn, $identifier->getFullQualifiedClassName() );
 	}
@@ -82,7 +82,7 @@ class ClassNameIdentifierTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testClassBasenameIsExtractedFromFcqn( $fcqn, $expected_basename )
 	{
-		$identifier = new ClassNameIdentifier( $fcqn );
+		$identifier = new ClassId( $fcqn );
 
 		$this->assertEquals( $expected_basename, $identifier->getClassBasename() );
 	}

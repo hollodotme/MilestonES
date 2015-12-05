@@ -14,21 +14,21 @@ namespace hollodotme\MilestonES\Interfaces;
 interface TracksAggregateRoots
 {
 	/**
-	 * @param AggregatesModels $aggregate_root
+	 * @param AggregatesObjects $aggregateRoot
 	 */
-	public function track( AggregatesModels $aggregate_root );
+	public function track( AggregatesObjects $aggregateRoot );
 
 	/**
-	 * @param AggregatesModels $aggregate_root
+	 * @param AggregatesObjects $aggregateRoot
 	 *
 	 * @return bool
 	 */
-	public function isTracked( AggregatesModels $aggregate_root );
+	public function isTracked( AggregatesObjects $aggregateRoot );
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
-	 * @return AggregatesModels
+	 * @return AggregatesObjects
 	 */
-	public function getWithId( Identifies $id );
+	public function getWithId( IdentifiesObject $id );
 }

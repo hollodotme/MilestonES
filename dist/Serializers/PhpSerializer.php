@@ -26,12 +26,12 @@ class PhpSerializer implements SerializesData
 	}
 
 	/**
-	 * @param string $serialized_data
+	 * @param string $serializedData
 	 *
 	 * @return mixed
 	 */
-	public function unserializeData( $serialized_data )
+	public function unserializeData( $serializedData )
 	{
-		return unserialize( $serialized_data );
+		return unserialize( $serializedData );
 	}
 }

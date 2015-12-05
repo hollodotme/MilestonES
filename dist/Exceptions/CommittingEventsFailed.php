@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class CommittingEventsFailed extends Exception
+class CommittingEventsFailed extends MilestonESException
 {
 
 } 

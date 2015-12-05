@@ -4,16 +4,16 @@
  * @author hwoltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
-use hollodotme\MilestonES\DomainEventEnvelope;
+use hollodotme\MilestonES\EventEnvelope;
 
 /**
- * Class TestDomainEventEnvelope
+ * Class TestEventEnvelope
  *
  * @package hollodotme\MilestonES\Test\Unit
  */
-class TestDomainEventEnvelope extends DomainEventEnvelope
+class TestEventEnvelope extends EventEnvelope
 {
 
 }

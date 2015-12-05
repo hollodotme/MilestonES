@@ -6,54 +6,51 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Aggregates;
 
-require_once __DIR__ . '/../Fixures/UnitTestAggregate.php';
-require_once __DIR__ . '/../Fixures/UnitTestEvent.php';
-
-use hollodotme\MilestonES\DomainEventEnvelope;
+use hollodotme\MilestonES\EventEnvelope;
 use hollodotme\MilestonES\EventStream;
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Test\Unit\UnitTestAggregate;
-use hollodotme\MilestonES\Test\Unit\UnitTestEvent;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestAggregate;
+use hollodotme\MilestonES\Test\Unit\Fixures\UnitTestEvent;
 
 class AggregateRootTest extends \PHPUnit_Framework_TestCase
 {
 	public function testScheduleTriggersAndAppliesChangeWithId()
 	{
-		$identifier     = new Identifier( 'Unit-Test-ID' );
-		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
+		$identifier    = new Identifier( 'Unit-Test-ID' );
+		$aggregateRoot = UnitTestAggregate::schedule( 'Unit-Test' );
 
-		$this->assertInstanceOf( UnitTestAggregate::class, $aggregate_root );
-		$this->assertTrue( $aggregate_root->hasChanges() );
-		$this->assertCount( 1, $aggregate_root->getChanges() );
-		$this->assertTrue( $aggregate_root->getIdentifier()->equals( $identifier ) );
+		$this->assertInstanceOf( UnitTestAggregate::class, $aggregateRoot );
+		$this->assertTrue( $aggregateRoot->hasChanges() );
+		$this->assertCount( 1, $aggregateRoot->getChanges() );
+		$this->assertTrue( $aggregateRoot->getIdentifier()->equals( $identifier ) );
 	}
 
 	public function testCanBeReconstitutedFromHistory()
 	{
 		$identifier = new Identifier( 'Unit-Test-ID' );
 
-		$event          = new UnitTestEvent( $identifier, 'Unit-Test' );
-		$event_envelope = new DomainEventEnvelope( $event, [ ] );
+		$event         = new UnitTestEvent( $identifier, 'Unit-Test' );
+		$eventEnvelope = new EventEnvelope( $event, [ ] );
 
-		$stream = new EventStream( [ $event_envelope ] );
+		$stream = new EventStream( [ $eventEnvelope ] );
 
-		$aggregate_root = UnitTestAggregate::reconstituteFromHistory( $stream );
+		$aggregateRoot = UnitTestAggregate::reconstituteFromHistory( $stream );
 
-		$this->assertSame( $identifier, $aggregate_root->getIdentifier() );
-		$this->assertEquals( 'Unit-Test', $aggregate_root->getDescription() );
-		$this->assertFalse( $aggregate_root->hasChanges() );
+		$this->assertSame( $identifier, $aggregateRoot->getIdentifier() );
+		$this->assertEquals( 'Unit-Test', $aggregateRoot->getDescription() );
+		$this->assertFalse( $aggregateRoot->hasChanges() );
 	}
 
 	public function testChangesCanBeCleared()
 	{
-		$aggregate_root = UnitTestAggregate::schedule( 'Unit-Test' );
+		$aggregateRoot = UnitTestAggregate::schedule( 'Unit-Test' );
 
-		$this->assertCount( 1, $aggregate_root->getChanges() );
-		$this->assertTrue( $aggregate_root->hasChanges() );
+		$this->assertCount( 1, $aggregateRoot->getChanges() );
+		$this->assertTrue( $aggregateRoot->hasChanges() );
 
-		$aggregate_root->clearCommittedChanges( $aggregate_root->getChanges() );
+		$aggregateRoot->clearCommittedChanges( $aggregateRoot->getChanges() );
 
-		$this->assertCount( 0, $aggregate_root->getChanges() );
-		$this->assertFalse( $aggregate_root->hasChanges() );
+		$this->assertCount( 0, $aggregateRoot->getChanges() );
+		$this->assertFalse( $aggregateRoot->hasChanges() );
 	}
 }

@@ -6,10 +6,8 @@
 
 namespace hollodotme\MilestonES\Test\Unit\Identifiers;
 
-require_once __DIR__ . '/../Fixures/TestIdentifier.php';
-
 use hollodotme\MilestonES\Identifier;
-use hollodotme\MilestonES\Test\Unit\TestIdentifier;
+use hollodotme\MilestonES\Test\Unit\Fixures\TestIdentifier;
 
 class IdentifierTest extends \PHPUnit_Framework_TestCase
 {

@@ -14,7 +14,7 @@ namespace hollodotme\MilestonES\Interfaces;
 interface HasIdentity
 {
 	/**
-	 * @return Identifies
+	 * @return IdentifiesObject
 	 */
 	public function getIdentifier();
 }

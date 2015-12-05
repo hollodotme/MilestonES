@@ -11,7 +11,7 @@ namespace hollodotme\MilestonES\Exceptions;
  *
  * @package hollodotme\MilestonES\Exceptions
  */
-class IdentifierArgumentIsNotScalar extends Exception
+class IdentifierArgumentIsNotScalar extends MilestonESException
 {
 
 }

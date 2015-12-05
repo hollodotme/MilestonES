@@ -4,9 +4,7 @@
  * @author h.woltersdorf
  */
 
-namespace hollodotme\MilestonES\Test\Unit;
-
-require_once __DIR__ . '/UnitTestEvent.php';
+namespace hollodotme\MilestonES\Test\Unit\Fixures;
 
 use hollodotme\MilestonES\AggregateRoot;
 use hollodotme\MilestonES\Identifier;
@@ -19,8 +17,8 @@ use hollodotme\MilestonES\Identifier;
 class UnitTestAggregate extends AggregateRoot
 {
 
-	/** @var \hollodotme\MilestonES\Interfaces\Identifies */
-	private $test_id;
+	/** @var \hollodotme\MilestonES\Interfaces\IdentifiesObject */
+	private $testId;
 
 	/** @var string */
 	private $description;
@@ -44,7 +42,7 @@ class UnitTestAggregate extends AggregateRoot
 	 */
 	protected function whenUnitTestEvent( UnitTestEvent $event )
 	{
-		$this->test_id     = $event->getTestId();
+		$this->testId = $event->getTestId();
 		$this->description = $event->getDescription();
 	}
 
@@ -57,18 +55,18 @@ class UnitTestAggregate extends AggregateRoot
 	}
 
 	/**
-	 * @return \hollodotme\MilestonES\Interfaces\Identifies
+	 * @return \hollodotme\MilestonES\Interfaces\IdentifiesObject
 	 */
 	public function getIdentifier()
 	{
-		return $this->test_id;
+		return $this->testId;
 	}
 
 	/**
-	 * @return \hollodotme\MilestonES\Interfaces\Identifies
+	 * @return \hollodotme\MilestonES\Interfaces\IdentifiesObject
 	 */
 	public function getTestId()
 	{
-		return $this->test_id;
+		return $this->testId;
 	}
 }

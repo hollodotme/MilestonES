@@ -14,38 +14,38 @@ namespace hollodotme\MilestonES\Interfaces;
 interface CollectsAggregateRoots extends \Iterator, \Countable
 {
 	/**
-	 * @param AggregatesModels $aggregate_root
+	 * @param AggregatesObjects $aggregateRoot
 	 */
-	public function attach( AggregatesModels $aggregate_root );
+	public function attach( AggregatesObjects $aggregateRoot );
 
 	/**
-	 * @param Identifies $id
+	 * @param IdentifiesObject $id
 	 *
-	 * @return AggregatesModels
+	 * @return AggregatesObjects
 	 */
-	public function find( Identifies $id );
+	public function find( IdentifiesObject $id );
 
 	/**
-	 * @param AggregatesModels $aggregate_root
-	 *
-	 * @return bool
-	 */
-	public function isAttached( AggregatesModels $aggregate_root );
-
-	/**
-	 * @param Identifies $id
+	 * @param AggregatesObjects $aggregateRoot
 	 *
 	 * @return bool
 	 */
-	public function idExists( Identifies $id );
+	public function isAttached( AggregatesObjects $aggregateRoot );
 
 	/**
-	 * @return CollectsDomainEventEnvelopes
+	 * @param IdentifiesObject $id
+	 *
+	 * @return bool
+	 */
+	public function idExists( IdentifiesObject $id );
+
+	/**
+	 * @return CollectsEventEnvelopes
 	 */
 	public function getChanges();
 
 	/**
-	 * @param CollectsDomainEventEnvelopes $committed_changes
+	 * @param CollectsEventEnvelopes $committedChanges
 	 */
-	public function clearCommittedChanges( CollectsDomainEventEnvelopes $committed_changes );
+	public function clearCommittedChanges( CollectsEventEnvelopes $committedChanges );
 }

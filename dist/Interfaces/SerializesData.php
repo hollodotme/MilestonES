@@ -21,9 +21,9 @@ interface SerializesData
 	public function serializeData( $data );
 
 	/**
-	 * @param string $serialized_data
+	 * @param string $serializedData
 	 *
 	 * @return mixed
 	 */
-	public function unserializeData( $serialized_data );
+	public function unserializeData( $serializedData );
 }
